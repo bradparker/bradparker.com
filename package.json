@@ -1,0 +1,32 @@
+{
+  "name": "bradparker",
+  "version": "1.0.0",
+  "description": "Personal website dependencies",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "git-directory-deploy --directory build --branch master",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bradparker/bradparker.github.io.git"
+  },
+  "author": "Brad Parker <hi@bradparker.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bradparker/bradparker.github.io/issues"
+  },
+  "homepage": "https://github.com/bradparker/bradparker.github.io",
+  "devDependencies": {
+    "git-directory-deploy": "^1.1.0",
+    "metalsmith": "^1.7.0",
+    "metalsmith-autoprefixer": "^1.0.2",
+    "metalsmith-collections": "^0.7.0",
+    "metalsmith-ignore": "^0.1.2",
+    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-sass": "^1.0.0",
+    "metalsmith-serve": "0.0.3",
+    "metalsmith-templates": "^0.7.0",
+    "metalsmith-watch": "^1.0.1"
+  }
+}
