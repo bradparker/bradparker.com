@@ -10,7 +10,10 @@
     margin-bottom: 0;
     text-align: center;
 
-    img { margin: 0.25rem 0 -0.5rem; }
+    img {
+      margin: 0.25rem auto -0.5rem;
+      max-width: 36rem;
+    }
 
     .underline {
       background-image: linear-gradient(
