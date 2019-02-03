@@ -1,0 +1,7 @@
+.nav-link:hover {
+  color: hsl(160, 45%, 32%);
+}
+
+.nav-link--active {
+  color: hsl(25, 100%, 60%);
+}

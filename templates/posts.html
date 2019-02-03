@@ -1,0 +1,18 @@
+$for(posts)$
+  <article class="article">
+    <header class="header" data-sub-header="true">
+      <section class="container header-content flex flex-2 ">
+        <a href="$url$" class="nav-link flex-2-item">
+          <h1>$title$</h1>
+        </a>
+        <div class="flex-2-item">
+          $tags$
+        </div>
+      </section>
+    </header>
+
+    <section class="container block-columns block-columns--sm markdown article-content">
+      $summary$
+    </section>
+  </article>
+$endfor$

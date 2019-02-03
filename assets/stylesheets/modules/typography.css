@@ -1,0 +1,17 @@
+@import url('./typography/fonts.css');
+
+:root {
+  font-family:
+    Roboto,
+    -apple-system,
+    BlinkMacSystemFont,
+    avenir next,
+    avenir,
+    helvetica,
+    helvetica neue,
+    ubuntu,
+    noto,
+    segoe ui,
+    arial,
+    sans-serif;
+}

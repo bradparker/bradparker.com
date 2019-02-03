@@ -1,0 +1,8 @@
+.footer {
+  border-top: thin solid whitesmoke;
+}
+
+.footer-content {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}

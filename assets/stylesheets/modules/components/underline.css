@@ -1,0 +1,20 @@
+.underline {
+  background-image:
+    linear-gradient(
+      to top,
+      transparent,
+      transparent 0.2em,
+      currentColor 0.2em,
+      currentColor calc(0.2em + 1px),
+      transparent calc(0.2em + 1px),
+      transparent
+    );
+  display: inline;
+  margin: 0;
+  padding: 0;
+  text-shadow:
+    -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white;
+}

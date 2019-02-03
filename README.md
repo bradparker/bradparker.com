@@ -1,3 +1,7 @@
 # Personal site
 
-Very simple. Uses metalsmith to build a static stite.
+If you have [Nix](https://nixos.org/nix) installed:
+
+```
+$ nix-shell -A env --run 'cabal new-run site watch'
+```
