@@ -166,10 +166,10 @@
     linear-gradient(
       to top,
       transparent,
-      transparent 0.2em,
-      currentColor 0.2em,
-      currentColor calc(0.2em + 1px),
-      transparent calc(0.2em + 1px),
+      transparent 0.15em,
+      currentColor 0.15em,
+      currentColor calc(0.15em + 1px),
+      transparent calc(0.15em + 1px),
       transparent
     );
   text-shadow:
