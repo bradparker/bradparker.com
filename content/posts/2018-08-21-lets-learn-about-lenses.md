@@ -28,12 +28,12 @@ Before we begin: in order to understand a lot of the following you'll first need
 OK, now firstly: why learn about lenses? Every time I've seen lenses in action it's looked like wizardry. I mean, just look at these examples of using [`lens-aeson`](https://hackage.haskell.org/package/lens-aeson):
 
 ```
- > versions = key "packages" . _Array . traverse . key "version" . _Number
+> versions = key "packages" . _Array . traverse . key "version" . _Number
 
- > "{\"packages\":[{\"version\":1},{\"version\":5}]}" ^.. versions
+> "{\"packages\":[{\"version\":1},{\"version\":5}]}" ^.. versions
 [1.0,5.0]
 
- > "{\"packages\":[{\"version\":1},{\"version\":5}] }" & versions %~ (+ 2)
+> "{\"packages\":[{\"version\":1},{\"version\":5}] }" & versions %~ (+ 2)
 "{\"packages\":[{\"version\":3},{\"version\":7}]}"
 ```
 
@@ -56,28 +56,28 @@ What kind of stuff?
 We can "view" (`^.`) the value:
 
 ```
- > ((2, True), 'b') ^. _1 . _2
+> ((2, True), 'b') ^. _1 . _2
 True
 ```
 
 We can "modify" (`%~`) the value:
 
 ```
- > ((2, True), 'b') & _1 . _2 %~ not
+> ((2, True), 'b') & _1 . _2 %~ not
 ((2,False),'b')
 ```
 
 We can traverse over a list of these tuples and view the value of each as a list (`^..` with `traverse`):
 
 ```
- > [((2, True), 'b'), ((3, False), 'b')] ^.. traverse . _1 . _2
+> [((2, True), 'b'), ((3, False), 'b')] ^.. traverse . _1 . _2
 [True,False]
 ```
 
 While we traverse (this time over any Traversable thing), instead of viewing we can modify:
 
 ```
- > [((2, True), 'b'), ((3, False), 'b')] & traverse . _1 . _2 %~ not
+> [((2, True), 'b'), ((3, False), 'b')] & traverse . _1 . _2 %~ not
 [((2,False),'b'),((3,True),'b')]
 ```
 
@@ -210,31 +210,31 @@ Identity :: a -> Identity a
 So we can pass the `Identity` data constructor as the first argument to `one` and see what we get.
 
 ```
- > :t one Identity
+> :t one Identity
 one Identity :: (a, c) -> Identity (a, c)
 ```
 
 Hmm, and if we pass it some value?
 
 ```
- > one Identity (1, 'a')
+> one Identity (1, 'a')
 Identity (1,'a')
 ```
 
 Makes sense, and I guess all we can do now is unpack it using `runIdentity :: Identity a -> a`:
 
 ```
- > runIdentity (one Identity (1, 'a'))
+> runIdentity (one Identity (1, 'a'))
 (1,'a')
 ```
 
 Wait, this looks familiar.
 
 ```
- > familiar = runIdentity . one Identity
- > familiar (1, 'a')
+> familiar = runIdentity . one Identity
+> familiar (1, 'a')
 (1,'a')
- > id (1, 'a')
+> id (1, 'a')
 (1,'a')
 ```
 
@@ -243,51 +243,51 @@ Right, right. Cool. So absolutely nothing happens but in a fairly involved way.
 We _can_ make something happen though.
 
 ```
- > one (Identity . (+ 2)) (1, 'a')
+> one (Identity . (+ 2)) (1, 'a')
 Identity (3,'a')
 ```
 
 We can compose `Identity :: a -> Identity a` with some `a -> a`. We can write a pretty general function for this:
 
 ```
- > modifyOne f tuple = runIdentity (one (Identity . f) tuple)
- > modifyOne (+ 2) (1, 'a')
+> modifyOne f tuple = runIdentity (one (Identity . f) tuple)
+> modifyOne (+ 2) (1, 'a')
 (3,'a')
 ```
 
 ... an even _more_ general function:
 
 ```
- > modify lens modification value = runIdentity (lens (Identity . modification) value)
- > modify one (+ 2) (1, 'a')
+> modify lens modification value = runIdentity (lens (Identity . modification) value)
+> modify one (+ 2) (1, 'a')
 (3,'a')
 ```
 
 Wow, what's the type of `modify` then?
 
 ```
- > :t modify
+> :t modify
 modify :: ((a -> Identity a) -> s -> Identity s) -> (a -> a) -> s -> s
 ```
 
 Modify takes a lens:
 
 ```
- > :t modify one
+> :t modify one
 modify one :: (a -> a) -> (a, c) -> (a, c)
 ```
 
 An `a -> a`, which will be composed with `Identity :: a -> Identity a`, still giving us the `a -> Identity a` we need:
 
 ```
- > :t modify one (+ 2)
+> :t modify one (+ 2)
 modify one (+ 2) :: Num a => (a, c) -> (a, c)
 ```
 
 And some value the lens can act on:
 
 ```
- > :t modify one (+ 2) (1, 'a')
+> :t modify one (+ 2) (1, 'a')
 modify one (+ 2) (1, 'a') :: Num a => (a, Char)
 ```
 
@@ -333,14 +333,14 @@ fmap :: (a -> b) -> Const c  a -> Const c  b
 What happens when we use `Const :: a -> Const a a` as our `a -> f a` in `one`?
 
 ```
- > one Const (1, 'a')
+> one Const (1, 'a')
 Const 1
 ```
 
 Huh? Weird. Wonder what the type is.
 
 ```
- > :t one Const (1, 'a')
+> :t one Const (1, 'a')
 one Const (1, 'a') :: Num a => Const a (a, Char)
 ```
 
@@ -372,17 +372,17 @@ The Functor constraint is satisfied, so we're able to use `Identity` and `Const`
 Once again there's little more we can do than unwrap the Functor:
 
 ```
- > getConst (one Const (1, 'a'))
+> getConst (one Const (1, 'a'))
 1
 ```
 
 Also once again, we can write a very generic version of this:
 
 ```
- > view lens value = getConst (lens Const value)
- > :t view
+> view lens value = getConst (lens Const value)
+> :t view
 view :: ((a -> Const a a) -> s -> Const a s) -> s -> a
- > view one (1, 'a')
+> view one (1, 'a')
 1
 ```
 
@@ -450,16 +450,16 @@ And hey presto we have polymorphic lenses, quite like those in `Control.Lens`!
 Some more fun examples to see what we've done in action:
 
 ```
- > ('a', 4) & _1 %~ (: "bc")
+> ('a', 4) & _1 %~ (: "bc")
 ("abc",4)
- > ('a', 4) & _2 %~ show
+> ('a', 4) & _2 %~ show
 ('a',"4")
- > ('a', 4) ^. _1
+> ('a', 4) ^. _1
 'a'
- > ('a', 4) ^. _2
+> ('a', 4) ^. _2
 4
 -- Let's get crazy
- > ('a', 4) & _1 %~ (: "bc") & _2 %~ (show . subtract 4)
+> ('a', 4) & _1 %~ (: "bc") & _2 %~ (show . subtract 4)
 ("abc","0")
 ```
 

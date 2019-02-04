@@ -133,7 +133,7 @@
   background-color: hsl(0, 0%, 15%);
   color: whitesmoke;
   overflow: auto;
-  padding: 1.5rem;
+  padding: 1rem;
   white-space: pre;
   word-wrap: normal;
 }
