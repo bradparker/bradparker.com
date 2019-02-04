@@ -1,5 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Roboto+Mono');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Lekton');
 
+@font-face {
+  font-family:"Founders Grotesk Extra Condensed";
+  src:
+    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskX-CondensedWeb-Regular.woff"),
+    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskX-CondensedWeb-Regular.woff2");
+  font-weight:normal;
+  font-style:normal
+}
 @font-face {
   font-family:"Tiempos Text";
   src:

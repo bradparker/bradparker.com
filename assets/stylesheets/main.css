@@ -17,8 +17,10 @@
     sans-serif;
 }
 
-.roboto-condensed {
-  font-family: Roboto Condensed;
+.sticky { position: sticky; }
+
+.founders-grotesk-extra-condensed {
+  font-family: Founders Grotesk Extra Condensed;
 }
 
 .block-columns-2-ns {
@@ -37,13 +39,6 @@
 
 .markdown {
   font-family: "Tiempos Text", "Georgia", "Times New Roman", serif;
-  line-height: 1.5rem;
-  font-size: 1rem;
-}
-
-.markdown--full {
-  line-height: 1.75rem;
-  font-size: 1.25rem;
 }
 
 .markdown h1,
@@ -58,40 +53,19 @@
     "Helvetica",
     sans-serif;
   font-weight: bold;
+  margin-top: 2rem;
 }
 
 .markdown pre,
 .markdown code {
   font-family:
-    "Roboto Mono",
+    "Lekton",
     "Menlo",
     monospace;
 }
 
 .markdown * + * {
-  margin-top: 1.5rem;
-}
-
-.markdown h1,
-.markdown h2,
-.markdown h3,
-.markdown h4,
-.markdown h5,
-.markdown h6 {
-  margin-top: 3.5rem;
-}
-
-.markdown h1 {
-  font-size: 1.5rem;
-}
-.markdown h2 {
-  font-size: 1.25rem;
-}
-.markdown h3 {
-  font-size: 1.125rem;
-}
-.markdown h4, .markdown h5, .markdown h6 {
-  font-size: 1rem;
+  margin-top: 1rem;
 }
 
 .markdown blockquote {
@@ -108,7 +82,7 @@
   font-size: 2rem;
   line-height: 2rem;
   font-family:
-    "Roboto Mono",
+    "Lekton",
     "Menlo"
     monospace;
 }
