@@ -17,7 +17,10 @@
     sans-serif;
 }
 
-.sticky { position: sticky; }
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+}
 
 .founders-grotesk-extra-condensed {
   font-family: Founders Grotesk Extra Condensed;
