@@ -10,3 +10,5 @@ summary: |
 
   ![Petrichor Ensemble &mdash; Gig Poster Full](/assets/images/petrichor-full.jpg)
 ---
+
+![Petrichor Ensemble &mdash; Gig Poster Full](/assets/images/petrichor-full.jpg)

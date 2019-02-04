@@ -1,13 +1,13 @@
-.block-columns {
+.block-columns-2-ns {
   column-gap: 1.5rem;
 }
 
-.block-columns > * {
+.block-columns-2-ns > * {
   break-inside: avoid;
 }
 
-@media screen and (min-width: 32rem) {
-  .block-columns--sm {
+@media (min-width: 30em) {
+  .block-columns-2-ns {
     column-count: 2;
   }
 }

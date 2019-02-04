@@ -9,3 +9,4 @@ summary: |
   ![Bicycle Film Festival &mdash; Poster Full](/assets/images/bbff-2012-full.jpg)
 ---
 
+![Bicycle Film Festival &mdash; Poster Full](/assets/images/bbff-2012-full.jpg)
