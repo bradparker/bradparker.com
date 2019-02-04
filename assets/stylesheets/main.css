@@ -1,4 +1,4 @@
-@import url('./typography/fonts.css');
+@import url('./modules/typography/fonts.css');
 
 :root {
   color: hsl(0, 0%, 15%);
@@ -155,7 +155,6 @@
   line-height: 1.25;
   background-color: hsl(0, 0%, 15%);
   color: whitesmoke;
-  border-radius: 0.25em;
   overflow: auto;
   padding: 1.5rem;
   white-space: pre;

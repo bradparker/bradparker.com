@@ -11,11 +11,6 @@ summary: |
 
   _2 :: Lens (c, a) (c, b) a b
 
-  ```
-
-  What is this type all about? What are those functions `_1` and `_2`?
-
-  ```
   > nested = ((2, True), 'b')
 
   > nested ^. _1 . _2
@@ -25,7 +20,7 @@ summary: |
   ((2,False),'b')
   ```
 
-  What are `^.` and `%~`? How do they work?
+  Gaining an understanding of the `Lens` type has been on my todo list for a long time. So I finally bit the bullet and read up a little. These are (more or less) my notes as I went along.
 ---
 
 Before we begin: in order to understand a lot of the following you'll first need some familiarity with [Haskell](https://haskell.org) syntax and be somewhat comfortable with what a Functor is.
