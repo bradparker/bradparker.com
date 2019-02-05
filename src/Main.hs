@@ -35,7 +35,9 @@ main = hakyllWith config $ do
     route idRoute
     compile $ do
       posts <- recentFirst =<< loadAll pat
-      let ctx = listField "posts" (postCtxWithTags tags) (return posts) <> myDefaultContext
+      let ctx =
+            listField "posts" (postCtxWithTags tags) (return posts)
+              <> myDefaultContext
 
       makeItem ""
         >>= loadAndApplyTemplate "templates/posts.html"   ctx
@@ -49,6 +51,13 @@ main = hakyllWith config $ do
       >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
       >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
       >>= relativizeUrls
+
+  match "content/about.md" $ do
+    route $ setExtension "html"
+    compile
+      $   pandocCompiler
+      >>= loadAndApplyTemplate "templates/page.html"    (postCtxWithTags tags)
+      >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
 
   match "content/index.html" $ do
     route $ customRoute $ const "index.html"

@@ -1,17 +1,19 @@
 $for(posts)$
   <article class="bb b--near-white bw3">
     <header class="bb b--near-white sticky top-0 bg-white">
-      <section class="mw7 center flex flex-wrap flex-nowrap-ns lh-copy lh-solid-ns pa3 pa4-ns">
-        <a href="$url$" class="link hover-dark-green w-50-ns mr3">
-          <h1 class="f5 ma0">$title$</h1>
+      <section class="mw7 center lh-copy pa3 flex flex-wrap justify-between">
+        <a href="$url$" class="link hover-dark-green">
+          <h1 class="f5 ma0 flex flex-wrap">
+            <strong>$title$</strong>&nbsp;&mdash;&nbsp;<span>$date$</span>
+          </h1>
         </a>
-        <div class="w-50-ns ml0 ml3-ns">
+        <div class="post-tags">
           $tags$
         </div>
       </section>
     </header>
 
-    <section class="mw7 center pa3 pa4-ns block-columns-2-ns markdown lh-copy">
+    <section class="mw7 center ph3 pv4 block-columns-2-ns markdown lh-copy">
       $summary$
     </section>
   </article>

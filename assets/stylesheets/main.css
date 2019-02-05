@@ -2,8 +2,9 @@
 
 :root {
   color: hsl(0, 0%, 15%);
+  font-size: 100%;
   font-family:
-    Roboto,
+    Founders Grotesk,
     -apple-system,
     BlinkMacSystemFont,
     avenir next,
@@ -12,14 +13,22 @@
     helvetica neue,
     ubuntu,
     noto,
+    Roboto,
     segoe ui,
     arial,
     sans-serif;
 }
 
+@media (min-width: 30rem) {
+  :root {
+    font-size: 125%;
+  }
+}
+
 .sticky {
   position: sticky;
   position: -webkit-sticky;
+  z-index: 1;
 }
 
 .founders-grotesk-extra-condensed {
@@ -51,18 +60,33 @@
 .markdown h5,
 .markdown h6 {
   font-family:
-    "Roboto",
-    "Helvetica Nueue",
-    "Helvetica",
+    Founders Grotesk,
+    -apple-system,
+    BlinkMacSystemFont,
+    avenir next,
+    avenir,
+    helvetica,
+    helvetica neue,
+    ubuntu,
+    noto,
+    Roboto,
+    segoe ui,
+    arial,
     sans-serif;
   font-weight: bold;
   margin-top: 2rem;
 }
 
+.markdown h2, .markdown h2 { line-height: 1.25; }
+
+.markdown h1 { font-size: 2rem; }
+.markdown h2 { font-size: 1.75rem; }
+.markdown h3 { font-size: 1.5rem; }
+
 .markdown pre,
 .markdown code {
   font-family:
-    "Lekton",
+    "Roboto Mono",
     "Menlo",
     monospace;
 }
@@ -85,7 +109,7 @@
   font-size: 2rem;
   line-height: 2rem;
   font-family:
-    "Lekton",
+    "Roboto Mono",
     "Menlo"
     monospace;
 }
@@ -93,7 +117,7 @@
 .markdown figcaption {
   font-size: 0.8rem;
   font-family:
-    Roboto,
+    Founders Grotesk,
     -apple-system,
     BlinkMacSystemFont,
     avenir next,
@@ -102,6 +126,7 @@
     helvetica neue,
     ubuntu,
     noto,
+    Roboto,
     segoe ui,
     arial,
     sans-serif;
@@ -111,12 +136,12 @@
   margin-top: 0.5rem;
 }
 
-.markdown a {
+.markdown a[href] {
   font-weight: bold;
 }
 
-.markdown a:hover {
-  text-decoration-style: underline;
+.markdown a[href]:hover {
+  color: #137752;
 }
 
 .markdown a:visited {
@@ -130,23 +155,42 @@
 
 .markdown pre {
   line-height: 1.25;
-  background-color: hsl(0, 0%, 15%);
-  color: whitesmoke;
   overflow: auto;
   padding: 1rem;
   white-space: pre;
   word-wrap: normal;
+  border-radius: 0.125rem;
 }
+
+/* Syntax */
+
+.markdown pre {
+  background-color: #1d1f21;
+  color: #ffffff;
+}
+
+.markdown pre .dt { display: inline; }
+.markdown pre .fl { float: none }
+
+.markdown pre .kw { color: #b294bb }
+.markdown pre .dt { color: #f0c674 }
+.markdown pre .ot { color: #cc6666 }
+.markdown pre .dv { color: #de935f }
+.markdown pre .ch { color: #cc6666 }
+.markdown pre .st { color: #b5bd68 }
+.markdown pre .fl { color: #de935f }
+.markdown pre .fu { color: #81a2be }
+.markdown pre .co { color: #969896 }
 
 .fine-underline {
   background-image:
     linear-gradient(
       to top,
       transparent,
-      transparent 0.15em,
-      currentColor 0.15em,
-      currentColor calc(0.15em + 1px),
-      transparent calc(0.15em + 1px),
+      transparent 0.125em,
+      currentColor 0.125em,
+      currentColor calc(0.125em + 1px),
+      transparent calc(0.125em + 1px),
       transparent
     );
   text-shadow:
@@ -155,3 +199,13 @@
     -1px 1px 0 white,
     1px 1px 0 white;
 }
+
+.post-tags > a {
+  display: inline-block;
+  text-transform: capitalize;
+}
+.post-tags > a:hover {
+  color: #137752;
+}
+
+
