@@ -27,11 +27,15 @@
           </a>
         </section>
         <nav>
-          <a href="/#posts" class="link hover-dark-green" >
+          <a
+            href="/content/posts.html"
+            class="link hover-dark-green $if(content-posts-html)$ orange $endif$">
             Posts
           </a>
           <span class="moon-gray">&nbsp;/&nbsp;</span>
-          <a href="/content/about.html" class="link hover-dark-green" >
+          <a
+            href="/content/about.html"
+            class="link hover-dark-green $if(content-about-html)$ orange $endif$">
             About
           </a>
         </nav>

@@ -31,16 +31,17 @@ main = hakyllWith config $ do
 
   tags <- buildTags "content/posts/*" (fromCapture "tags/*.html")
 
-  tagsRules tags $ \_tag pat -> do
+  tagsRules tags $ \tag pat -> do
     route idRoute
     compile $ do
       posts <- recentFirst =<< loadAll pat
       let ctx =
             listField "posts" (postCtxWithTags tags) (return posts)
+              <> constField "tag" tag
               <> myDefaultContext
 
       makeItem ""
-        >>= loadAndApplyTemplate "templates/posts.html"   ctx
+        >>= loadAndApplyTemplate "templates/tag.html"     ctx
         >>= loadAndApplyTemplate "templates/default.html" ctx
         >>= relativizeUrls
 
@@ -51,6 +52,18 @@ main = hakyllWith config $ do
       >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
       >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
       >>= relativizeUrls
+
+  create ["content/posts.html"] $ do
+    route idRoute
+    compile $ do
+      posts <- recentFirst =<< loadAll "content/posts/*"
+      let postsCtx =
+            listField "posts" (postCtxWithTags tags) (return posts)
+              <> myDefaultContext
+      makeItem ""
+        >>= loadAndApplyTemplate "templates/posts.html"   postsCtx
+        >>= loadAndApplyTemplate "templates/default.html" postsCtx
+        >>= relativizeUrls
 
   match "content/about.md" $ do
     route $ setExtension "html"
@@ -65,7 +78,6 @@ main = hakyllWith config $ do
       posts <- recentFirst =<< loadAll "content/posts/*"
       let indexCtx =
             listField "posts" (postCtxWithTags tags) (return posts)
-              <> constField "title" "Home"
               <> myDefaultContext
 
       getResourceBody
