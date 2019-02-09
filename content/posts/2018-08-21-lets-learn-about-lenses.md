@@ -68,21 +68,21 @@ What kind of stuff?
 We can "view" (`^.`) the value:
 
 ```haskell
->>> ((2, True), 'b') ^. _1 . _2
+> ((2, True), 'b') ^. _1 . _2
 True
 ```
 
 We can "modify" (`%~`) the value:
 
 ```haskell
->>> ((2, True), 'b') & _1 . _2 %~ not
+> ((2, True), 'b') & _1 . _2 %~ not
 ((2,False),'b')
 ```
 
 We can traverse over a list of these tuples and view the value of each as a list (`^..` with `traverse`):
 
 ```haskell
->>> [((2, True), 'b'), ((3, False), 'b')] ^.. traverse . _1 . _2
+> [((2, True), 'b'), ((3, False), 'b')] ^.. traverse . _1 . _2
 [True,False]
 ```
 
@@ -115,6 +115,14 @@ In the above article a lens is defined as something with this type:
 Functor f => (a -> f a) -> s -> f s
 ```
 
+Let's make an alias for use later.
+
+```haskell
+type Lens' s a =
+  forall f. Functor f =>
+    (a -> f a) -> s -> f s
+```
+
 The goal of this section is going to be implementing functions that satisfy this type. In the next section we'll seek to understand _why_ this type is the way it is.
 
 Imagine that `s` stands for "structure", this will become clearer a little later.
@@ -124,10 +132,12 @@ Something bothered me when I first saw this type, it looks like it's missing two
 We could write a function which accepts an `s -> a` and an `a -> s` in order to build a lens, something like this:
 
 ```haskell
---                                               Here's our lens
---                                               vvvvvvvvvvvvvvvvvvvvvv
-makeLens :: Functor f => (s -> a) -> (a -> s) -> (a -> f a) -> s -> f s
-makeLens sToA aToS aToFa s = fmap aToS (aToFa (sToA s))
+makeLens
+  :: (s -> a)
+  -> (a -> s)
+  -> Lens' s a
+makeLens sToA aToS aToFa s =
+  fmap aToS (aToFa (sToA s))
 ```
 
 It ends up those functions are _precisely_ what we need to provide to make a lens. The first function is the "getter", the second the "setter".
@@ -149,15 +159,17 @@ setOne (_, c) a = (a, c)
 That should work.
 
 ```haskell
-one :: Functor f => (a -> f a) -> (a, c) -> f (a, c)
-one aToFa ac = makeLens getOne (setOne ac) aToFa ac
+one :: Lens' (a, c) a
+one aToFa ac =
+  makeLens getOne (setOne ac) aToFa ac
 ```
 
 We don't really _need_ this `makeLens` function, so let's get rid of it.
 
 ```haskell
-one :: Functor f => (a -> f a) -> (a, c) -> f (a, c)
-one aToFa (a, c) = fmap (\a' -> (a', c)) (aToFa a)
+one :: Lens' (a, c) a
+one aToFa (a, c) =
+  fmap (\a' -> (a', c)) (aToFa a)
 ```
 
 We now do the getting by pattern matching and the setting with an anonymous function: `\a' -> (a', c)`. We don't need separate functions _necessarily_ for getting and setting, which might explain why they're not mentioned in the type.
@@ -174,8 +186,9 @@ So `s` in the lens type is `(a, c)` in the type for `one`. The getter function `
 OK, now `two` is going to be pretty much the same, except that we'll focus on the second element of the tuple.
 
 ```haskell
-two :: Functor f => (a -> f a) -> (c, a) -> f (c, a)
-two aToFa (c, a) = fmap (\a' -> (c, a')) (aToFa a)
+two :: Lens' (c, a) a
+two aToFa (c, a) =
+  fmap (\a' -> (c, a')) (aToFa a)
 ```
 
 If we compare it with the lens type:
@@ -411,36 +424,50 @@ Functor f => (a -> f a) -> s -> f s
 Functor f => (a -> f b) -> s -> f t
 ```
 
+We can define another handy alias.
+
+```haskell
+type Lens s t a b =
+  forall f. Functor f =>
+    (a -> f b) -> s -> f t
+```
+
 `one` becomes `_1` with only some type and value variable renaming:
 
 ```haskell
-one :: Functor f => (a -> f a) -> (a, c) -> f (a, c)
-one aToFa (a, c) = fmap (\a' -> (a', c)) (aToFa a)
+one :: Lens' (a, c) a
+one aToFa (a, c) =
+  fmap (\a' -> (a', c)) (aToFa a)
 
-_1 :: Functor f => (a -> f b) -> (a, c) -> f (b, c)
-_1 aToFb (a, c) = fmap (\b -> (b, c)) (aToFb a)
+_1 :: Lens (a, c) (b, c) a b
+_1 aToFb (a, c) =
+  fmap (\b -> (b, c)) (aToFb a)
 ```
 
 As with `two` to `_2`:
 
 ```haskell
-two :: Functor f => (a -> f a) -> (c, a) -> f (c, a)
-two aToFa (c, a) = fmap (\a' -> (c, a')) (aToFa a)
+two :: Lens' (c, a) a
+two aToFa (c, a) =
+  fmap (\a' -> (c, a')) (aToFa a)
 
-_2 :: Functor f => (a -> f b) -> (c, a) -> f (c, b)
-_2 aToFb (c, a) = fmap (\b -> (c, b)) (aToFb a)
+_2 :: Lens (c, a) (c, b) a b
+_2 aToFb (c, a) =
+  fmap (\b -> (c, b)) (aToFb a)
 ```
 
 `modify` becomes `%~` thusly
 
 ```haskell
-modify :: ((a -> Identity a) -> s -> Identity s) -> (a -> a) -> s -> s
+modify :: Lens' s a -> (a -> a) -> s -> s
 modify lens modification value =
-  runIdentity (lens (Identity . modification) value)
+  runIdentity $
+    lens (Identity . modification) value
 
-(%~) :: ((a -> Identity b) -> s -> Identity t) -> (a -> b) -> s -> t
+(%~) :: Lens s t a b -> (a -> b) -> s -> t
 (%~) lens modification value =
-  runIdentity (lens (Identity . modification) value)
+  runIdentity $ 
+    lens (Identity . modification) value
 
 infixr 7 %~
 ```
@@ -448,10 +475,10 @@ infixr 7 %~
 `view` gets much the same treatment, we also flip the args to make it match `^.`:
 
 ```haskell
-view :: ((a -> Const a a) -> s -> Const a s) -> s -> a
+view :: Lens' s a -> s -> a
 view lens value = getConst (lens Const value)
 
-(^.) :: s -> ((a -> Const a b) -> s -> Const a t) -> a
+(^.) :: s -> Lens s t a b -> a
 (^.) value lens = getConst (lens Const value)
 
 infixr 7 ^.
@@ -480,9 +507,9 @@ Some more fun examples to see what we've done in action:
 This type didn't make a heap of sense to me when I first saw it:
 
 ```haskell
-type Lens s t a b
-   = forall f. Functor f =>
-                 (a -> f b) -> s -> f t
+type Lens s t a b =
+  forall f. Functor f =>
+    (a -> f b) -> s -> f t
 ```
 
 After having gone through all of the implementations above, I reckon I get it now. This is not to say I understand all the weird and wonderful things in [lens](https://hackage.haskell.org/package/lens), but I feel like I'm on the way. With any luck this may have helped you too.
