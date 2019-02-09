@@ -35,6 +35,23 @@
   font-family: Founders Grotesk Extra Condensed;
 }
 
+.founders-grotesk {
+  font-family:
+    Founders Grotesk,
+    -apple-system,
+    BlinkMacSystemFont,
+    avenir next,
+    avenir,
+    helvetica,
+    helvetica neue,
+    ubuntu,
+    noto,
+    Roboto,
+    segoe ui,
+    arial,
+    sans-serif;
+}
+
 .block-columns-2-ns {
   column-gap: 1.5rem;
 }
@@ -77,11 +94,11 @@
   margin-top: 2rem;
 }
 
-.markdown h2, .markdown h2 { line-height: 1.25; }
+.markdown h2, .markdown h2 { line-height: 1; }
 
 .markdown h1 { font-size: 2rem; }
-.markdown h2 { font-size: 1.75rem; }
-.markdown h3 { font-size: 1.5rem; }
+.markdown h2 { font-size: 1.5rem; }
+.markdown h3 { font-size: 1.25rem; }
 
 .markdown pre,
 .markdown code {
@@ -171,16 +188,21 @@
 
 .markdown pre .dt { display: inline; }
 .markdown pre .fl { float: none }
+.markdown pre .cf:before,
+.markdown pre .cf:after { display: none }
 
-.markdown pre .kw { color: #b294bb }
-.markdown pre .dt { color: #f0c674 }
-.markdown pre .ot { color: #cc6666 }
-.markdown pre .dv { color: #de935f }
+.markdown pre .at { color: #81a2be }
+.markdown pre .cf { color: #b294bb }
 .markdown pre .ch { color: #cc6666 }
-.markdown pre .st { color: #b5bd68 }
+.markdown pre .co { color: #969896 }
+.markdown pre .dt { color: #f0c674 }
+.markdown pre .dv { color: #de935f }
 .markdown pre .fl { color: #de935f }
 .markdown pre .fu { color: #81a2be }
-.markdown pre .co { color: #969896 }
+.markdown pre .kw { color: #b294bb }
+.markdown pre .ot { color: #cc6666 }
+.markdown pre .st { color: #b5bd68 }
+.markdown pre .va { color: #f0c674 }
 
 .fine-underline {
   background-image:

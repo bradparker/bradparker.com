@@ -7,11 +7,11 @@ summary: |
     forall f. Functor f =>
       (a -> f b) -> s -> f t
 
-  (_1) :: Lens (a, c) (b, c) a b
-  (_1) = _
+  _1 :: Lens (a, c) (b, c) a b
+  _1 = _
 
-  (_2) :: Lens (c, a) (c, b) a b
-  (_2) = _
+  _2 :: Lens (c, a) (c, b) a b
+  _2 = _
   ```
 
   Gaining an understanding of the `Lens` type has been on my todo list for a long time. So I finally bit the bullet and read up a little. These are (more or less) my notes as I went along.
@@ -23,12 +23,12 @@ OK, now firstly: why learn about lenses? Every time I've seen lenses in action i
 
 ```haskell
 someJson =
-  [json {
+  [json| {
     packages: [
       { version: 1 },
       { version: 5 }
     ]
-  }]
+  }|]
 
 versions =
   key "packages"
