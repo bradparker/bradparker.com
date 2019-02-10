@@ -154,7 +154,7 @@
 }
 
 .markdown a[href] {
-  font-weight: bold;
+  text-decoration: underline;
 }
 
 .markdown a[href]:hover {
@@ -168,6 +168,22 @@
 .markdown img {
   width: 100%;
   display: block;
+}
+
+.markdown li {
+  padding-left: 1rem;
+  position: relative;
+}
+
+.markdown li:before {
+  content: "\2022";
+  left: 0;
+  top: 0;
+  position: absolute;
+}
+
+.markdown li + li {
+  margin-top: 0;
 }
 
 .markdown pre {
