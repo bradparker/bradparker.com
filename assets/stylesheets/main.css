@@ -52,6 +52,14 @@
     sans-serif;
 }
 
+.tiempos-text {
+  font-family:
+    Tiempos Text,
+    Georgia,
+    Times New Roman,
+    serif;
+}
+
 .block-columns-2-ns {
   column-gap: 1.5rem;
 }
@@ -99,6 +107,8 @@
 .markdown h1 { font-size: 2rem; }
 .markdown h2 { font-size: 1.5rem; }
 .markdown h3 { font-size: 1.25rem; }
+
+.markdown em { font-style: italic; }
 
 .markdown pre,
 .markdown code {

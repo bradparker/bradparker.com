@@ -72,6 +72,14 @@ main = hakyllWith config $ do
       >>= loadAndApplyTemplate "templates/page.html"    (postCtxWithTags tags)
       >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
 
+  match "content/resume.html" $ do
+    route idRoute
+    compile $
+      getResourceBody
+        >>= applyAsTemplate (postCtxWithTags tags)
+        >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
+        >>= relativizeUrls
+
   match "content/index.html" $ do
     route $ customRoute $ const "index.html"
     compile $ do
