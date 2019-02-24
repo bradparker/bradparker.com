@@ -256,4 +256,8 @@
   color: #137752;
 }
 
-
+@media print {
+   a[href^=http]:after {
+    content: " (" attr(href) ")";
+  }
+}
