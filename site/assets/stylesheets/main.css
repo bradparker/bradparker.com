@@ -219,6 +219,46 @@
   border-radius: 0.125rem;
 }
 
+.markdown table {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.markdown th, .markdown td {
+  padding: 0.25rem 1rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.markdown th:first-child, .markdown td:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+.markdown th:last-child, .markdown td:last-child {
+  padding-right: 0;
+}
+
+.markdown tbody tr {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.markdown th {
+  font-family:
+    Founders Grotesk,
+    -apple-system,
+    BlinkMacSystemFont,
+    avenir next,
+    avenir,
+    helvetica,
+    helvetica neue,
+    ubuntu,
+    noto,
+    Roboto,
+    segoe ui,
+    arial,
+    sans-serif;
+  font-weight: bold;
+}
+
 /* Syntax */
 
 .markdown pre {
@@ -238,6 +278,7 @@
 .markdown pre .co { color: #969896 }
 .markdown pre .dt { color: #f0c674 }
 .markdown pre .dv { color: #de935f }
+.markdown pre .ex { color: #cc6666 }
 .markdown pre .fl { color: #de935f }
 .markdown pre .fu { color: #81a2be }
 .markdown pre .kw { color: #b294bb }
