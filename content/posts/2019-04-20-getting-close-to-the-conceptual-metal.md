@@ -54,13 +54,13 @@ newtype NonEmpty a
 
 When Sussman chalked up that pair made of nothing but "hot air" he attributed the encoding to [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church). After learning that many other types can be made from pair-like things and either-like things I wondered if there existed a Church encoding for _Either_. After all, with _Either_ and _Pair_ it sure seemed like I'd be able to construct anything else I needed. I found Church encodings for lots of other interesting things, like [_Bool_](https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans) and [_Nat_](https://en.wikipedia.org/wiki/Church_encoding#Church_numerals), but not _Either_.
 
-Eventually I'd happen across [Scott-encoding](https://oxij.org/paper/ExceptionallyMonadic/ExceptionallyMonadic.xetex.pdf#24), named for [Dana Scott](https://en.wikipedia.org/wiki/Dana_Scott) to whom it is attributed. It's very interesting, and the topic of this post.
+Eventually I'd happen across [Scott encoding](https://oxij.org/paper/ExceptionallyMonadic/ExceptionallyMonadic.xetex.pdf#24), named for [Dana Scott](https://en.wikipedia.org/wiki/Dana_Scott) to whom it is attributed. It's very interesting, and the topic of this post.
 
 ## Making everything out of nothing
 
 This post uses Haskell, so we're going to build a parser. However the twist here is that before we can build _our_ parser, we must first build the universe.
 
-We're going to use Scott-encoding to build _every_ type we'll need to end up with a working [monadic parser](http://www.cs.nott.ac.uk/~pszgmh/pearl.pdf). The type we're working towards should look like this:
+We're going to use Scott encoding to build _every_ type we'll need to end up with a working [monadic parser](http://www.cs.nott.ac.uk/~pszgmh/pearl.pdf). The type we're working towards should look like this:
 
 ```haskell
 newtype Parser a = Parser
@@ -71,13 +71,13 @@ newtype Parser a = Parser
 Which is made of all these things:
 
 ```haskell
-newtype Maybe = ...
+newtype Maybe a = ...
 
-newtype Pair = ...
+newtype Pair a b = ...
 
 newtype Nat = ...
 
-newtype List = ...
+newtype List a = ...
 
 newtype Char = Char Nat
 
@@ -86,67 +86,116 @@ newtype String = String (List Char)
 
 So, where do we start?
 
-## Scott-encoding
+## Scott encoding
 
 Paraphrasing Wikipedia: say we have a datatype _D_, with _N_ constructors, (_c_<sub>1</sub> &hellip; _c<sub>N</sub>_), such that constructor _c<sub>i</sub>_ has arity _A<sub>i_, then the Scott encoding for constructor _c<sub>i</sub>_ of _D_ would be:
 
-_&lambda;x_<sub>1</sub> &hellip; _x_<sub>_A<sub>i</sub>_</sub> . _&lambda;c_<sub>1</sub> &hellip; _c<sub>N</sub>_ . _c<sub>i</sub>_ _x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_
+_&lambda;x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_. _&lambda;c_<sub>1</sub> &hellip; _c<sub>N</sub>_. _c<sub>i</sub>_ _x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_
 
 We can write a few instances out in Haskell to make this more concrete.
 
-If we have a data type with _one_ constructor, which takes _one_ argument it would look like this:
+If we have a data type _One_ with _one_ constructor, which takes _one_ argument it would look like this:
 
 ```haskell
-newtype One x =
-  One (forall r. (x -> r) -> r)
+type One x =
+  forall r. (x -> r) -> r
 ```
 
-And it's only constructor would look like this:
+And its only constructor would look like this:
 
 ```haskell
 one :: x -> One x
-one x = One (\c -> c x)
+one = \x -> \c -> c x
 ```
 
 Which in the above notation would look like:
 
-_&lambda;x_ . _&lambda;c_ . _c_ _x_
+_&lambda;x_. _&lambda;c_. _cx_
 
-Now if we stick with one constructor, but now taking two arguments:
+Note that constructors need not take any arguments. For example:
 
 ```haskell
-newtype Two x1 x2 =
-  Two (forall r. (x1 -> x2 -> r) -> r)
-
-two :: x1 -> x2 -> Two x1 x2
-two x1 x2 = Two (\c -> c x1 x2)
+type Single =
+  forall r. r -> r
 ```
 
-Which translates to:
-
-_&lambda;x_<sub>1</sub>, _x_<sub>2</sub> . _&lambda;c_ . _c_ _x_<sub>1</sub> _x_<sub>2</sub>
-
-Two constructors that each take one argument?
+This is a type which has one constructor which does not take any arguments. What might that constructor look like?
 
 ```haskell
-newtype Two' x y =
-  Two' (forall r. (x -> r) -> (y -> r) -> r)
+single :: Single
+single = \c -> c
+```
+
+But I won't dwell on this for now as it looks a little funny in the other notation:
+
+_&lambda;c_. _c_
+
+Now let's add a constructor. Let's define a type _Or_ which has _two_ constructors, each taking _one_ argument.
+
+The type:
+
+```haskell
+type Or x y =
+  forall r. (x -> r) -> (y -> r) -> r
 ```
 
 The first constructor:
 
 ```haskell
-first :: x -> Two' x y
-first x = Two' (\c1 c2 -> c1 x)
+first :: x -> Or x y
+first = \x -> \c1 c2 -> c1 x
 ```
 
-_&lambda;x_ . _&lambda;c_<sub>1</sub>, _c_<sub>2</sub> . _c_<sub>1</sub> _x_
+_&lambda;x_. _&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>1</sub>_x_
 
 And the second:
 
 ```haskell
-second :: y -> Two' x y
-second y = Two' (\c1 c2 -> c2 y)
+second :: y -> Or x y
+second = \y -> \c1 c2 -> c2 y
 ```
 
-_&lambda;y_ . _&lambda;c_<sub>1</sub>, _c_<sub>2</sub> . _c_<sub>2</sub> _y_
+_&lambda;y_. _&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>2</sub>_y_
+
+So then, to add a constructor we add an argument to the function that represents our type. This makes it possible for us to write a function which _chooses_ to use that argument. Note that _first_ chooses _c_<sub>1</sub> and _second_ chooses _c_<sub>2</sub>.
+
+If we go back to one constructor, but now taking two arguments, the type could look like:
+
+```haskell
+type And x1 x2 =
+  forall r. (x1 -> x2 -> r) -> r
+```
+
+And its constructor:
+
+```haskell
+and :: x1 -> x2 -> And x1 x2
+and = \x1 x2 -> \c -> c x1 x2
+```
+
+Which translates to:
+
+_&lambda;x_<sub>1</sub>, _x_<sub>2</sub>. _&lambda;c_. _cx_<sub>1</sub>_x_<sub>2</sub>
+
+So then, to add an argument to a constructor you add an argument to the function it will choose to call.
+
+Here are some possibly familiar types encoded in this way:
+
+```haskell
+-- Adding constructors
+type Void       = forall r. r
+type Unit       = forall r. r -> r
+type Bool       = forall r. r -> r -> r
+
+-- Adding arguments to constructors
+type Identity a = forall r. (a -> r) -> r
+type Pair a b   = forall r. (a -> b -> r) -> r
+
+-- Adding constructors and arguments
+type Maybe a    = forall r. r -> (a -> r) -> r
+type Either a b = forall r. (a -> r) -> (b -> r) -> r
+```
+
+## Where the rubber meets the road
+
+So far this is very theoretical, we haven't built anything yet. Let's aim to remedy that. We're going to implement an [alternate Prelude](https://hackage.haskell.org/packages/tag/prelude) called [_Hot Air_](https://github.com/bradparker/hot-air) which will contain just enough pieces to build our Parser.
