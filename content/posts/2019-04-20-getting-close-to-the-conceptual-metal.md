@@ -52,7 +52,7 @@ newtype NonEmpty a
   = NonEmpty (Product a (List a))
 ```
 
-When Sussman chalked up that pair made of nothing but "hot air" he attributed the encoding to [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church). After learning that many other types can be made from pair-like things and either-like things I wondered if there existed a Church encoding for _Either_. After all, with _Either_ and _Pair_ it sure seemed like I'd be able to construct anything else I needed. I found Church encodings for lots of other interesting things, like [_Bool_](https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans) and [_Nat_](https://en.wikipedia.org/wiki/Church_encoding#Church_numerals), but not _Either_.
+When Sussman chalked up that pair made of nothing but "hot air" he attributed the encoding to [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church). Appreciating that many other types can be made from pair-like things and either-like things I wondered if there existed a Church encoding for _Either_. After all, with _Either_ and _Pair_ it sure seemed like I'd be able to construct anything else I needed. I found Church encodings for lots of other interesting things, like [booleans](https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans) and [natural numbers](https://en.wikipedia.org/wiki/Church_encoding#Church_numerals), but nothing quite like _Either_.
 
 Eventually I'd happen across [Scott encoding](https://oxij.org/paper/ExceptionallyMonadic/ExceptionallyMonadic.xetex.pdf#24), named for [Dana Scott](https://en.wikipedia.org/wiki/Dana_Scott) to whom it is attributed. It's very interesting, and the topic of this post.
 
@@ -60,7 +60,7 @@ Eventually I'd happen across [Scott encoding](https://oxij.org/paper/Exceptional
 
 This post uses Haskell, so we're going to build a parser. However the twist here is that before we can build _our_ parser, we must first build the universe.
 
-We're going to use Scott encoding to build _every_ type we'll need to end up with a working [monadic parser](http://www.cs.nott.ac.uk/~pszgmh/pearl.pdf). The type we're working towards should look like this:
+We're going to use Scott encoding to build _every_ type we'll need to end up with a working [monadic parser](http://www.cs.nott.ac.uk/~pszgmh/pearl.pdf). Or to put it another way: we're going to build _every_ type we need out of only functions. The type we're working towards should look like this:
 
 ```haskell
 newtype Parser a = Parser
@@ -84,7 +84,7 @@ newtype Char = Char Nat
 newtype String = String (List Char)
 ```
 
-So, where do we start?
+Keep in mind that at the bottom of all of this will sit only functions. At the end of the day `(->)` will be the only primitive we need to construct everything.
 
 ## Scott encoding
 
@@ -199,3 +199,157 @@ type Either a b = forall r. (a -> r) -> (b -> r) -> r
 ## Where the rubber meets the road
 
 So far this is very theoretical, we haven't built anything yet. Let's aim to remedy that. We're going to implement an [alternate Prelude](https://hackage.haskell.org/packages/tag/prelude) called [_Hot Air_](https://github.com/bradparker/hot-air) which will contain just enough pieces to build our Parser.
+
+### Building up to _String_
+
+Our _Parser_ takes a _String_ as input. Therefore in order to implement it we'll first need to implement _String_.
+
+What are _Strings_ made of? This a big and complex topic, so we're going to avoid all that and aim to replicate the contentious but fairly simple representation used by the Haskell base libraries. Our _String_ will be a list of characters.
+
+```haskell
+newtype String =
+  String (List Char)
+```
+
+There are two types we'll need to make this one: _List_ and _Char_. Let's start with _Char_.
+
+What are _Chars_ made of? Again, a complex topic we're going to hop right over by going with an incomplete but simple definition: a _Char_ is a natural number that we treat specially.
+
+```haskell
+newtype Char =
+  Char Nat
+```
+
+What are _Nats_ made of? Now we're getting somewhere. _Nats_ are made of functions, and nothing else. To arrive at the definition we'll start with one that uses "normal" algebraic data types, and replace as much Haskell syntax as we can with functions. Here's a data type that represents the natural numbers:
+
+```haskell
+data NatNormal
+  = Zero
+  | Succ Nat
+```
+
+It means that a _Nat_ can either be _Zero_ or "the successor to some other natural number", _Succ_.
+
+We can define them all one by one if we like.
+
+```haskell
+zero :: NatNormal
+zero = Zero
+
+one :: NatNormal
+one = Succ Zero
+
+two :: NatNormal
+two = Succ (Succ Zero)
+
+three :: NatNormal
+three = Succ (Succ (Succ Zero))
+```
+
+It's OK if, right now, you don't believe that this is a working representation of natural numbers. We're going to use it and you'll get to see it work.
+
+The Scott encoding for this type will be a function which takes an argument for each constructor, represented by holes for now:
+
+```haskell
+newtype Nat =
+  Nat (forall r. _ -> _ -> r)
+```
+
+The first constructor takes no arguments.
+
+```haskell
+newtype Nat =
+  Nat (forall r. r -> _ -> r)
+```
+
+The second constructor _does_ take an argument, of type _Nat_. To represent this the second argument will need to be a function that accepts a value of _Nat_.
+
+```haskell
+newtype Nat =
+  Nat (forall r. r -> (Nat -> r) -> r)
+```
+
+That's the type done, now to write the constructors. The first constructor (called _Zero_ in the _NatNormal_ type above) looks like this.
+
+```haskell
+zero :: Nat
+zero = Nat (\z _ -> z)
+```
+
+It _chooses_ to return the value passed as the first argument to the _Nat_ function. The second constructor (called _Succ_ above) looks like this:
+
+```haskell
+succ :: Nat -> Nat
+succ n = Nat (\_ s -> s n)
+```
+
+It _chooses_ to call the function passed as the second argument to the _Nat_ function with the value it's been supplied.
+
+We can now construct natural numbers, but they're still not of any use until we have some way to _deconstruct_ them. Unlike "normal" Haskell data types we'll not be able to pattern match our way from a _Nat_ to some other type. Let's say we want to write the function _subtractOne_ which subtracts one from any natural number except zero, which it leaves unchanged. With the _NatNormal_ type we could match the cases and get to something like:
+
+```haskell
+subtractOneNormal :: NatNormal -> NatNormal
+subtractOneNormal Zero = Zero
+subtractOneNormal (Succ n) = n
+```
+
+The implementation for _Nat_ will look different but operate similarly in a very interesting way.
+
+```haskell
+subtractOne :: Nat -> Nat
+subtractOne (Nat nat) =
+  nat
+    zero
+    (\n -> n)
+```
+
+The function that represents a _Nat_, called _nat_ above, accepts an argument _for each case_. The first argument is the _Zero_ case and the second is the _Succ n_ case. If the _nat_ in question was constructed using _zero_ it will choose the first argument it is passed, in this case _zero_. If it was constructed using _succ_ then it will choose to call the second argument with the _Nat_ it was supposed to be the successor of, therefore behaving as if that _Nat_ had never been effected by it.
+
+One thing I've always loved about languages like Haskell is that we can pretty much "play the evaluator", we can step through more or less how the function executes to get an idea for how it works. Let's do a couple of examples.
+
+Take an expression.
+
+```haskell
+subtractOne zero
+```
+
+Replace _subtractOne_ and _zero_ with their implementations. For the sake of simplicity let's pretend those _newtype_ wrappers around _zero_ are gone.
+
+```haskell
+(\nat -> nat zero (\n -> n)) (\z s -> z)
+```
+
+Apply the _nat_ argument to the lambda by replacing appearances of the name `nat` in its body with the value `(\z s -> z)`.
+
+```haskell
+(\z s -> z) zero (\n -> n)
+```
+
+Apply the _z_ argument by replacing appearances of the name `z` with the value `zero`.
+
+```haskell
+(\s -> zero) (\n -> n)
+```
+
+Apply the _s_ argument by replacing appearances of `s` with `(\n -> n)`. In this case there aren't any, so we're left with only _zero_.
+
+```haskell
+zero
+```
+
+Let's take another one.
+
+```haskell
+subtractOne (succ (succ zero))
+
+(\nat -> nat zero (\n -> n)) (\z s -> s (succ zero))
+
+(\z s -> s (succ zero)) zero (\n -> n)
+
+(\s -> s (succ zero)) (\n -> n)
+
+(\n -> n) (succ zero)
+
+succ zero
+```
+
