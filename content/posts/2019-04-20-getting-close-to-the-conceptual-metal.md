@@ -223,30 +223,12 @@ newtype Char =
 What are _Nats_ made of? Now we're getting somewhere. _Nats_ are made of functions, and nothing else. To arrive at the definition we'll start with one that uses "normal" algebraic data types, and replace as much Haskell syntax as we can with functions. Here's a data type that represents the natural numbers:
 
 ```haskell
-data NatNormal
+data Nat
   = Zero
   | Succ Nat
 ```
 
 It means that a _Nat_ can either be _Zero_ or "the successor to some other natural number", _Succ_.
-
-We can define them all one by one if we like.
-
-```haskell
-zero :: NatNormal
-zero = Zero
-
-one :: NatNormal
-one = Succ Zero
-
-two :: NatNormal
-two = Succ (Succ Zero)
-
-three :: NatNormal
-three = Succ (Succ (Succ Zero))
-```
-
-It's OK if, right now, you don't believe that this is a working representation of natural numbers. We're going to use it and you'll get to see it work.
 
 The Scott encoding for this type will be a function which takes an argument for each constructor, represented by holes for now:
 
@@ -269,7 +251,7 @@ newtype Nat =
   Nat (forall r. r -> (Nat -> r) -> r)
 ```
 
-That's the type done, now to write the constructors. The first constructor (called _Zero_ in the _NatNormal_ type above) looks like this.
+That's the type done, now to write the constructors. The first constructor (called _Zero_ in the normal type above) looks like this.
 
 ```haskell
 zero :: Nat
@@ -285,15 +267,17 @@ succ n = Nat (\_ s -> s n)
 
 It _chooses_ to call the function passed as the second argument to the _Nat_ function with the value it's been supplied.
 
-We can now construct natural numbers, but they're still not of any use until we have some way to _deconstruct_ them. Unlike "normal" Haskell data types we'll not be able to pattern match our way from a _Nat_ to some other type. Let's say we want to write the function _subtractOne_ which subtracts one from any natural number except zero, which it leaves unchanged. With the _NatNormal_ type we could match the cases and get to something like:
+We can now construct natural numbers, but they're still not of any use until we have some way to _deconstruct_ them. Unlike "normal" Haskell data types we'll not be able to pattern match our way from a _Nat_ to some other type. Let's say we want to write the function _subtractOne_ which subtracts one from any natural number except zero, which it leaves unchanged. With the normal type we could match the cases and get to something like:
 
 ```haskell
-subtractOneNormal :: NatNormal -> NatNormal
-subtractOneNormal Zero = Zero
-subtractOneNormal (Succ n) = n
+subtractOne :: Nat -> Nat
+subtractOne nat =
+  case nat of
+    Zero -> Zero
+    Succ n -> n
 ```
 
-The implementation for _Nat_ will look different but operate similarly in a very interesting way.
+The implementation for Scott encoded _Nats_ will look a bit different.
 
 ```haskell
 subtractOne :: Nat -> Nat
@@ -305,51 +289,138 @@ subtractOne (Nat nat) =
 
 The function that represents a _Nat_, called _nat_ above, accepts an argument _for each case_. The first argument is the _Zero_ case and the second is the _Succ n_ case. If the _nat_ in question was constructed using _zero_ it will choose the first argument it is passed, in this case _zero_. If it was constructed using _succ_ then it will choose to call the second argument with the _Nat_ it was supposed to be the successor of, therefore behaving as if that _Nat_ had never been effected by it.
 
-One thing I've always loved about languages like Haskell is that we can pretty much "play the evaluator", we can step through more or less how the function executes to get an idea for how it works. Let's do a couple of examples.
+Being able to subtract one from a _Nat_ doesn't make them especially useful, folding a _Nat_ into some other value, that'll be useful. So how do we do that?
 
-Take an expression.
-
-```haskell
-subtractOne zero
-```
-
-Replace _subtractOne_ and _zero_ with their implementations. For the sake of simplicity let's pretend those _newtype_ wrappers around _zero_ are gone.
+Again if we were dealing with the normal Haskell data type we might write something like this:
 
 ```haskell
-(\nat -> nat zero (\n -> n)) (\z s -> z)
+foldNat :: c -> (c -> c) -> Nat -> c
+foldNat z f nat =
+  case nat of
+    Zero -> z
+    Succ n -> f (foldNat z f n)
 ```
 
-Apply the _nat_ argument to the lambda by replacing appearances of the name `nat` in its body with the value `(\z s -> z)`.
+The translation to the Scott encoded version is very similar to what we did with _subtractOne_.
 
 ```haskell
-(\z s -> z) zero (\n -> n)
+foldNat :: c -> (c -> c) -> Nat -> c
+foldNat z f (Nat nat) =
+  nat
+    z
+    (\n -> f (foldNat z f n))
 ```
 
-Apply the _z_ argument by replacing appearances of the name `z` with the value `zero`.
+Now that we can fold _Nats_ we can transform them into good ol' Haskell _Nums_.
 
 ```haskell
-(\s -> zero) (\n -> n)
+toNum :: Num n => Nat -> n
+toNum = foldNat 0 (+ 1)
 ```
 
-Apply the _s_ argument by replacing appearances of `s` with `(\n -> n)`. In this case there aren't any, so we're left with only _zero_.
+Now, for the first time we can actually _run_ something.
+
+```ghci
+>>> toNum zero
+0
+>>> toNum (succ zero)
+1
+>>> toNum (succ (succ zero))
+2
+>>> toNum (succ (succ (succ zero)))
+3
+```
+
+We can go _to_ Haskell numbers, but what about converting _from_ them. For that we might want some way of unfolding a value into a _Nat_.
+
+Again we can think about how we'd do it with ordinary Haskell data types and then translate our solution to work with Scott encoded data types.
 
 ```haskell
-zero
+unfoldNat :: (c -> Maybe c) -> c -> Nat
+unfoldNat f c =
+  case f c of
+    Nothing -> c
+    Just c' -> succ (unfoldNat f c')
 ```
 
-Let's take another one.
+But wait, to write that function we first need a _Maybe_ data type. Now that we've done _Nat_ I reckon _Maybe_ isn't going to be too much of a stretch.
+
+As with _Nat_ we will have two constructors.
 
 ```haskell
-subtractOne (succ (succ zero))
-
-(\nat -> nat zero (\n -> n)) (\z s -> s (succ zero))
-
-(\z s -> s (succ zero)) zero (\n -> n)
-
-(\s -> s (succ zero)) (\n -> n)
-
-(\n -> n) (succ zero)
-
-succ zero
+newtype Maybe a =
+  Maybe (forall r. _ -> _ -> r)
 ```
 
+The first constructor will be nullary, it won't accept any arguments.
+
+```haskell
+newtype Maybe a =
+  Maybe (forall r. r -> _ -> r)
+```
+
+The second will be unary, it'll accept one argument of the type _a_.
+
+```haskell
+newtype Maybe a =
+  Maybe (forall r. r -> (a -> r) -> r)
+```
+
+Now to write those two constructors.
+
+```haskell
+nothing :: Maybe a
+nothing = Maybe (\n _ -> n)
+
+just :: a -> Maybe a
+just a = Maybe (\_ j -> j a)
+```
+
+And some way of _using_ a value of type _Maybe_.
+
+```haskell
+maybe :: c -> (a -> c) -> Maybe a -> c
+maybe c f (Maybe m) = m c f
+```
+
+That should be all we need.
+
+```haskell
+unfoldNat :: (c -> Maybe c) -> c -> Nat
+unfoldNat f c =
+  maybe
+    c
+    (\c' -> succ (unfoldNat f c')
+    (f c)
+```
+
+Can we now convert _Nats_ to and from _Nums_?
+
+```haskell
+fromNum :: (Ord n, Num n) => n -> Nat
+fromNum =
+  unfoldNat
+    (\n ->
+       if n <= 0
+         then nothing
+         else just (n - 1))
+```
+
+We can, but we'll come back to this later, using even less of the pre-existing universe.
+
+```ghci
+>>> toNum (fromNum 3)
+3
+>>> toNum (fromNum 1024)
+1024
+```
+
+Now that we're able to convert _Nats_ to _Nums_ and back again, we're also able to go from our _Char_ to the builtin Haskell _Char_ and back again. Like so:
+
+```haskell
+fromBuiltin :: Builtin.Char -> Char
+fromBuiltin = Char . fromNum . Builtin.ord
+
+toBuiltin :: Char -> Builtin.Char
+toBuiltin (Char c) = Builtin.chr (toNum c)
+```
