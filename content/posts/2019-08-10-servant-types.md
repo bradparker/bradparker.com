@@ -154,7 +154,7 @@ serve
 
 There's a type variable `api`, which is constrained to be types with a `HasServer` instance. There's then two arguments, both referring to that constrained `api` type. We'll explain what the `Proxy api` is for as a bonus but most of our attention will be placed on the `ServerT api Handler` argument.
 
-What is `ServerT`? Why does it disappear when `Users` is substituted for `api`? It can't be a data type, data types don't just disappear. Let's start by asking GHCi.
+What is `ServerT`? Why does it disappear when `Users` is substituted for `api`? It can't be a type constructor, type constructors don't just disappear. Let's start by asking GHCi.
 
 ```
  > :info ServerT
@@ -165,5 +165,80 @@ class HasServer (api :: k)
         -- Defined in ‘Servant.Server.Internal’
 ```
 
-`ServerT` is a [type family](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#type-families).
+`ServerT` is a [type family](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#type-families). Type families look quite like type constructors. Like type constructors they accept types as arguments, unlike type constructors they're able to return different types depending on those arguments. It ends up looking something like a function which pattern matches on types.
 
+`ServerT` is defined as part of the `HasServer` type class, it will be defined for any type which has a `HasServer` instance. It accepts the [poly-kinded](https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/kind-polymorphism.html) `api` type `HasServer` is parameterized over as its first argument and some type constructor `m` of kind `* -> *` as it's second. It then returns some type of kind `*`.
+
+Let's see if we can find an example. We'll start with something smaller than `Users`, `UsersIndex`. Let's see if we can find the `HasServer` instance that comes into play when we apply `UsersIndex` to `serve`.
+
+```
+ > :t serve (Proxy @UsersIndex)
+serve (Proxy @UsersIndex)
+  :: Handler [User] -> Application
+```
+
+Again, GHCi will be a big help here. First, what do we know about `UsersIndex`?
+
+```
+ > :info UsersIndex
+type UsersIndex = Get '[JSON] [User]
+        -- Defined at src/Main.hs:53:1
+```
+
+Right, it's an alias for `Get '[JSON] [User]`. So what do we know about `Get`?
+
+```
+ > :info Get
+type Get =
+  Servant.API.Verbs.Verb 'Network.HTTP.Types.Method.GET 200
+  :: [*] -> * -> *
+        -- Defined in ‘Servant.API.Verbs’
+```
+
+`Get` is an alias for `Verb 'GET 200`. What do we know about `Verb`?
+
+```
+ > import GHC.Types (Nat)
+ > import Servant.API.Verbs (Verb)
+ > :info Verb
+type role Verb phantom phantom phantom phantom
+data Verb (method :: k1)
+          (statusCode :: Nat)
+          (contentTypes :: [*])
+          a
+        -- Defined in ‘Servant.API.Verbs’
+instance [safe] forall k1 (method :: k1) (statusCode :: Nat) (contentTypes :: [*]) a.
+                Generic (Verb method statusCode contentTypes a)
+  -- Defined in ‘Servant.API.Verbs’
+type instance ServerT (Verb method status ctypes a) m = m a
+        -- Defined in ‘Servant.Server.Internal’
+```
+
+There we go. `Verb` has a `HasServer` instance, and GHCi has even printed out the `ServerT` implementation defined for it too.
+
+```haskell
+type instance ServerT
+  (Verb method status ctypes a) m = m a
+```
+
+If we cheat a little and replace `Verb method status` with `Get` it might look a little clearer.
+
+```haskell
+type instance ServerT
+  (Get ctypes a) m = m a
+```
+
+If we cheat a little more we can substitute all the variables with types specific to `UsersIndex`.
+
+```Haskell
+type instance ServerT
+  (Get '[JSON] [User]) m = m [User]
+```
+
+We don't need to just cheat though, we can use GHCi to evaluate type families for us. However, in order to evaluate `ServerT` for `UsersIndex` we'll need to pick what `m` should be. We can pick anything that's of kind `* -> *` so let's go with `Maybe` for now.
+
+```
+ > :kind! ServerT UsersIndex Maybe
+ServerT UsersIndex Maybe :: *
+= Maybe [User]
+```
