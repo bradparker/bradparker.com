@@ -198,8 +198,11 @@ type Get =
 `Get` is an alias for `Verb 'GET 200`. What do we know about `Verb`?
 
 ```
+ > import Servant (HasServer)
+ > import Servant.API.ContentTypes (AllCTRender)
+ > import Servant.API.Verbs (ReflectMethod, Verb)
  > import GHC.Types (Nat)
- > import Servant.API.Verbs (Verb)
+ > import GHC.TypeNats (KnownNat)
  > :info Verb
 type role Verb phantom phantom phantom phantom
 data Verb (method :: k1)
@@ -210,6 +213,10 @@ data Verb (method :: k1)
 instance [safe] forall k1 (method :: k1) (statusCode :: Nat) (contentTypes :: [*]) a.
                 Generic (Verb method statusCode contentTypes a)
   -- Defined in ‘Servant.API.Verbs’
+instance [overlappable] forall k1 (ctypes :: [*]) a (method :: k1) (status :: Nat) (context :: [*]).
+                        (AllCTRender ctypes a, ReflectMethod method, KnownNat status) =>
+                        HasServer (Verb method status ctypes a) context
+  -- Defined in ‘Servant.Server.Internal’
 type instance ServerT (Verb method status ctypes a) m = m a
         -- Defined in ‘Servant.Server.Internal’
 ```
