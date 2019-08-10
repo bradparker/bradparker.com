@@ -228,17 +228,18 @@ type instance ServerT
   (Get ctypes a) m = m a
 ```
 
-If we cheat a little more we can substitute all the variables with types specific to `UsersIndex`.
+If we cheat a little more we can substitute all the variables with types specific to `serve (Proxy @UsersIndex)`.
 
 ```Haskell
 type instance ServerT
-  (Get '[JSON] [User]) m = m [User]
+  (Get '[JSON] [User]) Handler =
+    Handler [User]
 ```
 
-We don't need to just cheat though, we can use GHCi to evaluate type families for us. However, in order to evaluate `ServerT` for `UsersIndex` we'll need to pick what `m` should be. We can pick anything that's of kind `* -> *` so let's go with `Maybe` for now.
+We don't need to just cheat though, we can use GHCi to evaluate type families for us.
 
 ```
- > :kind! ServerT UsersIndex Maybe
-ServerT UsersIndex Maybe :: *
-= Maybe [User]
+ > :kind! ServerT UsersIndex Handler
+ServerT UsersIndex Handler :: *
+= Handler [User]
 ```
