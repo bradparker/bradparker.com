@@ -110,10 +110,10 @@ The kind for type-level lists is parameterized over some arbitrary other kind.
  > :kind '[]
 '[] :: [k]
 
- > :kind '[(), Bool, Int]
-'[(), Bool, Int] :: [*]
- > :kind '[Either (), Either Bool, Either Int]
-'[Either (), Either Bool, Either Int] :: [* -> *]
+ > :kind '[(), Bool, Ordering]
+'[(), Bool, Ordering] :: [*]
+ > :kind '[Either (), Either Bool, Either Ordering]
+'[Either (), Either Bool, Either Ordering] :: [* -> *]
 ```
 
 **TODO: what are they for?**
