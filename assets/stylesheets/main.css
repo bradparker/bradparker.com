@@ -120,6 +120,13 @@
     monospace;
 }
 
+.markdown p > code, .markdown a > code {
+  background-color: #f0c674;
+  padding: 0.12rem 0.3rem 0.16rem;
+  border-radius: 0.12rem;
+  box-decoration-break: clone;
+}
+
 .markdown * + * {
   margin-top: 1rem;
 }
