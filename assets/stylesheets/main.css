@@ -1,5 +1,7 @@
 @import url('./modules/typography/fonts.css');
 
+.lh-copy { line-height: 1.6; }
+
 :root {
   color: hsl(0, 0%, 15%);
   font-size: 100%;
