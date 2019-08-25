@@ -20,9 +20,17 @@ summary: |
 
 I was shown [Servant](https://hackage.haskell.org/package/servant) by a friend of mine a few years ago. It's fair to say that, initially, I was overwhelmed. Haskell was a new language to me however one of the things that had really grabbed me was its transparency. Without being very familiar with the language I found that I could tease out how some function or data structure worked just by poking around. My initial look at the Servant [introductory tutorial](https://docs.servant.dev/en/stable/tutorial/index.html) was not so straight forward.
 
-It should be said that I was able to build a biggish [real world project](https://github.com/bradparker/servant-beam-realworld-example-app/) before doing any of this investigation. For me, one of the greatest strengths of Servant is how it intuitive it is to use, if not understand.
+It should be said that I was able to build a biggish [real world project](https://github.com/bradparker/servant-beam-realworld-example-app/) before doing any of this investigation. For me, one of the greatest strengths of Servant is how it intuitive it is to use.
 
-To explore the specific type-level features used by Servant, and why they're used, we'll refer to an example API quite similar to one featured in the Servant tutorial.
+Servant has you define your API as a type. You're not expected to define wholly a _new_ type, but rather combine existing types provided by the framework. These types form a domain specific language, at the type level, for describing a web API. This was quite a mental shift for me, that the type comes first, and drives the implementation. It's just so great that Servant's DSL is expressive enough to describe almost any API you might want to implement.
+
+This post aims to understand _how_ Servant can take so many varied API descriptions and guide us to writing a corresponding implementation.
+
+## The example type
+
+The example we'll use is quite close to the one used Servant's introductory tutorial. We're going to describe an API which has two endpoints: `GET /users` which returns a JSON-encoded list of users and `GET /users/:username` which returns the user, again JSON-encoded, for a corresponding username.
+
+We'll make use of [type synonyms](https://wiki.haskell.org/Type_synonym) to group and give logical names to the sub-components of our API.
 
 ```haskell
 {-# LANGUAGE DataKinds #-}
@@ -50,7 +58,7 @@ type UsersAPI =
 
 **Note** for each code example I'll try to show only the bits of the finished module which are relevant to what's being currently discussed. I have put together a [repository](https://github.com/bradparker/how-does-servants-type-dsl-work) containing a full working example for reference.
 
-Let's start with some of the perhaps more novel parts of the `UsersAPI` type.
+This first code example already contains a few type-level features that likely look interesting. Let's take a closer look.
 
 ## Type literals
 
@@ -65,7 +73,7 @@ The first thing to note about these is that unlike most types we encounter in Ha
 
 Another important thing to keep in mind is that each unique value is a different type. Or put another way the _type_ `"foo"` is distinct from the _type_ `"bar"`. When talking about these types as a whole it's helpful to step up to the kind layer and refer to them as `Symbol`s. For example: `"foo"` and `"bar"` are different types but they're both `Symbol`s.
 
-When working with Servant, `Symbol`s are used to easily define things like static route segments, as well as named route and query parameters.
+When working with Servant, `Symbol`s are used to easily define things like static route segments, as well as named route and query parameters. `Symbol`s can be brought down from the type level to strings at the value level. This means that Servant is able to extract _data_ from API types for use at run time. More on this later.
 
 ## Data type promotion
 
@@ -74,23 +82,35 @@ Get '[JSON] [User]
     ~~~~~~~
 ```
 
-We don't have to be content with only strings and numbers moving up to the type level, by enabling the [`DataKinds`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-DataKinds) language extension many other data types will become available for use up there too. Servant makes use of type level lists in some parts of it's API.
+We don't have to be content with only strings and numbers moving up to the type level, by enabling the [`DataKinds`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-DataKinds) language extension many other data types will become available for use up there too. Servant makes use of type level lists in some parts of its API.
 
-Similar to `Symbol` types like `'[Int]` and `'[Bool]` are not of kind `*`. Those particular examples are of kind `[*]`. It's worth noting that the contents of a type level list need not be of kind `*`.
+The "tick" (`'`) prefix is used to disambiguate type-level lists and the type of value-level lists. This is required in situations where GHC might need a hint to tell what is meant by, say:
+
+```haskell
+[Int]
+```
+
+Is that the type for a list of `Int`, or is that a type level list with only one element, `Int`?
+
+Similar to `Symbol` types like `'[Int]` and `'[Bool]` are not of kind `*`. Those particular examples are of kind `[*]`. It's worth noting, however, that the contents of a type level list need not be of kind `*`.
 
 ```
  > :kind '[Maybe]
 '[Maybe] :: [* -> *]
 ```
 
-If we as GHCi for the kind of `'[]` we see something interesting.
+If we ask GHCi for the kind of `'[]` we see something interesting.
 
 ```
  > :kind '[]
 '[] :: [k]
 ```
 
-This shows us that type level lists are [kind polymorphic](https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/kind-polymorphism.html).
+This shows us that type level lists are [kind polymorphic](https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/kind-polymorphism.html). That `k` is a kind varible, as with [type variables](https://wiki.haskell.org/Type_variables_instead_of_concrete_types) these are introduced by an implicit `forall`.
+
+```haskell
+'[] :: forall k. '[k]
+```
 
 Just as the type for value-level lists is parameterized over some arbitrary other type.
 
@@ -100,7 +120,8 @@ Just as the type for value-level lists is parameterized over some arbitrary othe
 
  > :type [1, 2, 3]
 [1, 2, 3] :: Num a => [a]
- > :t [(+ 1), (+ 2), (+ 3)]
+
+ > :type [(+ 1), (+ 2), (+ 3)]
 [(+ 1), (+ 2), (+ 3)] :: Num a => [a -> a]
 ```
 
@@ -112,11 +133,12 @@ The kind for type-level lists is parameterized over some arbitrary other kind.
 
  > :kind '[(), Bool, Ordering]
 '[(), Bool, Ordering] :: [*]
+
  > :kind '[Either (), Either Bool, Either Ordering]
 '[Either (), Either Bool, Either Ordering] :: [* -> *]
 ```
 
-**TODO: what are they for?**
+Servant uses type level lists for a couple of purposes. In this post we'll see how they're used to specify the set of content types a given API can accept and return.
 
 ## Type operators
 
@@ -127,11 +149,11 @@ type UsersAPI =
     ~~             ~~~~
 ```
 
-By enabling the [`TypeOperators`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-TypeOperators) extension we can write infix type constructors in much same the way that we can [value-level infix functions](https://wiki.haskell.org/Infix_operator).
+By enabling the [`TypeOperators`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-TypeOperators) extension we can write infix [type constructors](https://wiki.haskell.org/Constructor#Type_constructor) in much same the way that we can [value-level infix functions](https://wiki.haskell.org/Infix_operator).
 
 As with value-level infix operators, type operators have a [precedence](https://en.wikipedia.org/wiki/Order_of_operations) relative to other operators and can [associate](https://en.wikipedia.org/wiki/Operator_associativity) to the left or right. The syntax for defining these properties for a given type operator is the same as for value-level operators.
 
-```
+```haskell
 (f . g) a = f (g a)
 
 infixr 9 .
@@ -143,13 +165,11 @@ infixr 9 ∘
 
 ## Putting it to use
 
-There's a lot there and we'll aim to explore as much of it as we can in as much detail as we can. To begin with trust me when I say: `UsersAPI` is the type for an API which serves users as JSON. To flesh it out we'll need a `User` type, an [Aeson](https://hackage.haskell.org/package/aeson) instance for it and some example data.
+As `UsersAPI` is the type for an API which serves users we'll need to define what a `User` is.
 
 ```haskell
 {-# LANGUAGE DeriveGeneric #-}
 
-import Data.Aeson (ToJSON)
-import Data.Time (Day, fromGregorian)
 import GHC.Generics (Generic)
 
 data User = User
@@ -159,29 +179,11 @@ data User = User
   , username :: String
   , registration_date :: Day
   } deriving (Eq, Show, Generic)
-
-instance ToJSON User
-
-users :: [User]
-users =
-  [ User
-      "Isaac Newton"
-      372
-      "isaac@newton.co.uk"
-      "isaac"
-      (fromGregorian 1683 3 1)
-  , User
-      "Albert Einstein"
-      136
-      "ae@mc2.org"
-      "albert"
-      (fromGregorian 1905 12 1)
-  ]
 ```
 
-Now to actually write a web server. At the end of the day a runnable Haskell program is a value of type `IO ()`. So how do we get from `UsersAPI` to one of those?
+We're deriving a [`Generic`](https://wiki.haskell.org/GHC.Generics) instance for use later, it just helps to get it out of the way now.
 
-The [servant-server](https://hackage.haskell.org/package/servant-server) package provides us a few functions for turning types like `UsersAPI` into [WAI](https://hackage.haskell.org/package/wai) `Application`s. The simplest of these is [`serve`](https://hackage.haskell.org/package/servant-server-0.16.2/docs/Servant-Server.html#v:serve) so that's what we'll go with.
+At the end of the day a runnable Haskell program is a value of type `IO ()`. So how do we get from `UsersAPI` to one of those?  The [servant-server](https://hackage.haskell.org/package/servant-server) package provides us a few functions for turning types like `UsersAPI` into [WAI](https://hackage.haskell.org/package/wai) `Application`s. The simplest of these is [`serve`](https://hackage.haskell.org/package/servant-server-0.16.2/docs/Servant-Server.html#v:serve), so that's what we'll go with.
 
 ```haskell
 serve
@@ -193,13 +195,13 @@ serve
 
 **Note** we'll explore the type of `serve` more later.
 
-The [warp](https://hackage.haskell.org/package/warp) package provides a `run` function to get us from an `Application` to a `IO ()`.
+The [warp](https://hackage.haskell.org/package/warp) package provides a `run` function which gets us from an `Application` to a `IO ()`.
 
 ```haskell
 run :: Port -> Application -> IO ()
 ```
 
-We now have enough for a skeleton `main`.
+That should be enough for a skeleton `main`.
 
 ```haskell
 {-# LANGUAGE TypeApplications #-}
@@ -217,15 +219,37 @@ main :: IO ()
 main = run 8080 usersApp
 ```
 
-If we try to compile what we have so far we get the following error.
+If we try to compile what we have so far we get two errors. The first is complaining about a missing instance.
+
+```
+• No instance for (ToJSON User) arising from a use of ‘serve’
+• In the expression: serve (Proxy @Users) _usersServer
+  In an equation for ‘usersApp’:
+      usersApp = serve (Proxy @Users) _usersServer
+```
+
+The second tells use the type of the `_usersServer` value we've yet to define.
 
 ```
 • Found hole:
     _usersServer
       :: Handler [User] :<|> ([Char] -> Handler (Maybe User))
+  Or perhaps ‘_usersServer’ is mis-spelled, or not in scope
+• In the second argument of ‘serve’, namely ‘_usersServer’
+  In the expression: serve (Proxy @Users) _usersServer
+  In an equation for ‘usersApp’:
+      usersApp = serve (Proxy @Users) _usersServer
 ```
 
-If we ask GHCi what the type of `serve` is when partially applied with a `Proxy UsersAPI` we see something similar.
+## Content types
+
+TODO ...
+
+## The Server's type
+
+Back to that second type error.
+
+I think asking GHCi what the type of `serve` is when partially applied with a `Proxy UsersAPI` is instructive here.
 
 ```
  > :t serve (Proxy @UsersAPI)
@@ -234,9 +258,9 @@ serve (Proxy @UsersAPI)
      -> Application
 ```
 
-Now this is interesting. In the type of `serve` where previously there was a `ServerT api Handler` there is now a fairly odd looking type. Let's take a step back and try to get a handle on what's going on.
+This is interesting. In the type of `serve` where previously there was a `ServerT api Handler` there is now a fairly odd looking type. Where did it come from?
 
-Let's take a better look at `serve`.
+Recall that `serve` has the following type.
 
 ```haskell
 serve
@@ -249,7 +273,7 @@ serve
 
 There's a type variable `api`, which is constrained to be types with a `HasServer` instance. There's then two arguments, both referring to that constrained `api` type. We'll explain what the `Proxy api` is for as a bonus but most of our attention will be placed on the `ServerT api Handler` argument.
 
-What is `ServerT`? Why does it disappear when `UsersAPI` is substituted for `api`? It can't be a type constructor, type constructors don't just disappear. Let's start by asking GHCi.
+What is `ServerT`? Why does it disappear when `UsersAPI` is substituted for `api`? It can't be a type constructor, type constructors don't just disappear. What does GHCi have to say about it?
 
 ```
  > :info ServerT
@@ -260,9 +284,9 @@ class HasServer (api :: k)
         -- Defined in ‘Servant.Server.Internal’
 ```
 
-`ServerT` is a [type family](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#type-families). Type families look quite like type constructors. Like type constructors they accept types as arguments, unlike type constructors they're able to return different types depending on those arguments. It ends up looking something like a function which pattern matches on types.
+`ServerT` is a [type family](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#type-families). Type families look quite like type constructors. Like type constructors they accept types as arguments, unlike type constructors they're able to return different types depending on those arguments. It ends up looking something like a function which [pattern matches](https://en.wikibooks.org/wiki/Haskell/Pattern_matching) on types.
 
-`ServerT` is part of the `HasServer` type class, therefore it will be defined for any type which has a `HasServer` instance. It accepts the poly kinded `api` type `HasServer` is parameterized over as its first argument and some type constructor `m` of kind `* -> *` as it's second. It then returns some type of kind `*`.
+`ServerT` is part of the `HasServer` [type class](https://en.wikibooks.org/wiki/Haskell/Classes_and_types), therefore it will be defined for any type which has a `HasServer` instance. It accepts the poly kinded `api` type `HasServer` is parameterized over as its first argument and some type constructor `m` of kind `* -> *` as its second. It then returns some type of kind `*`.
 
 In order to explore this we'll start with something simpler than `UsersAPI`, `UsersIndex`. Let's see if we can find the `HasServer` instance that comes into play when we apply `UsersIndex` to `serve`.
 
@@ -272,7 +296,7 @@ serve (Proxy @UsersIndex)
   :: Handler [User] -> Application
 ```
 
-Again, GHCi will be a big help here. First, what do we know about `UsersIndex`?
+GHCi will be a big help here. First, what do we know about `UsersIndex`?
 
 ```
  > :info UsersIndex
@@ -292,7 +316,7 @@ type Get =
 
 `Get` is an alias for `Verb 'GET 200`. What do we know about `Verb`?
 
-```
+```diff
  > import Servant (HasServer)
  > import Servant.API.ContentTypes (AllCTRender)
  > import Servant.API.Verbs (ReflectMethod, Verb)
@@ -316,25 +340,30 @@ type instance ServerT (Verb method status ctypes a) m = m a
         -- Defined in ‘Servant.Server.Internal’
 ```
 
-There we go. `Verb` has a `HasServer` instance (albeit a pretty involved looking one), and GHCi has even printed out the `ServerT` implementation defined for it too.
+There we go. `Verb` has a `HasServer` instance (albeit a pretty involved looking one).
+
+```haskell
+instance
+  forall k1 (ctypes :: [*]) a (method :: k1) (status :: Nat) (context :: [*]).
+    ( AllCTRender ctypes a
+    , ReflectMethod method
+    , KnownNat status
+    ) =>
+      HasServer (Verb method status ctypes a) context
+```
+
+GHCi has even printed out the `ServerT` implementation defined for it too.
 
 ```haskell
 type instance ServerT
   (Verb method status ctypes a) m = m a
 ```
 
-If we cheat a little and replace `Verb method status` with `Get` it might look a little clearer.
+As with value level terms in Haskell sometimes it's helpful to manually inline expressions. In this case we can substitute all those type variables with types specific to `serve (Proxy @UsersIndex)`.
 
 ```haskell
 type instance ServerT
-  (Get ctypes a) m = m a
-```
-
-If we cheat a little more we can substitute all the variables with types specific to `serve (Proxy @UsersIndex)`.
-
-```Haskell
-type instance ServerT
-  (Get '[JSON] [User]) Handler =
+  (Verb GET 200 '[JSON] [User]) Handler =
     Handler [User]
 ```
 
@@ -394,8 +423,6 @@ type instance ServerT (Capture' mods capture a :> api) m
 
 Bingo, there's our `HasServer` instance. This one's a bit more involved than the instance for `Verb`. Here we can see that it's been defined for `Capture'` _in combination_ with `(:>)`.
 
-Let's look at just the instance head.
-
 ```haskell
 instance
   ( KnownSymbol capture
@@ -448,7 +475,7 @@ type instance ServerT (arr :> api) m = (TypeError ...)
         -- Defined in ‘Servant.Server.Internal’
 ```
 
-There's a bit going in here so let's break it down.
+There's a bit going in here, but never fear. We don't need to fully understand the lot, just a few key elements.
 
 Firstly, `(:>)` is a _type operator_ which associates to the right and has a relative precedence of 4.
 
@@ -473,7 +500,7 @@ type MyAPI =
 
 **Note** more on `(:<|>)` later.
 
-`(:>)` appears in three `HasServer` instances. This is made possible by `FlexibleInstances` being enabled, we can no longer say that a type has only _one_ instance for a given type class, it can be mentioned in many.
+`(:>)` appears in three `HasServer` instances. This is an implication of enabling the `FlexibleInstances` extension, we can no longer say that a type has only _one_ instance for a given type class, it can be mentioned in many.
 
 The first instance is, relatively speaking, straight-forward enough.
 
@@ -484,3 +511,23 @@ instance
   ) =>
     HasServer (path :> api) context
 ```
+
+The [`KnownSymbol`](https://hackage.haskell.org/package/base-4.12.0.0/docs/GHC-TypeLits.html#t:KnownSymbol) constraint allows Servant to "read" the `Symbol` `path` into a `String`. GHC erases types during compilation, no type information will make it to run time by default. By using `KnownSymbol` we're able to capture data that was specified as types in the source program as values in the compiled program.
+
+Each time a unique string literal is used in a type, at compile time, GHC will generate an instance of `KnownSymbol` for it.
+
+```haskell
+class KnownSymbol (n :: Symbol) where
+  symbolSing :: SSymbol n
+```
+
+This means that for each instance of `KnownSymbol n` there will be a `SSymbol n`. `SSymbol n` is a [`newtype`](https://wiki.haskell.org/Newtype) wrapper around a `String`, which we are to trust is the value level equivalent of `n`. So, for every type level string literal in a given program we're able to refer to a corresponding `String` value.
+
+```haskell
+type Foo = "foo"
+
+class KnownSymbol "foo" where
+  symbolSing = SSymbol "foo"
+```
+
+Now, back to that `HasServer` instance. Its purpose is
