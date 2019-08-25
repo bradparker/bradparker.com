@@ -55,7 +55,7 @@ Let's try to understand what's going on here. We should probably start with some
 
 OK, imagine we have these two magic functions. `_1` for doing _stuff_ to the first element of a tuple and `_2` for doing _stuff_ to the second.
 
-We can compose them `_1 . _ 2`, which lets us do _stuff_ to the second element of a tuple which is itself the first element of a tuple.
+We can compose them `_1 . _2`, which lets us do _stuff_ to the second element of a tuple which is itself the first element of a tuple.
 
 ```haskell
 ((a, b), c)
