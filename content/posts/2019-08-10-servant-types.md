@@ -560,3 +560,33 @@ instance
 ```
 
 Whereas the two instances for `(:>)` that we looked at _recused_ only down the right hand side, `(:<|>)` goes down both.
+
+## Content types
+
+Why did we need to define a `ToJSON` instance for `User`? Where did that contraint come from?
+
+```haskell
+instance
+  ( Accept ct
+  , AllMime cts
+  , AllMimeRender (ct : cts) a
+  ) =>
+    AllCTRender (ct : cts) a
+```
+
+```haskell
+instance
+  ( MimeRender ctyp a
+  ) =>
+    AllMimeRender '[ctyp] a
+
+instance
+  ( MimeRender ctyp a
+  , AllMimeRender (ctyp' : ctyps) a
+  ) =>
+    AllMimeRender (ctyp : ctyp' : ctyps) a
+```
+
+```haskell
+instance ToJSON a => MimeRender JSON a
+```
