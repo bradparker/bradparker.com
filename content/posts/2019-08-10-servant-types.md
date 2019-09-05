@@ -228,7 +228,7 @@ If we try to compile what we have so far we get two errors. The first is complai
       usersApp = serve (Proxy @Users) _usersServer
 ```
 
-The second tells use the type of the `_usersServer` value we've yet to define.
+The second tells us the type of the `_usersServer` value we've yet to define.
 
 ```
 • Found hole:
@@ -241,13 +241,19 @@ The second tells use the type of the `_usersServer` value we've yet to define.
       usersApp = serve (Proxy @Users) _usersServer
 ```
 
-## Content types
+We'll come back to why we're being asked about `ToJSON` instances but for now we'll just give `Servant` what it wants.
 
-TODO ...
+```haskell
+import Data.Aeson (ToJSON)
+
+instance ToJSON User
+```
+
+Well, that was pretty easy.
 
 ## The Server's type
 
-Back to that second type error.
+Back to that second error.
 
 I think asking GHCi what the type of `serve` is when partially applied with a `Proxy UsersAPI` is instructive here.
 
@@ -304,7 +310,7 @@ type UsersIndex = Get '[JSON] [User]
         -- Defined at src/Main.hs:53:1
 ```
 
-Right, it's an alias for `Get '[JSON] [User]`. So what do we know about `Get`?
+It's an alias for `Get '[JSON] [User]`. So what do we know about `Get`?
 
 ```
  > :info Get
@@ -316,7 +322,7 @@ type Get =
 
 `Get` is an alias for `Verb 'GET 200`. What do we know about `Verb`?
 
-```diff
+```
  > import Servant (HasServer)
  > import Servant.API.ContentTypes (AllCTRender)
  > import Servant.API.Verbs (ReflectMethod, Verb)
@@ -393,7 +399,7 @@ type UsersShow =
 
 We've seen what `Get` is, but what about `Capture`, what about `(:>)`?
 
-Though `(:>)` is likely to look more intriguing we'll start with `Capture`.
+Though `(:>)` is likely to look more intriguing we'll start with `Capture`. This is a type which defines a dynamic path segment, or path paramter. It takes the name of the parameter and the type it should attempt to convert it into.
 
 ```
  > :info Capture
@@ -475,7 +481,7 @@ type instance ServerT (arr :> api) m = (TypeError ...)
         -- Defined in ‘Servant.Server.Internal’
 ```
 
-There's a bit going in here, but never fear. We don't need to fully understand the lot, just a few key elements.
+There's a bit going in here, but never fear. We don't need to understand the lot, just a few key elements.
 
 Firstly, `(:>)` is a _type operator_ which associates to the right and has a relative precedence of 4.
 
@@ -512,7 +518,7 @@ instance
     HasServer (path :> api) context
 ```
 
-The [`KnownSymbol`](https://hackage.haskell.org/package/base-4.12.0.0/docs/GHC-TypeLits.html#t:KnownSymbol) constraint allows Servant to "read" the `Symbol` `path` into a `String`. GHC erases types during compilation, no type information will make it to run time by default. By using `KnownSymbol` we're able to capture data that was specified as types in the source program as values in the compiled program.
+The [`KnownSymbol`](https://hackage.haskell.org/package/base-4.12.0.0/docs/GHC-TypeLits.html#t:KnownSymbol) constraint allows Servant to "read" the `Symbol` `path` into a `String`. GHC erases types during compilation, meaning that no type information will make it to run time by default. By using `KnownSymbol` we're able to capture data that was specified as _types_ in the source program as _values_ in the compiled program.
 
 Each time a unique string literal is used in a type, at compile time, GHC will generate an instance of `KnownSymbol` for it.
 
@@ -530,4 +536,27 @@ class KnownSymbol "foo" where
   symbolSing = SSymbol "foo"
 ```
 
-Now, back to that `HasServer` instance. Its purpose is
+The other `HasServer` instance involving `(:>)` we'll look at is the same as the one we found for `Capture'` above.
+
+```haskell
+instance
+  ( KnownSymbol capture
+  , FromHttpApiData a
+  , HasServer api context
+  ) =>
+    HasServer (Capture' mods capture a :> api) context
+```
+
+Both of these instances require something specific on the left hand side, either a `Symbol` or a `Capture'`. They also both require whatever is on the right to have its own `HasServer` instance. To me, this looks a little like a recursive function call, layers of the type are being peeled off as `HasServer` instances are resolved.
+
+The last type to talk through is `(:<|>)`. Fortunately it has the simplest `HasServer` instance we've yet seen.
+
+```haskell
+instance
+  ( HasServer a context
+  , HasServer b context
+  ) =>
+    HasServer (a :<|> b) context
+```
+
+Whereas the two instances for `(:>)` that we looked at _recused_ only down the right hand side, `(:<|>)` goes down both.
