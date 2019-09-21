@@ -663,13 +663,229 @@ So that's why when we tried to apply `UsersAPI` to `serve` we needed to define a
 
 ## Implementing a server for our type
 
-Now we know _why_ the type hole `_usersServer` has the type it does.
+Now we know how the typed hole `_usersServer` ends up with the type it does.
 
 ```haskell
 Handler [User] :<|> (String -> Handler User)
 ```
 
-So what are we going to do about it?
+Let's go about creating a value of this type. We might start from the outside, in much the same order as we traced the evaluation of `ServerT`. This means first figuring out how to construct a value of type `a :<|> b`.
+
+Using GHCi we're able to view the definition of this type.
+
+```haskell
+data (:<|>) a b = a :<|> b
+```
+
+It's pretty much a pair.
+
+```haskell
+data (,) a b = (a, b)
+```
+
+It has only one data constructor, which happens to share the type's name. There's only one thing we can do, provide that constructor two values. Now, we don't actually _have_ those values yet, so let's use typed holes for now.
+
+```haskell
+usersServer :: Server UsersAPI
+usersServer = _usersIndex :<|> _usersShow
+```
+
+Applying this to `server` will let us know if we're on the right track. Doing so should give us something like the following.
+
+```
+src/Main.hs:86:15: error:
+    • Found hole: _usersIndex :: Handler [User]
+      Or perhaps ‘_usersIndex’ is mis-spelled, or not in scope
+    • In the first argument of ‘(:<|>)’, namely ‘_usersIndex’
+      In the expression: _usersIndex :<|> _usersShow
+      In an equation for ‘usersServer’:
+          usersServer = _usersIndex :<|> _usersShow
+    • Relevant bindings include
+        usersServer :: Server UsersAPI (bound at src/Main.hs:86:1)
+   |
+86 | usersServer = _usersIndex :<|> _usersShow
+   |               ^^^^^^^^^^^
+
+src/Main.hs:86:32: error:
+    • Found hole: _usersShow :: [Char] -> Handler User
+      Or perhaps ‘_usersShow’ is mis-spelled, or not in scope
+    • In the second argument of ‘(:<|>)’, namely ‘_usersShow’
+      In the expression: _usersIndex :<|> _usersShow
+      In an equation for ‘usersServer’:
+          usersServer = _usersIndex :<|> _usersShow
+    • Relevant bindings include
+        usersServer :: Server UsersAPI (bound at src/Main.hs:86:1)
+   |
+86 | usersServer = _usersIndex :<|> _usersShow
+   |                                ^^^^^^^^^^
+```
+
+Amoungst that we're being told that we have two values we need to conjure up.
+
+```haskell
+usersIndex :: Handler [User]
+usersIndex = _
+
+usersShow :: String -> Handler User
+usersShow _uname = _
+```
+
+We'll start with `usersIndex`, which is a value of type `Handler [User]`.
+
+For the sake of this example our collection of users will be some example data. I might do another post of my experience with using [Beam](https://tathougies.github.io/beam/) in a Servant application, but for now let's keep it simple.
+
+```haskell
+users :: [User]
+users =
+  [ User
+      "Isaac Newton"
+      372
+      "isaac@newton.co.uk"
+      "isaac"
+      (fromGregorian 1683 3 1)
+  , User
+      "Albert Einstein"
+      136
+      "ae@mc2.org"
+      "albert"
+      (fromGregorian 1905 12 1)
+  ]
+```
+
+Now that we have a value of `[User]` we need a function which can wrap it in a `Handler`. Looking at the [documentation for `Handler`](https://hackage.haskell.org/package/servant-server-0.16.2/docs/Servant-Server-Internal-Handler.html#t:Handler) we see that it has an `Applicative` instance which will provide us [just what we need](https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Applicative.html#v:pure).
+
+```
+ > :type pure @Handler
+pure @Handler :: a -> Handler a
+```
+
+So there we have it.
+
+```haskell
+usersIndex :: Handler [User]
+usersIndex = pure users
+```
+
+For `UsersShow` we'll have a little more work to do. We're supplied the user name of the user we'd like returned, that means we should use it to look for that user in `users`. The function we'll need for poking around in lists is `find`.
+
+```haskell
+find :: Foldable t => (a -> Bool) -> t a -> Maybe a
+```
+
+Or more specifically for our case.
+
+```
+ > :t find @[] @User
+find @[] @User :: (User -> Bool) -> [User] -> Maybe User
+```
+
+We'll need a function `User -> Bool` and in our case the `Bool` should indicate whether a provided `String` matches a given `User`s `username`.
+
+```haskell
+matchesUsername :: String -> User -> Bool
+matchesUsername uname = (uname ==) . username
+```
+
+We're nearly there.
+
+```
+ > :t \uname -> find @[] (matchesUsername uname)
+\uname -> find @[] (matchesUsername uname)
+  :: String -> [User] -> Maybe User
+
+ > :t \uname -> find @[] (matchesUsername uname) users
+\uname -> find @[] (matchesUsername uname) users
+  :: String -> Maybe User
+```
+
+The final step is to turn a `Maybe User` into a `Handler User`. For the `Just` case we have a `User` and are able to use `pure @Handler` to wrap it in a `Handler`, but for the `Nothing` case, what should we do?
+
+```haskell
+usersShow :: String -> Handler User
+usersShow uname =
+  case find (matchesUsername uname) users of
+    Nothing   -> _
+    Just user -> pure user
+```
+
+Ordinarily when you ask a web server for a resource it can't find you get a 404 response back. How can we produce a value of `Handler User` that results in a 404?
+
+By looking at the docs for `Handler` again we can see that it has a [`MonadError`](https://hackage.haskell.org/package/mtl-2.2.2/docs/Control-Monad-Error-Class.html#t:MonadError) instance, this suggests that we can use `throwError` when we need to return _something_ but can't return a `User`.
+
+By looking at `Handler`'s instance for `MonadError` we see that it's defined for a `ServantErr` type. So in our case `throwError` has the following type.
+
+```
+ > :t throwError @ServantErr @Handler
+throwError @ServantErr @Handler :: ServantErr -> Handler a
+```
+
+Now it helps to look at the [documentation for `ServantErr`](https://hackage.haskell.org/package/servant-server-0.15/docs/Servant-Server-Internal-ServantErr.html). There we see quite a few values of the type, including a quite relevant-looking `err404`.
+
+```haskell
+usersShow :: String -> Handler User
+usersShow uname =
+  case find (matchesUsername uname) users of
+    Nothing   -> throwError err404
+    Just user -> pure user
+```
+
+We've now defined everything we need and should have a runnable server.
+
+Start it up.
+
+```
+$ runhaskell src/Main.hs
+```
+
+And try it out.
+
+```
+$ curl -sD /dev/stderr http://localhost:8080/users | jq .
+HTTP/1.1 200 OK
+Transfer-Encoding: chunked
+Date: Sat, 21 Sep 2019 05:26:33 GMT
+Server: Warp/3.2.28
+Content-Type: application/json;charset=utf-8
+
+[
+  {
+    "email": "isaac@newton.co.uk",
+    "registration_date": "1683-03-01",
+    "age": 372,
+    "username": "isaac",
+    "name": "Isaac Newton"
+  },
+  {
+    "email": "ae@mc2.org",
+    "registration_date": "1905-12-01",
+    "age": 136,
+    "username": "albert",
+    "name": "Albert Einstein"
+  }
+]
+
+$ curl -sD /dev/stderr http://localhost:8080/users/albert | jq .
+HTTP/1.1 200 OK
+Transfer-Encoding: chunked
+Date: Sat, 21 Sep 2019 05:25:09 GMT
+Server: Warp/3.2.28
+Content-Type: application/json;charset=utf-8
+
+{
+  "email": "ae@mc2.org",
+  "registration_date": "1905-12-01",
+  "age": 136,
+  "username": "albert",
+  "name": "Albert Einstein"
+}
+
+$ curl -sD /dev/stderr http://localhost:8080/users/unknown | jq .
+HTTP/1.1 404 Not Found
+Transfer-Encoding: chunked
+Date: Sat, 21 Sep 2019 05:26:00 GMT
+Server: Warp/3.2.28
+
+```
 
 ## Conclusion
 
