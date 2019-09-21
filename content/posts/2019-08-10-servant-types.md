@@ -10,7 +10,7 @@ summary: |
 
   type UsersShow =
     Capture "username" String
-      :> Get '[JSON] (Maybe User)
+      :> Get '[JSON] User
 
   type UsersAPI =
     "users"
@@ -22,7 +22,7 @@ I was shown [Servant](https://hackage.haskell.org/package/servant) by a friend o
 
 It should be said that I was able to build a biggish [real world project](https://github.com/bradparker/servant-beam-realworld-example-app/) before doing any of this investigation. For me, one of the greatest strengths of Servant is how it intuitive it is to use.
 
-Servant has you define your API as a type. You're not expected to define a wholly _new_ type, but rather combine existing types provided by the framework. These types form a domain specific language, at the type level, for describing a web API. This was quite a mental shift for me, that the type comes first, and drives the implementation. It's just so great that Servant's DSL is expressive enough to describe almost any API you might want to implement.
+Servant has you define your API as a type. You're not expected to define a wholly _new_ type, but rather combine existing types provided by the framework. These add up to a domain specific language, at the type level, for describing web APIs. This was quite a mental shift for me, that the type comes first, and drives the implementation. It's just so great that Servant's DSL is expressive enough to describe almost any API you might want to implement.
 
 This post aims to understand _how_ Servant can take so many varied API descriptions and guide us to writing a corresponding implementation.
 
@@ -30,7 +30,7 @@ This post aims to understand _how_ Servant can take so many varied API descripti
 
 The example we'll use is quite close to the one used Servant's introductory tutorial. We're going to describe an API which has two endpoints: `GET /users` which returns a JSON-encoded list of users and `GET /users/:username` which returns the user, again JSON-encoded, for a corresponding username.
 
-We'll make use of [type synonyms](https://wiki.haskell.org/Type_synonym) to group and give logical names to the sub-components of our API.
+We'll make use of [type synonyms](https://wiki.haskell.org/Type_synonym) to group and give logical names to our API's sub-components.
 
 ```haskell
 {-# LANGUAGE DataKinds #-}
@@ -49,7 +49,7 @@ type UsersIndex =
 
 type UsersShow =
   Capture "username" String
-    :> Get '[JSON] (Maybe User)
+    :> Get '[JSON] User
 
 type UsersAPI =
   "users"
@@ -69,9 +69,9 @@ Capture "username" String
 
 GHC supports both [numeric](https://hackage.haskell.org/package/base-4.12.0.0/docs/GHC-TypeLits.html#t:Nat) and [string-like](https://hackage.haskell.org/package/base-4.12.0.0/docs/GHC-TypeLits.html#t:Symbol) [type level literals](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#type-level-literals).  Of greatest interest to us are the string-like type literals.
 
-The first thing to note about these is that unlike most types we encounter in Haskell type-level string literals are not of kind `*`, or indeed anything involving `*`, but rather `Symbol`.
+The first thing to note about these is that unlike most types we encounter in Haskell type-level string literals are not of kind `*` but rather `Symbol`.
 
-Another important thing to keep in mind is that each unique value is a different type. Or put another way the _type_ `"foo"` is distinct from the _type_ `"bar"`. When talking about these types as a whole it's helpful to step up to the kind layer and refer to them as `Symbol`s. For example: `"foo"` and `"bar"` are different types but they're both `Symbol`s.
+Another important thing to keep in mind is that each unique value is a different type. Or put another way, the _type_ `"foo"` is distinct from the _type_ `"bar"`. When talking about these types as a whole it's helpful to step up to the kind layer and refer to them as `Symbol`s. For example: `"foo"` and `"bar"` are different types but they're both `Symbol`s.
 
 When working with Servant, `Symbol`s are used to easily define things like static route segments, as well as named route and query parameters. `Symbol`s can be brought down from the type level to strings at the value level. This means that Servant is able to extract _data_ from API types for use at run time. More on this later.
 
@@ -231,7 +231,7 @@ The second tells us the type of the `_usersServer` value we've yet to define.
 ```
 • Found hole:
     _usersServer
-      :: Handler [User] :<|> ([Char] -> Handler (Maybe User))
+      :: Handler [User] :<|> ([Char] -> Handler User)
   Or perhaps ‘_usersServer’ is mis-spelled, or not in scope
 • In the second argument of ‘serve’, namely ‘_usersServer’
   In the expression: serve (Proxy @Users) _usersServer
@@ -258,11 +258,11 @@ I think asking GHCi what the type of `serve` is when partially applied with a `P
 ```
  > :t serve (Proxy @UsersAPI)
 serve (Proxy @UsersAPI)
-  :: (Handler [User] :<|> ([Char] -> Handler (Maybe User)))
+  :: (Handler [User] :<|> ([Char] -> Handler User))
      -> Application
 ```
 
-This is interesting. In the type of `serve` where previously there was a `ServerT api Handler` there is now a `Handler [User] :<|> ([Char] -> Handler (Maybe User))`. Where did it come from?
+This is interesting. In the type of `serve` where previously there was a `ServerT api Handler` there is now a `Handler [User] :<|> ([Char] -> Handler User)`. Where did it come from?
 
 Recall that `serve` has the following type.
 
@@ -297,10 +297,10 @@ GHCi allows us to evaluate type families, to see what the resulting type at diff
 ```
  > :kind! ServerT Users Handler
 ServerT UsersAPI Handler :: *
-= Handler [User] :<|> ([Char] -> Handler (Maybe User))
+= Handler [User] :<|> ([Char] -> Handler User)
 ```
 
-Here we can see where how `UsersAPI` becomes `Handler [User] :<|> ([Char] -> Handler (Maybe User))` when substituted for `api` in the type of `serve`.
+Here we can see where how `UsersAPI` becomes `Handler [User] :<|> ([Char] -> Handler User)` when substituted for `api` in the type of `serve`.
 
 But that's not super satisfying to me. I feel like we're skipping a few steps. I'd like to see if we can find out what those steps are.
 
@@ -486,7 +486,7 @@ What was `UsersShow` a synonym for?
 ```haskell
 type UsersShow =
   Capture "username" String
-    :> Get '[JSON] (Maybe User)
+    :> Get '[JSON] User
 ```
 
 It's outermost type constructor is `(:>)`, which we've seen before. Oddly we haven't yet seen the `ServerT` that we'll need to evaluate this next step.
@@ -526,10 +526,10 @@ type instance
     a -> ServerT api m
 ```
 
-Substituting `'[]` for `mods`, `"username"` for `capture`, `String` for `a`, `Get '[JSON] (Maybe User)` for `api` and `Handler` for `m` gives us a function.
+Substituting `'[]` for `mods`, `"username"` for `capture`, `String` for `a`, `Get '[JSON] User` for `api` and `Handler` for `m` gives us a function.
 
 ```haskell
-String -> ServerT (Get '[JSON] (Maybe User)) Handler
+String -> ServerT (Get '[JSON] User) Handler
 ```
 
 This is magical. A `Capture` is transformed into a function which accepts the path parameter it represents.
@@ -537,7 +537,7 @@ This is magical. A `Capture` is transformed into a function which accepts the pa
 We're nearly done evaluating, we have one more call to `ServerT`.
 
 ```haskell
-ServerT (Get '[JSON] (Maybe User)) Handler
+ServerT (Get '[JSON] User) Handler
 ```
 
 Fortunately we already know the `ServerT` to use here.
@@ -551,13 +551,13 @@ type instance
 So let's apply it.
 
 ```haskell
-Handler (Maybe User)
+Handler User
 ```
 
 And we're finished evaluating `ServerT UsersShow Hander`.
 
 ```haskell
-String -> Handler (Maybe User)
+String -> Handler User
 ```
 
 Which means we're finished evaluating `ServerT UsersIndex Handler :<|> ServerT UsersShow Handler`.
@@ -565,7 +565,7 @@ Which means we're finished evaluating `ServerT UsersIndex Handler :<|> ServerT U
 Which means we're finished evaluating `ServerT UsersAPI Handler`.
 
 ```haskell
-Handler [User] :<|> (String -> Handler (Maybe User))
+Handler [User] :<|> (String -> Handler User)
 ```
 
 Here's all of those steps together.
@@ -573,21 +573,50 @@ Here's all of those steps together.
 ```haskell
 ServerT UsersAPI Handler
 ServerT ("users" :> (UsersIndex :<|> UsersShow)) Handler
+ServerT (UsersIndex :<|> UsersShow) Handler
 ServerT UsersIndex Handler :<|> ServerT UsersShow Handler
 ServerT (Get '[JSON] [User]) Handler :<|> ServerT UsersShow Handler
 ServerT (Verb GET 200 '[JSON] [User]) Handler :<|> ServerT UsersShow Handler
 Handler [User] :<|> ServerT UsersShow Handler
-Handler [User] :<|> ServerT (Capture "username" String :> Get '[JSON] (Maybe User)) Handler
-Handler [User] :<|> (String -> ServerT (Get '[JSON] (Maybe User))) Handler
-Handler [User] :<|> (String -> ServerT (Verb GET 200 '[JSON] (Maybe User))) Handler
-Handler [User] :<|> (String -> Handler (Maybe User))
+Handler [User] :<|> ServerT (Capture "username" String :> Get '[JSON] User) Handler
+Handler [User] :<|> (String -> ServerT (Get '[JSON] User)) Handler
+Handler [User] :<|> (String -> ServerT (Verb GET 200 '[JSON] User)) Handler
+Handler [User] :<|> (String -> Handler User)
 ```
+
+So this is how Servant goes about transforming the `UsersAPI` type into the type of a server. We first declared a reasonable looking shape for our API as a type and now Servant is letting us know how we can implement a server for it.
+
+Before we do that, however, we had another type error we were going to look into.
 
 ## Content types
 
 Why did we need to define a `ToJSON` instance for `User`? Where did that constraint come from?
 
+We mention JSON twice in the type of `UsersAPI`, in both instances it's as an argument to the `Get` type constructor. Recall from above that `Get` is an alias for `Verb`, recall also that the only constraint on `serve` is that the provided `api` type has a `HasServer` instance. Is there anything interesting about the `HasServer` instance for `Verb`?
+
 ```haskell
+instance
+  forall
+    k1
+    (ctypes :: [*])
+    a
+    (method :: k1)
+    (status :: Nat)
+    (context :: [*]).
+  ( AllCTRender ctypes a
+  , ReflectMethod method
+  , KnownNat status
+  ) =>
+    HasServer (Verb method status ctypes a) context
+```
+
+The `HasServer` instance for `Verb` constrains the `a` type parameter to be an instance of a type class called `AllCTRender`. If we go looking for instances of this type class we're faced with something that might seem a little strange.
+
+```haskell
+instance
+  (TypeError ...) =>
+    AllCTRender '[] ()
+
 instance
   ( Accept ct
   , AllMime cts
@@ -595,6 +624,12 @@ instance
   ) =>
     AllCTRender (ct : cts) a
 ```
+
+It has two instances. One instance which will throw a custom type error when applied to an empty list and `()`, and one that doesn't refer to any concrete types, strange stuff.
+
+Notice that type level lists can be pattern matched and de-structured quite like value level lists, here in the constraints of this type class instance. This means that were able to iterate over type level lists in much the same way that we do for those at the value level. The iteration splits off into three more type classes: `Accept`, `AllMime` and `AllMimeRender`.
+
+`AllMimeRender` has two instances, and with these this _really_ starts to look like value level list iteration.
 
 ```haskell
 instance
@@ -609,6 +644,33 @@ instance
     AllMimeRender (ctyp : ctyp' : ctyps) a
 ```
 
+We have a base case where there's only one element in the list. The other instance asserts that the head of the list has an instance of `MimeRender` and the (non-empty) tail has one for `AllMimeRender`, that is: it recurses.
+
+Our API only speaks JSON, represented by it's content-types list being `'[JSON]`, so the first instance of `AllMimeRender` is used. This means that there needs to be an instance of `MimeRender` for `JSON`. By looking for that instance we see what we've been looking for.
+
 ```haskell
 instance ToJSON a => MimeRender JSON a
 ```
+
+Here's how it all goes.
+
+* In order for there to be an instance of `HasServer` for `Verb GET 200 '[JSON] User` there has to be an instance of `AllCTRender` for `'[JSON]` and  `User`
+* In order for there to be an instance of `AllCTRender` for `'[JSON]` and  `User` there has to be an instance of `AllMimeRender` for `'[JSON]` and  `User`
+* In order for there to be an instance of `AllMimeRender` for `'[JSON]` and  `User` there has to be an instance of `MimeRender` for `JSON` and `User`
+* In order for there to be an instance of `MimeRender` for `JSON` and `User` there has to be an instance of Aeson's `ToJSON` for `User`
+
+So that's why when we tried to apply `UsersAPI` to `serve` we needed to define a `ToJSON` instance for `User`.
+
+## Implementing a server for our type
+
+Now we know _why_ the type hole `_usersServer` has the type it does.
+
+```haskell
+Handler [User] :<|> (String -> Handler User)
+```
+
+So what are we going to do about it?
+
+## Conclusion
+
+Summary of learnings.
