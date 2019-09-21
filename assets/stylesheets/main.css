@@ -120,7 +120,7 @@
     monospace;
 }
 
-.markdown p > code, .markdown a > code {
+.markdown p > code, .markdown a > code, .markdown li > code {
   background-color: #f0c674;
   padding: 0.12rem 0.3rem 0.16rem;
   border-radius: 0.12rem;
