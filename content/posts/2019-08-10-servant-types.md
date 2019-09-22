@@ -20,7 +20,7 @@ summary: |
 
 I was shown [Servant](https://hackage.haskell.org/package/servant) by a friend of mine a few years ago. It's fair to say that, initially, I was overwhelmed. Haskell was a new language to me and one of the things that had really grabbed me about it was its transparency. Without being very familiar with the language I found that I could tease out how some function or data structure worked just by poking around. My initial look at the Servant [introductory tutorial](https://docs.servant.dev/en/stable/tutorial/index.html) was not so straight forward.
 
-It should be said that I was able to build a biggish [real world project](https://github.com/bradparker/servant-beam-realworld-example-app/) before doing any of this investigation. For me, one of the greatest strengths of Servant is how it intuitive it is to use.
+It should be said that I was able to build a biggish [real world project](https://github.com/bradparker/servant-beam-realworld-example-app/) before doing any of this investigation. For me, one of the greatest strengths of Servant is how intuitive it is to use.
 
 Servant has you define your API as a type. You're not expected to define a wholly _new_ type, but rather combine existing types provided by the framework. These add up to a domain specific language, at the type level, for describing web APIs. This was quite a mental shift for me, that the type comes first, and drives the implementation. It's just so great that Servant's DSL is expressive enough to describe almost any API you might want to implement.
 
@@ -210,8 +210,7 @@ import Network.Wai.Handler.Warp (run)
 import Servant (serve)
 
 usersApp :: Application
-usersApp =
-  serve (Proxy @UsersAPI) _usersServer
+usersApp = serve (Proxy @UsersAPI) _usersServer
 
 main :: IO ()
 main = run 8080 usersApp
@@ -239,7 +238,7 @@ The second tells us the type of the `_usersServer` value we've yet to define.
       usersApp = serve (Proxy @Users) _usersServer
 ```
 
-We'll come back to why we're being asked about `ToJSON` instances but for now we'll just give `Servant` what it wants.
+We'll come back to why we're being asked about `ToJSON` instances but for now we'll just give Servant what it wants.
 
 ```haskell
 import Data.Aeson (ToJSON)
@@ -251,9 +250,7 @@ Well, that was pretty easy.
 
 ## A Server's type
 
-Back to that second error.
-
-I think asking GHCi what the type of `serve` is when partially applied with a `Proxy UsersAPI` is instructive here.
+We will try to understand where that `ToJSON` requirement came from but first we're going to focus on the typed hole. I think asking GHCi what the type of `serve` is when partially applied with a `Proxy UsersAPI` is instructive here.
 
 ```
  > :t serve (Proxy @UsersAPI)
@@ -275,9 +272,24 @@ serve
   -> Application
 ```
 
-There's a type variable `api`, which is constrained to be types with a `HasServer` instance. There's then two arguments, both referring to that constrained `api` type. We'll explain what the `Proxy api` is for as a bonus but most of our attention will be placed on the `ServerT api Handler` argument.
+There's a type variable `api`, which is constrained to be types with a `HasServer` instance. There's then two arguments, both referring to that constrained `api` type. The first refers to some `Proxy` type which, if you've seen types like `Map a` or `Set a` before might look like it should be for some sort of container. `Proxy` is _sort_ of a container, but rather a than for carrying around values it's for carrying around types.
 
-What is `ServerT`? Why does it disappear when `UsersAPI` is substituted for `api`? It can't be a type constructor, type constructors don't just disappear. What does GHCi have to say about it?
+```haskell
+data Proxy (t :: k) = Proxy
+```
+
+See that the only data constructor, also called `Proxy`, is nullary. At the value level it's empty, but at the type level it contains some `t` of kind `k`. Values of `Proxy` are made easier to construct with the help of the `TypeApplications` language extension. Using `TypeApplications` we can make explicit the types which are inferred and applied to our expressions.
+
+```
+ > :t Proxy
+Proxy :: Proxy t
+ > :t Proxy @Int
+Proxy @Int :: Proxy Int
+```
+
+The `Proxy api` argument is needed by `serve` for slightly obscure reasons, but for our purposes it's enough to say that it's a value which carries the `api` type around.
+
+On the the second argument. What is `ServerT`? Why does it disappear when `UsersAPI` is substituted for `api`? It can't be a type constructor, type constructors don't just disappear. What does GHCi have to say about it?
 
 ```
  > :info ServerT
@@ -292,7 +304,7 @@ class HasServer (api :: k)
 
 `ServerT` is part of the `HasServer` [type class](https://en.wikibooks.org/wiki/Haskell/Classes_and_types), therefore it will be defined for any type which has a `HasServer` instance. It accepts the poly kinded `api` type `HasServer` is parameterized over as its first argument and some type constructor `m` of kind `* -> *` as its second. It then returns some type of kind `*`.
 
-GHCi allows us to evaluate type families, to see what the resulting type at different type arguments.
+GHCi allows us to evaluate type families, to see what the resulting type is at different type arguments.
 
 ```
  > :kind! ServerT Users Handler
@@ -304,7 +316,7 @@ Here we can see where how `UsersAPI` becomes `Handler [User] :<|> ([Char] -> Han
 
 But that's not super satisfying to me. I feel like we're skipping a few steps. I'd like to see if we can find out what those steps are.
 
-One of the great advantages of referentially transparent languages like Haskell is that if we want to _see_ how an expression is evaluated we can manually do the evaluating ourselves. We can substitute values for function parameters and continue evaluating the resulting expressions until we're only left with values. We'll attempt to apply this strategy to see what happens when `UsersAPI` is applied to `ServerT`.
+One of the great advantages of referentially transparent languages like Haskell is that if we want to _see_ how an expression is evaluated we can do the evaluating ourselves, manually. We can substitute values for function parameters and continue evaluating the resulting expressions until we're only left with values. We'll attempt to apply this strategy to see what happens when `UsersAPI` is applied to `ServerT`.
 
 ### Stepping through
 
@@ -326,7 +338,7 @@ type UsersAPI = "users" :> (UsersIndex :<|> UsersShow)
 
 GHCi knows that `UsersAPI` is a type synonym and helpfully shows us its definition.
 
-We still don't have a `HasServer` instance so we'll ask GHCi what it knows about the type that `UsersAPI` is a synonym _for_. Sadly, we can't pass the whole type to `:info`, we can only ask out about things like type families or type constructors when unapplied. So we'll need to start with the outermost type constructor, `(:>)`, and go from there.
+We still don't have a `HasServer` instance so we'll ask GHCi what it knows about the type that `UsersAPI` is a synonym _for_. Sadly, we can't pass the whole type to `:info`, we can only ask about things like type families or type constructors when unapplied. So we'll need to start with the outermost type constructor, `(:>)`, and go from there.
 
 The instance we're interested in will only show up if we import a couple of modules first.
 
@@ -489,7 +501,7 @@ type UsersShow =
     :> Get '[JSON] User
 ```
 
-It's outermost type constructor is `(:>)`, which we've seen before. Oddly we haven't yet seen the `ServerT` that we'll need to evaluate this next step.
+It's outermost type constructor is `(:>)`, which we've seen before. Despite this we haven't yet seen the `ServerT` that we'll need to evaluate this next step.
 
 Remember that the instance we last saw required that the first argument to `(:>)` be of kind `Symbol`. The first argument to `(:>)` in `UsersShow`, however, isn't. It's a bad match, we'll have to find another instance.
 
@@ -669,9 +681,7 @@ Now we know how the typed hole `_usersServer` ends up with the type it does.
 Handler [User] :<|> (String -> Handler User)
 ```
 
-Let's go about creating a value of this type. We might start from the outside, in much the same order as we traced the evaluation of `ServerT`. This means first figuring out how to construct a value of type `a :<|> b`.
-
-Using GHCi we're able to view the definition of this type.
+Let's go about creating a value of this type. We might start from the outside, in much the same order as we traced the evaluation of `ServerT`. This means first figuring out how to construct a value of type `a :<|> b`.  Using GHCi we're able to view the definition of this type.
 
 ```haskell
 data (:<|>) a b = a :<|> b
@@ -732,7 +742,7 @@ usersShow _uname = _
 
 We'll start with `usersIndex`, which is a value of type `Handler [User]`.
 
-For the sake of this example our collection of users will be some example data. I might do another post of my experience with using [Beam](https://tathougies.github.io/beam/) in a Servant application, but for now let's keep it simple.
+For the sake of this example our collection of users will be some example data. I might do another post on my experience of using [Beam](https://tathougies.github.io/beam/) in a Servant application, but for now let's keep it simple.
 
 ```haskell
 users :: [User]
@@ -766,13 +776,13 @@ usersIndex :: Handler [User]
 usersIndex = pure users
 ```
 
-For `UsersShow` we'll have a little more work to do. We're supplied the user name of the user we'd like returned, that means we should use it to look for that user in `users`. The function we'll need for poking around in lists is `find`.
+For `UsersShow` we'll have a little more work to do. We're supplied the user name of the user we'd like returned, we should use it to look for that user in `users`. The function we'll need for finding elements of lists is `find`.
 
 ```haskell
 find :: Foldable t => (a -> Bool) -> t a -> Maybe a
 ```
 
-Or more specifically for our case.
+Or more specifically.
 
 ```
  > :t find @[] @User
