@@ -205,6 +205,11 @@
   margin-top: 0;
 }
 
+.markdown hr {
+  margin: 2rem 0;
+  color: #eee;
+}
+
 .markdown pre {
   line-height: 1.25;
   overflow: auto;
@@ -238,6 +243,9 @@
 .markdown pre .ot { color: #cc6666 }
 .markdown pre .st { color: #b5bd68 }
 .markdown pre .va { color: #f0c674 }
+
+.markdown pre.diff .st { color: #cc6666 }
+.markdown pre.diff .va { color: #b5bd68 }
 
 .fine-underline {
   background-image:

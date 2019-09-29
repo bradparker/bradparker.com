@@ -18,7 +18,11 @@ summary: |
   ```
 ---
 
-I was shown [Servant](https://hackage.haskell.org/package/servant) by a friend of mine a few years ago. It's fair to say that, initially, I was overwhelmed. Haskell was a new language to me and one of the things that had really grabbed me about it was its transparency. Without being very familiar with the language I found that I could tease out how some function or data structure worked just by poking around. My initial look at the Servant [introductory tutorial](https://docs.servant.dev/en/stable/tutorial/index.html) was not so straight forward.
+This post is about some reasonably advanced type-level features of [The Glasgow Haskell Compiler](https://www.haskell.org/ghc/) and as such I assume _some_ knowledge of Haskell. Despite this I've made an attempt to link to further resources on Haskell features as I introduce them. My hope is that even if this post as a whole doesn't make sense then at least some part of it might still be helpful.
+
+***
+
+Not long after I'd started to learn Haskell I was shown [Servant](https://hackage.haskell.org/package/servant) by a friend of mine. It's fair to say that, initially, I was overwhelmed. Even though Haskell was a new language to me one of the things that had really grabbed me about it was its transparency. Without being very familiar with the language I found that I could tease out how some function or data structure worked just by poking around. This inital look at the Servant [introductory tutorial](https://docs.servant.dev/en/stable/tutorial/index.html) was not so straight forward.
 
 It should be said that I was able to build a biggish [real world project](https://github.com/bradparker/servant-beam-realworld-example-app/) before doing any of this investigation. For me, one of the greatest strengths of Servant is how intuitive it is to use.
 
@@ -199,7 +203,26 @@ The [warp](https://hackage.haskell.org/package/warp) package provides a `run` fu
 run :: Port -> Application -> IO ()
 ```
 
-That should be enough for a skeleton `main`.
+In order for `serve` to return an `Application` we'll need to give it two things. The first is a `Proxy` of our `UsersAPI` type. If you've seen types like `Map a` or `Set a` before you might think that a `Proxy a` is some sort of container. `Proxy` is _sort_ of a container, but rather a than for carrying around values it's for carrying around types.
+
+```haskell
+data Proxy (t :: k) = Proxy
+```
+
+See that the only data constructor, also called `Proxy`, is nullary. At the value level it's empty, but at the type level it contains some `t` of kind `k`. Values of `Proxy` are made easier to construct with the help of the `TypeApplications` language extension. Using `TypeApplications` we can make explicit the types which are inferred and applied to our expressions.
+
+```
+ > :t Proxy
+Proxy :: Proxy t
+ > :t Proxy @Int
+Proxy @Int :: Proxy Int
+ > :t Proxy @UsersAPI
+Proxy @UsersAPI :: Proxy UsersAPI
+```
+
+The `Proxy @UsersAPI` argument is needed by `serve` for slightly obscure reasons, but for our purposes it's enough to say that it's a value which carries the `UsersAPI` type around.
+
+Producing a value for the second argument will be the topic of this post. We can use a [typed hole](https://downloads.haskell.org/~ghc/7.10.1/docs/html/users_guide/typed-holes.html) for now, giving us enough for a skeleton `main`.
 
 ```haskell
 {-# LANGUAGE TypeApplications #-}
@@ -238,15 +261,13 @@ The second tells us the type of the `_usersServer` value we've yet to define.
       usersApp = serve (Proxy @Users) _usersServer
 ```
 
-We'll come back to why we're being asked about `ToJSON` instances but for now we'll just give Servant what it wants.
+We'll come back to why we're being asked about [`ToJSON`](https://hackage.haskell.org/package/aeson-1.4.5.0/docs/Data-Aeson.html#t:ToJSON) instances but for now we'll just give Servant what it wants.
 
 ```haskell
 import Data.Aeson (ToJSON)
 
 instance ToJSON User
 ```
-
-Well, that was pretty easy.
 
 ## A Server's type
 
@@ -272,24 +293,9 @@ serve
   -> Application
 ```
 
-There's a type variable `api`, which is constrained to be types with a `HasServer` instance. There's then two arguments, both referring to that constrained `api` type. The first refers to some `Proxy` type which, if you've seen types like `Map a` or `Set a` before might look like it should be for some sort of container. `Proxy` is _sort_ of a container, but rather a than for carrying around values it's for carrying around types.
+There's a type variable `api`, which is constrained to be types with a `HasServer` instance. There's then two arguments, both referring to that constrained `api` type. We've been able to produce a value for the first using `Proxy @UserAPI`, a value for the second will take a little more doing.
 
-```haskell
-data Proxy (t :: k) = Proxy
-```
-
-See that the only data constructor, also called `Proxy`, is nullary. At the value level it's empty, but at the type level it contains some `t` of kind `k`. Values of `Proxy` are made easier to construct with the help of the `TypeApplications` language extension. Using `TypeApplications` we can make explicit the types which are inferred and applied to our expressions.
-
-```
- > :t Proxy
-Proxy :: Proxy t
- > :t Proxy @Int
-Proxy @Int :: Proxy Int
-```
-
-The `Proxy api` argument is needed by `serve` for slightly obscure reasons, but for our purposes it's enough to say that it's a value which carries the `api` type around.
-
-On the the second argument. What is `ServerT`? Why does it disappear when `UsersAPI` is substituted for `api`? It can't be a type constructor, type constructors don't just disappear. What does GHCi have to say about it?
+I mean, what is `ServerT`? Why does it disappear when `UsersAPI` is substituted for `api`? It can't be a type constructor, type constructors don't just disappear. What does GHCi have to say about it?
 
 ```
  > :info ServerT
@@ -427,7 +433,7 @@ type UsersIndex =
   Get '[JSON] [User]
 ```
 
-If we ask GHCi what `Get` is we're told that it is as well.
+If we ask GHCi what `Get` is we're told that it too is a synonym.
 
 ```
  > :info Get
@@ -465,7 +471,7 @@ type instance
     m a
 ```
 
-Figuring out how to substitute this is helped by inlining all the synonyms in `UsersShow`.
+`Verb`s are very general, we can make this look a bit simpler by inlining all the arguments that have been applied in the `UsersShow` type.
 
 ```haskell
 UsersShow
@@ -475,7 +481,7 @@ Get '[JSON] [User]
 Verb GET 200 '[JSON] [User]
 ```
 
-Substituting `[User]` for `a` and `Handler` for `m` yields a much simpler looking type.
+We now see that we can substitute `[User]` for `a`. Because we're tracing the evaluation of `ServerT` as it's used in `serve` we'll always be substituting `Handler` for `m`. If we make those two substitutions in the body of the type family instance above we get the following.
 
 ```haskell
 Handler [User]
@@ -700,7 +706,15 @@ usersServer :: Server UsersAPI
 usersServer = _usersIndex :<|> _usersShow
 ```
 
-Applying this to `server` will let us know if we're on the right track. Doing so should give us something like the following.
+Applying this to `serve` will let us know if we're on the right track.
+
+```diff
+  usersApp :: Application
+- usersApp = serve (Proxy @UsersAPI) _usersServer
++ usersApp = serve (Proxy @UsersAPI) usersServer
+```
+
+Trying to compile should give us something like the following.
 
 ```
 src/Main.hs:86:15: error:
@@ -739,6 +753,7 @@ usersIndex = _
 usersShow :: String -> Handler User
 usersShow _uname = _
 ```
+<figcaption>Link to commit</figcaption>
 
 We'll start with `usersIndex`, which is a value of type `Handler [User]`.
 
@@ -899,4 +914,12 @@ Server: Warp/3.2.28
 
 ## Conclusion
 
-Summary of learnings.
+My hope when planning this post was that I'd become a little more familiar with the type level programming features of GHC Haskell. I wasn't sure which features or to what extent. Having finished I'd say that I've _started_ to understand this topic. At the very least I've spent a bit of time becoming more familiar with a library that makes great use of GHC's type level features.
+
+The DSL provided by Servant allows us to construct types which specify an API contract. With it we were able to specify static route segments and named route parameters using `Symbol`s. We could associate those routes with HTTP verbs which could accept and return many different content-types using type level lists. Combining these components was made easy with infix type constructors.
+
+The way Servant has us think "specification first" is very appealing to me, and the more time I spend with Haskell the more this method of designing and implementing software just _feels right_. The type level feels much more declaritive: you don't talk as much about what you want to happen, instead you talk more about what things you would like to exist. Then it's up to you and the compiler to figure out how that might be possible.
+
+There's another, more practical, benefit to this in Servant's case however. Specifications can be turned into the type of a server for it but also much more. We can automatically produce [clients](https://hackage.haskell.org/package/servant-client), [documentation](https://hackage.haskell.org/package/servant-swagger), and even [property tests](https://hackage.haskell.org/package/servant-quickcheck).
+
+Investigating those packages would likely be good for even more type level learnings.
