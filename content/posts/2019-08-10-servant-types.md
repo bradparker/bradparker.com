@@ -22,9 +22,7 @@ This post is about some reasonably advanced type-level features of [The Glasgow 
 
 ***
 
-Not long after I'd started to learn Haskell I was shown [Servant](https://hackage.haskell.org/package/servant) by a friend of mine. It's fair to say that, initially, I was overwhelmed. Even though Haskell was a new language to me one of the things that had really grabbed me about it was its transparency. Without being very familiar with the language I found that I could tease out how some function or data structure worked just by poking around. This inital look at the Servant [introductory tutorial](https://docs.servant.dev/en/stable/tutorial/index.html) was not so straight forward.
-
-It should be said that I was able to build a biggish [real world project](https://github.com/bradparker/servant-beam-realworld-example-app/) before doing any of this investigation. For me, one of the greatest strengths of Servant is how intuitive it is to use.
+I was shown [Servant](https://hackage.haskell.org/package/servant) by a friend of mine not long after I'd started to learn Haskell. Even when it was quite new to me one of the things that had really grabbed me about Haskell was its transparency. Without being very familiar with the language I found that I could tease out how some function or data structure worked just by poking around. Now I've spent a little time building [stuff](https://github.com/bradparker/servant-beam-realworld-example-app/) with Servant I'd like to see what can be learned by having a closer look at some of _its_ functions and data structures. It's a really interesting library, I think this'll be fun.
 
 Servant has you define your API as a type. You're not expected to define a wholly _new_ type, but rather combine existing types provided by the framework. These add up to a domain specific language, at the type level, for describing web APIs. This was quite a mental shift for me, that the type comes first, and drives the implementation. It's just so great that Servant's DSL is expressive enough to describe almost any API you might want to implement.
 
@@ -59,6 +57,12 @@ type UsersAPI =
   "users"
     :> (UsersIndex :<|> UsersShow)
 ```
+
+<figcaption>
+  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/01-users-api-type">
+    Commit
+  </a>
+</figcaption>
 
 **Note** for each code example I'll try to show only the bits of the finished module which are relevant to what's being currently discussed. I have put together a [repository](https://github.com/bradparker/how-does-servants-type-dsl-work) containing a full working example for reference.
 
@@ -174,6 +178,7 @@ As `UsersAPI` is the type for an API which serves users we'll need to define wha
 ```haskell
 {-# LANGUAGE DeriveGeneric #-}
 
+import Data.Time (Day)
 import GHC.Generics (Generic)
 
 data User = User
@@ -181,9 +186,15 @@ data User = User
   , age :: Int
   , email :: String
   , username :: String
-  , registration_date :: Day
-  } deriving (Eq, Show, Generic)
+  , registrationDate :: Day
+  } deriving (Generic)
 ```
+
+<figcaption>
+  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/02-user-type">
+    Commit
+  </a>
+</figcaption>
 
 We're deriving a [`Generic`](https://wiki.haskell.org/GHC.Generics) instance for use later, it just helps to get it out of the way now.
 
@@ -239,6 +250,12 @@ main :: IO ()
 main = run 8080 usersApp
 ```
 
+<figcaption>
+  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/03-main">
+    Commit
+  </a>
+</figcaption>
+
 If we try to compile what we have so far we get two errors. The first is complaining about a missing instance.
 
 ```
@@ -268,6 +285,12 @@ import Data.Aeson (ToJSON)
 
 instance ToJSON User
 ```
+
+<figcaption>
+  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/04-to-json-instance">
+    Commit
+  </a>
+</figcaption>
 
 ## A Server's type
 
@@ -706,6 +729,12 @@ usersServer :: Server UsersAPI
 usersServer = _usersIndex :<|> _usersShow
 ```
 
+<figcaption>
+  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/05-usersServer">
+    Commit
+  </a>
+</figcaption>
+
 Applying this to `serve` will let us know if we're on the right track.
 
 ```diff
@@ -753,7 +782,12 @@ usersIndex = _
 usersShow :: String -> Handler User
 usersShow _uname = _
 ```
-<figcaption>Link to commit</figcaption>
+
+<figcaption>
+  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/06-usersShow-and-usersIndex-placeholders">
+    Commit
+  </a>
+</figcaption>
 
 We'll start with `usersIndex`, which is a value of type `Handler [User]`.
 
@@ -777,6 +811,12 @@ users =
   ]
 ```
 
+<figcaption>
+  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/07-sample-users">
+    Commit
+  </a>
+</figcaption>
+
 Now that we have a value of `[User]` we need a function which can wrap it in a `Handler`. Looking at the [documentation for `Handler`](https://hackage.haskell.org/package/servant-server-0.16.2/docs/Servant-Server-Internal-Handler.html#t:Handler) we see that it has an `Applicative` instance which will provide us [just what we need](https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Applicative.html#v:pure).
 
 ```
@@ -790,6 +830,12 @@ So there we have it.
 usersIndex :: Handler [User]
 usersIndex = pure users
 ```
+
+<figcaption>
+  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/08-usersIndex">
+    Commit
+  </a>
+</figcaption>
 
 For `UsersShow` we'll have a little more work to do. We're supplied the user name of the user we'd like returned, we should use it to look for that user in `users`. The function we'll need for finding elements of lists is `find`.
 
@@ -833,6 +879,12 @@ usersShow uname =
     Just user -> pure user
 ```
 
+<figcaption>
+  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/09-most-of-usersShow">
+    Commit
+  </a>
+</figcaption>
+
 Ordinarily when you ask a web server for a resource it can't find you get a 404 response back. How can we produce a value of `Handler User` that results in a 404?
 
 By looking at the docs for `Handler` again we can see that it has a [`MonadError`](https://hackage.haskell.org/package/mtl-2.2.2/docs/Control-Monad-Error-Class.html#t:MonadError) instance, this suggests that we can use `throwError` when we need to return _something_ but can't return a `User`.
@@ -853,6 +905,12 @@ usersShow uname =
     Nothing   -> throwError err404
     Just user -> pure user
 ```
+
+<figcaption>
+  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/10-return-404-when-no-matching-user">
+    Commit
+  </a>
+</figcaption>
 
 We've now defined everything we need and should have a runnable server.
 
@@ -875,14 +933,14 @@ Content-Type: application/json;charset=utf-8
 [
   {
     "email": "isaac@newton.co.uk",
-    "registration_date": "1683-03-01",
+    "registrationDate": "1683-03-01",
     "age": 372,
     "username": "isaac",
     "name": "Isaac Newton"
   },
   {
     "email": "ae@mc2.org",
-    "registration_date": "1905-12-01",
+    "registrationDate": "1905-12-01",
     "age": 136,
     "username": "albert",
     "name": "Albert Einstein"
@@ -898,7 +956,7 @@ Content-Type: application/json;charset=utf-8
 
 {
   "email": "ae@mc2.org",
-  "registration_date": "1905-12-01",
+  "registrationDate": "1905-12-01",
   "age": 136,
   "username": "albert",
   "name": "Albert Einstein"
