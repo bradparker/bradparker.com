@@ -793,7 +793,7 @@ usersShow _uname = _
 
 We'll start with `usersIndex`, which is a value of type `Handler [User]`.
 
-For the sake of this example our collection of users will be some example data. I might do another post on my experience of using [Beam](https://tathougies.github.io/beam/) in a Servant application, but for now let's keep it simple.
+For the sake of this example our collection of users will be some static, sample data. I might do another post on my experience of using [Beam](https://tathougies.github.io/beam/) in a Servant application, but for now let's keep it simple.
 
 ```haskell
 users :: [User]
@@ -972,7 +972,7 @@ Server: Warp/3.2.28
 
 ```
 
-## Conclusion
+## What's all for?
 
 My hope when planning this post was that I'd become a little more familiar with the type level programming features of GHC Haskell. I wasn't sure which features or to what extent. Having finished I'd say that I've _started_ to understand this topic. At the very least I've spent a bit of time becoming more familiar with a library that makes great use of GHC's type level features.
 
@@ -980,6 +980,6 @@ The DSL provided by Servant allows us to construct types which specify an API co
 
 The way Servant has us think "specification first" is very appealing to me, and the more time I spend with Haskell the more this method of designing and implementing software just _feels right_. The type level feels much more declaritive: you don't talk as much about what you want to happen, instead you talk more about what things you would like to exist. Then it's up to you and the compiler to figure out how that might be possible.
 
-There's another, more practical, benefit to this in Servant's case however. Specifications can be turned into the type of a server for it but also much more. We can automatically produce [clients](https://hackage.haskell.org/package/servant-client), [documentation](https://hackage.haskell.org/package/servant-swagger), and even [property tests](https://hackage.haskell.org/package/servant-quickcheck).
+There's another, more practical, benefit to this in Servant's case however. We've seen that specifications can be turned into the types of servers which implement them, however we didn't explore how we can also use them to automatically produce [clients](https://hackage.haskell.org/package/servant-client), [documentation](https://hackage.haskell.org/package/servant-swagger), and even [property tests](https://hackage.haskell.org/package/servant-quickcheck).
 
-Investigating those packages would likely be good for even more type level learnings.
+I imagine investigating those packages would be good for even more type level learnings.
