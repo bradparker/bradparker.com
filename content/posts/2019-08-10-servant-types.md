@@ -39,7 +39,7 @@ We'll make use of [type synonyms](https://wiki.haskell.org/Type_synonym) to grou
 {-# LANGUAGE TypeOperators #-}
 
 import Servant
-  ( (:<|>)((:<|>))
+  ( (:<|>)
   , (:>)
   , Capture
   , Get
@@ -59,12 +59,12 @@ type UsersAPI =
 ```
 
 <figcaption>
-  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/01-users-api-type">
+  <a target="_blank" href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/01-users-api-type">
     Commit
   </a>
 </figcaption>
 
-**Note** for each code example I'll try to show only the bits of the finished module which are relevant to what's being currently discussed. I have put together a [repository](https://github.com/bradparker/how-does-servants-type-dsl-work) containing a full working example for reference.
+**Note** for each code example I'll try to show only the bits of the finished module which are relevant to what's being currently discussed. Below relevant code samples you'll see a "commit" annotation which will link to a matching diff in the example [repository](https://github.com/bradparker/how-does-servants-type-dsl-work).
 
 This first code example already contains a few type-level features that likely look interesting. Let's take a closer look.
 
@@ -77,7 +77,9 @@ Capture "username" String
 
 GHC supports both [numeric](https://hackage.haskell.org/package/base-4.12.0.0/docs/GHC-TypeLits.html#t:Nat) and [string-like](https://hackage.haskell.org/package/base-4.12.0.0/docs/GHC-TypeLits.html#t:Symbol) [type level literals](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#type-level-literals).  Of greatest interest to us are the string-like type literals.
 
-The first thing to note about these is that unlike most types we encounter in Haskell type-level string literals are not of kind `*` but rather `Symbol`.
+The first thing to note about these is that unlike most types we encounter in Haskell type-level string literals are not of kind `Type` but rather `Symbol`.
+
+**Note** I'm using the extension `NoStarIsType` to replace `*` with `Type` when talking about kinds.
 
 Another important thing to keep in mind is that each unique value is a different type. Or put another way, the _type_ `"foo"` is distinct from the _type_ `"bar"`. When talking about these types as a whole it's helpful to step up to the kind layer and refer to them as `Symbol`s. For example: `"foo"` and `"bar"` are different types but they're both `Symbol`s.
 
@@ -100,11 +102,11 @@ The "tick" (`'`) prefix is used to disambiguate type-level lists and the type of
 
 Is that the type for a list of `Int`, or is that a type level list with only one element, `Int`?
 
-Similar to `Symbol` types like `'[Int]` and `'[Bool]` are not of kind `*`. Those particular examples are of kind `[*]`. It's worth noting, however, that the contents of a type level list need not be of kind `*`.
+Similar to `Symbol` types like `'[Int]` and `'[Bool]` are not of kind `Type`. Those particular examples are of kind `[Type]`. It's worth noting, however, that the contents of a type level list need not always be of kind `Type`.
 
 ```
  > :kind '[Maybe]
-'[Maybe] :: [* -> *]
+'[Maybe] :: [Type -> Type]
 ```
 
 If we ask GHCi for the kind of `'[]` we see something interesting.
@@ -120,7 +122,7 @@ This shows us that type level lists are [kind polymorphic](https://downloads.has
 '[] :: forall k. '[k]
 ```
 
-Just as the type for value-level lists is parameterized over some arbitrary other type.
+Just as the _type_ for value-level lists is parameterized over some arbitrary other type.
 
 ```
  > :type []
@@ -133,17 +135,17 @@ Just as the type for value-level lists is parameterized over some arbitrary othe
 [(+ 1), (+ 2), (+ 3)] :: Num a => [a -> a]
 ```
 
-The kind for type-level lists is parameterized over some arbitrary other kind.
+The _kind_ for type-level lists is parameterized over some arbitrary other kind.
 
 ```
  > :kind '[]
 '[] :: [k]
 
  > :kind '[(), Bool, Ordering]
-'[(), Bool, Ordering] :: [*]
+'[(), Bool, Ordering] :: [Type]
 
  > :kind '[Either (), Either Bool, Either Ordering]
-'[Either (), Either Bool, Either Ordering] :: [* -> *]
+'[Either (), Either Bool, Either Ordering] :: [Type -> Type]
 ```
 
 Servant uses type level lists for a couple of purposes. In this post we'll see how they're used to specify the set of content types a given API can accept and return.
@@ -191,7 +193,7 @@ data User = User
 ```
 
 <figcaption>
-  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/02-user-type">
+  <a target="_blank" href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/02-user-type">
     Commit
   </a>
 </figcaption>
@@ -251,7 +253,7 @@ main = run 8080 usersApp
 ```
 
 <figcaption>
-  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/03-main">
+  <a target="_blank" href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/03-main">
     Commit
   </a>
 </figcaption>
@@ -287,7 +289,7 @@ instance ToJSON User
 ```
 
 <figcaption>
-  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/04-to-json-instance">
+  <a target="_blank" href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/04-to-json-instance">
     Commit
   </a>
 </figcaption>
@@ -323,21 +325,21 @@ I mean, what is `ServerT`? Why does it disappear when `UsersAPI` is substituted 
 ```
  > :info ServerT
 class HasServer (api :: k)
-                (context :: [*]) where
-  type family ServerT (api :: k) (m :: * -> *) :: *
+                (context :: [Type]) where
+  type family ServerT (api :: k) (m :: Type -> Type) :: Type
   ...
         -- Defined in ‘Servant.Server.Internal’
 ```
 
 `ServerT` is a [type family](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#type-families). Type families look quite like type constructors. Like type constructors they accept types as arguments, unlike type constructors they're able to return different types depending on those arguments. It ends up looking something like a function which [pattern matches](https://en.wikibooks.org/wiki/Haskell/Pattern_matching) on types.
 
-`ServerT` is part of the `HasServer` [type class](https://en.wikibooks.org/wiki/Haskell/Classes_and_types), therefore it will be defined for any type which has a `HasServer` instance. It accepts the poly kinded `api` type `HasServer` is parameterized over as its first argument and some type constructor `m` of kind `* -> *` as its second. It then returns some type of kind `*`.
+`ServerT` is part of the `HasServer` [type class](https://en.wikibooks.org/wiki/Haskell/Classes_and_types), therefore it will be defined for any type which has a `HasServer` instance. It accepts the poly kinded `api` type `HasServer` is parameterized over as its first argument and some type constructor `m` of kind `Type -> Type` as its second. It then returns some type of kind `Type`.
 
 GHCi allows us to evaluate type families, to see what the resulting type is at different type arguments.
 
 ```
  > :kind! ServerT Users Handler
-ServerT UsersAPI Handler :: *
+ServerT UsersAPI Handler :: Type
 = Handler [User] :<|> ([Char] -> Handler User)
 ```
 
@@ -387,7 +389,7 @@ infixr 4 :>
 instance (KnownSymbol path, HasServer api context) =>
          HasServer (path :> api) context
   -- Defined in ‘Servant.Server.Internal’
-instance forall k l (arr :: k -> l) api (context :: [*]).
+instance forall k l (arr :: k -> l) api (context :: [Type]).
          (TypeError ...) =>
          HasServer (arr :> api) context
   -- Defined in ‘Servant.Server.Internal’
@@ -462,7 +464,7 @@ If we ask GHCi what `Get` is we're told that it too is a synonym.
  > :info Get
 type Get =
   Servant.API.Verbs.Verb 'Network.HTTP.Types.Method.GET 200
-  :: [*] -> * -> *
+  :: [Type] -> Type -> Type
         -- Defined in ‘Servant.API.Verbs’
 ```
 
@@ -473,13 +475,13 @@ Fortunately `Verb` is the end of the line.
 type role Servant.API.Verbs.Verb phantom phantom phantom phantom
 data Servant.API.Verbs.Verb (method :: k1)
                             (statusCode :: Nat)
-                            (contentTypes :: [*])
+                            (contentTypes :: [Type])
                             a
         -- Defined in ‘Servant.API.Verbs’
-instance [safe] forall k1 (method :: k1) (statusCode :: Nat) (contentTypes :: [*]) a.
+instance [safe] forall k1 (method :: k1) (statusCode :: Nat) (contentTypes :: [Type]) a.
                 Generic (Servant.API.Verbs.Verb method statusCode contentTypes a)
   -- Defined in ‘Servant.API.Verbs’
-instance [overlappable] forall k1 (ctypes :: [*]) a (method :: k1) (status :: Nat) (context :: [*]).
+instance [overlappable] forall k1 (ctypes :: [Type]) a (method :: k1) (status :: Nat) (context :: [Type]).
                         (Servant.API.ContentTypes.AllCTRender ctypes a,
                          Servant.API.Verbs.ReflectMethod method, KnownNat status) =>
                         HasServer (Servant.API.Verbs.Verb method status ctypes a) context
@@ -538,7 +540,7 @@ Let's try asking about `Capture`.
 
 ```
  > :info Capture
-type Capture = Servant.API.Capture.Capture' '[] :: Symbol -> * -> *
+type Capture = Servant.API.Capture.Capture' '[] :: Symbol -> Type -> Type
         -- Defined in ‘Servant.API.Capture’
 ```
 
@@ -548,7 +550,7 @@ We're told it's a synonym for `Capture'`.
  > import Servant.API.Capture (Capture')
  > :info Capture'
 type role Capture' phantom phantom phantom
-data Capture' (mods :: [*]) (sym :: Symbol) a
+data Capture' (mods :: [Type]) (sym :: Symbol) a
         -- Defined in ‘Servant.API.Capture’
 instance (KnownSymbol capture,
           Web.Internal.HttpApiData.FromHttpApiData a,
@@ -639,11 +641,11 @@ We mention JSON twice in the type of `UsersAPI`, in both instances it's as an ar
 instance
   forall
     k1
-    (ctypes :: [*])
+    (ctypes :: [Type])
     a
     (method :: k1)
     (status :: Nat)
-    (context :: [*]).
+    (context :: [Type]).
   ( AllCTRender ctypes a
   , ReflectMethod method
   , KnownNat status
@@ -730,7 +732,7 @@ usersServer = _usersIndex :<|> _usersShow
 ```
 
 <figcaption>
-  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/05-usersServer">
+  <a target="_blank" href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/05-usersServer">
     Commit
   </a>
 </figcaption>
@@ -784,7 +786,7 @@ usersShow _uname = _
 ```
 
 <figcaption>
-  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/06-usersShow-and-usersIndex-placeholders">
+  <a target="_blank" href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/06-usersShow-and-usersIndex-placeholders">
     Commit
   </a>
 </figcaption>
@@ -812,7 +814,7 @@ users =
 ```
 
 <figcaption>
-  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/07-sample-users">
+  <a target="_blank" href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/07-sample-users">
     Commit
   </a>
 </figcaption>
@@ -832,7 +834,7 @@ usersIndex = pure users
 ```
 
 <figcaption>
-  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/08-usersIndex">
+  <a target="_blank" href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/08-usersIndex">
     Commit
   </a>
 </figcaption>
@@ -880,7 +882,7 @@ usersShow uname =
 ```
 
 <figcaption>
-  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/09-most-of-usersShow">
+  <a target="_blank" href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/09-most-of-usersShow">
     Commit
   </a>
 </figcaption>
@@ -907,7 +909,7 @@ usersShow uname =
 ```
 
 <figcaption>
-  <a href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/10-return-404-when-no-matching-user">
+  <a target="_blank" href="https://github.com/bradparker/how-does-servants-type-dsl-work/commit/10-return-404-when-no-matching-user">
     Commit
   </a>
 </figcaption>
