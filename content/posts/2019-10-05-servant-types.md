@@ -18,7 +18,7 @@ summary: |
   ```
 ---
 
-This post is about some reasonably advanced type-level features of [The Glasgow Haskell Compiler](https://www.haskell.org/ghc/) and as such I assume _some_ knowledge of Haskell. Despite this I've made an attempt to link to further resources on Haskell features as I introduce them. My hope is that even if this post as a whole doesn't make sense then at least some part of it might still be helpful.
+This post is about some reasonably advanced type-level features of [The Glasgow Haskell Compiler](https://www.haskell.org/ghc/) and as such I assume _some_ knowledge of Haskell. Despite this I've made an attempt to link to further resources on Haskell features as I introduce them. My hope is that even if _everything_ here doesn't make perfect sense then at least some part of it might still be helpful.
 
 ***
 
@@ -26,11 +26,11 @@ I was shown [Servant](https://hackage.haskell.org/package/servant) by a friend o
 
 Servant has you define your API as a type. You're not expected to define a wholly _new_ type, but rather combine existing types provided by the framework. These add up to a domain specific language, at the type level, for describing web APIs. This was quite a mental shift for me, that the type comes first, and drives the implementation. It's just so great that Servant's DSL is expressive enough to describe almost any API you might want to implement.
 
-This post aims to understand _how_ Servant can take so many varied API descriptions and guide us to writing a corresponding implementation.
+Our aim here will be to understand _how_ Servant can take so many varied API descriptions and guide us to a corresponding implementation.
 
 ## The example type
 
-The example we'll use is quite close to the one used Servant's introductory tutorial. We're going to describe an API which has two endpoints: `GET /users` which returns a JSON-encoded list of users and `GET /users/:username` which returns the user, again JSON-encoded, for a corresponding username.
+The example we'll use is close to the one used in Servant's introductory tutorial. We're going to describe an API which has two endpoints: `GET /users` which returns a JSON-encoded list of users and `GET /users/:username` which returns the user, again JSON-encoded, for a corresponding username.
 
 We'll make use of [type synonyms](https://wiki.haskell.org/Type_synonym) to group and give logical names to our API's sub-components.
 
@@ -64,7 +64,7 @@ type UsersAPI =
   </a>
 </figcaption>
 
-**Note** for each code example I'll try to show only the bits of the finished module which are relevant to what's being currently discussed. Below relevant code samples you'll see a "commit" annotation which will link to a matching diff in the example [repository](https://github.com/bradparker/how-does-servants-type-dsl-work).
+**Note** for each code example I'll try to show only the bits of the finished module which are relevant to what's being currently discussed. Below some code samples you'll see a "commit" annotation which will link to a matching diff in the example [repository](https://github.com/bradparker/how-does-servants-type-dsl-work).
 
 This first code example already contains a few type-level features that likely look interesting. Let's take a closer look.
 
@@ -116,7 +116,7 @@ If we ask GHCi for the kind of `'[]` we see something interesting.
 '[] :: [k]
 ```
 
-This shows us that type level lists are [kind polymorphic](https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/kind-polymorphism.html). That `k` is a kind varible, as with [type variables](https://wiki.haskell.org/Type_variables_instead_of_concrete_types) these are introduced by an implicit `forall`.
+This shows us that type level lists are [kind polymorphic](https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/kind-polymorphism.html). That `k` is a kind variable, as with [type variables](https://wiki.haskell.org/Type_variables_instead_of_concrete_types) these are introduced by an implicit `forall`.
 
 ```haskell
 '[] :: forall k. '[k]
@@ -775,7 +775,7 @@ src/Main.hs:86:32: error:
    |                                ^^^^^^^^^^
 ```
 
-Amoungst that we're being told that we have two values we need to conjure up.
+Amongst that we're being told that we have two values we need to conjure up.
 
 ```haskell
 usersIndex :: Handler [User]
@@ -799,17 +799,19 @@ For the sake of this example our collection of users will be some static, sample
 users :: [User]
 users =
   [ User
-      "Isaac Newton"
-      372
-      "isaac@newton.co.uk"
-      "isaac"
-      (fromGregorian 1683 3 1)
+    { name             = "Isaac Newton"
+    , age              = 372
+    , email            = "isaac@newton.co.uk"
+    , username         = "isaac"
+    , registrationDate = fromGregorian 1683 3 1
+    }
   , User
-      "Albert Einstein"
-      136
-      "ae@mc2.org"
-      "albert"
-      (fromGregorian 1905 12 1)
+    { name             = "Albert Einstein"
+    , age              = 136
+    , email            = "ae@mc2.org"
+    , username         = "albert"
+    , registrationDate = fromGregorian 1905 12 1
+    }
   ]
 ```
 
@@ -972,13 +974,13 @@ Server: Warp/3.2.28
 
 ```
 
-## What's all for?
+## What's it all for?
 
 My hope when planning this post was that I'd become a little more familiar with the type level programming features of GHC Haskell. I wasn't sure which features or to what extent. Having finished I'd say that I've _started_ to understand this topic. At the very least I've spent a bit of time becoming more familiar with a library that makes great use of GHC's type level features.
 
 The DSL provided by Servant allows us to construct types which specify an API contract. With it we were able to specify static route segments and named route parameters using `Symbol`s. We could associate those routes with HTTP verbs which could accept and return many different content-types using type level lists. Combining these components was made easy with infix type constructors.
 
-The way Servant has us think "specification first" is very appealing to me, and the more time I spend with Haskell the more this method of designing and implementing software just _feels right_. The type level feels much more declaritive: you don't talk as much about what you want to happen, instead you talk more about what things you would like to exist. Then it's up to you and the compiler to figure out how that might be possible.
+The way Servant has us think "specification first" is very appealing to me, and the more time I spend with Haskell the more this method of designing and implementing software just _feels right_. The type level feels much more declarative: you don't talk as much about what you want to happen, instead you talk more about what things you would like to exist. Then it's up to you and the compiler to figure out how that might be possible.
 
 There's another, more practical, benefit to this in Servant's case however. We've seen that specifications can be turned into the types of servers which implement them, however we didn't explore how we can also use them to automatically produce [clients](https://hackage.haskell.org/package/servant-client), [documentation](https://hackage.haskell.org/package/servant-swagger), and even [property tests](https://hackage.haskell.org/package/servant-quickcheck).
 
