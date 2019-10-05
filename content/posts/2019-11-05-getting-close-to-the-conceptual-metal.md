@@ -52,7 +52,7 @@ newtype NonEmpty a
   = NonEmpty (Product a (List a))
 ```
 
-When Sussman chalked up that pair made of nothing but "hot air" he attributed the encoding to [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church). Appreciating that many other types can be made from pair-like things and either-like things I wondered if there existed a Church encoding for _Either_. After all, with _Either_ and _Pair_ it sure seemed like I'd be able to construct anything else I needed. I found Church encodings for lots of other interesting things, like [booleans](https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans) and [natural numbers](https://en.wikipedia.org/wiki/Church_encoding#Church_numerals), but nothing quite like _Either_.
+When Sussman chalked up that pair made of nothing but "hot air" he attributed the encoding to [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church). Appreciating that many other types can be made from pair-like things and either-like things I wondered if there existed a Church encoding for `Either`. After all, with `Either` and `Pair` it sure seemed like I'd be able to construct anything else I needed. I found Church encodings for lots of other interesting things, like [booleans](https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans) and [natural numbers](https://en.wikipedia.org/wiki/Church_encoding#Church_numerals), but nothing quite like `Either`.
 
 Eventually I'd happen across [Scott encoding](https://oxij.org/paper/ExceptionallyMonadic/ExceptionallyMonadic.xetex.pdf#24), named for [Dana Scott](https://en.wikipedia.org/wiki/Dana_Scott) to whom it is attributed. It's very interesting, and the topic of this post.
 
@@ -94,7 +94,7 @@ _&lambda;x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_. _&lambda;c_<sub>1<
 
 We can write a few instances out in Haskell to make this more concrete.
 
-If we have a data type _One_ with _one_ constructor, which takes _one_ argument it would look like this:
+If we have a data type `One` with _one_ constructor, which takes _one_ argument it would look like this:
 
 ```haskell
 type One x =
@@ -130,7 +130,7 @@ But I won't dwell on this for now as it looks a little funny in the other notati
 
 _&lambda;c_. _c_
 
-Now let's add a constructor. Let's define a type _Or_ which has _two_ constructors, each taking _one_ argument.
+Now let's add a constructor. Let's define a type `Or` which has _two_ constructors, each taking _one_ argument.
 
 The type:
 
@@ -200,27 +200,27 @@ type Either a b = forall r. (a -> r) -> (b -> r) -> r
 
 So far this is very theoretical, we haven't built anything yet. Let's aim to remedy that. We're going to implement an [alternate Prelude](https://hackage.haskell.org/packages/tag/prelude) called [_Hot Air_](https://github.com/bradparker/hot-air) which will contain just enough pieces to build our Parser.
 
-### Building up to _String_
+### Building up to `String`
 
-Our _Parser_ takes a _String_ as input. Therefore in order to implement it we'll first need to implement _String_.
+Our `Parser` takes a `String` as input. Therefore in order to implement it we'll first need to implement `String`.
 
-What are _Strings_ made of? This a big and complex topic, so we're going to avoid all that and aim to replicate the contentious but fairly simple representation used by the Haskell base libraries. Our _String_ will be a list of characters.
+What are `String`s made of? This a big and complex topic, so we're going to avoid all that and aim to replicate the contentious but fairly simple representation used by the Haskell base libraries. Our `String` will be a list of characters.
 
 ```haskell
 newtype String =
   String (List Char)
 ```
 
-There are two types we'll need to make this one: _List_ and _Char_. Let's start with _Char_.
+There are two types we'll need to make this one: `List` and `Char`. Let's start with `Char`.
 
-What are _Chars_ made of? Again, a complex topic we're going to hop right over by going with an incomplete but simple definition: a _Char_ is a natural number that we treat specially.
+What are `Char`s made of? Again, a complex topic we're going to hop right over by going with an incomplete but simple definition: a `Char` is a natural number that we treat specially.
 
 ```haskell
 newtype Char =
   Char Nat
 ```
 
-What are _Nats_ made of? Now we're getting somewhere. _Nats_ are made of functions, and nothing else. To arrive at the definition we'll start with one that uses "normal" algebraic data types, and replace as much Haskell syntax as we can with functions. Here's a data type that represents the natural numbers:
+What are `Nat`s made of? Now we're getting somewhere. `Nat`s are made of functions, and nothing else. To arrive at the definition we'll start with one that uses "normal" algebraic data types, and replace as much Haskell syntax as we can with functions. Here's a data type that represents the natural numbers:
 
 ```haskell
 data Nat
@@ -228,7 +228,7 @@ data Nat
   | Succ Nat
 ```
 
-It means that a _Nat_ can either be _Zero_ or "the successor to some other natural number", _Succ_.
+It means that a `Nat` can either be `Zero` or "the successor to some other natural number", `Succ`.
 
 The Scott encoding for this type will be a function which takes an argument for each constructor, represented by holes for now:
 
@@ -244,30 +244,30 @@ newtype Nat =
   Nat (forall r. r -> _ -> r)
 ```
 
-The second constructor _does_ take an argument, of type _Nat_. To represent this the second argument will need to be a function that accepts a value of _Nat_.
+The second constructor _does_ take an argument, of type `Nat`. To represent this the second argument will need to be a function that accepts a value of `Nat`.
 
 ```haskell
 newtype Nat =
   Nat (forall r. r -> (Nat -> r) -> r)
 ```
 
-That's the type done, now to write the constructors. The first constructor (called _Zero_ in the normal type above) looks like this.
+That's the type done, now to write the constructors. The first constructor (called `Zero` in the normal type above) looks like this.
 
 ```haskell
 zero :: Nat
 zero = Nat (\z _ -> z)
 ```
 
-It _chooses_ to return the value passed as the first argument to the _Nat_ function. The second constructor (called _Succ_ above) looks like this:
+It _chooses_ to return the value passed as the first argument to the `Nat` function. The second constructor (called `Succ` above) looks like this:
 
 ```haskell
 succ :: Nat -> Nat
 succ n = Nat (\_ s -> s n)
 ```
 
-It _chooses_ to call the function passed as the second argument to the _Nat_ function with the value it's been supplied.
+It _chooses_ to call the function passed as the second argument to the `Nat` function with the value it's been supplied.
 
-We can now construct natural numbers, but they're still not of any use until we have some way to _deconstruct_ them. Unlike "normal" Haskell data types we'll not be able to pattern match our way from a _Nat_ to some other type. Let's say we want to write the function _subtractOne_ which subtracts one from any natural number except zero, which it leaves unchanged. With the normal type we could match the cases and get to something like:
+We can now construct natural numbers, but they're still not of any use until we have some way to _deconstruct_ them. Unlike "normal" Haskell data types we'll not be able to pattern match our way from a `Nat` to some other type. Let's say we want to write the function `subtractOne` which subtracts one from any natural number except zero, which it leaves unchanged. With the normal type we could match the cases and get to something like:
 
 ```haskell
 subtractOne :: Nat -> Nat
@@ -277,7 +277,7 @@ subtractOne nat =
     Succ n -> n
 ```
 
-The implementation for Scott encoded _Nats_ will look a bit different.
+The implementation for Scott encoded `Nat`s will look a bit different.
 
 ```haskell
 subtractOne :: Nat -> Nat
@@ -287,9 +287,9 @@ subtractOne (Nat nat) =
     (\n -> n)
 ```
 
-The function that represents a _Nat_, called _nat_ above, accepts an argument _for each case_. The first argument is the _Zero_ case and the second is the _Succ n_ case. If the _nat_ in question was constructed using _zero_ it will choose the first argument it is passed, in this case _zero_. If it was constructed using _succ_ then it will choose to call the second argument with the _Nat_ it was supposed to be the successor of, therefore behaving as if that _Nat_ had never been effected by it.
+The function that represents a `Nat`, called `nat` above, accepts an argument _for each case_. The first argument is the `Zero` case and the second is the `Succ n` case. If the `nat` in question was constructed using `zero` it will choose the first argument it is passed, in this case `zero`. If it was constructed using `succ` then it will choose to call the second argument with the `Nat` it was supposed to be the successor of, therefore behaving as if that `Nat` had never been effected by it.
 
-Being able to subtract one from a _Nat_ doesn't make them especially useful, folding a _Nat_ into some other value, that'll be useful. So how do we do that?
+Being able to subtract one from a `Nat` doesn't make them especially useful, folding a `Nat` into some other value, that'll be useful. So how do we do that?
 
 Again if we were dealing with the normal Haskell data type we might write something like this:
 
@@ -301,7 +301,7 @@ foldNat z f nat =
     Succ n -> f (foldNat z f n)
 ```
 
-The translation to the Scott encoded version is very similar to what we did with _subtractOne_.
+The translation to the Scott encoded version is very similar to what we did with `subtractOne`.
 
 ```haskell
 foldNat :: c -> (c -> c) -> Nat -> c
@@ -311,7 +311,7 @@ foldNat z f (Nat nat) =
     (\n -> f (foldNat z f n))
 ```
 
-Now that we can fold _Nats_ we can transform them into good ol' Haskell _Nums_.
+Now that we can fold `Nat`s we can transform them into good ol' Haskell `Num`s.
 
 ```haskell
 toNum :: Num n => Nat -> n
@@ -320,18 +320,20 @@ toNum = foldNat 0 (+ 1)
 
 Now, for the first time we can actually _run_ something.
 
-```ghci
->>> toNum zero
+```
+$ ghci lib/HotAir/Num.hs
+
+> toNum zero
 0
->>> toNum (succ zero)
+> toNum (succ zero)
 1
->>> toNum (succ (succ zero))
+> toNum (succ (succ zero))
 2
->>> toNum (succ (succ (succ zero)))
+> toNum (succ (succ (succ zero)))
 3
 ```
 
-We can go _to_ Haskell numbers, but what about converting _from_ them. For that we might want some way of unfolding a value into a _Nat_.
+We can go _to_ Haskell numbers, but what about converting _from_ them. For that we might want some way of unfolding a value into a `Nat`.
 
 Again we can think about how we'd do it with ordinary Haskell data types and then translate our solution to work with Scott encoded data types.
 
@@ -343,9 +345,9 @@ unfoldNat f c =
     Just c' -> succ (unfoldNat f c')
 ```
 
-But wait, to write that function we first need a _Maybe_ data type. Now that we've done _Nat_ I reckon _Maybe_ isn't going to be too much of a stretch.
+But wait, to write that function we first need a `Maybe` data type. Now that we've done `Nat` I reckon `Maybe` isn't going to be too much of a stretch.
 
-As with _Nat_ we will have two constructors.
+As with `Nat` we will have two constructors.
 
 ```haskell
 newtype Maybe a =
@@ -359,7 +361,7 @@ newtype Maybe a =
   Maybe (forall r. r -> _ -> r)
 ```
 
-The second will be unary, it'll accept one argument of the type _a_.
+The second will be unary, it'll accept one argument of the type `a`.
 
 ```haskell
 newtype Maybe a =
@@ -376,7 +378,7 @@ just :: a -> Maybe a
 just a = Maybe (\_ j -> j a)
 ```
 
-And some way of _using_ a value of type _Maybe_.
+And some way of _using_ a value of type `Maybe`.
 
 ```haskell
 maybe :: c -> (a -> c) -> Maybe a -> c
@@ -394,7 +396,7 @@ unfoldNat f c =
     (f c)
 ```
 
-Can we now convert _Nats_ to and from _Nums_?
+Can we now convert `Nat`s to and from `Num`s?
 
 ```haskell
 fromNum :: (Ord n, Num n) => n -> Nat
@@ -408,14 +410,16 @@ fromNum =
 
 We can, but we'll come back to this later, using even less of the pre-existing universe.
 
-```ghci
->>> toNum (fromNum 3)
+```
+$ ghci lib/HotAir/Num.hs
+
+> toNum (fromNum 3)
 3
->>> toNum (fromNum 1024)
+> toNum (fromNum 1024)
 1024
 ```
 
-Now that we're able to convert _Nats_ to _Nums_ and back again, we're also able to go from our _Char_ to the builtin Haskell _Char_ and back again. Like so:
+Now that we're able to convert `Nat`s to `Num`s and back again, we're also able to go from our `Char` to the builtin Haskell `Char` and back again. Like so:
 
 ```haskell
 fromBuiltin :: Builtin.Char -> Char
@@ -423,4 +427,101 @@ fromBuiltin = Char . fromNum . Builtin.ord
 
 toBuiltin :: Char -> Builtin.Char
 toBuiltin (Char c) = Builtin.chr (toNum c)
+```
+
+It's not much but we can see that it "works".
+
+```
+$ ghci lib/HotAir/Char.hs
+
+> toBuiltin (fromBuiltin 'c')
+'c'
+> toBuiltin (fromBuiltin '!')
+'!'
+```
+
+All that remains for `String` is a list to put all these `Char`s in. Now that we've done `Nat` and `Maybe` I reckon `List` won't be too bad.
+
+A `List`, like `Nat` and `Maybe` has two constructors.
+
+```haskell
+newtype List a =
+  List (forall r. _ -> _ -> r)
+```
+
+Like `Maybe` the first will be nullary.
+
+```haskell
+newtype List a =
+  List (forall r. r -> _ -> r)
+
+nil :: List a
+nil = List (\r _ -> r)
+
+cons :: _
+cons = _
+```
+
+Like `Nat` the second will be recusive, it will accept a `List` as one of its arguments. Unlike `Nat` it will _also_ accept a value.
+
+```haskell
+newtype List a =
+  List (forall r. r -> (a -> List a -> r) -> r)
+
+nil :: List a
+nil = List (\n _ -> n)
+
+cons :: a -> List a -> List a
+cons a as = List (\_ c -> c a as)
+```
+
+The `cons` function accepts an `a` and a `List a` and then _chooses_ the second function passed to `List` to apply them both to.
+
+To see how this adds up to a list it helps to write `foldr`.
+
+```haskell
+foldr :: (a -> c -> c) -> c -> List a -> c
+foldr f c (List l) = _
+```
+
+The `l` variable above is a function `c -> (a -> List a -> c) -> c` in this case. So it's able to produce a `c` we just need to _provide_ it a `c` and a function `a -> List a -> c`. Things will get a little twisty here.
+
+Providing a `c` is easy enough.
+
+```haskell
+foldr :: (a -> c -> c) -> c -> List a -> c
+foldr f c (List l) = l c _
+```
+
+The function will take a little more thinking.
+
+```haskell
+foldr :: (a -> c -> c) -> c -> List a -> c
+foldr f c (List l) = l c (\a as -> _)
+```
+
+Now we have an `a`, a `List a` and a function `a -> c -> c` (the variable `f`). We want to use those to produce a `c`.
+
+Here's a solution.
+
+```haskell
+foldr :: (a -> c -> c) -> c -> List a -> c
+foldr f c (List l) = l c (\a as -> f a c)
+```
+
+That makes the types line up, but it doesn't do what we want it to do. This won't fold over _all_ of the provided list. It'll iterate over at most one element (or none if the list should have none). As with moving from `subtractOne` to `foldNat` we'll need to introduce some recursion.
+
+```haskell
+foldr :: (a -> c -> c) -> c -> List a -> c
+foldr f c (List l) = l c (\a as -> f a (foldr f c as))
+```
+
+With `foldr` we have enough to start using `List`s.
+
+```
+$ ghci lib/HotAir/List.hs
+
+> import GHC.Num ((+))
+> foldr (+) 0 (cons 1 (cons 1 nil))
+2
 ```
