@@ -422,6 +422,10 @@ $ ghci lib/HotAir/Num.hs
 Now that we're able to convert `Nat`s to `Num`s and back again, we're also able to go from our `Char` to the builtin Haskell `Char` and back again. Like so:
 
 ```haskell
+import qualified Data.Char as Builtin
+
+import HotAir.Nat (fromNum, toNum)
+
 fromBuiltin :: Builtin.Char -> Char
 fromBuiltin = Char . fromNum . Builtin.ord
 
@@ -462,7 +466,7 @@ cons :: _
 cons = _
 ```
 
-Like `Nat` the second will be recusive, it will accept a `List` as one of its arguments. Unlike `Nat` it will _also_ accept a value.
+Like `Nat` the second will be recursive, it will accept a `List` as one of its arguments. Unlike `Nat` it will _also_ accept a value.
 
 ```haskell
 newtype List a =
@@ -481,7 +485,8 @@ To see how this adds up to a list it helps to write `foldr`.
 
 ```haskell
 foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) = _
+foldr f c (List l) =
+  _
 ```
 
 The `l` variable above is a function `c -> (a -> List a -> c) -> c` in this case. So it's able to produce a `c` we just need to _provide_ it a `c` and a function `a -> List a -> c`. Things will get a little twisty here.
@@ -490,14 +495,16 @@ Providing a `c` is easy enough.
 
 ```haskell
 foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) = l c _
+foldr f c (List l) =
+  l c _
 ```
 
 The function will take a little more thinking.
 
 ```haskell
 foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) = l c (\a as -> _)
+foldr f c (List l) =
+  l c (\a as -> _)
 ```
 
 Now we have an `a`, a `List a` and a function `a -> c -> c` (the variable `f`). We want to use those to produce a `c`.
@@ -506,14 +513,16 @@ Here's a solution.
 
 ```haskell
 foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) = l c (\a as -> f a c)
+foldr f c (List l) =
+  l c (\a as -> f a c)
 ```
 
 That makes the types line up, but it doesn't do what we want it to do. This won't fold over _all_ of the provided list. It'll iterate over at most one element (or none if the list should have none). As with moving from `subtractOne` to `foldNat` we'll need to introduce some recursion.
 
 ```haskell
 foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) = l c (\a as -> f a (foldr f c as))
+foldr f c (List l) =
+  l c (\a as -> f a (foldr f c as))
 ```
 
 With `foldr` we have enough to start using `List`s.
@@ -525,3 +534,47 @@ $ ghci lib/HotAir/List.hs
 > foldr (+) 0 (cons 1 (cons 1 nil))
 2
 ```
+
+We also have enough to write conversions between the builtin string type and our `HotAir` string type.
+
+```haskell
+import qualified Data.List as Builtin
+import qualified Data.String as Builtin
+
+import HotAir.Char (Char)
+import qualified HotAir.Char as Char
+import HotAir.List (cons, foldr, nil)
+
+toBuiltin :: String -> Builtin.String
+toBuiltin (String chars) =
+  foldr ((:) . Char.toBuiltin) [] chars
+
+fromBuiltin :: Builtin.String -> String
+fromBuiltin =
+  String
+    . Builtin.foldr (cons . Char.fromBuiltin) nil
+```
+
+Which means that we can write `Show` and `IsString` instances.
+
+```haskell
+import qualified Data.String as Builtin
+import qualified Text.Show as Builtin
+
+instance Builtin.IsString String where
+  fromString = fromBuiltin
+
+instance Builtin.Show String where
+  show = Builtin.show . toBuiltin
+```
+
+Which means we're able to easily create and view values of our `String` type in GHCi.
+
+```
+$ ghci lib/HotAir/String.hs
+
+> "Hello, Hot Air!" :: HotAir.String.String
+"Hello, Hot Air!"
+```
+
+However at this point you might be wondering if we've really achieved anything at all.
