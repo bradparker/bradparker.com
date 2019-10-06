@@ -577,4 +577,20 @@ $ ghci lib/HotAir/String.hs
 "Hello, Hot Air!"
 ```
 
-However at this point you might be wondering if we've really achieved anything at all.
+However at this point you might be wondering if we've really achieved anything at all. It took us a while to get here but and so far it seems that all we're going to do is convert between ordinary Haskell types and Scott encoded types. Fortunately we've done as much of that we we'll need to do. We can write a `Show` type class that works in terms of _our_ `String`.
+
+```haskell
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
+
+module HotAir.Show
+  ( Show(show)
+  ) where
+
+import HotAir.String (String)
+
+class Show a where
+  show :: a -> String
+```
+
+Now we can write instances of that type class for any further types we write. The only things we'll need to convert to their built in counterparts should be `Num`, `Char` and `String`.
