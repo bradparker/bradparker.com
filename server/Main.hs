@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main
   ( main
   )
@@ -5,13 +7,17 @@ where
 
 import Network.Wai (Application)
 import Network.Wai.Application.Static
-  ( staticApp
+  ( StaticSettings(ssIndices)
   , defaultWebAppSettings
+  , staticApp
   )
 import Network.Wai.Handler.Warp (run)
+import WaiAppStatic.Types (unsafeToPiece)
 
-app :: FilePath -> Application
-app = staticApp . defaultWebAppSettings
+app :: Application
+app = staticApp $ (defaultWebAppSettings "_site")
+  { ssIndices = [unsafeToPiece "index.html"]
+  }
 
 main :: IO ()
-main = run 8080 $ app "_site"
+main = run 8080 app
