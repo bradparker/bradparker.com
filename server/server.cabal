@@ -1,18 +1,17 @@
-cabal-version: 2.2
-name: bradparker-com
+cabal-version: 2.4
+name: bradparker-com-server
 version: 0.1.0.0
 license: BSD-3-Clause
 build-type: Simple
 
-executable site
-  hs-source-dirs:
-    src
+executable server
   main-is:
     Main.hs
   build-depends:
-    base == 4.*,
-    filepath,
-    hakyll
+      base == 4.*
+    , wai
+    , wai-app-static
+    , warp
   ghc-options:
     -threaded -Wall
   default-language:
