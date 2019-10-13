@@ -9,6 +9,7 @@ executable server
     Main.hs
   build-depends:
       base == 4.*
+    , optparse-applicative
     , wai
     , wai-app-static
     , warp
