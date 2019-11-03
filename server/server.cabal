@@ -13,6 +13,7 @@ executable server
     , wai
     , wai-app-static
     , warp
+    , warp-tls
   ghc-options:
     -threaded -Wall
   default-language:
