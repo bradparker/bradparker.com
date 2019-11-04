@@ -41,11 +41,34 @@ in
     config = lib.mkIf serviceConfig.enable {
       systemd.services.${serverName} = {
         wantedBy = [ "multi-user.target" ];
+        wants = lib.optionals serviceConfig.https.enable [
+          "acme-${serverName}.service"
+          "acme-selfsigned-${serverName}.service"
+          "acme-challenge-${serverName}.service"
+        ];
         script = ''
           ${server}/bin/server ${lib.concatStringsSep " " args}
         '';
         description = ''
           https://${serverName}
+        '';
+        serviceConfig = {
+          KillSignal="INT";
+          Type = "simple";
+          Restart = "on-abort";
+          RestartSec = "10";
+        };
+      };
+
+      systemd.services."acme-challenge-${serverName}" = {
+        wantedBy = [ "multi-user.target" ];
+        script = ''
+          ${server}/bin/server \
+            --port 80 \
+            --directory ${serviceConfig.https.acmeWebRoot}
+        '';
+        description = ''
+          The acme challenge server
         '';
         serviceConfig = {
           KillSignal="INT";
