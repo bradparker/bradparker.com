@@ -1,0 +1,16 @@
+cabal-version:       2.4
+name:                acme
+version:             0.1.0.0
+author:              Brad Parker
+maintainer:          hi@bradparker.com
+
+executable acme
+  main-is:          Main.hs
+  build-depends:    base ^>=4.12.0.0,
+                    bytestring,
+                    optparse-applicative,
+                    wai,
+                    wai-extra,
+                    wai-middleware-static,
+                    warp
+  default-language: Haskell2010
