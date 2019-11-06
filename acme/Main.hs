@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wall #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Main
@@ -5,17 +6,15 @@ module Main
     )
 where
 
-import Network.Wai.Middleware.RequestLogger (logStdoutDev)
-import Data.Maybe (fromMaybe)
 import Data.ByteString (ByteString)
-import Network.Wai (Application, Request (pathInfo, rawPathInfo, requestHeaderHost), responseLBS)
-import Network.Wai.Handler.Warp (run, Port)
-import Network.Wai.Middleware.Vhost (redirectTo, vhost)
-import Options.Applicative (Parser, auto, execParser, fullDesc, help, info, long, metavar, option, strOption)
-import Network.Wai.Middleware.Static (addBase, staticPolicy)
-import Network.HTTP.Types (status404)
+import Data.Maybe (fromMaybe)
+import Network.Wai (Application, Request (rawPathInfo, requestHeaderHost))
+import Network.Wai.Handler.Warp (Port, run)
+import Network.Wai.Middleware.Static ((>->), Policy, addBase, hasPrefix, staticPolicy)
+import Network.Wai.Middleware.Vhost (redirectTo)
+import Options.Applicative (Parser, auto, execParser, fullDesc, info, long, metavar, option, strOption)
 
-data Options = Options { port :: Port, directory :: FilePath }
+data Options = Options {port :: Port, directory :: FilePath}
 
 optionsP :: Parser Options
 optionsP =
@@ -24,11 +23,11 @@ optionsP =
     portP = option auto (long "port" <> metavar "PORT")
     directoryP = strOption (long "directory" <> metavar "DIRECTORY")
 
-challengeApp :: FilePath -> Application
-challengeApp path = staticPolicy (addBase path) notFound
-  where
-    notFound _ respond =
-      respond $ responseLBS status404 [] ""
+policy :: String -> Policy
+policy path = hasPrefix ".well-known/acme-challenge" >-> addBase path
+
+app :: FilePath -> Application
+app path = staticPolicy (policy path) redirectApp
 
 hostname :: Request -> ByteString
 hostname = fromMaybe "" . requestHeaderHost
@@ -41,15 +40,7 @@ redirectApp request respond =
     <> hostname request
     <> rawPathInfo request
 
-isChallenge :: Request -> Bool
-isChallenge =
-  ([".well-known", "acme-challenge"] ==) . take 2 . pathInfo
-
-app :: FilePath -> Application
-app path =
-  vhost [(isChallenge, challengeApp path)] redirectApp
-
 main :: IO ()
 main = do
   options <- execParser $ info optionsP fullDesc
-  run (port options) $ logStdoutDev $ app $ directory options
+  run (port options) $ app $ directory options

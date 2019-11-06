@@ -1,6 +1,7 @@
 { options, lib, config, ... }:
 let
   server = import ./server;
+  acme = import ./acme;
   site = import ./.;
 
   serverName = "bradparker.com";
@@ -63,7 +64,7 @@ in
       systemd.services."acme-challenge-${serverName}" = {
         wantedBy = [ "multi-user.target" ];
         script = ''
-          ${server}/bin/server \
+          ${acme}/bin/acme \
             --port 80 \
             --directory ${serviceConfig.https.acmeWebRoot}
         '';
