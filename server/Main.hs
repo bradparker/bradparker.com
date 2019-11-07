@@ -77,10 +77,7 @@ runTLS :: HttpsOptions -> Warp.Settings -> Application -> IO ()
 runTLS httpsOpts = WarpTLS.runTLS (tlsSettings httpsOpts)
 
 settings :: Options -> Warp.Settings
-settings options =
-  Warp.setPort (port options)
-    $ Warp.setHost "127.0.0.1"
-        Warp.defaultSettings
+settings options = Warp.setPort (port options) Warp.defaultSettings
 
 run :: Options -> Application -> IO ()
 run options =

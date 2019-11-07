@@ -1,5 +1,5 @@
-{-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Main
   ( main
@@ -9,7 +9,7 @@ where
 import Data.ByteString (ByteString)
 import Data.Maybe (fromMaybe)
 import Network.Wai (Application, Request (rawPathInfo, requestHeaderHost))
-import Network.Wai.Handler.Warp (Port, Settings, defaultSettings, runSettings, setHost, setPort)
+import Network.Wai.Handler.Warp (Port, run)
 import Network.Wai.Middleware.Static ((>->), Policy, addBase, hasPrefix, staticPolicy)
 import Network.Wai.Middleware.Vhost (redirectTo)
 import Options.Applicative (Parser, auto, execParser, fullDesc, info, long, metavar, option, strOption)
@@ -40,13 +40,7 @@ redirectApp request respond =
     <> hostname request
     <> rawPathInfo request
 
-settings :: Options -> Settings
-settings options =
-  setPort (port options)
-    $ setHost "127.0.0.1"
-        defaultSettings
-
 main :: IO ()
 main = do
   options <- execParser $ info optionsP fullDesc
-  runSettings (settings options) $ app $ directory options
+  run (port options) $ app $ directory options
