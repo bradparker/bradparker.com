@@ -83,7 +83,7 @@ in
         ${serverName} = lib.mkIf serviceConfig.https.enable {
           email = "hi@bradparker.com";
           webroot = "${serviceConfig.https.acmeWebRoot}";
-          postRun = "systemctl reload ${serverName}.service";
+          postRun = "systemctl restart ${serverName}.service";
         };
       };
     };
