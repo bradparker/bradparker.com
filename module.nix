@@ -4,7 +4,7 @@ let
   acme = import ./acme;
   site = import ./.;
 
-  serverName = "bradparker.com";
+  serverName = "bradparker.com.au";
   serviceConfig = config.services."${serverName}";
   options = {
     enable = lib.mkEnableOption "${serverName} service";
