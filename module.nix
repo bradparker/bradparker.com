@@ -33,8 +33,8 @@ let
     "--port ${toString port}"
     "--directory ${site}"
   ] ++ lib.optionals https.enable [
-    "--https-cert-file ${config.security.acme.directory}/${serverName}/fullchain.pem"
-    "--https-key-file ${config.security.acme.directory}/${serverName}/key.pem"
+    "--https-cert-file /var/lib/acme/${serverName}/fullchain.pem"
+    "--https-key-file /var/lib/acme/${serverName}/key.pem"
   ];
 in
   {
