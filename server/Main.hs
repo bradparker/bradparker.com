@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# OPTIONS_GHC -Wall -threaded -rtsopts -with-rtsopts=-N #-}
 
 module Main
   ( main
@@ -15,12 +16,12 @@ import Network.Wai.Application.Static
 import qualified Network.Wai.Handler.Warp as Warp
 import Network.Wai.Handler.Warp (Port)
 import qualified Network.Wai.Handler.WarpTLS as WarpTLS
+import Network.Wai.Middleware.RequestLogger (logStdout)
 import Options.Applicative
   ( Parser,
     auto,
     execParser,
     fullDesc,
-    help,
     info,
     long,
     metavar,
@@ -60,11 +61,11 @@ optionsP =
                 )
 
 app :: FilePath -> Application
-app path = staticApp settings
+app path = staticApp staticSettings
   where
     defaults = defaultWebAppSettings path
     index = unsafeToPiece "index.html"
-    settings = defaults {ssIndices = [index]}
+    staticSettings = defaults {ssIndices = [index]}
 
 tlsSettings :: HttpsOptions -> WarpTLS.TLSSettings
 tlsSettings httpsOpts =
@@ -90,4 +91,4 @@ run options =
 main :: IO ()
 main = do
   options <- execParser $ info optionsP fullDesc
-  run options $ app $ directory options
+  run options $ logStdout $ app $ directory options
