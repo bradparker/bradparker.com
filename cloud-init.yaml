@@ -6,7 +6,7 @@ write_files:
       { config, pkgs, ... }:
       let
         bradparker-source = builtins.fetchTarball {
-          url = https://github.com/bradparker/bradparker.github.io/archive/bd2c3ffa64d1feb7a4368b1bf7ad1c260c9fb4c3.tar.gz;
+          url = https://github.com/bradparker/bradparker.github.io/archive/86b828399e27cdf2f06b173e83d2940c0f082711.tar.gz;
         };
       in
       {
@@ -17,7 +17,11 @@ write_files:
           vim
         ];
 
-        services.openssh.passwordAuthentication = false;
+        services.openssh = {
+          passwordAuthentication = false;
+          permitRootLogin = "no";
+        };
+
         users.mutableUsers = false;
         users.users.brad = {
           isNormalUser = true;
