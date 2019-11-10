@@ -4,7 +4,7 @@ let
   acme = import ./acme;
   site = import ./.;
 
-  serverName = "bradparker.com.au";
+  serverName = "bradparker.com";
   serviceConfig = config.services."${serverName}";
   options = {
     enable = lib.mkEnableOption "${serverName} service";
@@ -83,6 +83,8 @@ in
         ${serverName} = lib.mkIf serviceConfig.https.enable {
           email = "hi@bradparker.com";
           webroot = "${serviceConfig.https.acmeWebRoot}";
+          domain = "bradparker.com.au";
+          extraDomains = { "bradparker.com.au" = null; };
           postRun = "systemctl restart ${serverName}.service";
         };
       };
