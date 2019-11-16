@@ -7,7 +7,8 @@ let
 
   serverName = "bradparker.com";
   siteRoot = "/var/www/${serverName}/public";
-  siteRepo = "/var/www/${serverName}/source";
+  siteRepoRemote = "git@github.com:bradparker/bradparker.com.git";
+  siteRepoWorkingDir = "/var/www/${serverName}/source";
 
   serviceConfig = config.services."${serverName}";
   options = {
@@ -78,10 +79,10 @@ in
           export LANG="en_AU.UTF-8";
           export LC_TYPE="en_AU.UTF-8";
 
-          mkdir -p ${siteRepo}
-          cd ${siteRepo}
+          mkdir -p ${siteRepoWorkingDir}
+          cd ${siteRepoWorkingDir}
 
-          ${pkgs.git}/bin/git clone .
+          ${pkgs.git}/bin/git clone ${siteRepoRemote} .
 
           ${builder}/bin/builder build
 
