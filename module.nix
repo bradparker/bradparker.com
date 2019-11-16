@@ -1,10 +1,14 @@
-{ options, lib, config, ... }:
+{ options, lib, config, pkgs, ... }:
 let
   server = import ./server;
-  acme = import ./acme;
+  builder = import ./builder;
   site = import ./.;
+  acme = import ./acme;
 
   serverName = "bradparker.com";
+  siteRoot = "/var/www/${serverName}/public";
+  siteRepo = "/var/www/${serverName}/source";
+
   serviceConfig = config.services."${serverName}";
   options = {
     enable = lib.mkEnableOption "${serverName} service";
@@ -42,7 +46,7 @@ in
     config = lib.mkIf serviceConfig.enable {
       systemd.services.${serverName} = {
         wantedBy = [ "multi-user.target" ];
-        wants = lib.optionals serviceConfig.https.enable [
+        wants = ["source-${serverName}.timer"] ++ lib.optionals serviceConfig.https.enable [
           "acme-${serverName}.service"
           "acme-selfsigned-${serverName}.service"
           "acme-challenge-${serverName}.service"
@@ -59,6 +63,28 @@ in
           Restart = "on-abort";
           RestartSec = "10";
         };
+      };
+
+      systemd.timers."source-${serverName}" = {
+        description = ''
+          https://${serverName} source
+        '';
+        timerConfig = {
+          OnCalendar = "5 min";
+        };
+        script = ''
+          export LOCALE_ARCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive"
+          export LANG="en_AU.UTF-8";
+          export LC_TYPE="en_AU.UTF-8";
+
+          cd ${siteRepo}
+
+          ${pkgs.git}/bin/git clone .
+
+          ${builder}/bin/builder build
+
+          cp -R _site/* ${siteRoot}
+        '';
       };
 
       systemd.services."acme-challenge-${serverName}" = {
