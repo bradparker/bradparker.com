@@ -78,12 +78,14 @@ in
           export LANG="en_AU.UTF-8";
           export LC_TYPE="en_AU.UTF-8";
 
+          mkdir -p ${siteRepo}
           cd ${siteRepo}
 
           ${pkgs.git}/bin/git clone .
 
           ${builder}/bin/builder build
 
+          mkdir -p ${siteRoot}
           cp -R _site/* ${siteRoot}
         '';
       };
