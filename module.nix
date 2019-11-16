@@ -82,7 +82,7 @@ in
           mkdir -p ${siteRepoWorkingDir}
           cd ${siteRepoWorkingDir}
 
-          ${pkgs.curl}/bin/curl --location https://github.com/bradparker/bradparker.com/archive/source.tar.gz | ${pkgs.gnutar}/bin/tar -
+          ${pkgs.curl}/bin/curl --location https://github.com/bradparker/bradparker.com/archive/source.tar.gz | ${pkgs.gnutar}/bin/tar -xz
 xz
 
           cd bradparker.com-source
