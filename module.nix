@@ -65,13 +65,14 @@ in
         };
       };
 
-      systemd.timers."source-${serverName}" = {
+      systemd.services."source-${serverName}" = {
         description = ''
           https://${serverName} source
         '';
-        timerConfig = {
-          OnCalendar = "5 min";
+        serviceConfig = {
+          Type = "oneshot";
         };
+        startAt = "5 min";
         script = ''
           export LOCALE_ARCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive"
           export LANG="en_AU.UTF-8";
