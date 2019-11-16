@@ -74,6 +74,7 @@ in
           Type = "oneshot";
         };
         startAt = "*:0/5";
+        path = with pkgs; [ gnutar curl gzip ];
         script = ''
           export LOCALE_ARCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive"
           export LANG="en_AU.UTF-8";
@@ -82,7 +83,7 @@ in
           mkdir -p ${siteRepoWorkingDir}
           cd ${siteRepoWorkingDir}
 
-          ${pkgs.curl}/bin/curl --location https://github.com/bradparker/bradparker.com/archive/source.tar.gz | ${pkgs.gnutar}/bin/tar -xz
+          curl --location https://github.com/bradparker/bradparker.com/archive/source.tar.gz | tar -xz
 xz
 
           cd bradparker.com-source
