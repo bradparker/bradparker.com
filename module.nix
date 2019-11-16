@@ -7,8 +7,8 @@ let
 
   serverName = "bradparker.com";
   siteRoot = "/var/www/${serverName}/public";
-  siteRepoRemote = "git@github.com:bradparker/bradparker.com.git";
-  siteRepoWorkingDir = "/var/www/${serverName}/source";
+  siteSourceRemote = "https://github.com/bradparker/bradparker.com/archive/source.tar.gz";
+  siteSourceWorkingDir = "/var/www/${serverName}/source";
 
   serviceConfig = config.services."${serverName}";
   options = {
@@ -81,9 +81,10 @@ in
           export LC_TYPE="en_AU.UTF-8";
 
           mkdir -p ${siteRepoWorkingDir}
+          rm -rf ${siteRepoWorkingDir}/*
           cd ${siteRepoWorkingDir}
 
-          curl --location https://github.com/bradparker/bradparker.com/archive/source.tar.gz | tar -xz
+          curl --location ${siteSourceRemote} | tar -xz
 
           cd bradparker.com-source
           ${builder}/bin/builder build
