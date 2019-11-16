@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+(
+  cd $(dirname $BASH_SOURCE)
+  echo "#cloud-config"
+  dhall-to-yaml <<< $(cat ./cloud-init.dhall)
+)
