@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -exo pipefail
+
+rsync deployment/host.nix bradparker.com:host.nix
+ssh -t bradparker.com \
+  'sudo mv host.nix /etc/nixos/host.nix && sudo nixos-rebuild switch'
