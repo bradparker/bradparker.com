@@ -82,8 +82,10 @@ in
           mkdir -p ${siteRepoWorkingDir}
           cd ${siteRepoWorkingDir}
 
-          ${pkgs.wget}/bin/wget -c https://github.com/bradparker/bradparker.com/archive/source.tar.gz -O - | tar -xz
+          ${pkgs.curl}/bin/curl --location https://github.com/bradparker/bradparker.com/archive/source.tar.gz | tar -
+xz
 
+          cd bradparker.com-source
           ${builder}/bin/builder build
 
           mkdir -p ${siteRoot}
