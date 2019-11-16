@@ -82,7 +82,7 @@ in
           mkdir -p ${siteRepoWorkingDir}
           cd ${siteRepoWorkingDir}
 
-          ${pkgs.git}/bin/git clone ${siteRepoRemote} .
+          ${pkgs.wget}/bin/wget -c https://github.com/bradparker/bradparker.com/archive/source.tar.gz -O - | tar -xz
 
           ${builder}/bin/builder build
 
