@@ -72,7 +72,7 @@ in
         serviceConfig = {
           Type = "oneshot";
         };
-        startAt = "5 min";
+        startAt = "*:0/5";
         script = ''
           export LOCALE_ARCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive"
           export LANG="en_AU.UTF-8";
