@@ -84,7 +84,6 @@ in
           cd ${siteRepoWorkingDir}
 
           curl --location https://github.com/bradparker/bradparker.com/archive/source.tar.gz | tar -xz
-xz
 
           cd bradparker.com-source
           ${builder}/bin/builder build
