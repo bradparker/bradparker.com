@@ -1,13 +1,13 @@
 { options, lib, config, pkgs, ... }:
 let
-  server = import ./server;
-  builder = import ./builder;
-  site = import ./.;
   acme = import ./acme;
+  builder = import ./builder;
+  server = import ./server;
+  site = (import ./.).bradparker-com.site;
 
   serverName = "bradparker.com";
-  siteRoot = "/var/www/${serverName}/public";
-  siteSourceLocation = "https://github.com/bradparker/bradparker.com/archive/source.tar.gz";
+  siteRoot = "/var/www/${serverName}";
+  source = "https://github.com/bradparker/bradparker.com/archive/source.tar.gz";
 
   serviceConfig = config.services."${serverName}";
   options = {
@@ -73,29 +73,12 @@ in
           Type = "oneshot";
         };
         startAt = "*:0/5";
-        path = with pkgs; [ gnutar curl gzip ];
         script = ''
           set -ex
 
-          export LOCALE_ARCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive"
-          export LANG="en_AU.UTF-8";
-          export LC_TYPE="en_AU.UTF-8";
+          result=$(nix-build ${source} -A bradparker-com.site)
 
-          WORK_DIR=$(mktemp -d)
-
-          (
-            cd $WORK_DIR
-
-            curl --location ${siteSourceLocation} \
-              | tar -xz bradparker.com-source --strip-components=1
-
-            ${builder}/bin/builder build
-
-            mkdir -p ${siteRoot}
-            cp -R _site/* ${siteRoot}
-          )
-
-          rm -rf $WORK_DIR
+          ln -sfT $result/var/www/bradparker.com ${siteRoot}
         '';
       };
 
