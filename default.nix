@@ -1,8 +1,7 @@
 let
   nixpkgs = import ./nixpkgs.nix;
   builder = import ./builder;
-in
-  nixpkgs.stdenv.mkDerivation {
+  bradparker-com = nixpkgs.stdenv.mkDerivation {
     name = "bradparker-com";
     src = ./.;
     buildInputs = [ nixpkgs.glibcLocales ];
@@ -17,4 +16,6 @@ in
       mkdir -p $out
       cp -R _site/* $out/var/www/bradparker.com/
     '';
-  }
+  };
+in
+  { bradparker-com = bradparker-com; }
