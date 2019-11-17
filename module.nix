@@ -1,9 +1,7 @@
 { options, lib, config, pkgs, ... }:
 let
   acme = import ./acme;
-  builder = import ./builder;
   server = import ./server;
-  site = (import ./.).bradparker-com.site;
 
   serverName = "bradparker.com";
   siteRoot = "/var/www/${serverName}";
@@ -35,7 +33,7 @@ let
 
   args = with serviceConfig; [
     "--port ${toString port}"
-    "--directory ${site}/var/www/${serverName}"
+    "--directory /var/www/${serverName}"
   ] ++ lib.optionals https.enable [
     "--https-cert-file /var/lib/acme/${serverName}/fullchain.pem"
     "--https-key-file /var/lib/acme/${serverName}/key.pem"
