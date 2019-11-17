@@ -44,11 +44,12 @@ in
     config = lib.mkIf serviceConfig.enable {
       systemd.services.${serverName} = {
         wantedBy = [ "multi-user.target" ];
-        wants = ["source-${serverName}.timer"] ++ lib.optionals serviceConfig.https.enable [
+        wants =  lib.optionals serviceConfig.https.enable [
           "acme-${serverName}.service"
           "acme-selfsigned-${serverName}.service"
           "acme-challenge-${serverName}.service"
         ];
+        requires = ["source-${serverName}.service"];
         script = ''
           ${server}/bin/server ${lib.concatStringsSep " " args}
         '';
