@@ -7,8 +7,7 @@ let
 
   serverName = "bradparker.com";
   siteRoot = "/var/www/${serverName}/public";
-  siteSourceRemote = "https://github.com/bradparker/bradparker.com/archive/source.tar.gz";
-  siteSourceWorkingDir = "/var/www/${serverName}/source";
+  siteSourceLocation = "https://github.com/bradparker/bradparker.com/archive/source.tar.gz";
 
   serviceConfig = config.services."${serverName}";
   options = {
@@ -76,21 +75,27 @@ in
         startAt = "*:0/5";
         path = with pkgs; [ gnutar curl gzip ];
         script = ''
+          set -ex
+
           export LOCALE_ARCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive"
           export LANG="en_AU.UTF-8";
           export LC_TYPE="en_AU.UTF-8";
 
-          mkdir -p ${siteRepoWorkingDir}
-          rm -rf ${siteRepoWorkingDir}/*
-          cd ${siteRepoWorkingDir}
+          WORK_DIR=$(mktemp -d)
 
-          curl --location ${siteSourceRemote} | tar -xz
+          (
+            cd $WORK_DIR
 
-          cd bradparker.com-source
-          ${builder}/bin/builder build
+            curl --location ${siteSourceLocation} \
+              | tar -xz bradparker.com-source --strip-components=1
 
-          mkdir -p ${siteRoot}
-          cp -R _site/* ${siteRoot}
+            ${builder}/bin/builder build
+
+            mkdir -p ${siteRoot}
+            cp -R _site/* ${siteRoot}
+          )
+
+          rm -rf $WORK_DIR
         '';
       };
 
