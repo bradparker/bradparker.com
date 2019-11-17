@@ -1,13 +1,13 @@
+{ stdenv, glibcLocales, callPackage }:
 let
-  nixpkgs = import ../nixpkgs.nix;
-  builder = import ../builder;
+  builder = callPackage ../builder {};
 in
-  nixpkgs.stdenv.mkDerivation {
+  stdenv.mkDerivation {
     name = "bradparker-com-site";
     src = ./.;
-    buildInputs = [ nixpkgs.glibcLocales ];
+    buildInputs = [ glibcLocales ];
     buildPhase = ''
-      export LOCALE_ARCHIVE="${nixpkgs.glibcLocales}/lib/locale/locale-archive"
+      export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
       export LANG="en_AU.UTF-8";
       export LC_TYPE="en_AU.UTF-8";
 

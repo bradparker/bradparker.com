@@ -1,4 +1,2 @@
-let
-  nixpkgs = import ../nixpkgs.nix;
-in
-  nixpkgs.haskellPackages.callCabal2nix "server" ./. {}
+{ haskellPackages }:
+  haskellPackages.callCabal2nix "server" ./. {}
