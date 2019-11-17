@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   bradparker-source = builtins.fetchTarball {
-    url = https://github.com/bradparker/bradparker.github.io/archive/dff639971d993905446d0d1bb9d19e9e55b30bc9.tar.gz;
+    url = https://github.com/bradparker/bradparker.github.io/archive/9988711e5d25886b570c68c94847f1881244692a.tar.gz;
   };
 in
 {
@@ -32,9 +32,6 @@ in
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
-  services."bradparker.com" = {
-    enable = true;
-    port = 443;
-    https.enable = true;
-  };
+
+  services."bradparker.com".enable = true;
 }
