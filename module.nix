@@ -35,7 +35,7 @@ let
 
   args = with serviceConfig; [
     "--port ${toString port}"
-    "--directory ${site}"
+    "--directory ${site}/var/www/${serverName}"
   ] ++ lib.optionals https.enable [
     "--https-cert-file /var/lib/acme/${serverName}/fullchain.pem"
     "--https-key-file /var/lib/acme/${serverName}/key.pem"
