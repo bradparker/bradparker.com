@@ -1,6 +1,6 @@
 # Personal site
 
-If you have [Nix](https://nixos.org/nix) and a recent-ish version of [cabal-install](https://www.haskell.org/cabal/) installed:
+If you have [Nix](https://nixos.org/nix) installed:
 
 ```
 $ nix-shell -A bradparker-com.builder.env --run 'runhaskell builder/Main.hs watch'

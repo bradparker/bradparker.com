@@ -3,6 +3,7 @@ let
 in {
   bradparker-com = rec {
     builder = import ./builder;
+    server = import ./server;
     site = nixpkgs.stdenv.mkDerivation {
       name = "bradparker-com-site";
       src = ./.;
