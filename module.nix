@@ -50,11 +50,12 @@ in
           Type = "oneshot";
         };
         startAt = "*:0/5";
-        path = with pkgs; [ nix gnutar gzip ];
+        path = with pkgs; [ nix gnutar gzip curl jq ];
         script = ''
           set -ex
 
-          result=$(nix-build https://github.com/bradparker/bradparker.com/archive/source.tar.gz -A bradparker-com.site)
+          rev=$(curl https://api.github.com/repos/bradparker/bradparker.com/git/ref/heads/source | jq -r .object.sha)
+          result=$(nix-build https://github.com/bradparker/bradparker.com/archive/$rev.tar.gz -A bradparker-com.site)
 
           ln -sfT $result${webRoot} ${webRoot}
         '';
