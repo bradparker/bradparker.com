@@ -15,6 +15,6 @@ in
     '';
     installPhase = ''
       mkdir -p $out
-      cp -R _site/* $out/
+      cp -R _site/* $out/var/www/bradparker.com/
     '';
   }
