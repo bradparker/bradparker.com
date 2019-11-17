@@ -1,8 +1,8 @@
 { options, lib, config, pkgs, ... }:
 let
   package = import ./.;
-  acme = package.acme;
-  server = package.server;
+  acme = package.bradparker-com.acme;
+  server = package.bradparker-com.server;
 
   serverName = "bradparker.com";
   webRoot = "/var/www/${serverName}";
