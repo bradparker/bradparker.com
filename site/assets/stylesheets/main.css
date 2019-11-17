@@ -1,0 +1,280 @@
+@import url('./modules/typography/fonts.css');
+
+.lh-copy { line-height: 1.6; }
+
+:root {
+  color: hsl(0, 0%, 15%);
+  font-size: 100%;
+  font-family:
+    Founders Grotesk,
+    -apple-system,
+    BlinkMacSystemFont,
+    avenir next,
+    avenir,
+    helvetica,
+    helvetica neue,
+    ubuntu,
+    noto,
+    Roboto,
+    segoe ui,
+    arial,
+    sans-serif;
+}
+
+@media (min-width: 30rem) {
+  :root {
+    font-size: 125%;
+  }
+}
+
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  z-index: 1;
+}
+
+.founders-grotesk-extra-condensed {
+  font-family: Founders Grotesk Extra Condensed;
+}
+
+.founders-grotesk {
+  font-family:
+    Founders Grotesk,
+    -apple-system,
+    BlinkMacSystemFont,
+    avenir next,
+    avenir,
+    helvetica,
+    helvetica neue,
+    ubuntu,
+    noto,
+    Roboto,
+    segoe ui,
+    arial,
+    sans-serif;
+}
+
+.tiempos-text {
+  font-family:
+    Tiempos Text,
+    Georgia,
+    Times New Roman,
+    serif;
+}
+
+.block-columns-2-ns {
+  column-gap: 1.5rem;
+}
+
+.block-columns-2-ns > * {
+  break-inside: avoid;
+}
+
+@media (min-width: 30em) {
+  .block-columns-2-ns {
+    column-count: 2;
+  }
+}
+
+.markdown {
+  font-family: "Tiempos Text", "Georgia", "Times New Roman", serif;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  font-family:
+    Founders Grotesk,
+    -apple-system,
+    BlinkMacSystemFont,
+    avenir next,
+    avenir,
+    helvetica,
+    helvetica neue,
+    ubuntu,
+    noto,
+    Roboto,
+    segoe ui,
+    arial,
+    sans-serif;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+.markdown h2, .markdown h2 { line-height: 1; }
+
+.markdown h1 { font-size: 2rem; }
+.markdown h2 { font-size: 1.5rem; }
+.markdown h3 { font-size: 1.25rem; }
+
+.markdown em { font-style: italic; }
+
+.markdown pre,
+.markdown code {
+  font-family:
+    "Roboto Mono",
+    "Menlo",
+    monospace;
+}
+
+.markdown p > code, .markdown a > code, .markdown li > code {
+  background-color: #f0c674;
+  padding: 0.12rem 0.3rem 0.16rem;
+  border-radius: 0.12rem;
+  box-decoration-break: clone;
+}
+
+.markdown * + * {
+  margin-top: 1rem;
+}
+
+.markdown blockquote {
+  padding-left: 2rem;
+  position: relative;
+  z-index: 0;
+}
+
+.markdown blockquote:before {
+  content:'"';
+  position: absolute;
+  left: 0;
+  top: 0.125rem;
+  font-size: 2rem;
+  line-height: 2rem;
+  font-family:
+    "Roboto Mono",
+    "Menlo",
+    monospace;
+}
+
+.markdown figcaption {
+  font-size: 0.8rem;
+  font-family:
+    Founders Grotesk,
+    -apple-system,
+    BlinkMacSystemFont,
+    avenir next,
+    avenir,
+    helvetica,
+    helvetica neue,
+    ubuntu,
+    noto,
+    Roboto,
+    segoe ui,
+    arial,
+    sans-serif;
+}
+
+.markdown * + figcaption {
+  margin-top: 0.5rem;
+}
+
+.markdown a[href] {
+  text-decoration: underline;
+}
+
+.markdown a[href]:hover {
+  color: #137752;
+}
+
+.markdown a:visited {
+  color: hsl(0, 0%, 25%);
+}
+
+.markdown img {
+  width: 100%;
+  display: block;
+}
+
+.markdown li {
+  padding-left: 1rem;
+  position: relative;
+}
+
+.markdown li:before {
+  content: "\2022";
+  left: 0;
+  top: 0;
+  position: absolute;
+}
+
+.markdown li + li {
+  margin-top: 0;
+}
+
+.markdown hr {
+  margin: 2rem 0;
+  color: #eee;
+}
+
+.markdown pre {
+  line-height: 1.25;
+  overflow: auto;
+  padding: 1rem;
+  white-space: pre;
+  word-wrap: normal;
+  border-radius: 0.125rem;
+}
+
+/* Syntax */
+
+.markdown pre {
+  background-color: #1d1f21;
+  color: #ffffff;
+}
+
+.markdown pre .dt { display: inline; }
+.markdown pre .fl { float: none }
+.markdown pre .cf:before,
+.markdown pre .cf:after { display: none }
+
+.markdown pre .at { color: #81a2be }
+.markdown pre .cf { color: #b294bb }
+.markdown pre .ch { color: #cc6666 }
+.markdown pre .co { color: #969896 }
+.markdown pre .dt { color: #f0c674 }
+.markdown pre .dv { color: #de935f }
+.markdown pre .fl { color: #de935f }
+.markdown pre .fu { color: #81a2be }
+.markdown pre .kw { color: #b294bb }
+.markdown pre .ot { color: #cc6666 }
+.markdown pre .st { color: #b5bd68 }
+.markdown pre .va { color: #f0c674 }
+
+.markdown pre.diff .st { color: #cc6666 }
+.markdown pre.diff .va { color: #b5bd68 }
+
+.fine-underline {
+  background-image:
+    linear-gradient(
+      to top,
+      transparent,
+      transparent 0.125em,
+      currentColor 0.125em,
+      currentColor calc(0.125em + 1px),
+      transparent calc(0.125em + 1px),
+      transparent
+    );
+  text-shadow:
+    -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white;
+}
+
+.post-tags > a {
+  display: inline-block;
+  text-transform: capitalize;
+}
+.post-tags > a:hover {
+  color: #137752;
+}
+
+@media print {
+   a[href^=http]:after {
+    content: " (" attr(href) ")";
+  }
+}

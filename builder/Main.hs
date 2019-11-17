@@ -17,6 +17,7 @@ myDefaultContext =
 config :: Configuration
 config = defaultConfiguration
     { previewPort = 8080
+    , providerDirectory = "site"
     }
 
 main :: IO ()

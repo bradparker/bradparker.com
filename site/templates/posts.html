@@ -1,0 +1,27 @@
+$for(posts)$
+  <article>
+    <header class="bb b--near-white sticky top-0 bg-white">
+      <section class="mw7 center lh-copy pa3 flex flex-wrap justify-between">
+        <a href="$url$" class="link hover-dark-green">
+          <h1 class="f5 ma0 flex flex-wrap">
+            <strong>$title$</strong>&nbsp;&mdash;&nbsp;<span>$date$</span>
+          </h1>
+        </a>
+        <div class="post-tags">
+          $tags$
+        </div>
+      </section>
+    </header>
+
+    <section class="mw7 center pa3 pt4 block-columns-2-ns markdown lh-copy">
+      $summary$
+    </section>
+
+    <footer class="mw7 center ph3 pt0 pb4">
+      <a href="$url$" class="link hover-dark-green founders-grotesk">
+        Read more <span class="pl1">&#8594;</span>
+      </a>
+    </footer>
+    <hr class="ba-0 bt bw3 b--near-white" />
+  </article>
+$endfor$
