@@ -73,6 +73,7 @@ in
           Type = "oneshot";
         };
         startAt = "*:0/5";
+        path = with pkgs; [ nix ];
         script = ''
           set -ex
 
