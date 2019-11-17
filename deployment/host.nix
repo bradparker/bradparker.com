@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   bradparker-source = builtins.fetchTarball {
-    url = https://github.com/bradparker/bradparker.github.io/archive/f67a365fe5d4f9a26602566ac49537fd0d5a84f9.tar.gz;
+    url = https://github.com/bradparker/bradparker.github.io/archive/5db2dae4da73d62bb52b0fd24075dfb0b606a45f.tar.gz;
   };
 in
 {
