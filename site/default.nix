@@ -1,5 +1,6 @@
 let
-  nixpkgs = import ./nixpkgs.nix;
+  nixpkgs = import ../nixpkgs.nix;
+  builder = import ../builder;
 in
   nixpkgs.stdenv.mkDerivation {
     name = "bradparker-com-site";

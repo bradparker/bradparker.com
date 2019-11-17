@@ -7,6 +7,7 @@ module Main
 import Control.Applicative (empty)
 import Data.Maybe (fromMaybe)
 import Hakyll
+import System.Environment (lookupEnv)
 import System.FilePath ((<.>), (</>))
 
 myDefaultContext :: Context String
@@ -14,87 +15,89 @@ myDefaultContext =
   currentPageField
     <> defaultContext
 
-config :: Configuration
-config = defaultConfiguration
+config :: String -> Configuration
+config sourceDir = defaultConfiguration
     { previewPort = 8080
-    , providerDirectory = "site"
+    , providerDirectory = sourceDir
     }
 
 main :: IO ()
-main = hakyllWith config $ do
-  match ("assets/images/*" .||. "static/*") $ do
-    route idRoute
-    compile copyFileCompiler
+main = do
+  sourceDir <- fromMaybe "." <$> lookupEnv "SOURCE_DIR"
+  hakyllWith (config sourceDir) $ do
+    match ("assets/images/*" .||. "static/*") $ do
+      route idRoute
+      compile copyFileCompiler
 
-  match ("assets/stylesheets/*" .||. "assets/stylesheets/**/*") $ do
-    route idRoute
-    compile compressCssCompiler
+    match ("assets/stylesheets/*" .||. "assets/stylesheets/**/*") $ do
+      route idRoute
+      compile compressCssCompiler
 
-  tags <- buildTags "content/posts/*" (fromCapture "tags/*.html")
+    tags <- buildTags "content/posts/*" (fromCapture "tags/*.html")
 
-  tagsRules tags $ \tag pat -> do
-    route idRoute
-    compile $ do
-      posts <- recentFirst =<< loadAll pat
-      let ctx =
-            listField "posts" (postCtxWithTags tags) (return posts)
-              <> constField "tag" tag
-              <> myDefaultContext
+    tagsRules tags $ \tag pat -> do
+      route idRoute
+      compile $ do
+        posts <- recentFirst =<< loadAll pat
+        let ctx =
+              listField "posts" (postCtxWithTags tags) (return posts)
+                <> constField "tag" tag
+                <> myDefaultContext
 
-      makeItem ""
-        >>= loadAndApplyTemplate "templates/tag.html"     ctx
-        >>= loadAndApplyTemplate "templates/default.html" ctx
-        >>= relativizeUrls
+        makeItem ""
+          >>= loadAndApplyTemplate "templates/tag.html"     ctx
+          >>= loadAndApplyTemplate "templates/default.html" ctx
+          >>= relativizeUrls
 
-  match "content/posts/*" $ do
-    route $ setExtension "html"
-    compile
-      $   pandocCompiler
-      >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
-      >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
-      >>= relativizeUrls
-
-  create ["content/posts.html"] $ do
-    route idRoute
-    compile $ do
-      posts <- recentFirst =<< loadAll "content/posts/*"
-      let postsCtx =
-            listField "posts" (postCtxWithTags tags) (return posts)
-              <> myDefaultContext
-      makeItem ""
-        >>= loadAndApplyTemplate "templates/posts.html"   postsCtx
-        >>= loadAndApplyTemplate "templates/default.html" postsCtx
-        >>= relativizeUrls
-
-  match "content/about.md" $ do
-    route $ setExtension "html"
-    compile
-      $   pandocCompiler
-      >>= loadAndApplyTemplate "templates/page.html"    (postCtxWithTags tags)
-      >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
-
-  match "content/resume.html" $ do
-    route idRoute
-    compile $
-      getResourceBody
-        >>= applyAsTemplate (postCtxWithTags tags)
+    match "content/posts/*" $ do
+      route $ setExtension "html"
+      compile
+        $   pandocCompiler
+        >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
         >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
         >>= relativizeUrls
 
-  match "content/index.html" $ do
-    route $ customRoute $ const "index.html"
-    compile $ do
-      posts <- recentFirst =<< loadAll "content/posts/*"
-      let indexCtx =
-            listField "posts" (postCtxWithTags tags) (return posts)
-              <> myDefaultContext
+    create ["content/posts.html"] $ do
+      route idRoute
+      compile $ do
+        posts <- recentFirst =<< loadAll "content/posts/*"
+        let postsCtx =
+              listField "posts" (postCtxWithTags tags) (return posts)
+                <> myDefaultContext
+        makeItem ""
+          >>= loadAndApplyTemplate "templates/posts.html"   postsCtx
+          >>= loadAndApplyTemplate "templates/default.html" postsCtx
+          >>= relativizeUrls
 
-      getResourceBody
-        >>= applyAsTemplate indexCtx
-        >>= loadAndApplyTemplate "templates/default.html" indexCtx
-        >>= relativizeUrls
+    match "content/about.md" $ do
+      route $ setExtension "html"
+      compile
+        $   pandocCompiler
+        >>= loadAndApplyTemplate "templates/page.html"    (postCtxWithTags tags)
+        >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
 
-  match "templates/*" $ compile templateBodyCompiler
+    match "content/resume.html" $ do
+      route idRoute
+      compile $
+        getResourceBody
+          >>= applyAsTemplate (postCtxWithTags tags)
+          >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
+          >>= relativizeUrls
+
+    match "content/index.html" $ do
+      route $ customRoute $ const "index.html"
+      compile $ do
+        posts <- recentFirst =<< loadAll "content/posts/*"
+        let indexCtx =
+              listField "posts" (postCtxWithTags tags) (return posts)
+                <> myDefaultContext
+
+        getResourceBody
+          >>= applyAsTemplate indexCtx
+          >>= loadAndApplyTemplate "templates/default.html" indexCtx
+          >>= relativizeUrls
+
+    match "templates/*" $ compile templateBodyCompiler
 
 markdownMetadataField :: String -> Context String
 markdownMetadataField name = field name $ \item -> do
