@@ -73,7 +73,7 @@ in
           Type = "oneshot";
         };
         startAt = "*:0/5";
-        path = with pkgs; [ nix ];
+        path = with pkgs; [ nix gnutar gzip ];
         script = ''
           set -ex
 
