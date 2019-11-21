@@ -232,6 +232,7 @@
 .markdown pre .cf:after { display: none }
 
 .markdown pre .at { color: #81a2be }
+.markdown pre .bu { color: #b294bb }
 .markdown pre .cf { color: #b294bb }
 .markdown pre .ch { color: #cc6666 }
 .markdown pre .co { color: #969896 }
