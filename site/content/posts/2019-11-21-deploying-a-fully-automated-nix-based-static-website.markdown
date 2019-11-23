@@ -29,7 +29,7 @@ While researching how I might set all of this up I came across a great article o
 
 An important attribute of this setup for me is reproducibility. I should be able to stand a new server up in functionally same state as the current one by running one command. I don't want to have to access to server directly and configure anything by running a sequence of steps. This includes things like the security best practices outlined in another [DigitalOcean blog article](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04) referenced in the aforementioned.
 
-To achieve this my server is running NixOs, a "completely declarative" operating system built on top of the [Nix](https://nixos.org/nix/) package manager. Nix is one of those very powerful and very mysterious things, it's hard to fully explain because it can do so much. I use it as much as I can get away with, it [configures my work and personal machines](https://github.com/bradparker/dotfiles/blob/master/nixpkgs/home.nix) and now the server which hosts my web site.
+To achieve this my server is running NixOs, a "completely declarative" operating system built on top of the [Nix](https://nixos.org/nix/) package manager. Nix is one of those very powerful and very mysterious things, it's hard to fully explain because it can do so much. I use it as much as I can get away with, it [configures my work and personal machines](https://github.com/bradparker/dotfiles/blob/master/nixpkgs/home.nix) and now the server which hosts my website.
 
 Chris Martin has a [great post](https://chris-martin.org/2016/nixos-on-digitalocean) which outlines how to get a DigitalOcean droplet running NixOs. It is possible to extend those instructions slightly and get something more automated. To do this I took some advice from the [NixOs Infect README](https://github.com/elitak/nixos-infect/blob/master/README.md) and made use of the fact that DigitalOcean images come with [cloud-init](https://cloud-init.io/) installed. This makes it possible to run NixOs infect on the initial boot of a droplet without ever having to SSH into it. Using [`doctl`](https://github.com/digitalocean/doctl) you can create a droplet and have NixOs installed on it with one command.
 
@@ -202,7 +202,6 @@ in
         wantedBy = [ "multi-user.target" ];
         wants = [
           "acme-${serverName}.service"
-          "acme-selfsigned-${serverName}.service"
           "acme-challenge-${serverName}.service"
         ];
         requires = ["source-${serverName}.service"];
