@@ -113,7 +113,7 @@ The whole server is administered using a local `host.nix` file and the above scr
 
 ## Next, a static site
 
-For the static site I wanted the "push to deploy" experience of Github pages. To achieve this firstly I built a Nix [derivation](https://github.com/bradparker/bradparker.com/blob/source/site/default.nix) which describes, in full, how to build my static site. That derivation depends on [another one](https://github.com/bradparker/bradparker.com/blob/source/builder/default.nix) which describes, in full, how to build the _builder_ for my site. As an aside, herein lies one of the killer features of Nix over similar tools: it composes. I'll only need to say that I want the site built and builder will be brought along for the ride. Once I had a derivation for my site I then defined a systemd service to build it every five minutes.
+For the static site I wanted the "push to deploy" experience of Github pages. To achieve this firstly I built a Nix [derivation](https://github.com/bradparker/bradparker.com/blob/source/site/default.nix) which describes, in full, how to build my static site. That derivation depends on [another one](https://github.com/bradparker/bradparker.com/blob/source/builder/default.nix) which describes, in full, how to build the _builder_ for my site. As an aside, herein lies one of the killer features of Nix over similar tools: it composes. I'll only need to say that I want the site built and builder will be brought along for the ride. Once I had a derivation for my site I then defined a [systemd](https://freedesktop.org/wiki/Software/systemd/) service to build it every five minutes.
 
 ```nix
 { options, lib, config, pkgs, ... }:
@@ -177,7 +177,7 @@ At this stage the sensible thing to have done would have been to use the excelle
 
 I needed to write some Haskell for both the application to [serve the static site](https://github.com/bradparker/bradparker.com/blob/source/server/Main.hs) and one to [serve ACME challenges](https://github.com/bradparker/bradparker.com/blob/source/acme/Main.hs) in order to get auto-renewing certificates. Being that I love writing Haskell this was OK with me.
 
-With those written I then needed some [systemd](https://freedesktop.org/wiki/Software/systemd/) services to run them. One for the static site.
+With those written I then needed some systemd services to run them. One for the static site.
 
 ```nix
 { options, lib, config, pkgs, ... }:
@@ -228,7 +228,7 @@ in
 
 **Note** I've put all the Nix derivations into a [set](https://github.com/bradparker/bradparker.com/blob/source/default.nix) so I can import them as a whole.
 
-I also needed a service for the ACME challenges.
+And a service for the ACME challenges.
 
 ```nix
 { options, lib, config, pkgs, ... }:
@@ -271,7 +271,7 @@ in
   }
 ```
 
-Lastly, I needed to enable and configure the ACME service itself.
+To go with that I needed to enable and configure the ACME service itself.
 
 ```nix
 { options, lib, config, pkgs, ... }:
@@ -301,6 +301,22 @@ in
       };
     };
   }
+```
+
+Finally, I needed to open the default HTTP and HTTPS ports in NixOs' firewall. I did this in the host.nix file rather than the module file.
+
+```nix
+{ config, pkgs, ... }:
+let
+  # ... Fetching source
+in
+{
+  # ... User config, importing the module
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+
+  # ... Enabling the service
+}
 ```
 
 ## Hey, presto
