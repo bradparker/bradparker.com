@@ -40,4 +40,6 @@ in
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services."bradparker.com".enable = true;
+
+  services.do-agent.enable = true;
 }
