@@ -1,11 +1,16 @@
 { config, pkgs, ... }:
 let
   bradparker-source = builtins.fetchTarball {
-    url = https://github.com/bradparker/bradparker.github.io/archive/355cf315becbf39ad7d3d032a88fe913ea0c4565.tar.gz;
+    url = https://github.com/bradparker/bradparker.com/archive/fb3ac9dd6b8aee5e4cebee4f7b3639f662dc99dd.tar.gz;
   };
 in
 {
   imports = ["${bradparker-source}/module.nix"];
+
+  nix.gc = {
+    automatic = true;
+    dates = "00:00";
+  };
 
   environment.systemPackages = with pkgs; [
     curl
@@ -18,6 +23,7 @@ in
   };
 
   users.mutableUsers = false;
+
   users.users.brad = {
     isNormalUser = true;
     hashedPassword = "$1$cmckqoXC$eBya/upETQKFbInZPz5y8.";
