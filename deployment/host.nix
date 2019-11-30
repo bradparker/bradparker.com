@@ -1,11 +1,18 @@
 { config, pkgs, ... }:
 let
+  nixpkgs-source = builtins.fetchTarball {
+    url = https://github.com/NixOS/nixpkgs/archive/00a54207e01a27c60814828ac8f464f1d2c80c58.tar.gz;
+  };
+
   bradparker-source = builtins.fetchTarball {
     url = https://github.com/bradparker/bradparker.com/archive/fb3ac9dd6b8aee5e4cebee4f7b3639f662dc99dd.tar.gz;
   };
 in
 {
-  imports = ["${bradparker-source}/module.nix"];
+  imports = [
+    "${bradparker-source}/module.nix"
+    "${nixpkgs-source}/nixos/modules/services/monitoring/do-agent.nix"
+  ];
 
   nix.gc = {
     automatic = true;
