@@ -40,7 +40,6 @@ in
         wantedBy = [ "multi-user.target" ];
         wants = [
           "acme-${serverName}.service"
-          "acme-selfsigned-${serverName}.service"
           "acme-challenge-${serverName}.service"
         ];
         requires = ["source-${serverName}.service"];
