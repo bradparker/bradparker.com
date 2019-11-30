@@ -14,6 +14,10 @@ in
     "${nixpkgs-source}/nixos/modules/services/monitoring/do-agent.nix"
   ];
 
+  nixpkgs.config.packageOverrides = pkgs: {
+    do-agent = pkgs.callPackage "${nixpkgs-source}/pkgs/servers/monitoring/do-agent/default.nix" {};
+  };
+
   nix.gc = {
     automatic = true;
     dates = "00:00";
