@@ -1,5 +1,5 @@
 ---
-title: Brisbane Bicycle Film Festival 2012 &mdash; Poster
+title: Brisbane Bicycle Film Festival 2012 &#8212; Poster
 tags: design
 description: |
   ![Bicycle Film Festival &mdash; Poster Detail](/assets/images/bbff-2012-detail.jpg)

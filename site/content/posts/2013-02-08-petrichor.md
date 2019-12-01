@@ -1,5 +1,5 @@
 ---
-title: Petrichor Ensemble &mdash; Gig Poster
+title: Petrichor Ensemble &#8212; Gig Poster
 tags: design
 description: |
   ![Petrichor Ensemble &mdash; Gig Poster Detail](/assets/images/petrichor-detail.jpg)
