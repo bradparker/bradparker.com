@@ -1,7 +1,7 @@
 ---
 title: Deploying a fully automated Nix-based static website
 tags: development
-summary: |
+description: |
   ```nix
   { config, pkgs, ... }:
   let

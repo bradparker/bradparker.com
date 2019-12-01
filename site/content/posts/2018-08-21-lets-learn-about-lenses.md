@@ -1,7 +1,7 @@
 ---
 title: Let's learn about lenses
 tags: development
-summary: |
+description: |
   ```haskell
   type Lens s t a b =
     forall f. Functor f =>

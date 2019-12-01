@@ -1,7 +1,7 @@
 ---
 title: You already know what Monads are
 tags: development
-summary: |
+description: |
   I sought to understand what the fuss was all about and I've now added to the mass of Monad Explainer posts on the internet.
 
   ```javascript

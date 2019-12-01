@@ -1,7 +1,7 @@
 ---
 title: Design futures &mdash; Typography
 tags: design
-summary: |
+description: |
   ![Design Futures &mdash; Monogram](/assets/images/design-futures-monogram.jpg)
 
   ![Design Futures &mdash; Full](/assets/images/design-futures-full.jpg)
