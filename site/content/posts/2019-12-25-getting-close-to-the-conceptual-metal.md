@@ -2,7 +2,7 @@
 title: Getting close to the conceptual metal
 tags: development
 description: |
-  Writing software can give us the ability to take a seemingly impossibly abstract idea and use it to create a runnable program.
+  Writing software can give us the ability to take a nearly impossibly abstract idea and use it to create a runnable program.
 
   In this post we're to talk about "fundamental things" and see how much we can build with them.
 
@@ -54,37 +54,140 @@ newtype NonEmpty a
 
 When Sussman chalked up that pair made of nothing but "hot air" he attributed the encoding to [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church). Appreciating that many other types can be made from pair-like things and either-like things I wondered if there existed a Church encoding for `Either`. After all, with `Either` and `Pair` it sure seemed like I'd be able to construct anything else I needed. I found Church encodings for lots of other interesting things, like [booleans](https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans) and [natural numbers](https://en.wikipedia.org/wiki/Church_encoding#Church_numerals), but nothing quite like `Either`.
 
-Eventually I'd happen across [Scott encoding](https://oxij.org/paper/ExceptionallyMonadic/ExceptionallyMonadic.xetex.pdf#24), named for [Dana Scott](https://en.wikipedia.org/wiki/Dana_Scott) to whom it is attributed. It's very interesting, and the topic of this post.
+Eventually I'd happen across [Scott encoding](https://oxij.org/paper/ExceptionallyMonadic/ExceptionallyMonadic.xetex.pdf#24), named for [Dana Scott](https://en.wikipedia.org/wiki/Dana_Scott) to whom it is attributed. It's very interesting, and features prominently in this post.
 
 ## Making everything out of nothing
 
-This post uses Haskell, so we're going to build a parser. However the twist here is that before we can build _our_ parser, we must first build the universe.
-
-We're going to use Scott encoding to build _every_ type we'll need to end up with a working [monadic parser](http://www.cs.nott.ac.uk/~pszgmh/pearl.pdf). Or to put it another way: we're going to build _every_ type we need out of only functions. The type we're working towards should look like this:
+Our goal will be to arrive at a Haskell program which evaluates LISP-like expressions. We'll do it all using Scott-encoded data types as much as possible.
 
 ```haskell
-newtype Parser a = Parser
-  { parse :: String -> Maybe (Pair a String)
-  }
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# OPTIONS_GHC -Wall #-}
+
+{-# OPTIONS -fplugin=Overloaded #-}
+{-# OPTIONS -fplugin-opt=Overloaded:Chars #-}
+module Main
+  ( main
+    )
+where
+
+import Control.Applicative ((*>), (<*), (<*>), (<|>))
+import Data.Function (($), id)
+import Data.Functor ((<$), (<$>))
+import GHC.Num ((*), (+))
+import HotAir.IO (print, putStrLn)
+import HotAir.Maybe (Maybe)
+import HotAir.Nat (Nat)
+import HotAir.Parser (Parser, char, execParser, nat)
+import HotAir.String (String)
+import System.IO (IO)
+
+eval :: String -> Maybe Nat
+eval = execParser expr
+  where
+    expr :: Parser Nat
+    expr =
+      nat <|> apply
+        <$> (char '(' *> op <* char ' ')
+        <*> (expr <* char ' ')
+        <*> (expr <* char ')')
+    op :: Parser (Nat -> Nat -> Nat)
+    op = (+) <$ char '+' <|> (*) <$ char '*'
+    apply :: (a -> b -> c) -> a -> b -> c
+    apply = id
+
+main :: IO ()
+main = do
+  putStrLn "Evaluating (+ 12 11) ..."
+  print $ eval "(+ 12 11)"
+  putStrLn "Evaluating (* (+ 12 11) 11) ..."
+  print $ eval "(* (+ 12 11) 11)"
 ```
 
-Which is made of all these things:
+It will run.
+
+```
+$ ./result/bin/hot-air
+Evaluating (+ 12 11) ...
+(just 23)
+Evaluating (* (+ 12 11) 11) ...
+(just 253)
+```
+
+It will only use [`newtype`](https://wiki.haskell.org/Newtype) for making new data types, [`data`](https://en.wikibooks.org/wiki/Haskell/Type_declarations#data_and_constructor_functions) won't ever be used. This means that new types can only be constructed out of pre-existing ones.
+
+In order to interact with the outside world we, sadly, will need to interact with some of Haskell's existing primitives.
+
+To use string literals we'll need to convert from `String`s.
 
 ```haskell
-newtype Maybe a = ...
+class IsString a where
+  fromString :: String -> a
+```
 
-newtype Pair a b = ...
+<figcaption>
+  [Documentation](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-String.html#t:fromString)
+</figcaption>
+
+To use character literals we'll need to convert from `Char`s, which will mean converting from `Int`s.
+
+```haskell
+ord :: Char -> Int
+
+class FromChar a where
+  fromChar :: Char -> a
+```
+
+<figcaption>
+  [Documentation for `ord`](https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Char.html#v:ord), [Documentation for `fromChar`](https://hackage.haskell.org/package/overloaded-0.2/docs/Overloaded-Chars.html#t:fromChar)
+</figcaption>
+
+To use integer literals we'll need to convert from `Integer`s.
+
+```haskell
+class Num a where
+  fromInteger :: Integer -> a
+```
+
+<figcaption>
+  [Documentation](http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:fromInteger)
+</figcaption>
+
+To see the fruits of our labour we'll need to convert to and output `Char`s, producing values of `IO ()`.
+
+```haskell
+chr :: Int -> Char
+
+putChar :: Char -> IO ()
+```
+
+<figcaption>
+  [Documentation for `chr`](https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Char.html#v:chr), [documentation for `putChar`](http://hackage.haskell.org/package/base-4.12.0.0/docs/System-IO.html#v:putChar)
+</figcaption>
+
+Importantly, we'll only reach for those when we absolutely have to, only when converting from literals and converting to primitives that GHC knows how to turn into bits and bytes. We'll actually define our own versions of things like `Integer`, `String` and `Char` for all other purposes.
+
+How then will we get from nothing to something like `Parser Nat`?
+
+```haskell
+newtype Parser a
+  = Parser (String -> Maybe (Pair a String))
+
+newtype String = String (List Char)
+
+newtype Char = Char Nat
 
 newtype Nat = ...
 
 newtype List a = ...
 
-newtype Char = Char Nat
+newtype Maybe a = ...
 
-newtype String = String (List Char)
+newtype Pair a b = ...
 ```
 
-Keep in mind that at the bottom of all of this will sit only functions. At the end of the day `(->)` will be the only primitive we need to construct everything.
+The answer is Scott-encoding.
 
 ## Scott encoding
 
@@ -196,813 +299,18 @@ type Maybe a    = forall r. r -> (a -> r) -> r
 type Either a b = forall r. (a -> r) -> (b -> r) -> r
 ```
 
-## Where the rubber meets the road
+And with that we have our tool box. So where should we begin?
 
-So far this is very theoretical, we haven't built anything yet. Let's aim to remedy that. We're going to implement an [alternate Prelude](https://hackage.haskell.org/packages/tag/prelude) called [_Hot Air_](https://github.com/bradparker/hot-air) which will contain just enough pieces to build our Parser.
+## Pair
 
-### Building up to `String`
+## Bool
 
-Our `Parser` takes a `String` as input. Therefore in order to implement it we'll first need to implement `String`.
+## Maybe
 
-What are `String`s made of? This a big and complex topic, so we're going to avoid all that and aim to replicate the contentious but fairly simple representation used by the Haskell base libraries. Our `String` will be a list of characters.
+## Nat
 
-```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
+## List
 
-module HotAir.String
-  ( String
-  ) where
+## Char
 
-import HotAir.Char (Char)
-import HotAir.List (List)
-
-newtype String =
-  String (List Char)
-```
-
-There are two types we'll need to make this one: `List` and `Char`. Let's start with `Char`.
-
-What are `Char`s made of? Again, a complex topic we're going to hop right over by going with an incomplete but simple definition: a `Char` is a natural number that we treat specially.
-
-```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
-
-module HotAir.Char
-  ( Char
-  ) where
-
-import HotAir.Nat (Nat)
-
-newtype Char =
-  Char Nat
-```
-
-What are `Nat`s made of? Now we're getting somewhere. `Nat`s are made of functions, and nothing else. To arrive at the definition we'll start with one that uses "normal" algebraic data types, and replace as much Haskell syntax as we can with functions. Here's a data type that represents the natural numbers:
-
-```haskell
-data Nat
-  = Zero
-  | Succ Nat
-```
-
-It means that a `Nat` can either be `Zero` or "the successor to some other natural number", `Succ`.
-
-The Scott encoding for this type will be a function which takes an argument for each constructor, represented by holes for now:
-
-```haskell
-newtype Nat =
-  Nat (forall r. _ -> _ -> r)
-```
-
-The first constructor takes no arguments.
-
-```haskell
-newtype Nat =
-  Nat (forall r. r -> _ -> r)
-```
-
-The second constructor _does_ take an argument, of type `Nat`. To represent this the second argument will need to be a function that accepts a value of `Nat`.
-
-```haskell
-newtype Nat =
-  Nat (forall r. r -> (Nat -> r) -> r)
-```
-
-That's the type done, now to write the constructors. The first constructor (called `Zero` in the normal type above) looks like this.
-
-```haskell
-zero :: Nat
-zero = Nat (\z _ -> z)
-```
-
-It _chooses_ to return the value passed as the first argument to the `Nat` function. The second constructor (called `Succ` above) looks like this:
-
-```haskell
-succ :: Nat -> Nat
-succ n = Nat (\_ s -> s n)
-```
-
-It _chooses_ to call the function passed as the second argument to the `Nat` function with the value it's been supplied.
-
-Here's our `Nat` module so far.
-
-```haskell
-{-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE NoImplicitPrelude #-}
-
-module HotAir.Nat
-  ( Nat
-  , zero
-  , succ
-  ) where
-
-newtype Nat =
-  Nat (forall c. c -> (Nat -> c) -> c)
-
-zero :: Nat
-zero = Nat (\z _ -> z)
-
-succ :: Nat -> Nat
-succ n = Nat (\_ s -> s n)
-```
-
-<figcaption>
-  <code>lib/HotAir/Nat.hs</code>
-</figcaption>
-
-We can now construct natural numbers, but they're still not of any use until we have some way to _deconstruct_ them. Unlike "normal" Haskell data types we'll not be able to pattern match our way from a `Nat` to some other type. Let's say we want to write the function `pred` (short for predecessor) which subtracts one from any natural number except zero, which it leaves unchanged. With the normal type we could match the cases and get to something like:
-
-```haskell
-pred :: Nat -> Nat
-pred nat =
-  case nat of
-    Zero -> Zero
-    Succ n -> n
-```
-
-The implementation for Scott encoded `Nat`s will look a bit different.
-
-```haskell
-pred :: Nat -> Nat
-pred (Nat nat) =
-  nat
-    zero
-    (\n -> n)
-```
-
-<figcaption>
-  <code>lib/HotAir/Nat.hs</code>
-</figcaption>
-
-The function that represents a `Nat`, called `nat` above, accepts an argument _for each case_. The first argument is the `Zero` case and the second is the `Succ n` case. If the `nat` in question was constructed using `zero` it will choose the first argument it is passed, in this case `zero`. If it was constructed using `succ` then it will choose to call the second argument with the `Nat` it was supposed to be the successor of, therefore behaving as if that `Nat` had never been effected by it.
-
-Being able to subtract one from a `Nat` doesn't make them especially useful, folding a `Nat` into some other value, that'll be useful. So how do we do that?
-
-Again if we were dealing with the normal Haskell data type we might write something like this:
-
-```haskell
-foldNat :: c -> (c -> c) -> Nat -> c
-foldNat z f nat =
-  case nat of
-    Zero -> z
-    Succ n -> f (foldNat z f n)
-```
-
-The translation to the Scott encoded version is very similar to what we did with `pred`.
-
-```haskell
-foldNat :: c -> (c -> c) -> Nat -> c
-foldNat z f (Nat nat) =
-  nat
-    z
-    (\n -> f (foldNat z f n))
-```
-
-<figcaption>
-  <code>lib/HotAir/Nat.hs</code>
-</figcaption>
-
-Now that we can fold `Nat`s we can transform them into good old Haskell `Num`s.
-
-```haskell
-module HotAir.Nat
-  ( toNum
-  ) where
-
-import qualified GHC.Num as Builtin
-
-toNum :: Builtin.Num n => Nat -> n
-toNum = foldNat 0 (Builtin.+ 1)
-```
-
-<figcaption>
-  <code>lib/HotAir/Nat.hs</code>
-</figcaption>
-
-Now, for the first time we can actually _run_ something.
-
-```
-$ ghci lib/HotAir/Num.hs
-
-> toNum zero
-0
-> toNum (succ zero)
-1
-> toNum (succ (succ zero))
-2
-> toNum (succ (succ (succ zero)))
-3
-```
-
-We can go _to_ Haskell numbers, but what about converting _from_ them. For that we might want some way of unfolding a value into a `Nat`.
-
-Again we can think about how we'd do it with ordinary Haskell data types and then translate our solution to work with Scott encoded data types.
-
-```haskell
-unfoldNat :: (c -> Maybe c) -> c -> Nat
-unfoldNat f c =
-  case f c of
-    Nothing -> c
-    Just c' -> succ (unfoldNat f c')
-```
-
-But wait, to write that function we first need a `Maybe` data type. Now that we've done `Nat` I reckon `Maybe` isn't going to be too much of a stretch.
-
-As with `Nat` we will have two constructors.
-
-```haskell
-newtype Maybe a =
-  Maybe (forall r. _ -> _ -> r)
-```
-
-The first constructor will be nullary, it won't accept any arguments.
-
-```haskell
-newtype Maybe a =
-  Maybe (forall r. r -> _ -> r)
-```
-
-The second will be unary, it'll accept one argument of the type `a`.
-
-```haskell
-newtype Maybe a =
-  Maybe (forall r. r -> (a -> r) -> r)
-```
-
-Now to write those two constructors.
-
-```haskell
-nothing :: Maybe a
-nothing = Maybe (\n _ -> n)
-
-just :: a -> Maybe a
-just a = Maybe (\_ j -> j a)
-```
-
-And some way of _using_ a value of type `Maybe`.
-
-```haskell
-maybe :: c -> (a -> c) -> Maybe a -> c
-maybe c f (Maybe m) = m c f
-```
-
-Now we have a `HotAir.Maybe` module.
-
-```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE RankNTypes #-}
-
-module HotAir.Maybe
-  ( Maybe
-  , nothing
-  , just
-  , maybe
-  ) where
-
-newtype Maybe a =
-  Maybe (forall c. c -> (a -> c) -> c)
-
-nothing :: Maybe a
-nothing = Maybe (\n _ -> n)
-
-just :: a -> Maybe a
-just a = Maybe (\_ j -> j a)
-
-maybe :: c -> (a -> c) -> Maybe a -> c
-maybe n j (Maybe m) = m n j
-```
-
-<figcaption>
-  <code>lib/HotAir/Maybe.hs</code>
-</figcaption>
-
-And with that we should have all we need.
-
-```haskell
-unfoldNat :: (c -> Maybe c) -> c -> Nat
-unfoldNat f c =
-  maybe
-    c
-    (\c' -> succ (unfoldNat f c')
-    (f c)
-```
-
-<figcaption>
-  <code>lib/HotAir/Nat.hs</code>
-</figcaption>
-
-Can we now convert `Nat`s to and from `Num`s?
-
-```haskell
-module HotAir.Nat
-  ( fromNum
-  ) where
-
-import qualified Data.Ord as Builtin
-
-fromNum :: (Builtin.Ord n, Builtin.Num n) => n -> Nat
-fromNum =
-  unfoldNat
-    (\n ->
-       if n Builtin.<= 0
-         then nothing
-         else just (n Builtin.- 1))
-```
-
-<figcaption>
-  <code>lib/HotAir/Nat.hs</code>
-</figcaption>
-
-We can, but we'll come back to this later, using even less of the pre-existing universe.
-
-```
-$ ghci lib/HotAir/Num.hs
-
-> toNum (fromNum 3)
-3
-> toNum (fromNum 1024)
-1024
-```
-
-Now that we're able to convert `Nat`s to `Num`s and back again, we're also able to go from our `Char` to the builtin Haskell `Char` and back again. Like so:
-
-```haskell
-module HotAir.Char
-  ( fromBuiltin
-  , toBuiltin
-  ) where
-
-import qualified Data.Char as Builtin
-
-import HotAir.Nat (fromNum, toNum)
-
-fromBuiltin :: Builtin.Char -> Char
-fromBuiltin = Char . fromNum . Builtin.ord
-
-toBuiltin :: Char -> Builtin.Char
-toBuiltin (Char c) = Builtin.chr (toNum c)
-```
-
-<figcaption>
-  <code>lib/HotAir/Char.hs</code>
-</figcaption>
-
-It's not much but we can see that it "works".
-
-```
-$ ghci lib/HotAir/Char.hs
-
-> toBuiltin (fromBuiltin 'c')
-'c'
-> toBuiltin (fromBuiltin '!')
-'!'
-```
-
-All that remains for `String` is a list to put all these `Char`s in. Now that we've done `Nat` and `Maybe` I reckon `List` won't be too bad.
-
-A `List`, like `Nat` and `Maybe` has two constructors.
-
-```haskell
-newtype List a =
-  List (forall r. _ -> _ -> r)
-```
-
-Like `Maybe` the first will be nullary.
-
-```haskell
-newtype List a =
-  List (forall r. r -> _ -> r)
-
-nil :: List a
-nil = List (\r _ -> r)
-
-cons :: _
-cons = _
-```
-
-Like `Nat` the second will be recursive, it will accept a `List` as one of its arguments. Unlike `Nat` it will _also_ accept a value.
-
-```haskell
-newtype List a =
-  List (forall c. c -> (a -> List a -> c) -> c)
-
-nil :: List a
-nil = List (\n _ -> n)
-
-cons :: a -> List a -> List a
-cons a as = List (\_ c -> c a as)
-```
-
-The `cons` function accepts an `a` and a `List a` and then _chooses_ the second function passed to `List` to apply them both to.
-
-To see how this adds up to a list it helps to write `foldr`.
-
-```haskell
-foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) =
-  _
-```
-
-The `l` variable above is a function `c -> (a -> List a -> c) -> c` in this case. So it's able to produce a `c` we just need to _provide_ it a `c` and a function `a -> List a -> c`. Things will get a little twisty here.
-
-Providing a `c` is easy enough.
-
-```haskell
-foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) =
-  l c _
-```
-
-The function will take a little more thinking.
-
-```haskell
-foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) =
-  l c (\a as -> _)
-```
-
-Now we have an `a`, a `List a` and a function `a -> c -> c` (the variable `f`). We want to use those to produce a `c`.
-
-Here's a solution.
-
-```haskell
-foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) =
-  l c (\a as -> f a c)
-```
-
-That makes the types line up, but it doesn't do what we want it to do. This won't fold over _all_ of the provided list. It'll iterate over at most one element (or none if the list should have none). As with moving from `pred` to `foldNat` we'll need to introduce some recursion.
-
-```haskell
-foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) =
-  l c (\a as -> f a (foldr f c as))
-```
-
-With `foldr` we have enough for a useful `List` module.
-
-```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE RankNTypes #-}
-
-module HotAir.List
-  ( List
-  , cons
-  , nil
-  , foldr
-  ) where
-
-newtype List a =
-  List (forall c. c -> (a -> List a -> c) -> c)
-
-nil :: List a
-nil = List (\n _ -> n)
-
-cons :: a -> List a -> List a
-cons a as = List (\_ c -> c a as)
-
-foldr :: (a -> c -> c) -> c -> List a -> c
-foldr f c (List l) =
-  l c (\a as -> f a (foldr f c as))
-```
-
-<figcaption>
-  <code>lib/HotAir/List.hs</code>
-</figcaption>
-
-```
-$ ghci lib/HotAir/List.hs
-
-> import GHC.Num ((+))
-> foldr (+) 0 (cons 1 (cons 1 nil))
-2
-```
-
-We also have enough to write conversions between the builtin string type and our `HotAir` string type.
-
-```haskell
-module HotAir.String
-  ( toBuiltin
-  , fromBuiltin
-  ) where
-
-import qualified Data.List as Builtin
-import qualified Data.String as Builtin
-
-import qualified HotAir.Char as Char
-import HotAir.List (List, cons, foldr, nil)
-
-newtype String =
-  String (List Char)
-
-toBuiltin :: String -> Builtin.String
-toBuiltin (String chars) =
-  foldr ((:) . Char.toBuiltin) [] chars
-
-fromBuiltin :: Builtin.String -> String
-fromBuiltin =
-  String . Builtin.foldr (cons . Char.fromBuiltin) nil
-```
-
-<figcaption>
-  <code>lib/HotAir/String.hs</code>
-</figcaption>
-
-Which means that we can write `Show` and `IsString` instances.
-
-```haskell
-import qualified Text.Show as Builtin
-
-instance Builtin.IsString String where
-  fromString = fromBuiltin
-
-instance Builtin.Show String where
-  show = Builtin.show . toBuiltin
-```
-
-<figcaption>
-  <code>lib/HotAir/String.hs</code>
-</figcaption>
-
-Which means we're able to easily create and view values of our `String` type in GHCi.
-
-```
-$ ghci lib/HotAir/String.hs
-
-> "Hello, Hot Air!" :: HotAir.String.String
-"Hello, Hot Air!"
-```
-
-However at this point you might be wondering if we've really achieved anything at all. It took us a while to get here but and so far it seems that all we're going to do is convert between ordinary Haskell types and Scott encoded types. Fortunately we've done as much of that we we'll need to do. We can write a `Show` type class that works in terms of _our_ `String`.
-
-```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
-
-module HotAir.Show
-  ( Show(show)
-  ) where
-
-import HotAir.String (String)
-
-class Show a where
-  show :: a -> String
-```
-
-<figcaption>
-  <code>lib/HotAir/Show.hs</code>
-</figcaption>
-
-Now we can write instances of that type class for any further types we write.
-
-By way of an example we'll write `Show` instance for `Maybe`. In order to do so we'll first need a way to concatenate `String`s. Being that `String`s are really just a special kind of list we'll write this operation for list and reuse it for `String`. Our chosen method of reuse will be a combination of a type-class and the language extension `GeneralizedNewtypDeriving`. First, the type-class.
-
-```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
-
-module HotAir.Semigroup
-  ( Semigroup((<>))
-  ) where
-
-class Semigroup a where
-  (<>) :: a -> a -> a
-```
-
-<figcaption>
-  <code>lib/HotAir/Semigroup.hs</code>
-</figcaption>
-
-Next, an instance for `List`.
-
-```haskell
-import HotAir.Semigroup (Semigroup((<>)))
-
-instance Semigroup (List a) where
-  a <> b = foldr cons b a
-```
-
-<figcaption>
-  <code>lib/HotAir/List.hs</code>
-</figcaption>
-
-Lastly, we can reuse that instance for `String` at no extra cost.
-
-```haskell
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-
-import HotAir.Semigroup (Semigroup)
-
-newtype String =
-  String (List Char)
-  deriving (Semigroup)
-```
-
-<figcaption>
-  <code>lib/HotAir/String.hs</code>
-</figcaption>
-
-That gives us everything we need to write a `Show` instance for `Maybe`.
-
-```haskell
-{-# LANGUAGE OverloadedStrings #-}
-
-import HotAir.Maybe (Maybe, maybe)
-import HotAir.Semigroup ((<>))
-
-instance Show a => Show (Maybe a) where
-  show = maybe "nothing" (\a -> "(just " <> show a <> ")")
-```
-
-<figcaption>
-  <code>lib/HotAir/Show.hs</code>
-</figcaption>
-
-As well as one for `String`, so that we have something else with a `Show` instance to put in our `Maybe`s.
-
-```haskell
-instance Show String where
-  show a = "\"" <> a <> "\""
-```
-
-<figcaption>
-  <code>lib/HotAir/Show.hs</code>
-</figcaption>
-
-Now we can view `Maybe String`s in GHCi.
-
-```
-$ ghci lib/HotAir/Show.hs
-
-> import HotAir.Maybe
-> show (nothing :: Maybe String)
-"nothing"
-> show (just "Good one" :: Maybe String)
-"(just \"Good one\")"
-```
-
-From here on in the only things we should need to convert to their built in counterparts are `Num`, `Char` and `String`.
-
-### The previous sentence is `false`
-
-Well, it's still true so long as we're OK with using builtin booleans. Where's the fun in that?
-
-`Bool` is a type with two nullary constructors.
-
-```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE RankNTypes #-}
-
-module HotAir.Bool
-  ( Bool
-  , true
-  , false
-  ) where
-
-newtype Bool =
-  Bool (forall r. r -> r -> r)
-
-true :: Bool
-true = Bool (\t _ -> t)
-
-false :: Bool
-false = Bool (\_ f -> f)
-```
-
-<figcaption>
-  <code>lib/HotAir/Bool.hs</code>
-</figcaption>
-
-Haskell's laziness makes encoding booleans which behave the same the builtin `Bool` possible. In fact, it goes so far as to allow us to hook into how `if ... then ... else ...` expressions desugar. All we need to do is write an `ifThenElse` function and enable the `RebindableSyntax` language extension.
-
-The function we need to write has the following signature.
-
-```haskell
-ifThenElse :: Bool -> a -> a -> a
-```
-
-It takes a `Bool`, an `a` to return in the "true" case and an `a` to return in the "false" case. Looking back at `Bool` we might see a similarity here.
-
-```haskell
-        ifThenElse :: Bool ->         a -> a -> a
-newtype Bool =        Bool (forall r. r -> r -> r)
-```
-
-This is actually how our `Bool` is already implemented, so all we need to do is unwrap it.
-
-```haskell
-ifThenElse :: Bool -> a -> a -> a
-ifThenElse (Bool b) = b
-```
-
-<figcaption>
-  <code>lib/HotAir/Bool.hs</code>
-</figcaption>
-
-We can even see it in action in a GHCi session.
-
-```
-$ ghci lib/HotAir/Bool.hs
-
-> :set -XRebindableSyntax
-> import Data.String (IsString(..))
-> if true then "It was true." else "It was false."
-"It was true."
-> if false then "It was true." else "It was false."
-"It was false."
-```
-
-Now we nearly have a drop in replacement for builtin booleans. To see what's missing let's try to turn on `RebindableSyntax` in `HotAir.Nat`, the only module in which we've used `if ... then ... else ...` so far.
-
-```
-» ghci lib/HotAir/Nat.hs
-
-lib/HotAir/Nat.hs:52:11: error:
-    • Couldn't match expected type ‘Bool’
-                  with actual type ‘GHC.Types.Bool’
-      NB: ‘GHC.Types.Bool’
-            is defined in ‘GHC.Types’ in package ‘ghc-prim-0.5.3’
-          ‘Bool’ is defined at lib/HotAir/Bool.hs:(17,1)-(18,30)
-    • In the expression: n Builtin.<= 0
-      In the expression:
-        if n Builtin.<= 0 then nothing else just (n Builtin.- 1)
-      In the first argument of ‘unfoldNat’, namely
-        ‘(\ n -> if n Builtin.<= 0 then nothing else just (n Builtin.- 1))’
-   |
-52 |        if n Builtin.<= 0
-   |           ^^^^^^^^^^^^^^
-Failed, four modules loaded.
- >
-```
-
-By enabling the extension we see that fundamental things like `Bool` aren't so easily replaced. In order to use _our_ `Bool` in this expression we'll need a `<=` operator. We should define our own `Ord`. Which means we should define our own `Eq`.
-
-```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
-
-module HotAir.Eq
-  ( Eq((==), (/=))
-  ) where
-
-import HotAir.Bool (Bool)
-
-class Eq a where
-  (==) :: a -> a -> Bool
-
-  (/=) :: a -> a -> Bool
-```
-
-<figcaption>
-  <code>lib/HotAir/Eq.hs</code>
-</figcaption>
-
-```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
-
-module HotAir.Ord
-  ( Ord((<=))
-  ) where
-
-import HotAir.Bool (Bool)
-import HotAir.Eq (Eq)
-
-class Eq a => Ord a where
-  (<=) :: a -> a -> Bool
-```
-
-<figcaption>
-  <code>lib/HotAir/Ord.hs</code>
-</figcaption>
-
-With those defined we can use them to rid `Nat.hs` of builtin booleans.
-
-```diff
-- fromNum :: (Builtin.Ord n, Builtin.Num n) => n -> Nat
-+ fromNum :: (Ord n, Builtin.Num n) => n -> Nat
-  fromNum =
-    unfoldNat
-      (\n ->
--        if n Builtin.<= 0
-+        if n <= 0
-           then nothing
-           else just (n Builtin.- 1))
-```
-
-### All that remains
-
-We've been able to define the following types entirely in terms of `(->)`.
-
-```haskell
-newtype Maybe a =
-  Maybe (forall c. c -> (a -> c) -> c)
-
-newtype Nat =
-  Nat (forall r. r -> (Nat -> r) -> r)
-
-newtype List a =
-  List (forall c. c -> (a -> List a -> c) -> c)
-
-newtype Char = Char Nat
-
-newtype String = String (List Char)
-```
-
-This means we've nearly got everything we need for a working monadic parser. The final type is what started this all for me, `Pair a b`.
+## String
