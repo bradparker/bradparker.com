@@ -119,7 +119,7 @@ Paraphrasing Wikipedia: say we have a datatype _D_, with _N_ constructors, (_c_<
 
 _&lambda;x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_. _&lambda;c_<sub>1</sub> &hellip; _c<sub>N</sub>_. _c<sub>i</sub>_ _x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_
 
-Believe it or not this gives us a sort of tool box with which we can build everything required by our target program. That didn't become obvious to me until I'd written out a few examples, so, where should we begin? Let's begin where Gerald Jay Sussman suggested we might begin.
+Believe it or not this gives us a sort of tool box with which we can build everything required by our target program. That didn't become obvious to me until I'd written out a few examples, so, where should we begin? Let's begin where Gerald Jay Sussman suggested we might.
 
 ## Pair
 
@@ -209,7 +209,7 @@ fst :: (forall c. (a -> b -> c) -> c) -> a
 fst = _
 ```
 
-The function passed to a `Pair a b` gets to operate on both `a` and `b`. It can use them both to return some other type, anything of its choosing. It could also choose to just return either `a` or `b`. So let's choose to return `a`.
+The function passed to a `Pair a b` gets to operate on both `a` and `b`. It can use them both to return some other type, anything of its choosing. Therefore it could choose to return either `a` or `b`. So let's choose to return `a`.
 
 ```haskell
 fst :: Pair a b -> a
@@ -265,7 +265,7 @@ newtype Pair a b
   = Pair (forall c. (a -> b -> c) -> c)
 ```
 
-Let's put everything we have so far into a module, the first in our alternative prelude Hot Air.
+Let's put everything we have so far into a module, the first in our alternative prelude [Hot Air](https://github.com/bradparker/hot-air/).
 
 ```haskell
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -330,6 +330,214 @@ Ok, one module loaded.
 ```
 
 ## Bool
+
+Let's apply the same strategy to `Bool`, a rather different type than `Pair`.
+
+This is a type with two constructors (_c_<sub>1</sub>, _c_<sub>2</sub>), each accepting no arguments. In this case, instead of one constructor which chooses what to do with two arguments, we have two constructors which will be chosen between.
+
+There's one case in which the first constructor is chosen.
+
+_&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>1</sub>
+
+And another in which the second is.
+
+_&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>2</sub>
+
+Translating both into Haskell yields:
+
+```haskell
+\c1 c2 -> c1
+
+\c1 c2 -> c2
+```
+
+We might name them, letting the cat somewhat out of the bag, and get GHCi to tell us what their types are.
+
+```
+> true = \t _ -> t
+> false = \_ f -> f
+> :t true
+true :: forall {p1} {p2}. p1 -> p2 -> p1
+> :t false
+false :: forall {p1} {p2}. p1 -> p2 -> p2
+```
+
+These two functions have different types, we need to find one type that describes them both, they're both constructors of `Bool` after all. The issue is that the inferred types are more general than we need them to be. When using booleans to branch a program we generally don't want each branch to have a different type.
+
+```haskell
+if even 2
+  then "Ah, good"
+  else 500 -- !?
+```
+
+So let's ensure that both branches have to be the same.
+
+```haskell
+newtype Bool
+  = Bool (forall a. a -> a -> a)
+
+true :: Bool
+true = Bool (\t _ -> t)
+
+false :: Bool
+false = Bool (\_ f -> f)
+```
+
+Are you convinced that this is the same the `Bool` provided by Haskell Prelude? Me neither. Let's reimplement everything in [`Data.Bool`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Bool.html) and then have a poke around in GHCi, see if that helps.
+
+First up is `(&&)`. Given two booleans the result of `(&&)` is true only if both provided booleans are themselves true. In _normal_ Haskell this is a bit of a cinch.
+
+```haskell
+(&&) :: Bool -> Bool -> Bool
+True && True = True
+_ && _ = False
+```
+
+In embarking on this crazy experiment we've lost the ability to pattern match, so we have to think a little differently.
+
+Each `Bool` we'll be passed is a function which accepts two arguments and will chose one of them to return. Returning the first argument means the `Bool` is _true_ and returning the second means it's _false_. So if both `Bool`s use their first argument then they're both true.
+
+```haskell
+(&&) :: Bool -> Bool -> Bool
+Bool a && Bool b = a (b true _) _
+```
+
+All other cases are false.
+
+```haskell
+(&&) :: Bool -> Bool -> Bool
+Bool a && Bool b = a (b true false) false
+```
+
+It's fair to be suspicious, I promise we'll see it working soon enough. First we'll need the rest of this module.
+
+Next up is `(||)` another binary operator which will return true if either argument is true.
+
+```haskell
+(||) :: Bool -> Bool -> Bool
+Bool a || Bool b = _
+```
+
+So if the first argument is true.
+
+```haskell
+(||) :: Bool -> Bool -> Bool
+Bool a || Bool b = a true _
+```
+
+Or the second.
+
+```haskell
+(||) :: Bool -> Bool -> Bool
+Bool a || Bool b = a true (b true _)
+```
+
+But not if both are false.
+
+```haskell
+(||) :: Bool -> Bool -> Bool
+Bool a || Bool b = a true (b true false)
+```
+
+Next we have `not`, which inverts a `Bool`.
+
+If it was true it should return false.
+
+```haskell
+not :: Bool -> Bool
+not (Bool a) = a false _
+```
+
+And true if it was false.
+
+```haskell
+not :: Bool -> Bool
+not (Bool a) = a false true
+```
+
+Lastly (we'll skip `otherwise`) is `bool`.
+
+```haskell
+bool :: a -> a -> Bool -> a
+bool = _
+```
+
+This is one way that we can _use_ a `Bool`. It takes the value we want in the false case, the value we want in the true case, and the `Bool` which will choose between them. All we need do is let it make it's decision.
+
+```haskell
+bool :: a -> a -> Bool -> a
+bool f t (Bool b) = b t f
+```
+
+With that we have a complete module.
+
+```haskell
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE RankNTypes #-}
+{-# OPTIONS_GHC -Wall #-}
+
+module HotAir.Bool
+  ( Bool,
+    true,
+    false,
+    (&&),
+    (||),
+    not,
+    bool
+    )
+where
+
+newtype Bool
+  = Bool (forall a. a -> a -> a)
+
+true :: Bool
+true = Bool (\t _ -> t)
+
+false :: Bool
+false = Bool (\_ f -> f)
+
+not :: Bool -> Bool
+not (Bool b) = b false true
+
+(&&) :: Bool -> Bool -> Bool
+Bool a && Bool b = a (b true false) false
+
+(||) :: Bool -> Bool -> Bool
+Bool a || Bool b = a true (b true false)
+
+bool :: a -> a -> Bool -> a
+bool f t (Bool b) = b t f
+```
+
+<figcaption>
+  `lib/HotAir/Bool.hs`
+</figcaption>
+
+Which we can now play with.
+
+```
+$ ghci lib/HotAir/Bool.hs
+> bool "It's false!" "It's true" false
+"It's false!"
+> bool "It's false!" "It's true" true
+"It's true"
+> bool "It's false!" "It's true" (true || false)
+"It's true"
+> bool "It's false!" "It's true" (false || false)
+"It's false!"
+> bool "It's false!" "It's true" (false && false)
+"It's false!"
+> bool "It's false!" "It's true" (false && true)
+"It's false!"
+> bool "It's false!" "It's true" (true && true)
+"It's true"
+> bool "It's false!" "It's true" (not true)
+"It's false!"
+> bool "It's false!" "It's true" (not false)
+"It's true"
+```
+
+Its worth quickly noting that it's Haskell's laziness that makes defining our own replacement for the built in `Bool` possible at all.
 
 ## Maybe
 
