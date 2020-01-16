@@ -537,9 +537,142 @@ $ ghci lib/HotAir/Bool.hs
 "It's true"
 ```
 
-Its worth quickly noting that it's Haskell's laziness that makes defining our own replacement for the built in `Bool` possible at all.
-
 ## Maybe
+
+The type `Maybe a` has two constructors, _c_<sub>1</sub> and _c_<sub>2</sub>, like `Bool`. The first constructor is quite like either of `Bool`'s, it accepts no arguments.
+
+_&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>1</sub>
+
+The other requires a value, _x_, not unlike the way `Pair`'s sole constructor required two, _x_<sub>1</sub> and _x_<sub>2</sub>.
+
+_&lambda;x_. _&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>2</sub>_x_
+
+Which in Haskell yields:
+
+```haskell
+\c1 c2 -> c1
+
+\x -> \c1 c2 -> c2 x
+```
+
+This time asking GHCi to help us out is less revealing.
+
+```
+> nothing = \c1 c2 -> c1
+> just = \x -> \c1 c2 -> c2 x
+> :t nothing
+nothing :: forall {p1} {p2}. p1 -> p2 -> p1
+> :t just
+just :: forall {t1} {p} {t2}. t1 -> p -> (t1 -> t2) -> t2
+```
+
+As with `Bool` it's in our interests that both of these constructors return the same type. Let's then say that `p1` and `t2` are the same.
+
+```haskell
+nothing :: p1 -> p2 -> p1
+just    :: t1 -> p -> (t1 -> p1) -> p1
+```
+
+This implies that `p` and `p1` are the same.
+
+```haskell
+nothing :: p1 -> p2 -> p1
+just    :: t1 -> p1 -> (t1 -> p1) -> p1
+```
+
+As `nothing` makes no use of it's second argument Haskell has inferred a very general type for it, `p2`. However, we _know_ that same argument in `just` is a function of type `t1 -> p1`.
+
+```haskell
+nothing :: p1 -> (t1 -> p1) -> p1
+just    :: t1 -> p1 -> (t1 -> p1) -> p1
+```
+
+With a bit of renaming and aligning.
+
+```haskell
+nothing ::      b -> (a -> b) -> b
+just    :: a -> b -> (a -> b) -> b
+```
+
+We can just make out the type we're looking for.
+
+```haskell
+type Maybe a
+  = forall b. b -> (a -> b) -> b
+```
+
+Time to reimplement [`Data.Maybe`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Maybe.html).
+
+```haskell
+maybe :: b -> (a -> b) -> Maybe a -> b
+maybe = _
+```
+
+```haskell
+maybe :: b -> (a -> b) -> Maybe a -> b
+maybe b f (Maybe m) = m b f
+```
+
+```haskell
+instance Functor Maybe where
+  fmap :: (a -> b) -> Maybe a -> Maybe b
+  fmap = _
+```
+
+```haskell
+instance Functor Maybe where
+  fmap :: (a -> b) -> Maybe a -> Maybe b
+  fmap f = maybe nothing (just . f)
+```
+
+```haskell
+instance Applicative Maybe where
+  pure :: a -> Maybe a
+  pure = _
+
+  (<*>) :: Maybe (a -> b) -> Maybe a -> Maybe b
+  (<*>) = _
+```
+
+```haskell
+instance Applicative Maybe where
+  pure :: a -> Maybe a
+  pure = just
+
+  (<*>) :: Maybe (a -> b) -> Maybe a -> Maybe b
+  mf <*> ma = maybe nothing (<$> ma) mf
+```
+
+```haskell
+instance Alternative Maybe where
+  empty :: Maybe a
+  empty = _
+
+  (<|>) :: Maybe a -> Maybe a -> Maybe a
+  (<|>) = _
+```
+
+```haskell
+instance Alternative Maybe where
+  empty :: Maybe a
+  empty = nothing
+
+  (<|>) :: Maybe a -> Maybe a -> Maybe a
+  ma <|> mb = maybe mb just ma
+```
+
+```haskell
+instance Monad Maybe where
+  (>>=) :: Maybe a -> (a -> Maybe b) -> Maybe b
+  (>>=) = _
+```
+
+```haskell
+instance Monad Maybe where
+  (>>=) :: Maybe a -> (a -> Maybe b) -> Maybe b
+  ma >>= f = maybe nothing f ma
+```
+
 
 ## Natural
 
