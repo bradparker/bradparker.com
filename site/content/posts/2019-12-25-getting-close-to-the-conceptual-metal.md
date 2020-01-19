@@ -804,7 +804,23 @@ instance Monad Maybe where
 
 ## Natural
 
-Numbers, they're pretty handy. How do we define _numbers_ using only `(->)`?
+Numbers, they're pretty handy, but what are they? One answer comes in the form of a set of [axioms](https://en.wikipedia.org/wiki/Peano_axioms) developed in the latter half of the 19th century by Hermann Grassmann, Charles Sanders Peirce, Richard Dedekind and Giuseppe Peano. There's a bit to it, but for our purposes it's enough to say this: we start with some base value (say `0`), and a [successor function](https://en.wikipedia.org/wiki/Successor_function) (say `+ 1`); from there we're able to derive all the [Natural numbers](https://en.wikipedia.org/wiki/Natural_number).
+
+```haskell
+0
+0 + 1
+0 + 1 + 1
+0 + 1 + 1 + 1
+...
+```
+
+There's quite a nice way to model this in _normal_ Haskell.
+
+```haskell
+data Natural
+ = Zero
+ | Succ Natural
+```
 
 ## List
 
