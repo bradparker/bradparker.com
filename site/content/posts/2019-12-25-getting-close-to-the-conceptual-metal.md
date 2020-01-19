@@ -808,19 +808,71 @@ Numbers, they're pretty handy, but what are they? One answer comes in the form o
 
 ```haskell
 0
-0 + 1
-0 + 1 + 1
-0 + 1 + 1 + 1
+1 + 0
+1 + 1 + 0
+1 + 1 + 1 + 0
 ...
 ```
 
-There's quite a nice way to model this in _normal_ Haskell.
+There's quite a nice way to express something more reduced, more in the spirit of the Peano axioms using _normal_ Haskell.
 
 ```haskell
 data Natural
  = Zero
  | Succ Natural
 ```
+
+It's really all we need, I promise.
+
+```haskell
+Zero
+Succ Zero
+Succ (Succ Zero)
+Succ (Succ (Succ Zero))
+```
+
+We'll end up proving this to ourselves out of necessity. We _need_ numbers for our target program so there's no getting out of it.
+
+Firstly, we need to Scott-encode the above definition of `Natural`, so: `Natural` is a type with two constructors, _c_<sub>1</sub> and _c_<sub>2</sub>. The first constructor, like `nothing`, doesn't accept a value.
+
+_&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>1</sub>
+
+The second, like `just`, accepts one value, _x_.
+
+_&lambda;x_. _&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>2</sub>_x_
+
+We're to remember that this argument is another `Natural`, despite the fact that this notation doesn't indicate _what_ it is. Without that constraint this type would be identical to `Maybe`. Given that knowledge, rather than trying to figure out what this type should be with the help of GHCi, we can skip some steps and adapt `Maybe`.
+
+```haskell
+newtype Natural
+  = Natural (forall a. a -> (Natural -> a) -> a)
+
+zero :: Natural
+zero = Natural (\z _ -> z)
+
+succ :: Natural -> Natural
+succ n = Natural (\_ s -> s n)
+```
+
+Now that we can introduce `Natural`s we need a way to eliminate them. Is an eliminator for `Natural` just `Natural`, as with `Pair`, `Bool` and `Maybe`?
+
+```haskell
+natural :: a -> (Natural -> a) -> Natural -> a
+natural z s (Natural n) = n z s
+```
+
+Well, in a sense. It's handy to have such a function but it doesn't go far enough. As `Natural`s are made by repeated applications of `succ` they'll need to unmade by _un-applying_ them all. We need some recursion.
+
+```haskell
+foldNatural :: a -> (a -> a) -> Natural -> a
+foldNatural z s = natural
+  z
+  (\n -> s (foldNatural z s n))
+```
+
+`foldNatural` is very much like `natural` except that it doesn't stop with only one call to `s`, it calls `s` as many times as `succ` was called to construct the provided `Natural`.
+
+There is a [module in the base libraries for natural numbers](https://hackage.haskell.org/package/base-4.12.0.0/docs/Numeric-Natural.html) and though it doesn't look like it contains much it actually does by way of type-class instances. There's one of particular interest to us, the `Num` instance.
 
 ## List
 
