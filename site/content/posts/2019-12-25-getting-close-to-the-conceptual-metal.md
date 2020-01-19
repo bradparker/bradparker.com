@@ -130,7 +130,7 @@ In _normal_ Haskell the pair type looks more like syntax, but we can use GHCi to
 data (,) a b = (,) a b
 ```
 
-The type and it's only constructor share a name, `(,)`. The constructor takes two arguments.
+The type and its only constructor share a name, `(,)`. The constructor takes two arguments.
 
 ```
 > :t (,)
@@ -205,7 +205,7 @@ fst = _
 Expanding `Pair a b` back out again suggests a solution.
 
 ```haskell
-fst :: (forall c. (a -> b -> c) -> c) -> a
+fst :: ((a -> b -> c) -> c) -> a
 fst = _
 ```
 
@@ -366,11 +366,11 @@ These two functions have different types, we need to find one type that describe
 
 ```haskell
 if even 2
-  then "Ah, good"
-  else 500 -- !?
+  then True
+  else "Wait, wat?!"
 ```
 
-So let's ensure that both branches have to be the same.
+So let's ensure that both branches are always of the same type.
 
 ```haskell
 newtype Bool
@@ -393,7 +393,7 @@ True && True = True
 _ && _ = False
 ```
 
-In embarking on this crazy experiment we've lost the ability to pattern match, so we have to think a little differently.
+In embarking on this experiment we've lost the ability to pattern match, so we have to think a little differently.
 
 Each `Bool` we'll be passed is a function which accepts two arguments and will chose one of them to return. Returning the first argument means the `Bool` is _true_ and returning the second means it's _false_. So if both `Bool`s use their first argument then they're both true.
 
@@ -539,7 +539,7 @@ $ ghci lib/HotAir/Bool.hs
 
 ## Maybe
 
-The type `Maybe a` has two constructors, _c_<sub>1</sub> and _c_<sub>2</sub>, like `Bool`. The first constructor is quite like either of `Bool`'s, it accepts no arguments.
+`Maybe` has two constructors, _c_<sub>1</sub> and _c_<sub>2</sub>, like `Bool`. The first constructor is quite like either of `Bool`'s, it accepts no arguments.
 
 _&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>1</sub>
 
@@ -566,6 +566,8 @@ nothing :: forall {p1} {p2}. p1 -> p2 -> p1
 just :: forall {t1} {p} {t2}. t1 -> p -> (t1 -> t2) -> t2
 ```
 
+However, `Maybe` _is_ in there. We just have to tease it out.
+
 As with `Bool` it's in our interests that both of these constructors return the same type. Let's then say that `p1` and `t2` are the same.
 
 ```haskell
@@ -580,7 +582,7 @@ nothing :: p1 -> p2 -> p1
 just    :: t1 -> p1 -> (t1 -> p1) -> p1
 ```
 
-As `nothing` makes no use of it's second argument Haskell has inferred a very general type for it, `p2`. However, we _know_ that same argument in `just` is a function of type `t1 -> p1`.
+As `nothing` makes no use of its second argument Haskell has inferred a very general type for it, `p2`. However, we _know_ that this same argument in `just` is a function of type `t1 -> p1`. If we replace `p2` with `t1 -> p1`.
 
 ```haskell
 nothing :: p1 -> (t1 -> p1) -> p1
@@ -601,80 +603,208 @@ type Maybe a
   = forall b. b -> (a -> b) -> b
 ```
 
-Time to reimplement [`Data.Maybe`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Maybe.html).
+This time we won't reimplement everything in [`Data.Maybe`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Maybe.html). We're instead going to spend some time with the `maybe` function.
 
 ```haskell
 maybe :: b -> (a -> b) -> Maybe a -> b
 maybe = _
 ```
 
+In _normal_ Haskell it has the following definition.
+
 ```haskell
 maybe :: b -> (a -> b) -> Maybe a -> b
-maybe b f (Maybe m) = m b f
+maybe n _ Nothing  = n
+maybe _ f (Just x) = f x
 ```
 
-```haskell
-instance Functor Maybe where
-  fmap :: (a -> b) -> Maybe a -> Maybe b
-  fmap = _
-```
+<figcaption>
+  Defined in [`Data.Maybe`](https://hackage.haskell.org/package/base-4.12.0.0/docs/src/Data.Maybe.html#maybe).
+</figcaption>
+
+Which could be re-written using a `case` expression.
 
 ```haskell
+maybe :: b -> (a -> b) -> Maybe a -> b
+maybe n j m = case m of
+  Nothing -> n
+  Just a -> j a
+```
+
+How might we write this using our Scott-encoded `Maybe`? Let's inline its type in the type of `maybe` to see if we get any clues.
+
+```haskell
+maybe
+  :: b
+  -> (a -> b)
+  -> (b -> (a -> b) -> b)
+  -> b
+maybe = _
+```
+
+We get a `b`, and an `a -> b`. We also get something that needs to be passed an `a` and an `a -> b`, interesting.
+
+```haskell
+maybe
+  :: b
+  -> (a -> b)
+  -> (b -> (a -> b) -> b)
+  -> b
+maybe b a2b m = m b a2b
+```
+
+I want to show you another way we could have written this.
+
+```haskell
+maybe
+  :: b
+  -> (a -> b)
+  -> (b -> (a -> b) -> b)
+  -> b
+maybe n j m = m
+  n
+  (\a -> j a)
+```
+
+With the type synonym reinstated we can see how similar it is to the _normal_ Haskell version.
+
+```haskell
+maybe :: b -> (a -> b) -> Maybe a -> b
+maybe n j m = m
+  n
+  (\a -> j a)
+```
+
+<figcaption>
+  Scott-encoded
+</figcaption>
+
+```haskell
+maybe :: b -> (a -> b) -> Maybe a -> b
+maybe n j m = case m of
+  Nothing -> n
+  Just a -> j a
+```
+
+<figcaption>
+  _Normal_
+</figcaption>
+
+Recall earlier when I said that we'd lost pattern-matching? Well, I was telling a bit of a fib, we're still able match on constructors.
+
+In addition to `case` expressions it's also worth noticing how similar `maybe` is to `bool`.
+
+```haskell
+bool  :: b ->            b  -> Bool    -> b
+maybe :: b -> (a      -> b) -> Maybe a -> b
+```
+
+And, with a bit of imagination, `Pair`'s `both`.
+
+```haskell
+both  ::      (a -> b -> c) -> Pair a b -> c
+maybe :: c -> (a      -> c) -> Maybe a  -> c
+```
+
+Each of these functions can be seen to _deconstruct_ their respective types. What `true` and `false` construct, `bool` destroys; what `pair` combines, `both` unpacks; what `nothing` and `just` _introduce_; `maybe` _eliminates_.
+
+> An eliminator for a type is an operator or construct which characterises the use of the type's inhabitants. For example, application is an eliminator for function types; projections are eliminators for record types; conditional expression is an eliminator for Booleans.
+>
+> The opposite of an eliminator is a constructor, providing a means by which inhabitants of a type may be created: lambda-abstraction for functions, tupling for records, constants 'true' and 'false' for Booleans.
+>
+> &mdash; Conor McBride, _[Answering the Question "In type theory, what is an eliminator, and what is its opposite?"](https://www.quora.com/In-type-theory-what-is-an-eliminator-and-what-is-its-opposite/answer/Conor-McBride)_
+
+`maybe`, `bool` and `both` are all eliminators for their respective types.
+
+Now, see what happens when we shuffle `maybe`'s arguments around a little.
+
+```haskell
+maybe :: Maybe a -> b -> (a -> b) -> b
+maybe m n j = m n j
+```
+
+And eta-reduce.
+
+```haskell
+maybe m n j = m n j
+maybe m n = m n
+maybe m = m
+```
+
+We see that `maybe` is equivalent to the identity function. This implies that Scott-encoded data-types _are_ their own eliminators. When I said we'd be building everything out of **nothing** I meant it.
+
+The rest of our `HotAir.Maybe` module will be some type-class instances which will make writing our target program easier. We won't walk through their implementations here despite how fun it is to do so.
+
+```haskell
+{-# LANGUAGE InstanceSigs #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE RankNTypes #-}
+{-# OPTIONS_GHC -Wall #-}
+
+module HotAir.Maybe
+  ( Maybe,
+    nothing,
+    just,
+    maybe,
+    fromMaybe
+    )
+where
+
+import Control.Applicative
+  ( Alternative ((<|>), empty),
+    Applicative ((<*>), pure)
+    )
+import Control.Monad (Monad ((>>=)), ap)
+import Data.Function ((.), id)
+import Data.Functor (Functor (fmap))
+
+newtype Maybe a
+  = Maybe (forall b. b -> (a -> b) -> b)
+
+nothing :: Maybe a
+nothing = Maybe (\n _ -> n)
+
+just :: a -> Maybe a
+just a = Maybe (\_ j -> j a)
+
+maybe :: c -> (a -> c) -> Maybe a -> c
+maybe n j (Maybe m) = m n j
+
+fromMaybe :: c -> Maybe c -> c
+fromMaybe n = maybe n id
+
 instance Functor Maybe where
   fmap :: (a -> b) -> Maybe a -> Maybe b
   fmap f = maybe nothing (just . f)
-```
 
-```haskell
 instance Applicative Maybe where
-  pure :: a -> Maybe a
-  pure = _
 
-  (<*>) :: Maybe (a -> b) -> Maybe a -> Maybe b
-  (<*>) = _
-```
-
-```haskell
-instance Applicative Maybe where
   pure :: a -> Maybe a
   pure = just
 
   (<*>) :: Maybe (a -> b) -> Maybe a -> Maybe b
-  mf <*> ma = maybe nothing (<$> ma) mf
-```
+  (<*>) = ap
 
-```haskell
 instance Alternative Maybe where
-  empty :: Maybe a
-  empty = _
 
-  (<|>) :: Maybe a -> Maybe a -> Maybe a
-  (<|>) = _
-```
-
-```haskell
-instance Alternative Maybe where
   empty :: Maybe a
   empty = nothing
 
   (<|>) :: Maybe a -> Maybe a -> Maybe a
-  ma <|> mb = maybe mb just ma
-```
+  a <|> b = maybe b just a
 
-```haskell
 instance Monad Maybe where
   (>>=) :: Maybe a -> (a -> Maybe b) -> Maybe b
-  (>>=) = _
+  (>>=) ma f = maybe nothing f ma
 ```
 
-```haskell
-instance Monad Maybe where
-  (>>=) :: Maybe a -> (a -> Maybe b) -> Maybe b
-  ma >>= f = maybe nothing f ma
-```
-
+<figcaption>
+  `lib/HotAir/Maybe.hs`
+</figcaption>
 
 ## Natural
+
+Numbers, they're pretty handy. How do we define _numbers_ using only `(->)`?
 
 ## List
 
