@@ -841,7 +841,7 @@ The second, like `just`, accepts one value, _x_.
 
 _&lambda;x_. _&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>2</sub>_x_
 
-We're to remember that this argument is another `Natural`, despite the fact that this notation doesn't indicate _what_ it is. Without that constraint this type would be identical to `Maybe`. Given that knowledge, rather than trying to figure out what this type should be with the help of GHCi, we can skip some steps and adapt `Maybe`.
+We're to remember that _x_ is another `Natural`, despite the fact that this notation doesn't indicate _what_ _x_ is. In fact, without that constraint `Natural` would be identical to `Maybe`. Given that knowledge, rather than trying to figure out what this type should be with the help of GHCi, we can skip some steps and adapt `Maybe`.
 
 ```haskell
 newtype Natural
@@ -872,7 +872,70 @@ foldNatural z s = natural
 
 `foldNatural` is very much like `natural` except that it doesn't stop with only one call to `s`, it calls `s` as many times as `succ` was called to construct the provided `Natural`.
 
-There is a [module in the base libraries for natural numbers](https://hackage.haskell.org/package/base-4.12.0.0/docs/Numeric-Natural.html) and though it doesn't look like it contains much it actually does by way of type-class instances. There's one of particular interest to us, the `Num` instance.
+There is a [module in the base libraries for natural numbers](https://hackage.haskell.org/package/base-4.12.0.0/docs/Numeric-Natural.html) and though it doesn't look like it contains much there is at least [`Num`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#t:Num) instance in there, and that's a lot.
+
+Let's then write a `Num` instance for _our_ `Natural`. We'll begin with `+` and we'll use `foldNatural`.
+
+```haskell
+instance Num Natural where
+  (+) :: Natural -> Natural -> Natural
+  (+) = _
+```
+
+What happens when the first `Natural` was constructed with `zero`? What is zero plus anything?
+
+```haskell
+instance Num Natural where
+  (+) :: Natural -> Natural -> Natural
+  a + b = foldNatural b _ a
+```
+
+Otherwise we want to apply `succ` `a` times to `b`.
+
+```haskell
+instance Num Natural where
+  (+) :: Natural -> Natural -> Natural
+  a + b = foldNatural b succ a
+```
+
+Now multiplication (`*`).
+
+```haskell
+instance Num Natural where
+  (*) :: Natural -> Natural -> Natural
+  (*) = _
+```
+
+What is zero multiplied by anything?
+
+```haskell
+instance Num Natural where
+  (*) :: Natural -> Natural -> Natural
+  a * b = foldNatural zero _ a
+```
+
+Otherwise, what is multiplication other than repeated addition?
+
+```haskell
+instance Num Natural where
+  (*) :: Natural -> Natural -> Natural
+  a * b = foldNatural zero (+ b) a
+```
+
+Subtraction is the inverse of addition, it might help then if we had an inverse of `succ`.
+
+```haskell
+pred :: Natural -> Natural
+pred = natural zero id
+```
+
+What `succ` does `pred` undoes. We need to apply it `b` times to `a`, undoing a `b`s worth of `succ`s on `a`.
+
+```haskell
+instance Num Natural where
+  (-) :: Natural -> Natural -> Natural
+  a - b = foldNatural a pred b
+```
 
 ## List
 
