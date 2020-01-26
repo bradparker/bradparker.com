@@ -54,1072 +54,398 @@ newtype NonEmpty a
 
 When Sussman chalked up that pair made of nothing but "hot air" he attributed the encoding to [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church). Appreciating that many other types can be made from pair-like things and either-like things I wondered if there existed a Church encoding for `Either`. After all, with `Either` and `Pair` it sure seemed like I'd be able to construct anything else I needed. I found Church encodings for lots of other interesting things, like [booleans](https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans) and [natural numbers](https://en.wikipedia.org/wiki/Church_encoding#Church_numerals), but nothing quite like `Either`.
 
-Eventually I'd happen across [Scott encoding](https://oxij.org/paper/ExceptionallyMonadic/ExceptionallyMonadic.xetex.pdf#24), named for [Dana Scott](https://en.wikipedia.org/wiki/Dana_Scott) to whom it is attributed. It's very interesting, and features prominently in this post.
-
-## Making everything out of nothing
-
-This is a Haskell program which evaluates a Lisp-like language only capable of adding and multiplying natural numbers.
-
-```haskell
-module Main (main) where
-
-import Control.Applicative ((<|>), some)
-import Data.Char (isDigit)
-import Data.Maybe (listToMaybe)
-import Numeric.Natural (Natural)
-import Text.ParserCombinators.ReadP (ReadP, char, readP_to_S, satisfy)
-
-type Parser = ReadP
-
-execParser :: Parser a -> String -> Maybe a
-execParser p = (fst <$>) . listToMaybe . readP_to_S p
-
-eval :: String -> Maybe Natural
-eval = execParser expression
-  where
-    expression :: Parser Natural
-    expression = natural <|> application
-    natural :: Parser Natural
-    natural = read <$> some (satisfy isDigit)
-    application :: Parser Natural
-    application =
-      char '('
-        *> operator
-        <* space
-        <*> expression
-        <* space
-        <*> expression
-        <* char ')'
-    operator :: Parser (Natural -> Natural -> Natural)
-    operator = (+) <$ char '+' <|> (*) <$ char '*'
-    space :: Parser Char
-    space = char ' '
-
-main :: IO ()
-main = do
-  putStrLn "Evaluating (+ (* (+ 12 7) 100) 58) ..."
-  print $ eval "(+ (* (+ 12 7) 100) 58)"
-```
-
-If you've got Haskell and its base libraries [all set up and ready to go](https://www.haskell.org/ghcup/) you can even paste that code into a file and run it to see what it does.
-
-```
-$ runhaskell your-file.hs
-Evaluating (+ (* (+ 12 7) 100) 58) ...
-Just 1958
-```
-
-We won't be focusing on how this program solves the problem of evaluating Lisp-y expressions, instead we're going to use it as a goal of sorts. Our aim will be to recreate as much of this program as we can using only functions, replacing existing types like `Maybe a`, `[a]` and even `Char` with ones built entirely out of `(->)`.
-
-How're we going to achieve this? Scott-encoding.
+Eventually I'd happen across [Scott encoding](https://oxij.org/paper/ExceptionallyMonadic/ExceptionallyMonadic.xetex.pdf#24), named for [Dana Scott](https://en.wikipedia.org/wiki/Dana_Scott) to whom it is attributed. It's super interesting.
 
 ## Scott encoding
 
-Paraphrasing Wikipedia: say we have a datatype _D_, with _N_ constructors, (_c_<sub>1</sub> &hellip; _c<sub>N</sub>_), such that constructor _c<sub>i</sub>_ has arity _A<sub>i_, then the Scott encoding for constructor _c<sub>i</sub>_ of _D_ would be:
+With Scott encoding we have a consistent method for representing any given algebraic datatype in the untyped lambda calculus. It goes something like this: say we have a datatype _D_, with _N_ constructors, (_d_<sub>1</sub> &hellip; _d<sub>N</sub>_), such that constructor _d<sub>i</sub>_ has arity _A<sub>i_, then the Scott encoding for constructor _d<sub>i</sub>_ of _D_ would be:
 
-_&lambda;x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_. _&lambda;c_<sub>1</sub> &hellip; _c<sub>N</sub>_. _c<sub>i</sub>_ _x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_
+_d<sub>i</sub>_ := _&lambda;x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_. _&lambda;c_<sub>1</sub> &hellip; _c<sub>N</sub>_. _c<sub>i</sub>_ _x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_
 
-Believe it or not this gives us a sort of tool box with which we can build everything required by our target program. That didn't become obvious to me until I'd written out a few examples, so, where should we begin? Let's begin where Gerald Jay Sussman suggested we might.
+Each constructor, _d_<sub>1</sub> through _d<sub>N</sub>_ is responsible for accepting the arguments needed to call its chosen continuation &mdash; any one of _c_<sub>1</sub> through _c<sub>N</sub>_.
 
-## Pair
+To develop an intuition for how this actually works we can try converting some well-known Haskell data types to this encoding. As we do this it will help to define isomorphisms between what we come up with and the initial, Haskell type.
 
-In _normal_ Haskell the pair type looks more like syntax, but we can use GHCi to show us that is indeed just like any other type.
+### Pair
 
-```
-> :i (,)
-data (,) a b = (,) a b
-```
-
-The type and its only constructor share a name, `(,)`. The constructor takes two arguments.
+To Scott encode a constructor for a given datatype we need to know how many other constructors it has, and how many arguments each of them accept.  Haskell's pair type looks like syntax, however by asking GHCi for some information about it we can see that its much like any other user-defined datatype.
 
 ```
-> :t (,)
-(,) :: forall {a} {b}. a -> b -> (a, b)
+$ ghci
+> :info (,)
+data (,) a b = (,) a b  -- Defined in `GHC.Tuple'
 ```
 
-To Scott encode this we can take the general form of the encoding above and make it specific to pairs. We don't have an unknown number of constructors (_c_<sub>1</sub> &hellip; _c<sub>N</sub>_), we have one (_c_), that constructor doesn't take an unknown number of arguments (_x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_), it takes two (_x_<sub>1</sub>,_x_<sub>2</sub>).
+It has one constructor which happens to share the name of its type.
 
-_&lambda;x_<sub>1</sub>, _x_<sub>2</sub>. _&lambda;c_. _cx_<sub>1</sub>_x_<sub>2</sub>
+```
+> :type (,)
+(,) :: a -> b -> (a, b)
+```
 
-This can be fairly directly translated into Haskell.
+For our purposes we'll rename the `(,)` type to _Pair_ and the `(,)` constructor to _pair_. As _Pair's_ only constructor, _pair_ need only accept one continuation _c_. The arguments that _pair_ accepts, such that it can call _c_ with them, are the resulting _Pair's_ first and second elements.
+
+_pair_ := _&lambda;x_<sub>1</sub>, _x_<sub>2</sub>. _&lambda;c_. _c x_<sub>1</sub> _x_<sub>2</sub>
+
+But what is _Pair_? How might we write the type of a function that accepts a _Pair_? First we might rewrite _pair_ in Haskell. Initially as a fairly direct translation.
 
 ```haskell
-\x1 x2 -> \c -> c x1 x2
+pair = \x1 x2 -> \c -> c x1 x2
 ```
 
-Let's make it look a little more Haskell-y.
+Then, without the first explicit lambda.
 
 ```haskell
-pair a b c = c a b
+pair x1 x2 = \c -> c x1 x2
 ```
 
-We can ask GHCi to tell us what the type of `pair` is.
+That can be loaded into GHCi or into a [Repl.it](http://repl.it) Haskell session in order to find its inferred type.
 
 ```
-> :t pair
-pair :: forall {t1} {t2} {t3}. t1 -> t2 -> (t1 -> t2 -> t3) -> t3
-```
-
-For now, we're to take it on faith that `pair` and the `(,)` constructor are equivalent. Comparing them side-by-side does reveal at least one similarity.
-
-```haskell
-(,)  :: a -> b -> (a, b)
-
-pair :: a -> b -> (a -> b -> c) -> c
-```
-
-If we create an alias for the last part it becomes clearer.
-
-```haskell
-type Pair a b c = (a -> b -> c) -> c
-
-(,)  :: a -> b -> (a, b)
-
-pair :: a -> b -> Pair a b c
-```
-
-We can turn `Pair a b c` into `Pair a b` through the use of [Rank-N types](https://wiki.haskell.org/Rank-N_types).
-
-```haskell
-type Pair a b
-  = forall c. (a -> b -> c) -> c
-```
-
-This ends up meaning that only when the `(a -> b -> c)` argument is supplied does the type variable `c` get fixed. It also means that the types for `pair` and `(,)` now look almost identical.
-
-```haskell
-(,)  :: a -> b -> (a, b)
-
-pair :: a -> b -> Pair a b
-```
-
-But are they the same? Can `Pair a b` do everything `(a, b)` can? Let's find out by reimplementing everything in the [base Data.Tuple module](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Tuple.html).
-
-First up is `fst` which returns the first element of a pair.
-
-```haskell
-fst :: Pair a b -> a
-fst = _
-```
-
-Expanding `Pair a b` back out again suggests a solution.
-
-```haskell
-fst :: ((a -> b -> c) -> c) -> a
-fst = _
-```
-
-The function passed to a `Pair a b` gets to operate on both `a` and `b`. It can use them both to return some other type, anything of its choosing. Therefore it could choose to return either `a` or `b`. So let's choose to return `a`.
-
-```haskell
-fst :: Pair a b -> a
-fst p = p (\a b -> a)
-```
-
-That suggests that `snd` will be pretty similar.
-
-```haskell
-snd :: Pair a b -> b
-snd p = p (\a b -> b)
-```
-
-We'll do `swap` next.
-
-```haskell
-swap :: Pair a b -> Pair b a
-swap = _
-```
-
-We get both an `a` and a `b` as arguments passed to the `Pair a b`, from those we need to construct a new pair of type `Pair b a`.
-
-```haskell
-swap :: Pair a b -> Pair b a
-swap p = p (\a b -> pair b a)
-```
-
-`curry` is passed a function which requires a `Pair a b`, it's also passed an `a` and a `b`. We can construct a `Pair a b` from the `a` and `b`.
-
-```haskell
-curry :: (Pair a b -> c) -> a -> b -> c
-curry f a b = f (pair a b)
-```
-
-Where `curry` has us construct a `Pair a b`, `uncurry` has us deconstruct one.
-
-```haskell
-uncurry :: (a -> b -> c) -> Pair a b -> c
-uncurry f p = p f
-```
-
-`uncurry`, in fact, looks like a utility function we might think to construct to make defining the other functions a little nicer.
-
-```haskell
-both :: (a -> b -> c) -> Pair a b -> c
-both f p = p f
-```
-
-Especially if we choose to use `newtype` rather than `type` to define `Pair a b`.
-
-```haskell
-newtype Pair a b
-  = Pair (forall c. (a -> b -> c) -> c)
-```
-
-Let's put everything we have so far into a module, the first in our alternative prelude [Hot Air](https://github.com/bradparker/hot-air/).
-
-```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE RankNTypes #-}
-{-# OPTIONS_GHC -Wall #-}
-
-module HotAir.Pair
-  ( Pair,
-    pair,
-    both,
-    fst,
-    snd,
-    swap,
-    curry,
-    uncurry
-    )
-where
-
-newtype Pair a b
-  = Pair (forall c. (a -> b -> c) -> c)
-
-pair :: a -> b -> Pair a b
-pair a b = Pair (\p -> p a b)
-
-both :: (a -> b -> c) -> Pair a b -> c
-both f (Pair p) = p f
-
-fst :: Pair a b -> a
-fst = both (\a _ -> a)
-
-snd :: Pair a b -> b
-snd = both (\_ b -> b)
-
-swap :: Pair a b -> Pair b a
-swap = both (\a b -> pair b a)
-
-curry :: (Pair a b -> c) -> a -> b -> c
-curry f a b = f (pair a b)
-
-uncurry :: (a -> b -> c) -> Pair a b -> c
-uncurry = both
-```
-
-<figcaption>
-  `lib/HotAir/Pair.hs`
-</figcaption>
-
-Now we can see how it works.
-
-```
-$ ghci lib/HotAir/Pair.hs
+$ ghci
 GHCi, version 8.6.5: http://www.haskell.org/ghc/  :? for help
-Ok, one module loaded.
-> example = pair "A pair" ()
-> fst example
-"A pair"
-> snd example
-()
-> toBuiltin = both (,)
-> toBuiltin example
-("A pair",())
+Loaded GHCi configuration from /home/brad/.ghci
+> pair x1 x2 = \c -> c x1 x2
+> :type pair
+pair :: t1 -> t2 -> (t1 -> t2 -> t3) -> t3
 ```
 
-## Bool
-
-Let's apply the same strategy to `Bool`, a rather different type than `Pair`.
-
-This is a type with two constructors (_c_<sub>1</sub>, _c_<sub>2</sub>), each accepting no arguments. In this case, instead of one constructor which chooses what to do with two arguments, we have two constructors which will be chosen between.
-
-There's one case in which the first constructor is chosen.
-
-_&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>1</sub>
-
-And another in which the second is.
-
-_&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>2</sub>
-
-Translating both into Haskell yields:
+You might be wondering why these lambdas are arranged the way they are. Why not use any of the following, equivalent, arrangements.
 
 ```haskell
-\c1 c2 -> c1
-
-\c1 c2 -> c2
+pair = \x1 -> \x2 -> \c -> c x1 x2
+pair = \x1 -> \x2 c -> c x1 x2
+pair = \x1 x2 c -> c x1 x2
 ```
 
-We might name them, letting the cat somewhat out of the bag, and get GHCi to tell us what their types are.
-
-```
-> true = \t _ -> t
-> false = \_ f -> f
-> :t true
-true :: forall {p1} {p2}. p1 -> p2 -> p1
-> :t false
-false :: forall {p1} {p2}. p1 -> p2 -> p2
-```
-
-These two functions have different types, we need to find one type that describes them both, they're both constructors of `Bool` after all. The issue is that the inferred types are more general than we need them to be. When using booleans to branch a program we generally don't want each branch to have a different type.
+The answer is that I'm sneakily trying to reveal what the _Pair_ component of `pair`s type is. And as it ends up, what the datatype component of any Scott encoded constructor's type happens to be.
 
 ```haskell
-if even 2
-  then True
-  else "Wait, wat?!"
+type Pair t1 t2 t3
+  = (t1 -> t2 -> t3) -> t3
 ```
 
-So let's ensure that both branches are always of the same type.
+The equivalent Haskell type, `(,) a b` has one less type variable, it's interesting to think about what it would mean for `Pair` to ditch `t3` somehow.
 
 ```haskell
-newtype Bool
-  = Bool (forall a. a -> a -> a)
-
-true :: Bool
-true = Bool (\t _ -> t)
-
-false :: Bool
-false = Bool (\_ f -> f)
+type Pair t1 t2
+  = (t1 -> t2 -> _) -> _
 ```
 
-Are you convinced that this is the same the `Bool` provided by Haskell Prelude? Me neither. Let's reimplement everything in [`Data.Bool`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Bool.html) and then have a poke around in GHCi, see if that helps.
-
-First up is `(&&)`. Given two booleans the result of `(&&)` is true only if both provided booleans are themselves true. In _normal_ Haskell this is a bit of a cinch.
+One way of looking at it is that Scott encoded `Pair`s are made to be used but they're not concerned with _how_. It's up to _c_ what it does with _x_<sub>1</sub> and _x_<sub>2</sub>, _pair_ has no say in it. This means that whatever _pair_ returns must work _for anything_ its _consumer_ may want to produce. In Haskell types we might say that `Pair` must work _for all_ possible types _c_ could return.
 
 ```haskell
-(&&) :: Bool -> Bool -> Bool
-True && True = True
-_ && _ = False
+type Pair t1 t2
+  = forall t3. (t1 -> t2 -> t3) -> t3
+
+pair :: Pair a b
+pair a b = \c -> c a b
 ```
 
-In embarking on this experiment we've lost the ability to pattern match, so we have to think a little differently.
-
-Each `Bool` we'll be passed is a function which accepts two arguments and will chose one of them to return. Returning the first argument means the `Bool` is _true_ and returning the second means it's _false_. So if both `Bool`s use their first argument then they're both true.
+Is this equivalent to `(,)`? How might we tell? One way might be to write a function which converts `(,)`s into `Pair`s and one which converts `Pair`s into `(,)`s. Then, given those two functions, we should be able to observe that their composition doesn't _do_ anything. Or put another way: given these two functions:
 
 ```haskell
-(&&) :: Bool -> Bool -> Bool
-Bool a && Bool b = a (b true _) _
+from :: (a, b) -> Pair a b
+from = _
+
+to :: Pair a b -> (a, b)
+to = _
 ```
 
-All other cases are false.
+Their composition in either direction is equivalent to an identity function.
+
+_from_ &#8728; _to_ = _id<sub>Pair</sub>_<br/>
+_to_ &#8728; _from_ = _id<sub>(,)</sub>_
+
+If these two functions can be written, and they have this property it means that `Pair` and `(,)` are [isomorphic]().
+
+Is it possible to write `from`?
 
 ```haskell
-(&&) :: Bool -> Bool -> Bool
-Bool a && Bool b = a (b true false) false
+from :: (a, b) -> Pair a b
+from (a, b) = _
 ```
 
-It's fair to be suspicious, I promise we'll see it working soon enough. First we'll need the rest of this module.
-
-Next up is `(||)` another binary operator which will return true if either argument is true.
+Given an `a` and a `b` is it possible to construct a `Pair a b`?
 
 ```haskell
-(||) :: Bool -> Bool -> Bool
-Bool a || Bool b = _
+from :: (a, b) -> Pair a b
+from (a, b) = pair a b
 ```
 
-So if the first argument is true.
+How about `to`?
 
 ```haskell
-(||) :: Bool -> Bool -> Bool
-Bool a || Bool b = a true _
+to :: Pair a b -> (a, b)
+to p = _
 ```
 
-Or the second.
+Recall that `p` is a function `forall t3. (t1 -> t2 -> t3) -> t3`. Or with some variable renaming `forall c. (a -> b -> c) -> c`
 
 ```haskell
-(||) :: Bool -> Bool -> Bool
-Bool a || Bool b = a true (b true _)
+to :: Pair a b -> (a, b)
+to p = p (\a b -> _)
 ```
 
-But not if both are false.
+Given an `a` and a `b` can we construct a `(a, b)`?
 
 ```haskell
-(||) :: Bool -> Bool -> Bool
-Bool a || Bool b = a true (b true false)
+to :: Pair a b -> (a, b)
+to p = p (\a b -> (a, b))
 ```
 
-Next we have `not`, which inverts a `Bool`.
+Is _to_ &#8728; _from_ an identity function? It does seem so.
 
-If it was true it should return false.
+```
+> (to . from) (1, 2)
+(1,2)
+> (to . from) (True, "Nifty")
+(True,"Nifty")
+```
+
+Without a `Show` or `Eq` instance for `(->)` it's hard to observe the same for _from_ &#8728; _to_. We can at least observe what _to_ &#8728; _from_ &#8728; _to_ does.
+
+```
+> (to . from . to) (pair 1 2)
+(1,2)
+> (to . from . to) (pair True "Very nifty")
+(True,"Very nifty")
+```
+
+Well, I'm convinced.
+
+### Either
+
+In Haskell `Either` is defined like this:
 
 ```haskell
-not :: Bool -> Bool
-not (Bool a) = a false _
+data Either a b
+  = Left a
+  | Right b
 ```
 
-And true if it was false.
+For the purposes of Scott encoding we can say that _Either_ has two constructors which each accept one argument. This means that whatever each constructor returns will accept two continuations which themselves each accept one argument. Each constructor will accept an argument to pass to their chosen continuation.
+
+The first constructor _left_, then, will accept one argument to pass to the first continuation.
+
+_left_ := _&lambda;x. &lambda;c<sub>1</sub>, c<sub>2</sub>. c<sub>1</sub> x_
+
+And the second will accept one to pass to the second continuation.
+
+_right_ := _&lambda;x. &lambda;c<sub>1</sub>, c<sub>2</sub>. c<sub>2</sub> x_
+
+Each continuation can accept an argument of a different type (say _c<sub>1</sub>_ takes an _&alpha;_ and _c<sub>2</sub>_ takes a _&beta;_) but both should return something of the same type (say _&#947;_). The reason for this is how values of the _Either_ type are used, but more on that later. Using a [polymorphic lambda calculus]() rather than the [untyped lambda calculus]() we can write out how those types line up.
+
+
+_left_ := _&Lambda;&alpha;, &beta;, &#947;. &lambda;x <sup>&alpha;</sup>. &lambda;c<sub>1</sub> <sup>&alpha; &rarr; &#947;</sup>, c<sub>2</sub> <sup>&beta; &rarr; &#947;</sup>. c<sub>1</sub> x_<br/>
+_right_ := _&Lambda;&alpha;, &beta;, &#947;. &lambda;x <sup>&beta;</sup>. &lambda;c<sub>1</sub> <sup>&alpha; &rarr; &#947;</sup>, c<sub>2</sub> <sup>&beta; &rarr; &#947;</sup>. c<sub>2</sub> x_
+
+For me at least, it's a little easier to see in Haskell.
 
 ```haskell
-not :: Bool -> Bool
-not (Bool a) = a false true
+left :: a -> (a -> c) -> (b -> c) -> c
+left x = \c1 c2 -> c1 x
+
+right :: b -> (a -> c) -> (b -> c) -> c
+right x = \c1 c2 -> c2 x
 ```
 
-Lastly (we'll skip `otherwise`) is `bool`.
+As we did with _Pair_, we might ask: where's _Either_ in all of that? And, as with _Pair_, I have sneakily positioned certain lambdas to try and point it out. However, in this case another method might be to put _left_ and _right_ side by side and view their shared return type.
 
 ```haskell
-bool :: a -> a -> Bool -> a
-bool = _
+left  :: a -> ((a -> c) -> (b -> c) -> c)
+right :: b -> ((a -> c) -> (b -> c) -> c)
 ```
 
-This is one way that we can _use_ a `Bool`. It takes the value we want in the false case, the value we want in the true case, and the `Bool` which will choose between them. All we need do is let it make it's decision.
+Which might yield the following.
 
 ```haskell
-bool :: a -> a -> Bool -> a
-bool f t (Bool b) = b t f
+type Either a b c
+  = (a -> c) -> (b -> c) -> c
 ```
 
-With that we have a complete module.
+As with _Pair_ we can make sure that the choice of `c` is left solely up to the consumer of an `Either`.
 
 ```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE RankNTypes #-}
-{-# OPTIONS_GHC -Wall #-}
+type Either a b
+  = forall c. (a -> c) -> (b -> c) -> c
 
-module HotAir.Bool
-  ( Bool,
-    true,
-    false,
-    (&&),
-    (||),
-    not,
-    bool
-    )
-where
+left :: a -> Either a b
+left x = \c1 c2 -> c1 x
 
-newtype Bool
-  = Bool (forall a. a -> a -> a)
-
-true :: Bool
-true = Bool (\t _ -> t)
-
-false :: Bool
-false = Bool (\_ f -> f)
-
-not :: Bool -> Bool
-not (Bool b) = b false true
-
-(&&) :: Bool -> Bool -> Bool
-Bool a && Bool b = a (b true false) false
-
-(||) :: Bool -> Bool -> Bool
-Bool a || Bool b = a true (b true false)
-
-bool :: a -> a -> Bool -> a
-bool f t (Bool b) = b t f
+right :: b -> Either a b
+right x = \c1 c2 -> c2 x
 ```
 
-<figcaption>
-  `lib/HotAir/Bool.hs`
-</figcaption>
-
-Which we can now play with.
-
-```
-$ ghci lib/HotAir/Bool.hs
-> bool "It's false!" "It's true" false
-"It's false!"
-> bool "It's false!" "It's true" true
-"It's true"
-> bool "It's false!" "It's true" (true || false)
-"It's true"
-> bool "It's false!" "It's true" (false || false)
-"It's false!"
-> bool "It's false!" "It's true" (false && false)
-"It's false!"
-> bool "It's false!" "It's true" (false && true)
-"It's false!"
-> bool "It's false!" "It's true" (true && true)
-"It's true"
-> bool "It's false!" "It's true" (not true)
-"It's false!"
-> bool "It's false!" "It's true" (not false)
-"It's true"
-```
-
-## Maybe
-
-`Maybe` has two constructors, _c_<sub>1</sub> and _c_<sub>2</sub>, like `Bool`. The first constructor is quite like either of `Bool`'s, it accepts no arguments.
-
-_&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>1</sub>
-
-The other requires a value, _x_, not unlike the way `Pair`'s sole constructor required two, _x_<sub>1</sub> and _x_<sub>2</sub>.
-
-_&lambda;x_. _&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>2</sub>_x_
-
-Which in Haskell yields:
+Can we write _to_ and _from_ for converting between our _Either_ and Haskell's?
 
 ```haskell
-\c1 c2 -> c1
+from :: Prelude.Either a b -> Either a b
+from = _
 
-\x -> \c1 c2 -> c2 x
+to :: Either a b -> Prelude.Either a b
+to = _
 ```
 
-This time asking GHCi to help us out is less revealing.
-
-```
-> nothing = \c1 c2 -> c1
-> just = \x -> \c1 c2 -> c2 x
-> :t nothing
-nothing :: forall {p1} {p2}. p1 -> p2 -> p1
-> :t just
-just :: forall {t1} {p} {t2}. t1 -> p -> (t1 -> t2) -> t2
-```
-
-However, `Maybe` _is_ in there. We just have to tease it out.
-
-As with `Bool` it's in our interests that both of these constructors return the same type. Let's then say that `p1` and `t2` are the same.
+For _from_ we can be given a `Left` containing an `a` or a `Right` containing a `b`.
 
 ```haskell
-nothing :: p1 -> p2 -> p1
-just    :: t1 -> p -> (t1 -> p1) -> p1
+from :: Prelude.Either a b -> Either a b
+from e =
+  case e of
+    Left a -> _
+    Right b -> _
 ```
 
-This implies that `p` and `p1` are the same.
+So we have two questions to answer. Given an `a` can I construct an `Either a b`?
 
 ```haskell
-nothing :: p1 -> p2 -> p1
-just    :: t1 -> p1 -> (t1 -> p1) -> p1
+from :: Prelude.Either a b -> Either a b
+from e =
+  case e of
+    Left a -> left a
+    Right b -> _
 ```
 
-As `nothing` makes no use of its second argument Haskell has inferred a very general type for it, `p2`. However, we _know_ that this same argument in `just` is a function of type `t1 -> p1`. If we replace `p2` with `t1 -> p1`.
+Given a `b` can I construct an `Either a b`?
 
 ```haskell
-nothing :: p1 -> (t1 -> p1) -> p1
-just    :: t1 -> p1 -> (t1 -> p1) -> p1
+from :: Prelude.Either a b -> Either a b
+from e =
+  case e of
+    Left a -> left a
+    Right b -> right b
 ```
 
-With a bit of renaming and aligning.
+For _to_ it would be nice if we could use a `case` expression as we did with _from_ and in a sense we can.
 
 ```haskell
-nothing ::      b -> (a -> b) -> b
-just    :: a -> b -> (a -> b) -> b
+to :: Either a b -> Prelude.Either a b
+to e =
+  e
+    (\a -> _)
+    (\b -> _)
 ```
 
-We can just make out the type we're looking for.
+This was less clear when looking at `Pair` and `(,)` but Scott-encoded datatypes are almost ready-made `case` expressions. Each continuation is like a constructor-only pattern-match.
+
+Now we also have two questions and they're very similar. Given an `a` can I construct a `Prelude.Either a b`?
 
 ```haskell
-type Maybe a
-  = forall b. b -> (a -> b) -> b
+to :: Either a b -> Prelude.Either a b
+to e =
+  e
+    (\a -> Left a)
+    (\b -> _)
 ```
 
-This time we won't reimplement everything in [`Data.Maybe`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Maybe.html). We're instead going to spend some time with the `maybe` function.
+Given a `b` can I construct a `Prelude.Either a b`?
 
 ```haskell
-maybe :: b -> (a -> b) -> Maybe a -> b
-maybe = _
+to :: Either a b -> Prelude.Either a b
+to e =
+  e
+    (\a -> Left a)
+    (\b -> Right b)
 ```
 
-In _normal_ Haskell it has the following definition.
+Are `Prelude.Either` and `Either` equivalent?
+
+```
+> to (from (Left "Hrm?"))
+Left "Hrm?"
+> to (from (to (left "Ahhhhh")))
+Left "Ahhhhh"
+> to (from (Right 2))
+Right 2
+> to (from (to (right 14)))
+Right 14
+```
+
+Looks likely.
+
+### Unit and Void
+
+With _Pair_ and _Either_ it's almost possible to build all other types, if only we had Haskell's `()` and `Void` then the world would be our oyster.
+
+Both _Either_ and _Pair_ are similar in that their constructors accept arguments, _Unit_ is different.
 
 ```haskell
-maybe :: b -> (a -> b) -> Maybe a -> b
-maybe n _ Nothing  = n
-maybe _ f (Just x) = f x
+data () = ()
 ```
 
-<figcaption>
-  Defined in [`Data.Maybe`](https://hackage.haskell.org/package/base-4.12.0.0/docs/src/Data.Maybe.html#maybe).
-</figcaption>
+Haskell's `()` has one constructor which accepts _no_ arguments. The general form for Scott encoding doesn't seem to account for this.
 
-Which could be re-written using a `case` expression.
+_unit_ := _&lambda;?. &lambda;c. ??_
+
+The solution is to omit anything related to arguments, lambdas and all.
+
+_unit_ := _&lambda;c. c_
+
+Which may look familiar, especially if written like this:
 
 ```haskell
-maybe :: b -> (a -> b) -> Maybe a -> b
-maybe n j m = case m of
-  Nothing -> n
-  Just a -> j a
+unit :: a -> a
+unit = id
 ```
 
-How might we write this using our Scott-encoded `Maybe`? Let's inline its type in the type of `maybe` to see if we get any clues.
+Naming the datatype yields the following.
 
 ```haskell
-maybe
-  :: b
-  -> (a -> b)
-  -> (b -> (a -> b) -> b)
-  -> b
-maybe = _
+type Unit = forall a. a -> a
+
+unit :: Unit
+unit = id
 ```
 
-We get a `b`, and an `a -> b`. We also get something that needs to be passed an `a` and an `a -> b`, interesting.
+Haskell's `Void` is also quite strange. It has _no constructors_ to accept arguments or not.
 
 ```haskell
-maybe
-  :: b
-  -> (a -> b)
-  -> (b -> (a -> b) -> b)
-  -> b
-maybe b a2b m = m b a2b
+data Void
 ```
 
-I want to show you another way we could have written this.
+In a sense it's quite like if we removed the _c_ from _unit_. This isn't really representable in lambda calculus, but it is in Haskell.
 
 ```haskell
-maybe
-  :: b
-  -> (a -> b)
-  -> (b -> (a -> b) -> b)
-  -> b
-maybe n j m = m
-  n
-  (\a -> j a)
+type Void = forall a. a
 ```
 
-With the type synonym reinstated we can see how similar it is to the _normal_ Haskell version.
+## What now?
+
+This post uses Haskell, why fight it? Let's write a monadic parser using everything we've built so far.
 
 ```haskell
-maybe :: b -> (a -> b) -> Maybe a -> b
-maybe n j m = m
-  n
-  (\a -> j a)
+type Parser a
+  = String -> Either String (Pair a String)
+
+fail :: String -> Parser a
+fail e = \_ -> left e
+
+satisfy :: (Char -> Bool) -> Parser Char
+satisfy p = \str ->
+  case str of
+    [] -> left "Unexpected EOF"
+    (c : cs) ->
+      if p c
+        then right (pair c cs)
+        else left ("Unexpected char: " ++ show c)
+
+(<$>) :: (a -> b) -> Parser a -> Parser b
+f <$> pa =
+  \str ->
+    (pa str)
+      left
+      (\p -> p (\a str' -> pair (f a) str'))
+
+(<*>) :: Parser (a -> b) -> Parser a -> Parser b
+pf <*> pa =
+  \str ->
+    (pf str) left
+      ( \p ->
+          p
+            ( \f str' ->
+                (pa str') left
+                  (\p' -> p' (\a str'' -> pair (f a) str''))
+              )
+        )
 ```
-
-<figcaption>
-  Scott-encoded
-</figcaption>
-
-```haskell
-maybe :: b -> (a -> b) -> Maybe a -> b
-maybe n j m = case m of
-  Nothing -> n
-  Just a -> j a
-```
-
-<figcaption>
-  _Normal_
-</figcaption>
-
-Recall earlier when I said that we'd lost pattern-matching? Well, I was telling a bit of a fib, we're still able match on constructors.
-
-In addition to `case` expressions it's also worth noticing how similar `maybe` is to `bool`.
-
-```haskell
-bool  :: b ->            b  -> Bool    -> b
-maybe :: b -> (a      -> b) -> Maybe a -> b
-```
-
-And, with a bit of imagination, `Pair`'s `both`.
-
-```haskell
-both  ::      (a -> b -> c) -> Pair a b -> c
-maybe :: c -> (a      -> c) -> Maybe a  -> c
-```
-
-Each of these functions can be seen to _deconstruct_ their respective types. What `true` and `false` construct, `bool` destroys; what `pair` combines, `both` unpacks; what `nothing` and `just` _introduce_; `maybe` _eliminates_.
-
-> An eliminator for a type is an operator or construct which characterises the use of the type's inhabitants. For example, application is an eliminator for function types; projections are eliminators for record types; conditional expression is an eliminator for Booleans.
->
-> The opposite of an eliminator is a constructor, providing a means by which inhabitants of a type may be created: lambda-abstraction for functions, tupling for records, constants 'true' and 'false' for Booleans.
->
-> &mdash; Conor McBride, _[Answering the Question "In type theory, what is an eliminator, and what is its opposite?"](https://www.quora.com/In-type-theory-what-is-an-eliminator-and-what-is-its-opposite/answer/Conor-McBride)_
-
-`maybe`, `bool` and `both` are all eliminators for their respective types.
-
-Now, see what happens when we shuffle `maybe`'s arguments around a little.
-
-```haskell
-maybe :: Maybe a -> b -> (a -> b) -> b
-maybe m n j = m n j
-```
-
-And eta-reduce.
-
-```haskell
-maybe m n j = m n j
-maybe m n = m n
-maybe m = m
-```
-
-We see that `maybe` is equivalent to the identity function. This implies that Scott-encoded data-types _are_ their own eliminators. When I said we'd be building everything out of **nothing** I meant it.
-
-The rest of our `HotAir.Maybe` module will be some type-class instances which will make writing our target program easier. We won't walk through their implementations here despite how fun it is to do so.
-
-```haskell
-{-# LANGUAGE InstanceSigs #-}
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE RankNTypes #-}
-{-# OPTIONS_GHC -Wall #-}
-
-module HotAir.Maybe
-  ( Maybe,
-    nothing,
-    just,
-    maybe,
-    fromMaybe
-    )
-where
-
-import Control.Applicative
-  ( Alternative ((<|>), empty),
-    Applicative ((<*>), pure)
-    )
-import Control.Monad (Monad ((>>=)), ap)
-import Data.Function ((.), id)
-import Data.Functor (Functor (fmap))
-
-newtype Maybe a
-  = Maybe (forall b. b -> (a -> b) -> b)
-
-nothing :: Maybe a
-nothing = Maybe (\n _ -> n)
-
-just :: a -> Maybe a
-just a = Maybe (\_ j -> j a)
-
-maybe :: c -> (a -> c) -> Maybe a -> c
-maybe n j (Maybe m) = m n j
-
-fromMaybe :: c -> Maybe c -> c
-fromMaybe n = maybe n id
-
-instance Functor Maybe where
-  fmap :: (a -> b) -> Maybe a -> Maybe b
-  fmap f = maybe nothing (just . f)
-
-instance Applicative Maybe where
-
-  pure :: a -> Maybe a
-  pure = just
-
-  (<*>) :: Maybe (a -> b) -> Maybe a -> Maybe b
-  (<*>) = ap
-
-instance Alternative Maybe where
-
-  empty :: Maybe a
-  empty = nothing
-
-  (<|>) :: Maybe a -> Maybe a -> Maybe a
-  a <|> b = maybe b just a
-
-instance Monad Maybe where
-  (>>=) :: Maybe a -> (a -> Maybe b) -> Maybe b
-  (>>=) ma f = maybe nothing f ma
-```
-
-<figcaption>
-  `lib/HotAir/Maybe.hs`
-</figcaption>
-
-## Natural
-
-Numbers, they're pretty handy, but what are they? One answer comes in the form of a set of [axioms](https://en.wikipedia.org/wiki/Peano_axioms) developed in the latter half of the 19th century by Hermann Grassmann, Charles Sanders Peirce, Richard Dedekind and Giuseppe Peano. There's a bit to it, but for our purposes it's enough to say this: we start with some base value (say `0`), and a [successor function](https://en.wikipedia.org/wiki/Successor_function) (say `+ 1`); from there we're able to derive all the [Natural numbers](https://en.wikipedia.org/wiki/Natural_number).
-
-```haskell
-0
-1 + 0
-1 + 1 + 0
-1 + 1 + 1 + 0
-...
-```
-
-There's quite a nice way to express something more reduced, more in the spirit of the Peano axioms using _normal_ Haskell.
-
-```haskell
-data Natural
- = Zero
- | Succ Natural
-```
-
-It's really all we need, I promise.
-
-```haskell
-Zero
-Succ Zero
-Succ (Succ Zero)
-Succ (Succ (Succ Zero))
-```
-
-We'll end up proving this to ourselves out of necessity. We _need_ numbers for our target program so there's no getting out of it.
-
-Firstly, we need to Scott-encode the above definition of `Natural`, so: `Natural` is a type with two constructors, _c_<sub>1</sub> and _c_<sub>2</sub>. The first constructor, like `nothing`, doesn't accept a value.
-
-_&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>1</sub>
-
-The second, like `just`, accepts one value, _x_.
-
-_&lambda;x_. _&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>2</sub>_x_
-
-We're to remember that _x_ is another `Natural`, despite the fact that this notation doesn't indicate _what_ _x_ is. In fact, without that constraint `Natural` would be identical to `Maybe`. Given that knowledge, rather than trying to figure out what this type should be with the help of GHCi, we can skip some steps and adapt `Maybe`.
-
-```haskell
-newtype Natural
-  = Natural (forall a. a -> (Natural -> a) -> a)
-
-zero :: Natural
-zero = Natural (\z _ -> z)
-
-succ :: Natural -> Natural
-succ n = Natural (\_ s -> s n)
-```
-
-Now that we can introduce `Natural`s we need a way to eliminate them. Is an eliminator for `Natural` just `Natural`, as with `Pair`, `Bool` and `Maybe`?
-
-```haskell
-natural :: a -> (Natural -> a) -> Natural -> a
-natural z s (Natural n) = n z s
-```
-
-Well, in a sense. It's handy to have such a function but it doesn't go far enough. As `Natural`s are made by repeated applications of `succ` they'll need to unmade by _un-applying_ them all. We need some recursion.
-
-```haskell
-foldNatural :: a -> (a -> a) -> Natural -> a
-foldNatural z s = natural
-  z
-  (\n -> s (foldNatural z s n))
-```
-
-`foldNatural` is very much like `natural` except that it doesn't stop with only one call to `s`, it calls `s` as many times as `succ` was called to construct the provided `Natural`. Remember back at the beginning of this post when I mentioned Church-encoding, and that a common example of Church-encoding is natural numbers? This is how the first few natural numbers are represented in Church-encoding.
-
-0 := _&lambda; f. &lambda; x. x_<br/>
-1 := _&lambda; f. &lambda; x. f x_<br/>
-2 := _&lambda; f. &lambda; x. f (f x)_<br/>
-3 := _&lambda; f. &lambda; x. f (f (f x))_<br/>
-
-A church numeral is a number of applications of a function (_f_) to some value (_x_). This is, in fact, what `foldNatural` turns `Natural`s into. We can almost state it in prose: "`foldNatural a f b` applies `f` to `a` `b` _times_."
-
-```haskell
-one = succ zero
-two = succ (succ zero)
-
-foldNatural "" ('a' :) one
--- "a"
-foldNatural "" ('a' :) two
--- "aa"
-```
-
-With this we have a way to convert `Natural`s into anything with a `Num` instance.
-
-```haskell
-toNum :: Num a => Natural -> a
-toNum n = foldNatural 0 (+ 1) n
-```
-
-Which applies `+ 1` `n` times to `0`.
-
-There is a [module in the base libraries for natural numbers](https://hackage.haskell.org/package/base-4.12.0.0/docs/Numeric-Natural.html) and though it doesn't look like it contains much there is at least a [`Num`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#t:Num) instance in there. Let's then write a `Num` instance for _our_ `Natural`. We'll begin with  addition (`+`).
-
-```haskell
-instance Num Natural where
-  (+) :: Natural -> Natural -> Natural
-  (+) = _
-```
-
-The trick here is that the expression 5 + 3 can be rewritten as 5 + 1 + 1 + 1. Generally expressions of the form _a_ + _b_ can be re-phrased as "increment _a_ _b_ times". Doesn't that sound familiar?
-
-```haskell
-instance Num Natural where
-  (+) :: Natural -> Natural -> Natural
-  a + b = foldNatural b succ a
-```
-
-Now multiplication (`*`).
-
-```haskell
-instance Num Natural where
-  (*) :: Natural -> Natural -> Natural
-  (*) = _
-```
-
-There's a similar trick we can apply here. 5 &times; 3 can be re-written as 0 + 5 + 5 + 5. So, generally, expressions of the form _a_ &times; _b_ could be phrased as "add _a_ to zero _b_ times".
-
-```haskell
-instance Num Natural where
-  (*) :: Natural -> Natural -> Natural
-  a * b = foldNatural zero (+ b) a
-```
-
-Onto subtraction (`-`).
-
-```haskell
-instance Num Natural where
-  (-) :: Natural -> Natural -> Natural
-  a - b = _
-```
-
-As subtraction is the inverse of addition, it might help if we had an inverse of `succ`.
-
-```haskell
-pred :: Natural -> Natural
-pred = natural zero id
-```
-
-What `succ` does `pred` undoes. We need to apply it `b` times to `a`, undoing a `b`s worth of `succ`s on `a`.
-
-```haskell
-instance Num Natural where
-  (-) :: Natural -> Natural -> Natural
-  a - b = foldNatural a pred b
-```
-
-More than just overloaded operators for addition, multiplication and subtraction, `Num` also provides a way to overload integer literals in Haskell programs. This allows us to type `1` and have it mean `1 :: Natural`. To enable this we need to define `fromInteger`.
-
-```haskell
-instance Num Natural where
-  fromInteger :: Integer -> Natural
-  fromInteger = _
-```
-
-By this stage we might be inclined to re-phrase this as "to calculate `fromInteger n :: Natural` we need to apply `succ` to `zero` `n` times". Is there a `foldInteger`?
-
-```haskell
-foldInteger :: a -> (a -> a) -> Integer -> a
-foldInteger = _
-```
-
-Not exactly, and for good reason, but we have everything we need to build one.
-
-```haskell
-newtype Endo a
-  = Endo { appEndo :: a -> a }
-```
-
-<figcaption>
-  Available from `Data.Semigroup`, defined in [`Data.Semigroup.Internal`](http://hackage.haskell.org/package/base-4.12.0.0/docs/src/Data.Semigroup.Internal.html#Endo)
-</figcaption>
-
-```haskell
-mtimesDefault :: (Integral b, Monoid a) -> b -> a -> a
-```
-
-<figcaption>
-  Defined in [`Data.Semigroup`](https://hackage.haskell.org/package/base-4.12.0.0/docs/src/Data.Semigroup.html#mtimesDefault)
-</figcaption>
-
-```haskell
-foldInteger :: a -> (a -> a) -> Integer -> a
-foldInteger z s n = appEndo (mtimesDefault n (Endo s)) z
-```
-
-```haskell
-instance Num Natural where
-  fromInteger :: Integer -> Natural
-  fromInteger = foldInteger zero succ
-```
-
-With the addition of the remaining required methods for a `Num` instance, `signum` and `abs`, we've got our complete module.
-
-```haskell
-{-# LANGUAGE InstanceSigs #-}
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE RankNTypes #-}
-{-# OPTIONS_GHC -Wall #-}
-
-module HotAir.Natural
-  ( Natural,
-    zero,
-    succ,
-    natural,
-    foldNatural,
-    toNum,
-    pred
-    )
-where
-
-import Data.Function ((.), id)
-import Data.Semigroup (Endo (Endo, appEndo), mtimesDefault)
-import GHC.Num (Integer, Num ((*), (+), (-), abs, fromInteger, signum))
-
-newtype Natural
-  = Natural (forall a. a -> (Natural -> a) -> a)
-
-zero :: Natural
-zero = Natural (\z _ -> z)
-
-succ :: Natural -> Natural
-succ n = Natural (\_ s -> s n)
-
-natural :: a -> (Natural -> a) -> Natural -> a
-natural z s (Natural n) = n z s
-
-foldNatural :: a -> (a -> a) -> Natural -> a
-foldNatural z s = natural z (s . foldNatural z s)
-
-toNum :: Num a => Natural -> a
-toNum = foldNatural 0 (+ 1)
-
-pred :: Natural -> Natural
-pred = natural zero id
-
-foldInteger :: a -> (a -> a) -> Integer -> a
-foldInteger z s n = appEndo (mtimesDefault n (Endo s)) z
-
-instance Num Natural where
-
-  (+) :: Natural -> Natural -> Natural
-  a + b = foldNatural b succ a
-
-  (*) :: Natural -> Natural -> Natural
-  a * b = foldNatural zero (+ b) a
-
-  (-) :: Natural -> Natural -> Natural
-  a - b = foldNatural a pred b
-
-  fromInteger :: Integer -> Natural
-  fromInteger = foldInteger zero succ
-
-  signum :: Natural -> Natural
-  signum = natural zero (\_ -> succ zero)
-
-  abs :: Natural -> Natural
-  abs = id
-```
-
-It's now possible to see what we've been doing all this time.
-
-```
-$ ghci lib/HotAir/Natural.hs
-> toNum (1 + 1)
-2
-> toNum (2 * 3)
-6
-> toNum (5 - 4)
-1
-```
-
-## List
-
-The way we _use_ `Natural`s &mdash; by way of `foldNatural` &mdash; suggests there's something iterative about them. That is: we create the `Natural` `5` and are then able perform some action _five_ times ...
-
-The `List` type has two constructors. The first &mdash; like `Bool`'s `false`, `Maybe`'s `nothing` and `Natural`'s `zero` &mdash; accepts no arguments.
-
-_&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>1</sub>
-
-The second is very nearly like `Maybe`'s `just` or `Natural`'s `succ` except for an extra argument.
-
-_&lambda;x_<sub>1</sub>, _x_<sub>2</sub>. _&lambda;c_<sub>1</sub>, _c_<sub>2</sub>. _c_<sub>2</sub> _x_<sub>1</sub> _x_<sub>2</sub>
-
-With `Natural` we were to _keep in mind_ that the argument to `succ` was another `Natural`, making `Natural` a recursive type. In the case of `List` we're to _keep in mind_ that _x_<sub>2</sub> is another `List`; `List` is also a recursive type. I don't know about you but I'm finding it hard to keep track of what's what. Let's extend this lambda notation we're using to inlude types (fancy, polymorphic types).
-
-_nil_ := _&Lambda;&alpha;, &beta;. &lambda;b <sup>&beta;</sup>, f <sup>&alpha; &rarr; List &alpha; &rarr; &beta;</sup>. b_<br />
-_cons_ := _&Lambda;&alpha;, &beta;. &lambda; a <sup>&alpha;</sup>, as <sup>List &alpha;</sup>. &lambda;b <sup>&beta;</sup>, f <sup>&alpha; &rarr; List &alpha; &rarr; &beta;</sup>. f a as_
-
-_&Lambda;_ introduces polymorphic types, _&lambda;_ introduces variable values.
-
-Well, at least all the information is there. Let's try it in Haskell.
-
-```haskell
-newtype List a
-  = List (forall b. b -> (a -> List a -> b) -> b)
-
-nil :: List a
-nil = List (\n _ -> n)
-
-cons :: a -> List a -> List a
-cons a as = List (\_ c -> c a as)
-```
-
-As with `Natural` constructing a "good" eliminator for `List` requries some recursion.
-
-```haskell
-list :: b -> (a -> List a -> b) -> List a -> b
-list n c (List l) = l n c
-
-foldr :: (a -> b -> b) -> b -> List a -> b
-foldr c n = list n (\a as -> f a (foldr c n as))
-```
-
-## Char
-
-## String
