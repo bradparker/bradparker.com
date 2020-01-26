@@ -870,11 +870,35 @@ foldNatural z s = natural
   (\n -> s (foldNatural z s n))
 ```
 
-`foldNatural` is very much like `natural` except that it doesn't stop with only one call to `s`, it calls `s` as many times as `succ` was called to construct the provided `Natural`.
+`foldNatural` is very much like `natural` except that it doesn't stop with only one call to `s`, it calls `s` as many times as `succ` was called to construct the provided `Natural`. Remember back at the beginning of this post when I mentioned Church-encoding, and that a common example of Church-encoding is natural numbers? This is how the first few natural numbers are represented in Church-encoding.
 
-There is a [module in the base libraries for natural numbers](https://hackage.haskell.org/package/base-4.12.0.0/docs/Numeric-Natural.html) and though it doesn't look like it contains much there is at least [`Num`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#t:Num) instance in there, and that's a lot.
+0 := _&lambda; f. &lambda; x. x_<br/>
+1 := _&lambda; f. &lambda; x. f x_<br/>
+2 := _&lambda; f. &lambda; x. f (f x)_<br/>
+3 := _&lambda; f. &lambda; x. f (f (f x))_<br/>
 
-Let's then write a `Num` instance for _our_ `Natural`. We'll begin with `+` and we'll use `foldNatural`.
+A church numeral is a number of applications of a function (_f_) to some value (_x_). This is, in fact, what `foldNatural` turns `Natural`s into. We can almost state it in prose: "`foldNatural a f b` applies `f` to `a` `b` _times_."
+
+```haskell
+one = succ zero
+two = succ (succ zero)
+
+foldNatural "" ('a' :) one
+-- "a"
+foldNatural "" ('a' :) two
+-- "aa"
+```
+
+With this we have a way to convert `Natural`s into anything with a `Num` instance.
+
+```haskell
+toNum :: Num a => Natural -> a
+toNum n = foldNatural 0 (+ 1) n
+```
+
+Which applies `+ 1` `n` times to `0`.
+
+There is a [module in the base libraries for natural numbers](https://hackage.haskell.org/package/base-4.12.0.0/docs/Numeric-Natural.html) and though it doesn't look like it contains much there is at least a [`Num`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#t:Num) instance in there. Let's then write a `Num` instance for _our_ `Natural`. We'll begin with  addition (`+`).
 
 ```haskell
 instance Num Natural where
@@ -882,15 +906,7 @@ instance Num Natural where
   (+) = _
 ```
 
-What happens when the first `Natural` was constructed with `zero`? What is zero plus anything?
-
-```haskell
-instance Num Natural where
-  (+) :: Natural -> Natural -> Natural
-  a + b = foldNatural b _ a
-```
-
-Otherwise we want to apply `succ` `a` times to `b`.
+The trick here is that the expression 5 + 3 can be rewritten as 5 + 1 + 1 + 1. Generally expressions of the form _a_ + _b_ can be re-phrased as "increment _a_ _b_ times". Doesn't that sound familiar?
 
 ```haskell
 instance Num Natural where
@@ -906,15 +922,7 @@ instance Num Natural where
   (*) = _
 ```
 
-What is zero multiplied by anything?
-
-```haskell
-instance Num Natural where
-  (*) :: Natural -> Natural -> Natural
-  a * b = foldNatural zero _ a
-```
-
-Otherwise, what is multiplication other than repeated addition?
+There's a similar trick we can apply here. 5 &times; 3 can be re-written as 0 + 5 + 5 + 5. So, generally, expressions of the form _a_ &times; _b_ could be phrased as "add _a_ to zero _b_ times".
 
 ```haskell
 instance Num Natural where
@@ -922,7 +930,15 @@ instance Num Natural where
   a * b = foldNatural zero (+ b) a
 ```
 
-Subtraction is the inverse of addition, it might help then if we had an inverse of `succ`.
+Onto subtraction (`-`).
+
+```haskell
+instance Num Natural where
+  (-) :: Natural -> Natural -> Natural
+  a - b = _
+```
+
+As subtraction is the inverse of addition, it might help if we had an inverse of `succ`.
 
 ```haskell
 pred :: Natural -> Natural
@@ -937,7 +953,172 @@ instance Num Natural where
   a - b = foldNatural a pred b
 ```
 
+More than just overloaded operators for addition, multiplication and subtraction, `Num` also provides a way to overload integer literals in Haskell programs. This allows us to type `1` and have it mean `1 :: Natural`. To enable this we need to define `fromInteger`.
+
+```haskell
+instance Num Natural where
+  fromInteger :: Integer -> Natural
+  fromInteger = _
+```
+
+By this stage we might be inclined to re-phrase this as "to calculate `fromInteger n :: Natural` we need to apply `succ` to `zero` `n` times". Is there a `foldInteger`?
+
+```haskell
+foldInteger :: a -> (a -> a) -> Integer -> a
+foldInteger = _
+```
+
+Not exactly, and for good reason, but we have everything we need to build one.
+
+```haskell
+newtype Endo a
+  = Endo { appEndo :: a -> a }
+```
+
+<figcaption>
+  Available from `Data.Semigroup`, defined in [`Data.Semigroup.Internal`](http://hackage.haskell.org/package/base-4.12.0.0/docs/src/Data.Semigroup.Internal.html#Endo)
+</figcaption>
+
+```haskell
+mtimesDefault :: (Integral b, Monoid a) -> b -> a -> a
+```
+
+<figcaption>
+  Defined in [`Data.Semigroup`](https://hackage.haskell.org/package/base-4.12.0.0/docs/src/Data.Semigroup.html#mtimesDefault)
+</figcaption>
+
+```haskell
+foldInteger :: a -> (a -> a) -> Integer -> a
+foldInteger z s n = appEndo (mtimesDefault n (Endo s)) z
+```
+
+```haskell
+instance Num Natural where
+  fromInteger :: Integer -> Natural
+  fromInteger = foldInteger zero succ
+```
+
+With the addition of the remaining required methods for a `Num` instance, `signum` and `abs`, we've got our complete module.
+
+```haskell
+{-# LANGUAGE InstanceSigs #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE RankNTypes #-}
+{-# OPTIONS_GHC -Wall #-}
+
+module HotAir.Natural
+  ( Natural,
+    zero,
+    succ,
+    natural,
+    foldNatural,
+    toNum,
+    pred
+    )
+where
+
+import Data.Function ((.), id)
+import Data.Semigroup (Endo (Endo, appEndo), mtimesDefault)
+import GHC.Num (Integer, Num ((*), (+), (-), abs, fromInteger, signum))
+
+newtype Natural
+  = Natural (forall a. a -> (Natural -> a) -> a)
+
+zero :: Natural
+zero = Natural (\z _ -> z)
+
+succ :: Natural -> Natural
+succ n = Natural (\_ s -> s n)
+
+natural :: a -> (Natural -> a) -> Natural -> a
+natural z s (Natural n) = n z s
+
+foldNatural :: a -> (a -> a) -> Natural -> a
+foldNatural z s = natural z (s . foldNatural z s)
+
+toNum :: Num a => Natural -> a
+toNum = foldNatural 0 (+ 1)
+
+pred :: Natural -> Natural
+pred = natural zero id
+
+foldInteger :: a -> (a -> a) -> Integer -> a
+foldInteger z s n = appEndo (mtimesDefault n (Endo s)) z
+
+instance Num Natural where
+
+  (+) :: Natural -> Natural -> Natural
+  a + b = foldNatural b succ a
+
+  (*) :: Natural -> Natural -> Natural
+  a * b = foldNatural zero (+ b) a
+
+  (-) :: Natural -> Natural -> Natural
+  a - b = foldNatural a pred b
+
+  fromInteger :: Integer -> Natural
+  fromInteger = foldInteger zero succ
+
+  signum :: Natural -> Natural
+  signum = natural zero (\_ -> succ zero)
+
+  abs :: Natural -> Natural
+  abs = id
+```
+
+It's now possible to see what we've been doing all this time.
+
+```
+$ ghci lib/HotAir/Natural.hs
+> toNum (1 + 1)
+2
+> toNum (2 * 3)
+6
+> toNum (5 - 4)
+1
+```
+
 ## List
+
+The way we _use_ `Natural`s &mdash; by way of `foldNatural` &mdash; suggests there's something iterative about them. That is: we create the `Natural` `5` and are then able perform some action _five_ times ...
+
+The `List` type has two constructors. The first &mdash; like `Bool`'s `false`, `Maybe`'s `nothing` and `Natural`'s `zero` &mdash; accepts no arguments.
+
+_&lambda;c_<sub>1</sub>,_c_<sub>2</sub>. _c_<sub>1</sub>
+
+The second is very nearly like `Maybe`'s `just` or `Natural`'s `succ` except for an extra argument.
+
+_&lambda;x_<sub>1</sub>, _x_<sub>2</sub>. _&lambda;c_<sub>1</sub>, _c_<sub>2</sub>. _c_<sub>2</sub> _x_<sub>1</sub> _x_<sub>2</sub>
+
+With `Natural` we were to _keep in mind_ that the argument to `succ` was another `Natural`, making `Natural` a recursive type. In the case of `List` we're to _keep in mind_ that _x_<sub>2</sub> is another `List`; `List` is also a recursive type. I don't know about you but I'm finding it hard to keep track of what's what. Let's extend this lambda notation we're using to inlude types (fancy, polymorphic types).
+
+_nil_ := _&Lambda;&alpha;, &beta;. &lambda;b <sup>&beta;</sup>, f <sup>&alpha; &rarr; List &alpha; &rarr; &beta;</sup>. b_<br />
+_cons_ := _&Lambda;&alpha;, &beta;. &lambda; a <sup>&alpha;</sup>, as <sup>List &alpha;</sup>. &lambda;b <sup>&beta;</sup>, f <sup>&alpha; &rarr; List &alpha; &rarr; &beta;</sup>. f a as_
+
+_&Lambda;_ introduces polymorphic types, _&lambda;_ introduces variable values.
+
+Well, at least all the information is there. Let's try it in Haskell.
+
+```haskell
+newtype List a
+  = List (forall b. b -> (a -> List a -> b) -> b)
+
+nil :: List a
+nil = List (\n _ -> n)
+
+cons :: a -> List a -> List a
+cons a as = List (\_ c -> c a as)
+```
+
+As with `Natural` constructing a "good" eliminator for `List` requries some recursion.
+
+```haskell
+list :: b -> (a -> List a -> b) -> List a -> b
+list n c (List l) = l n c
+
+foldr :: (a -> b -> b) -> b -> List a -> b
+foldr c n = list n (\a as -> f a (foldr c n as))
+```
 
 ## Char
 
