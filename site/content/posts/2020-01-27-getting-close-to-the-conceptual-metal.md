@@ -756,3 +756,7 @@ That was quite a whirlwind.
 I _know_ I really shouldn't be surprised that I could write my program with (more or less) only lambdas. Lambda calculus is ["a universal model of computation"](https://en.wikipedia.org/wiki/Lambda_calculus) after all. I also shouldn't be surprised that translating lambda calculus terms into Haskell is so natural as Haskell based on a [lambda calculus](https://gitlab.haskell.org/ghc/ghc/blob/master/docs/core-spec/core-spec.pdf). But in this post I really wanted to focus on the wonder I feel when being able to _use_ abstract notions like lambda calculus to write runnable programs. My hope is that by writing this I might help someone find something they find wonderful, and encourage them to explore it.
 
 One possible avenue, which I might go into in a future post, is this: the above program still makes use of some pre-defined Haskell datatypes like `Bool`, `Natural`, `[a]` and `Char`. Does it have to? Could we build those entirely out of lambdas too? How far can we go?
+
+***
+
+Huge thanks to [Brad Bow](https://bradbow.com/) for his clarifying suggestions.
