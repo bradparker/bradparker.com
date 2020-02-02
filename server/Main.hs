@@ -72,7 +72,7 @@ optionsP =
 
 appPolicy :: FilePath -> Policy
 appPolicy path =
-  noDots >-> dropLeadingSlash >-> addBase path >-> (indexes <|> mempty)
+  noDots >-> (indexes <|> mempty) >-> dropLeadingSlash >-> addBase path
   where
     dropLeadingSlash = policy (Just . dropDrive)
     indexes = isIndex >-> addSuffix "index.html"
