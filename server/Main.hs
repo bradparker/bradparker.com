@@ -37,7 +37,7 @@ import Options.Applicative
     option,
     strOption
     )
-import System.FilePath (hasExtension)
+import System.FilePath (dropDrive, hasExtension)
 
 data HttpsOptions
   = HttpsOptions
@@ -71,8 +71,9 @@ optionsP =
 
 appPolicy :: FilePath -> Policy
 appPolicy path =
-  addBase path >-> (indexes <|> mempty)
+  dropLeadingSlash >-> addBase path >-> (indexes <|> mempty)
   where
+    dropLeadingSlash = policy (Just . dropDrive)
     indexes = isIndex >-> addSuffix "index.html"
     isIndex = hasSuffix "/" <|> (noExtension >-> addSuffix "/")
     noExtension = predicate (not . hasExtension)
