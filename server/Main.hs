@@ -7,16 +7,25 @@ module Main
 where
 
 import Control.Applicative (optional)
-import Network.Wai (Application)
-import Network.Wai.Application.Static
-  ( StaticSettings (ssIndices),
-    defaultWebAppSettings,
-    staticApp
-    )
+import Network.HTTP.Types (status404)
+import Network.Wai (Application, responseLBS)
 import qualified Network.Wai.Handler.Warp as Warp
 import Network.Wai.Handler.Warp (Port)
 import qualified Network.Wai.Handler.WarpTLS as WarpTLS
 import Network.Wai.Middleware.RequestLogger (logStdout)
+import Network.Wai.Middleware.Static
+  ( (<|>),
+    (>->),
+    CacheContainer,
+    CachingStrategy (PublicStaticCaching),
+    Policy,
+    addBase,
+    hasSuffix,
+    initCaching,
+    policy,
+    predicate,
+    staticPolicy'
+    )
 import Options.Applicative
   ( Parser,
     auto,
@@ -28,7 +37,7 @@ import Options.Applicative
     option,
     strOption
     )
-import WaiAppStatic.Types (unsafeToPiece)
+import System.FilePath (hasExtension)
 
 data HttpsOptions
   = HttpsOptions
@@ -60,12 +69,25 @@ optionsP =
                   <> metavar "HTTPS_CERT_FILE"
                 )
 
-app :: FilePath -> Application
-app path = staticApp staticSettings
+appPolicy :: FilePath -> Policy
+appPolicy path =
+  addBase path >-> (indexes <|> mempty)
   where
-    defaults = defaultWebAppSettings path
-    index = unsafeToPiece "index.html"
-    staticSettings = defaults {ssIndices = [index]}
+    indexes = isIndex >-> addSuffix "index.html"
+    isIndex = hasSuffix "/" <|> (noExtension >-> addSuffix "/")
+    noExtension = predicate (not . hasExtension)
+    addSuffix s = policy (Just . (++ s))
+
+app :: FilePath -> CacheContainer -> Application
+app path cache =
+  staticPolicy' cache (appPolicy path) notFound
+  where
+    notFound :: Application
+    notFound _ respond =
+      respond
+        $ responseLBS status404
+            [("Content-Type", "text/plain")]
+            "File not found"
 
 tlsSettings :: HttpsOptions -> WarpTLS.TLSSettings
 tlsSettings httpsOpts =
@@ -91,4 +113,5 @@ run options =
 main :: IO ()
 main = do
   options <- execParser $ info optionsP fullDesc
-  run options $ logStdout $ app $ directory options
+  cache <- initCaching PublicStaticCaching
+  run options $ logStdout $ app (directory options) cache

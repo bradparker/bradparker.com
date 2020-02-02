@@ -5,12 +5,14 @@ author:              Brad Parker
 maintainer:          hi@bradparker.com
 
 executable server
-  main-is:             Main.hs
-  build-depends:       base ^>=4.12.0.0,
-                       optparse-applicative,
-                       wai,
-                       wai-app-static,
-                       wai-extra,
-                       warp,
-                       warp-tls
-  default-language:    Haskell2010
+  main-is:          Main.hs
+  build-depends:    base ^>=4.12.0.0,
+                    filepath,
+                    http-types,
+                    optparse-applicative,
+                    wai,
+                    wai-extra,
+                    wai-middleware-static,
+                    warp,
+                    warp-tls
+  default-language: Haskell2010
