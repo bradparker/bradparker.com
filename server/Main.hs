@@ -22,9 +22,10 @@ import Network.Wai.Middleware.Static
     addBase,
     hasSuffix,
     initCaching,
+    noDots,
     policy,
     predicate,
-    staticPolicy'
+    unsafeStaticPolicy'
     )
 import Options.Applicative
   ( Parser,
@@ -71,7 +72,7 @@ optionsP =
 
 appPolicy :: FilePath -> Policy
 appPolicy path =
-  dropLeadingSlash >-> addBase path >-> (indexes <|> mempty)
+  noDots >-> dropLeadingSlash >-> addBase path >-> (indexes <|> mempty)
   where
     dropLeadingSlash = policy (Just . dropDrive)
     indexes = isIndex >-> addSuffix "index.html"
@@ -81,7 +82,7 @@ appPolicy path =
 
 app :: FilePath -> CacheContainer -> Application
 app path cache =
-  staticPolicy' cache (appPolicy path) notFound
+  unsafeStaticPolicy' cache (appPolicy path) notFound
   where
     notFound :: Application
     notFound _ respond =
