@@ -5,7 +5,7 @@ let
   };
 
   bradparker-source = builtins.fetchTarball {
-    url = https://github.com/bradparker/bradparker.com/archive/2e8d4c9856395da439b00ac20c7a706df3100092.tar.gz;
+    url = https://github.com/bradparker/bradparker.com/archive/d526badb778879b9d800ba9c54738931ef5c6e8f.tar.gz;
   };
 in
 {
