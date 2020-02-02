@@ -32,7 +32,7 @@ A few years ago I watched the [_Structure and interpretation of computer program
 
 Previous lectures had established pairs as a sort of fundamental thing. After all, pairs could be used to make lists and in Lisp once you've got pairs and lists you've got _a lot_. Sussman, however, was revealing that there was a level below that, there was an even more fundamental thing: functions.
 
-Later, through learning [Haskell](https://haskell.org), I became familiar with the concept of algebraic data types. It was astonishing to me that you could make so much out of so little. You seemingly only need types that are "pair-like" (_products_) and types that are "either-like" (_sums_).
+Later, through learning [Haskell](https://haskell.org), I became familiar with the concept of [algebraic data types](https://bradbow.com/posts/2017-09-14-adts.html). It was astonishing to me that you could make so much out of so little. You seemingly only need types that are "pair-like" (_products_) and types that are "either-like" (_sums_).
 
 ```haskell
 data Product a b
@@ -52,17 +52,24 @@ newtype NonEmpty a
   = NonEmpty (Product a (List a))
 ```
 
-When Sussman chalked up that pair made of nothing but "hot air" he attributed the encoding to [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church). Appreciating that many other types can be made from pair-like things and either-like things I wondered if there existed a Church encoding for `Either`. After all, with `Either` and `Pair` it sure seemed like I'd be able to construct anything else I needed. I found Church encodings for lots of other interesting things, like [booleans](https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans) and [natural numbers](https://en.wikipedia.org/wiki/Church_encoding#Church_numerals), but nothing quite like `Either`.
+When Sussman chalked up that pair made of nothing but "hot air" he attributed the encoding to [Alonzo Church](https://en.wikipedia.org/wiki/Alonzo_Church). Appreciating that many other types can be made from pair-like things and either-like things, I wondered if there existed a Church encoding for `Either`. After all, with `Either` and `Pair` it sure seemed like I'd be able to construct anything else I needed. I found Church encodings for lots of other interesting things, like [booleans](https://en.wikipedia.org/wiki/Church_encoding#Church_Booleans) and [natural numbers](https://en.wikipedia.org/wiki/Church_encoding#Church_numerals), but nothing quite like `Either`.
 
 Eventually I'd happen across [Scott encoding](https://oxij.org/paper/ExceptionallyMonadic/ExceptionallyMonadic.xetex.pdf#24), named for [Dana Scott](https://en.wikipedia.org/wiki/Dana_Scott) to whom it is attributed. It's super interesting.
 
 ## Scott encoding
 
-With Scott encoding we have a consistent method for representing any [algebraic datatype](https://bradbow.com/posts/2017-09-14-adts.html) in the [untyped lambda calculus](https://en.wikipedia.org/w/index.php?title=Untyped_lambda_calculus). It goes something like this: say we have a datatype _D_, with _N_ [constructors](https://wiki.haskell.org/Constructor#Data_constructor), (_d_<sub>1</sub> &hellip; _d<sub>N</sub>_), such that constructor _d<sub>i</sub>_ has arity _A<sub>i_, then the Scott encoding for constructor _d<sub>i</sub>_ of _D_ would be:
+With Scott encoding we have a consistent method for representing any algebraic datatype in the untyped [lambda calculus](https://www.futurelearn.com/courses/functional-programming-haskell/0/steps/27249). It goes something like this: say we have a datatype _D_, with _N_ [constructors](https://wiki.haskell.org/Constructor#Data_constructor), (_d_<sub>1</sub> &hellip; _d<sub>N</sub>_), such that constructor _d<sub>i</sub>_ has [arity](https://en.wikipedia.org/wiki/Arity) _A<sub>i_. The Scott encoding for constructor _d<sub>i</sub>_ of _D_ would be:
 
+<figure>
 _d<sub>i</sub>_ := _&lambda;x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_. _&lambda;c_<sub>1</sub> &hellip; _c<sub>N</sub>_. _c<sub>i</sub>_ _x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_
+</figure>
 
-Each constructor, _d_<sub>1</sub> through _d<sub>N</sub>_ is responsible for accepting the arguments needed to call its chosen [continuation](https://en.wikibooks.org/wiki/Haskell/Continuation_passing_style) &mdash; any one of _c_<sub>1</sub> through _c<sub>N</sub>_.
+If you've never seen this sort of notation before don't worry we'll be moving to mostly Haskell soon enough. Until then we could have a couple of swings at stating this in words.
+
+* Each constructor, _d_<sub>1</sub> through _d<sub>N</sub>_, is responsible for accepting the arguments needed to call its chosen [continuation](https://en.wikibooks.org/wiki/Haskell/Continuation_passing_style), any one of _c_<sub>1</sub> through _c<sub>N</sub>_.
+* There is one continuation per constructor (_c<sub>i</sub>_ is the continuation for _d<sub>i</sub>_), and each continuation needs to be passed all the arguments its constructor was passed (_d<sub>i</sub>_ was passed _x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_ and so _c<sub>i</sub>_ will passed them as well).
+
+In this way values are held in the closure of each constructor. These internal values are _used_ when the consumer of a value of type _D_ passes in a continuation which will accept them as arguments.
 
 To develop an intuition for how this actually works we can try converting some well-known Haskell data types to this encoding.
 
@@ -85,9 +92,11 @@ It has one constructor which happens to share the name of its type.
 
 For our purposes we'll rename the `(,)` type to _Pair_ and the `(,)` constructor to _pair_. As _Pair's_ only constructor, _pair_ need only accept one continuation _c_. The arguments that _pair_ accepts, such that it can call _c_ with them, are the resulting _Pair's_ first and second elements.
 
-_pair_ := _&lambda;x_<sub>1</sub>, _x_<sub>2</sub>. _&lambda;c_. _c x_<sub>1</sub> _x_<sub>2</sub>
+<figure>
+  _pair_ := _&lambda;x_<sub>1</sub>, _x_<sub>2</sub>. _&lambda;c_. _c x_<sub>1</sub> _x_<sub>2</sub>
+</figure>
 
-But what is _Pair_? How might we write the type of a function that accepts a _Pair_? First we might rewrite _pair_ in Haskell. Initially as a fairly direct translation.
+But what is _Pair_? How might we write the type of a function that accepts a _Pair_? First we might rewrite _pair_ in Haskell, initially as a fairly direct translation.
 
 ```haskell
 pair = \x1 x2 -> \c -> c x1 x2
@@ -118,21 +127,21 @@ pair = \x1 -> \x2 c -> c x1 x2
 pair = \x1 x2 c -> c x1 x2
 ```
 
-The answer is that I'm sneakily trying to reveal what the _Pair_ component of `pair`s type is. And as it ends up, what the datatype component of any Scott encoded constructor's type happens to be.
+The answer is that I'm sneakily trying to reveal what the _Pair_ component of `pair`'s type is, and, as it ends up, what the datatype component of any Scott encoded constructor's type happens to be.
 
 ```haskell
 type Pair t1 t2 t3
   = (t1 -> t2 -> t3) -> t3
 ```
 
-The equivalent Haskell type, `(,) a b` has one less type variable, it's interesting to think about what it would mean for `Pair` to ditch `t3` somehow.
+The equivalent Haskell type, `(,) a b` has one less type variable. It's interesting to think about what it would mean for `Pair` to ditch `t3` somehow.
 
 ```haskell
 type Pair t1 t2
   = (t1 -> t2 -> _) -> _
 ```
 
-One way of looking at this is that it's up to _c_ what it does with _x_<sub>1</sub> and _x_<sub>2</sub>, _pair_ itself doesn't get a say. This means that whatever _pair_ returns must work _for anything_ its _consumer_ may want to produce. In Haskell types we might say that `Pair` must work _for all_ possible types _c_ could return.
+One way of looking at this is that it's up to the continuation (_c_) what it does with _x_<sub>1</sub> and _x_<sub>2</sub>, the constructor (_pair_) doesn't get a say. This means that whatever _pair_ returns must work _for anything_ its _consumer_ may want to produce. In Haskell types we might say that `Pair` must work _for all_ possible types its provided continuation could return.
 
 ```haskell
 type Pair t1 t2
@@ -142,7 +151,7 @@ pair :: Pair a b
 pair a b = \c -> c a b
 ```
 
-Is this equivalent to `(,)`? How might we tell? One way might be to write a function which converts `(,)`s into `Pair`s and one which converts `Pair`s into `(,)`s. Then, given those two functions, we should be able to observe that their composition doesn't _do_ anything. Or put another way: given these two functions:
+Is this equivalent to `(,)`? How might we tell? One way might be to write a function which converts `(,)`s into `Pair`s and one which converts `Pair`s into `(,)`s. Then, given those two functions, we should be able to observe that their composition doesn't _do_ anything. Or put another way: for these two functions:
 
 ```haskell
 from :: (a, b) -> Pair a b
@@ -154,19 +163,21 @@ to = _
 
 Their composition in either direction is equivalent to an identity function.
 
-_from_ &#8728; _to_ = _id<sub>Pair</sub>_<br/>
-_to_ &#8728; _from_ = _id<sub>(,)</sub>_
+<figure>
+  _from_ &#8728; _to_ = _id<sub>Pair</sub>_<br/>
+  _to_ &#8728; _from_ = _id<sub>(,)</sub>_
+</figure>
 
-If these two functions can be written, and they have this property it means that `Pair` and `(,)` are [isomorphic](https://en.wiktionary.org/wiki/isomorphic).
+If these two functions can be written, and they have this property, it means that `Pair` and `(,)` are [isomorphic](https://en.wiktionary.org/wiki/isomorphic).
 
-Is it possible to write `from`?
+So then, is it possible to write `from`?
 
 ```haskell
 from :: (a, b) -> Pair a b
 from (a, b) = _
 ```
 
-Given an `a` and a `b` is it possible to construct a `Pair a b`?
+Which is sort of asking: given an `a` and a `b`, is it possible to construct a `Pair a b`?
 
 ```haskell
 from :: (a, b) -> Pair a b
@@ -180,21 +191,21 @@ to :: Pair a b -> (a, b)
 to p = _
 ```
 
-Recall that `p` is a function `forall t3. (t1 -> t2 -> t3) -> t3`. Or with some variable renaming `forall c. (a -> b -> c) -> c`
+Recall that `p` is a function waiting to be passed a continuation. That continuation will be passed both an `a` and a `b`.
 
 ```haskell
 to :: Pair a b -> (a, b)
 to p = p (\a b -> _)
 ```
 
-Given an `a` and a `b` can we construct a `(a, b)`?
+So now, given an `a` and a `b` can we construct an `(a, b)`?
 
 ```haskell
 to :: Pair a b -> (a, b)
 to p = p (\a b -> (a, b))
 ```
 
-Is _to_ &#8728; _from_ an identity function? It does seem so.
+With that done: is _to_ &#8728; _from_ an identity function? It does seem so.
 
 ```
 > (to . from) (1, 2)
@@ -203,7 +214,7 @@ Is _to_ &#8728; _from_ an identity function? It does seem so.
 (True,"Nifty")
 ```
 
-Without a `Show` or `Eq` instance for `(->)` it's hard to observe the same for _from_ &#8728; _to_. We can at least observe what _to_ &#8728; _from_ &#8728; _to_ does.
+Without a [`Show`](https://hackage.haskell.org/package/base-4.12.0.0/docs/Text-Show.html) or [`Eq`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Eq.html) instance for `(->)` it's hard to observe the same for _from_ &#8728; _to_. We can at least observe what _to_ &#8728; _from_ &#8728; _to_ does.
 
 ```
 > (to . from . to) (pair 1 2)
@@ -228,17 +239,22 @@ For the purposes of Scott encoding we can say that _Either_ has two constructors
 
 The first constructor _left_, then, will accept one argument to pass to the first continuation.
 
-_left_ := _&lambda;x. &lambda;c<sub>1</sub>, c<sub>2</sub>. c<sub>1</sub> x_
+<figure>
+  _left_ := _&lambda;x. &lambda;c<sub>1</sub>, c<sub>2</sub>. c<sub>1</sub> x_
+</figure>
 
 And the second will accept one to pass to the second continuation.
 
-_right_ := _&lambda;x. &lambda;c<sub>1</sub>, c<sub>2</sub>. c<sub>2</sub> x_
+<figure>
+  _right_ := _&lambda;x. &lambda;c<sub>1</sub>, c<sub>2</sub>. c<sub>2</sub> x_
+</figure>
 
-Each continuation can accept an argument of a different type (say _c<sub>1</sub>_ takes an _&alpha;_ and _c<sub>2</sub>_ takes a _&beta;_) but both should return something of the same type (say _&#947;_). The reason for this is how values of the _Either_ type are used, that may become evident later. Using a [polymorphic lambda calculus](https://en.wikipedia.org/wiki/System_F) rather than an untyped lambda calculus we can write out how those types line up.
+Each continuation can accept an argument of a different type (say _c<sub>1</sub>_ takes an _&alpha;_ and _c<sub>2</sub>_ takes a _&beta;_) but both should return something of the same type (say _&#947;_). The reason for this is how values of the _Either_ type are used, this may become evident later. Using a [polymorphic lambda calculus](https://en.wikipedia.org/wiki/System_F) rather than an untyped lambda calculus we can write out how those types line up.
 
-
-_left_ := _&Lambda;&alpha;, &beta;, &#947;. &lambda;x <sup>&alpha;</sup>. &lambda;c<sub>1</sub> <sup>&alpha; &rarr; &#947;</sup>, c<sub>2</sub> <sup>&beta; &rarr; &#947;</sup>. c<sub>1</sub> x_<br/>
-_right_ := _&Lambda;&alpha;, &beta;, &#947;. &lambda;x <sup>&beta;</sup>. &lambda;c<sub>1</sub> <sup>&alpha; &rarr; &#947;</sup>, c<sub>2</sub> <sup>&beta; &rarr; &#947;</sup>. c<sub>2</sub> x_
+<figure>
+  _left_ := _&Lambda;&alpha;, &beta;, &#947;. &lambda;x <sup>&alpha;</sup>. &lambda;c<sub>1</sub> <sup>&alpha; &rarr; &#947;</sup>, c<sub>2</sub> <sup>&beta; &rarr; &#947;</sup>. c<sub>1</sub> x_<br/>
+  _right_ := _&Lambda;&alpha;, &beta;, &#947;. &lambda;x <sup>&beta;</sup>. &lambda;c<sub>1</sub> <sup>&alpha; &rarr; &#947;</sup>, c<sub>2</sub> <sup>&beta; &rarr; &#947;</sup>. c<sub>2</sub> x_
+</figure>
 
 For me at least, it's a little easier to see in Haskell.
 
@@ -389,7 +405,9 @@ Error: Unexpected char: 'd'
 >
 ```
 
-The first thing we should do is redefine _Pair_ and _Either_ using `newtype`, rather than `type` (GHC is pretty great, but sometimes we need to cut it some slack).
+Before we begin: this is going to move quite fast. Don't worry if you miss some of the details of the implementation. It's more important to be _generally_ aware of what the program does and to keep in mind that we're building it as a bit of a stress test for our lambda-only datatypes. If you'd like to learn more about how to build programs in Haskell I'd reccomend all the material produced by [Typeclasses](https://typeclasses.com/) and the [Data61 Functional Programming Course](https://github.com/data61/fp-course).
+
+Now, the first thing we should do is redefine _Pair_ and _Either_ using `newtype`, rather than `type` (GHC is pretty great, but sometimes we need to cut it some slack).
 
 ```haskell
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -731,8 +749,12 @@ Enter an expression to evaluate. E.G.
 >
 ```
 
+That was quite a whirlwind.
+
 ***
 
-That was quite a whirlwind. In this post I really wanted to focus on the wonder I feel when being able to _use_ abstract notions like lambda calculus to write runnable programs. My hope is that by writing this I might help someone find something they find wonderful, and encourage them to explore it.
+In this particular case I _know_ I really shouldn't be surprised that I could write my program with (more or less) only lambdas. Lambda calculus is ["a universal model of computation"](https://en.wikipedia.org/wiki/Lambda_calculus) after all. I also shouldn't be surprised that it's so natural to translate into Haskell as it's based on a [lambda calculus](https://gitlab.haskell.org/ghc/ghc/blob/master/docs/core-spec/core-spec.pdf) at the end of the day. But, for me, there's something to be gained by really spending time with the implications of those facts.
+
+In this post I really wanted to focus on the wonder I feel when being able to _use_ abstract notions like lambda calculus to write runnable programs. My hope is that by writing this I might help someone find something they find wonderful, and encourage them to explore it.
 
 One possible avenue, which I might go into in a future post, is this: the above program still makes use of some pre-defined Haskell datatypes like `Bool`, `Natural`, `[a]` and `Char`. Does it have to? Could we build those entirely out of lambdas too? How far can we go?
