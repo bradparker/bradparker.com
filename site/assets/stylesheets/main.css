@@ -154,7 +154,7 @@
     monospace;
 }
 
-.markdown figure {
+.markdown .figure {
   padding-left: 1rem;
 }
 
