@@ -2,31 +2,16 @@
 {-# OPTIONS_GHC -Wall -threaded -rtsopts -with-rtsopts=-N #-}
 
 module Main
-  ( main
-    )
+  ( main,
+  )
 where
 
 import Control.Applicative (optional)
-import Network.HTTP.Types (status404)
-import Network.Wai (Application, responseLBS)
+import Network.Wai (Application)
 import qualified Network.Wai.Handler.Warp as Warp
 import Network.Wai.Handler.Warp (Port)
 import qualified Network.Wai.Handler.WarpTLS as WarpTLS
 import Network.Wai.Middleware.RequestLogger (logStdout)
-import Network.Wai.Middleware.Static
-  ( (<|>),
-    (>->),
-    CacheContainer,
-    CachingStrategy (PublicStaticCaching),
-    Policy,
-    addBase,
-    hasSuffix,
-    initCaching,
-    noDots,
-    policy,
-    predicate,
-    unsafeStaticPolicy'
-    )
 import Options.Applicative
   ( Parser,
     auto,
@@ -36,67 +21,51 @@ import Options.Applicative
     long,
     metavar,
     option,
-    strOption
-    )
-import System.FilePath (dropDrive, hasExtension)
+    strOption,
+  )
+import qualified Site
 
 data HttpsOptions
   = HttpsOptions
       { keyFile :: String,
         certFile :: String
-        }
+      }
 
 data Options
   = Options
       { port :: Port,
-        directory :: FilePath,
+        site :: Site.Options,
         https :: Maybe HttpsOptions
-        }
+      }
 
 optionsP :: Parser Options
 optionsP =
-  Options <$> portP <*> directoryP <*> optional httpsP
+  Options <$> portP <*> siteP <*> optional httpsP
   where
     portP = option auto (long "port" <> metavar "PORT")
-    directoryP = strOption (long "directory" <> metavar "DIRECTORY")
+    siteP =
+      Site.Options
+        <$> strOption
+          ( long "site-directory"
+              <> metavar "STATIC_DIRECTORY"
+          )
     httpsP =
       HttpsOptions
         <$> strOption
-              ( long "https-key-file"
-                  <> metavar "HTTPS_KEY_FILE"
-                )
+          ( long "https-key-file"
+              <> metavar "HTTPS_KEY_FILE"
+          )
         <*> strOption
-              ( long "https-cert-file"
-                  <> metavar "HTTPS_CERT_FILE"
-                )
-
-appPolicy :: FilePath -> Policy
-appPolicy path =
-  noDots >-> (indexes <|> mempty) >-> dropLeadingSlash >-> addBase path
-  where
-    dropLeadingSlash = policy (Just . dropDrive)
-    indexes = isIndex >-> addSuffix "index.html"
-    isIndex = hasSuffix "/" <|> (noExtension >-> addSuffix "/")
-    noExtension = predicate (not . hasExtension)
-    addSuffix s = policy (Just . (++ s))
-
-app :: FilePath -> CacheContainer -> Application
-app path cache =
-  unsafeStaticPolicy' cache (appPolicy path) notFound
-  where
-    notFound :: Application
-    notFound _ respond =
-      respond
-        $ responseLBS status404
-            [("Content-Type", "text/plain")]
-            "File not found"
+          ( long "https-cert-file"
+              <> metavar "HTTPS_CERT_FILE"
+          )
 
 tlsSettings :: HttpsOptions -> WarpTLS.TLSSettings
 tlsSettings httpsOpts =
   WarpTLS.defaultTlsSettings
     { WarpTLS.certFile = certFile httpsOpts,
       WarpTLS.keyFile = keyFile httpsOpts
-      }
+    }
 
 runTLS :: HttpsOptions -> Warp.Settings -> Application -> IO ()
 runTLS httpsOpts = WarpTLS.runTLS (tlsSettings httpsOpts)
@@ -115,5 +84,5 @@ run options =
 main :: IO ()
 main = do
   options <- execParser $ info optionsP fullDesc
-  cache <- initCaching PublicStaticCaching
-  run options $ logStdout $ app (directory options) cache
+  siteApp <- Site.new (site options)
+  run options $ logStdout siteApp

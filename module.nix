@@ -46,7 +46,7 @@ in
         script = ''
           ${server}/bin/server \
             --port 443 \
-            --directory /var/www/${serverName} \
+            --site-directory /var/www/${serverName} \
             --https-cert-file /var/lib/acme/${serverName}/fullchain.pem \
             --https-key-file /var/lib/acme/${serverName}/key.pem
         '';
