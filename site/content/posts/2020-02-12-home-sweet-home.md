@@ -59,7 +59,7 @@ I'd moved to Nix before becoming aware of [Homebrew Bundle's](https://github.com
 
 ### Vim
 
-Before Home manager I'd used a few of the popular Vim plugin managers ([Pathogen](), [Vundle]() and [Plug]()). They all worked well for me, but with my [current setup](https://github.com/bradparker/dotfiles/blob/b721261ea5b1aae448c45e63d99069d79571ca75/nixpkgs/home.nix#L3-L32) I get a good plugin manager for Vim without an extra tool or installation step.
+Before Home manager I'd used a few of the popular Vim plugin managers ([Pathogen](https://github.com/tpope/vim-pathogen), [Vundle](https://github.com/VundleVim/Vundle.vim) and [Plug](https://github.com/junegunn/vim-plug)). They all worked well for me, but with my [current setup](https://github.com/bradparker/dotfiles/blob/b721261ea5b1aae448c45e63d99069d79571ca75/nixpkgs/home.nix#L3-L32) I get a good plugin manager for Vim without an extra tool or installation step.
 
 ### Tmux
 
