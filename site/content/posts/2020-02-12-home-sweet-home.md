@@ -81,4 +81,4 @@ I get all of that, and a few other things, installed and configured with one too
 * It's idempotent, I can keep running `home-manager switch` as often as I like without issues.
 * It works, more or less, the same on both my work machines running macOS and my home laptop running [PureOS](https://www.pureos.net/), a Debian fork. Because it's so repeatable I'm able to set up a [build pipeline](https://travis-ci.org/bradparker/dotfiles) which ensures that every update I make will install happily on both platforms. I accept that this is perhaps taking things too far.
 
-Now that I've said that, and now that I'm pretty comfortable with the approach I expect I'll push it a little further. Why not?
+Now that I've said that, and now that I'm pretty comfortable with the approach, I expect I'll push it a little further. Why not?
