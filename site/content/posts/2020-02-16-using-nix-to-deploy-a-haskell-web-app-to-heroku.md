@@ -191,7 +191,7 @@ Loaded image: haskell-on-heroku:latest
 
 It's about 38.1 megabytes. That's not bad.
 
-Now, I'm going to save us some trouble and add [`busybox`]() to our image and also make sure it has a `Cmd` configured.
+Now, I'm going to save us some trouble and add [`busybox`](https://www.busybox.net/) to our image and also make sure it has a `Cmd` configured.
 
 ```diff
 diff --git a/release.nix b/release.nix
