@@ -304,7 +304,7 @@ nix run nixpkgs.heroku --command \
 With that building and deployment is a little more manageable.
 
 ```
-~/haskell-on-heroku $ ./deploy
+~/haskell-on-heroku $ ./deploy infinite-anchorage-09330
 ```
 
 ***
