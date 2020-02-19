@@ -1,3 +1,7 @@
+---
+title: About
+---
+
 I live in Brisbane, Australia with my partner [Alicia](https://www.instagram.com/thecorrectalicia/) and very small dog Quintin (pictured).
 
 ![Quintin](/assets/images/quintin.jpg)
