@@ -32,6 +32,8 @@ in
           rev=$(curl https://api.github.com/repos/bradparker/bradparker.com/git/ref/heads/source | jq -r .object.sha)
           result=$(nix-build https://github.com/bradparker/bradparker.com/archive/$rev.tar.gz -A bradparker-com.site)
 
+          mkdir -p ${webRoot}
+
           ln -sfT $result${webRoot} ${webRoot}
         '';
       };
