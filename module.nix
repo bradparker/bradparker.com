@@ -21,14 +21,8 @@ in
         description = ''
           https://${serverName} source
         '';
-        unitConfig = {
-          StartLimitBurst = "5";
-          StartLimitIntervalSec = "200";
-        };
         serviceConfig = {
           Type = "oneshot";
-          Restart = "on-failure";
-          RestartSec = "30";
         };
         startAt = "*:0/5";
         path = with pkgs; [ nix gnutar xz gzip curl jq ];
