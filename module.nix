@@ -29,7 +29,7 @@ in
         script = ''
           set -ex
 
-          rev=$(curl https://api.github.com/repos/bradparker/bradparker.com/git/ref/heads/source | jq -r .object.sha)
+          rev=$(curl https://api.github.com/repos/bradparker/bradparker.com/git/ref/heads/main | jq -r .object.sha)
           result=$(nix-build https://github.com/bradparker/bradparker.com/archive/$rev.tar.gz -A bradparker-com.site)
 
           mkdir -p ${webRoot}
