@@ -19,7 +19,7 @@ description: |
 
 The operations practice of defining [_infrastructure as code_](https://en.wikipedia.org/wiki/Infrastructure_as_code) has been popular for a while, and it’s for good reason. Lot's of strange and unexpected things can happen to our **very important** web-servers, so being able to quickly build another one in a (close to) identical state can be very handy. Sadly, strange and unexpected things don't just happen to web-servers, they can happen our development machines too. And, heck, they're also pretty important.
 
-Like infrastructure, can we define some of the state of our laptops using code? I'm not sure, but I think so, at the least I'll explain what I've tried.
+Like infrastructure, can we define some of the state of our laptops using code? I'm not sure, but I think so, at least I'll explain what I've tried.
 
 ## Bootstrapping scripts
 
@@ -41,7 +41,7 @@ Despite this I was still looking for something more complete. Fresh managed a lo
 
 ## Home manager
 
-I'd been using [Nix](nixos.org/nix/) as a [Homebrew](https://brew.sh/) replacement for a while before finding [Home manager](https://github.com/rycee/home-manager). It's given me the ability to consolidate almost everything I need to setup and update my development machines into [one command](https://github.com/bradparker/dotfiles/blob/master/README.md#0-optional-run-the-install-script).
+I'd been using [Nix](https://nixos.org/nix/) as a [Homebrew](https://brew.sh/) replacement for a while before finding [Home manager](https://github.com/rycee/home-manager). It's given me the ability to consolidate almost everything I need to setup and update my development machines into [one command](https://github.com/bradparker/dotfiles/blob/master/README.md#0-optional-run-the-install-script).
 
 Apart from simplifying the process of setting up a new machine, Home manager has also allowed to me to manage more _stuff_ more predictably.
 
