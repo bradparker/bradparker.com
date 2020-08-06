@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wall -threaded -rtsopts -with-rtsopts=-N #-}
+{-# OPTIONS_GHC -Wall #-}
 
 module Main
   ( main,
