@@ -21,6 +21,7 @@ in
 
   services.openssh = {
     passwordAuthentication = false;
+    challengeResponseAuthentication = false;
     permitRootLogin = "no";
   };
 
