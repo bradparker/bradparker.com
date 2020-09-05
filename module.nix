@@ -89,7 +89,7 @@ in
             webroot = "${acmeWebRoot}";
             extraDomains = { "bradparker.com.au" = null; };
             postRun = "systemctl restart ${serverName}.service";
-            keyType = "ec256";
+            keyType = "rsa4096";
           };
         };
       };
