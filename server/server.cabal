@@ -16,7 +16,8 @@ executable server
                     wai-extra,
                     wai-middleware-static,
                     warp,
-                    warp-tls
+                    warp-tls,
+                    tls
   other-modules:    Site
   default-language: Haskell2010
   ghc-options:      -threaded -rtsopts -with-rtsopts=-N

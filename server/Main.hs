@@ -7,9 +7,10 @@ module Main
 where
 
 import Control.Applicative (optional)
+import qualified Network.TLS.Extra as TLSExtra
 import Network.Wai (Application)
-import qualified Network.Wai.Handler.Warp as Warp
 import Network.Wai.Handler.Warp (Port)
+import qualified Network.Wai.Handler.Warp as Warp
 import qualified Network.Wai.Handler.WarpTLS as WarpTLS
 import Network.Wai.Middleware.RequestLogger (logStdout)
 import Options.Applicative
@@ -25,18 +26,16 @@ import Options.Applicative
   )
 import qualified Site
 
-data HttpsOptions
-  = HttpsOptions
-      { keyFile :: String,
-        certFile :: String
-      }
+data HttpsOptions = HttpsOptions
+  { keyFile :: String,
+    certFile :: String
+  }
 
-data Options
-  = Options
-      { port :: Port,
-        site :: Site.Options,
-        https :: Maybe HttpsOptions
-      }
+data Options = Options
+  { port :: Port,
+    site :: Site.Options,
+    https :: Maybe HttpsOptions
+  }
 
 optionsP :: Parser Options
 optionsP =
@@ -64,7 +63,8 @@ tlsSettings :: HttpsOptions -> WarpTLS.TLSSettings
 tlsSettings httpsOpts =
   WarpTLS.defaultTlsSettings
     { WarpTLS.certFile = certFile httpsOpts,
-      WarpTLS.keyFile = keyFile httpsOpts
+      WarpTLS.keyFile = keyFile httpsOpts,
+      WarpTLS.tlsCiphers = TLSExtra.ciphersuite_default
     }
 
 runTLS :: HttpsOptions -> Warp.Settings -> Application -> IO ()
