@@ -6,7 +6,7 @@ maintainer:          hi@bradparker.com
 
 executable acme
   main-is:          Main.hs
-  build-depends:    base ^>=4.12.0.0,
+  build-depends:    base ^>=4.13.0.0,
                     bytestring,
                     optparse-applicative,
                     wai,
