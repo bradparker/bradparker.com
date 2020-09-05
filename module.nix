@@ -81,12 +81,15 @@ in
         };
       };
 
-      security.acme.certs = {
-        ${serverName} = {
-          email = "hi@bradparker.com";
-          webroot = "${acmeWebRoot}";
-          extraDomains = { "bradparker.com.au" = null; };
-          postRun = "systemctl restart ${serverName}.service";
+      security.acme = {
+        acceptTerms = true;
+        certs = {
+          ${serverName} = {
+            email = "hi@bradparker.com";
+            webroot = "${acmeWebRoot}";
+            extraDomains = { "bradparker.com.au" = null; };
+            postRun = "systemctl restart ${serverName}.service";
+          };
         };
       };
     };
