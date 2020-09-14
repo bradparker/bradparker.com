@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-set -exu
+set -ex
 
 doctl compute droplet create \
-  "bradparker.com" \
+  "bradparker.com-test" \
   --size s-1vcpu-3gb \
-  --image ubuntu-16-04-x64 \
+  --image 70079235 \
+  --ssh-keys "7b:13:c1:6c:f4:0e:2d:02:21:bb:60:6b:91:c0:f1:9f" \
   --region sgp1 \
-  --user-data "$(deployment/build-cloud-init)"
+  --user-data "$(cat deployment/host.nix)"

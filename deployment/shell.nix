@@ -3,8 +3,6 @@ let
 in
   nixpkgs.mkShell {
     buildInputs = with nixpkgs; [
-      dhall
-      dhall-json
       doctl
     ];
   }
