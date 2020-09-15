@@ -83,7 +83,7 @@ in
           ${serverName} = {
             dnsProvider = "digitalocean";
             group = groupName;
-            credentialsFile = ${acmeCredentialsFile};
+            credentialsFile = acmeCredentialsFile;
 
             email = "hi@bradparker.com";
             extraDomains = { "bradparker.com.au" = null; };
