@@ -7,7 +7,7 @@ let
   groupName = "bradparker-com";
   serverName = "bradparker.com";
   webRoot = "/var/www/${serverName}";
-  acmeCredentialsFile = /etc/${serverName}/acme/environment;
+  acmeCredentialsFile = "/etc/${serverName}/acme/environment";
 
   serviceConfig = config.services."${serverName}";
   options = {
