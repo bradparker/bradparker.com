@@ -3,7 +3,7 @@
 set -ex
 
 doctl compute droplet create \
-  "bradparker.com-test" \
+  "bradparker.com" \
   --size s-1vcpu-2gb \
   --image 70134260 \
   --ssh-keys "7b:13:c1:6c:f4:0e:2d:02:21:bb:60:6b:91:c0:f1:9f" \
