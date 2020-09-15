@@ -86,7 +86,7 @@ in
             credentialsFile = acmeCredentialsFile;
 
             email = "hi@bradparker.com";
-            extraDomains = { "bradparker.com.au" = null; };
+            extraDomainNames = [ "bradparker.com.au" ];
             keyType = "rsa4096";
 
             postRun = "systemctl restart ${serverName}.service";
