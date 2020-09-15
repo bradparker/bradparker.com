@@ -1,7 +1,7 @@
 { options, lib, config, pkgs, ... }:
 let
   package = import ./.;
-  acme = package.bradparker-com.acme;
+  force-https = package.bradparker-com.force-https;
   server = package.bradparker-com.server;
 
   groupName = "bradparker-com";
@@ -39,6 +39,22 @@ in
 
           ln -snfT $result${webRoot} ${webRoot}
         '';
+      };
+
+      systemd.services."force-https-${serverName}" = {
+        wantedBy = [ "multi-user.target" ];
+        script = ''
+          ${force-https}/bin/force-https --port 80
+        '';
+        description = ''
+          Redirects to https://${serverName}
+        '';
+        serviceConfig = {
+          KillSignal="INT";
+          Type = "simple";
+          Restart = "on-abort";
+          RestartSec = "10";
+        };
       };
 
       systemd.services.${serverName} = {

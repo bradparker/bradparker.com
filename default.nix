@@ -3,7 +3,7 @@ let
 in
   {
     bradparker-com = {
-      acme = nixpkgs.callPackage ./acme {};
+      force-https = nixpkgs.callPackage ./force-https {};
       builder = nixpkgs.callPackage ./builder {};
       server = nixpkgs.callPackage ./server {};
       site = nixpkgs.callPackage ./site {};
