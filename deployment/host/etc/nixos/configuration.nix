@@ -1,7 +1,8 @@
 { modulesPath, config, pkgs, ... }:
 let
   bradparker-source = builtins.fetchTarball {
-    url = https://github.com/bradparker/bradparker.com/archive/edeacebe3a67656cee4ffb6242fce23109ea7db8.tar.gz;
+    url = https://github.com/bradparker/bradparker.com/archive/e1c1559c60788bd86082b5332459f8f98287b0f7.tar.gz;
+    sha256 = "0n98nzpz8qwic3wly4qdzp6sbpdnxgy6zmsvk7187hbl8597nwp9";
   };
 in
 {
@@ -44,7 +45,7 @@ in
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-  services."bradparker.com".enable = false;
+  services."bradparker.com".enable = true;
 
   services.do-agent.enable = true;
 }
