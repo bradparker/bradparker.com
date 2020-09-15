@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ modulesPath, config, pkgs, ... }:
 let
   bradparker-source = builtins.fetchTarball {
     url = https://github.com/bradparker/bradparker.com/archive/edeacebe3a67656cee4ffb6242fce23109ea7db8.tar.gz;
@@ -6,6 +6,7 @@ let
 in
 {
   imports = [
+    "${modulesPath}/virtualisation/digital-ocean-config.nix"
     "${bradparker-source}/module.nix"
   ];
 
@@ -15,6 +16,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    rsync
     curl
     vim
   ];

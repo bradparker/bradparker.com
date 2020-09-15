@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-set -exo pipefail
+set -exuo pipefail
 
-rsync deployment/host.nix bradparker.com:host.nix
-ssh -t bradparker.com \
-  'sudo mv host.nix /etc/nixos/host.nix && sudo nixos-rebuild switch'
+(
+  cd $(dirname $BASH_SOURCE)
+  rsync -va --no-owner --no-group host/ $1:host
+  ssh -t $1 "sudo bash -c 'rsync -va --no-owner --no-group host/ / && nixos-rebuild switch'"
+)

@@ -4,3 +4,5 @@ _cache
 _site
 dist*
 result
+
+deployment/host/etc/bradparker.com/acme/environment

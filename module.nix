@@ -4,9 +4,10 @@ let
   acme = package.bradparker-com.acme;
   server = package.bradparker-com.server;
 
+  groupName = "bradparker-com";
   serverName = "bradparker.com";
   webRoot = "/var/www/${serverName}";
-  acmeWebRoot =  "/var/lib/acme/acme-challenge";
+  acmeCredentialsFile = /etc/${serverName}/acme/environment;
 
   serviceConfig = config.services."${serverName}";
   options = {
@@ -17,6 +18,8 @@ in
     options.services.${serverName} = options;
 
     config = lib.mkIf serviceConfig.enable {
+      users.groups.${groupName} = {};
+
       systemd.services."source-${serverName}" = {
         description = ''
           https://${serverName} source
@@ -40,10 +43,7 @@ in
 
       systemd.services.${serverName} = {
         wantedBy = [ "multi-user.target" ];
-        wants = [
-          "acme-${serverName}.service"
-          "acme-challenge-${serverName}.service"
-        ];
+        wants = [ "acme-${serverName}.service" ];
         requires = ["source-${serverName}.service"];
         script = ''
           ${server}/bin/server \
@@ -63,21 +63,17 @@ in
         };
       };
 
-      systemd.services."acme-challenge-${serverName}" = {
-        wantedBy = [ "multi-user.target" ];
+      systemd.services."acme-environment-file" = {
+        wantedBy = [ "acme-${serverName}.service" ];
+        before = [ "acme-${serverName}.service" ];
         script = ''
-          ${acme}/bin/acme \
-            --port 80 \
-            --directory ${acmeWebRoot}
+          chown :${groupName} ${acmeCredentialsFile}
         '';
         description = ''
-          The acme challenge server
+          Makes the ACME credentials file readable by the ACME service
         '';
         serviceConfig = {
-          KillSignal="INT";
-          Type = "simple";
-          Restart = "on-abort";
-          RestartSec = "10";
+          Type = "oneshot";
         };
       };
 
@@ -85,11 +81,15 @@ in
         acceptTerms = true;
         certs = {
           ${serverName} = {
+            dnsProvider = "digitalocean";
+            group = groupName;
+            credentialsFile = ${acmeCredentialsFile};
+
             email = "hi@bradparker.com";
-            webroot = "${acmeWebRoot}";
             extraDomains = { "bradparker.com.au" = null; };
-            postRun = "systemctl restart ${serverName}.service";
             keyType = "rsa4096";
+
+            postRun = "systemctl restart ${serverName}.service";
           };
         };
       };
