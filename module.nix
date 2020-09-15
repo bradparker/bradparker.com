@@ -35,9 +35,9 @@ in
           rev=$(curl https://api.github.com/repos/bradparker/bradparker.com/git/ref/heads/main | jq -r .object.sha)
           result=$(nix-build https://github.com/bradparker/bradparker.com/archive/$rev.tar.gz -A bradparker-com.site)
 
-          mkdir -p ${webRoot}
+          mkdir -p /var/www
 
-          ln -sfT $result${webRoot} ${webRoot}
+          ln -snfT $result${webRoot} ${webRoot}
         '';
       };
 
@@ -48,7 +48,7 @@ in
         script = ''
           ${server}/bin/server \
             --port 443 \
-            --site-directory /var/www/${serverName} \
+            --site-directory ${webRoot} \
             --https-cert-file /var/lib/acme/${serverName}/fullchain.pem \
             --https-key-file /var/lib/acme/${serverName}/key.pem
         '';
