@@ -10,10 +10,7 @@ where
 import Network.HTTP.Types (status404)
 import Network.Wai (Application, responseLBS)
 import Network.Wai.Middleware.Static
-  ( (<|>),
-    (>->),
-    CacheContainer,
-    CachingStrategy (PublicStaticCaching),
+  ( CachingStrategy (PublicStaticCaching),
     Policy,
     addBase,
     hasSuffix,
@@ -21,12 +18,15 @@ import Network.Wai.Middleware.Static
     noDots,
     policy,
     predicate,
-    unsafeStaticPolicy',
+    unsafeStaticPolicyWithOptions,
+    (<|>),
+    (>->),
   )
+import qualified Network.Wai.Middleware.Static as Static
+import Site.Redirect (redirects)
 import System.FilePath (dropDrive, hasExtension)
 
-newtype Options
-  = Options {directory :: FilePath}
+newtype Options = Options {directory :: FilePath}
 
 appPolicy :: FilePath -> Policy
 appPolicy path =
@@ -38,9 +38,9 @@ appPolicy path =
     noExtension = predicate (not . hasExtension)
     addSuffix s = policy (Just . (++ s))
 
-app :: Options -> CacheContainer -> Application
-app (Options dir) cache =
-  unsafeStaticPolicy' cache (appPolicy dir) notFound
+app :: Options -> Static.Options -> Application
+app (Options dir) staticOptions =
+  unsafeStaticPolicyWithOptions staticOptions (appPolicy dir) (redirects notFound)
   where
     notFound :: Application
     notFound _ respond =
@@ -51,5 +51,6 @@ app (Options dir) cache =
           "File not found"
 
 new :: Options -> IO Application
-new options =
-  app options <$> initCaching PublicStaticCaching
+new options = do
+  cacheContainer <- initCaching PublicStaticCaching
+  pure (app options Static.defaultOptions {Static.cacheContainer = cacheContainer})

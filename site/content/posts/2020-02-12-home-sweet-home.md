@@ -1,6 +1,8 @@
 ---
 title: Home sweet home
-tags: development
+rss_guid: https://bradparker.com/content/posts/2020-02-12-home-sweet-home.html
+tags:
+  - development
 description: |
   ```
   brad@brad
@@ -25,7 +27,7 @@ Like infrastructure, can we define some of the state of our laptops using code? 
 
 First, I used a [lightly modified fork](https://github.com/bradparker/dotfiles/tree/174c7e07dfa137152fdd941fe187635bb30994f6) of [Ryan Bates' dot files](https://github.com/ryanb/dotfiles) which bootstraps itself using a lovely [rake task](https://github.com/ryanb/dotfiles/blob/ca4d95179b62ceb1a760a2922953edd01d75c382/Rakefile#L5).
 
-This went pretty well. I didn't have to bootstrap new machines too often, I didn't really have many preferences regarding command line tools, and I only had so many technology stacks to be setup for. 
+This went pretty well. I didn't have to bootstrap new machines too often, I didn't really have many preferences regarding command line tools, and I only had so many technology stacks to be setup for.
 
 The trouble came when I wanted to _change things_. It wasn't always clear to me that the changes I made would be applied properly when I ran the script on a fresh machine. It always seemed that I missed something and had to do some manual work in addition to the rake task.
 
@@ -75,9 +77,9 @@ I get _a lot_ of use from [Git bash completions](https://github.com/bradparker/d
 
 ***
 
-I get all of that, and a few other things, installed and configured with one tool. What's more: 
+I get all of that, and a few other things, installed and configured with one tool. What's more:
 
-* It's repeatable, if my environment bootstraps once I'm confident it'll do so again. 
+* It's repeatable, if my environment bootstraps once I'm confident it'll do so again.
 * It's idempotent, I can keep running `home-manager switch` as often as I like without issues.
 * It works, more or less, the same on both my work machines running macOS and my home laptop running [PureOS](https://www.pureos.net/), a Debian fork. Because it's so repeatable I'm able to set up a [build pipeline](https://travis-ci.org/bradparker/dotfiles) which ensures that every update I make will install happily on both platforms. I accept that this is perhaps taking things too far.
 

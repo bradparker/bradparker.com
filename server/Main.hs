@@ -61,11 +61,11 @@ optionsP =
 
 tlsSettings :: HttpsOptions -> WarpTLS.TLSSettings
 tlsSettings httpsOpts =
-  WarpTLS.defaultTlsSettings
-    { WarpTLS.certFile = certFile httpsOpts,
-      WarpTLS.keyFile = keyFile httpsOpts,
-      WarpTLS.tlsCiphers = TLSExtra.ciphersuite_default
-    }
+  (WarpTLS.tlsSettings
+    (certFile httpsOpts)
+    (keyFile httpsOpts))
+      { WarpTLS.tlsCiphers = TLSExtra.ciphersuite_default
+      }
 
 runTLS :: HttpsOptions -> Warp.Settings -> Application -> IO ()
 runTLS httpsOpts = WarpTLS.runTLS (tlsSettings httpsOpts)

@@ -1,6 +1,14 @@
 let
-  nixpkgs-source = builtins.fetchTarball {
-    url = https://releases.nixos.org/nixpkgs/nixpkgs-20.09pre242076.fd457ecb6cc/nixexprs.tar.xz;
+  sources = import ./nix/sources.nix;
+
+  haskellPackagesOverlay = self: super: {
+    haskellPackages = super.haskellPackages.override {
+      overrides = (hself: hsuper: {
+        pandoc-lens = hself.callCabal2nix "pandoc-lens" sources.pandoc-lens {};
+      });
+    };
   };
 in
-  import nixpkgs-source {}
+  import sources.nixpkgs {
+    overlays = [haskellPackagesOverlay];
+  }

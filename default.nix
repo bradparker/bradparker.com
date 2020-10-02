@@ -3,8 +3,8 @@ let
 in
   {
     bradparker-com = {
-      force-https = nixpkgs.callPackage ./force-https {};
       builder = nixpkgs.callPackage ./builder {};
+      force-https = nixpkgs.callPackage ./force-https {};
       server = nixpkgs.callPackage ./server {};
       site = nixpkgs.callPackage ./site {};
     };

@@ -1,6 +1,8 @@
 ---
 title: Using Nix to deploy a Haskell web app to Heroku
-tags: development
+rss_guid: https://bradparker.com/content/posts/2020-02-16-using-nix-to-deploy-a-haskell-web-app-to-heroku.html
+tags:
+  - development
 description: |
   Deploying Ruby on Rails apps to Heroku has always been a delight, and now that they have a container registry other run-times are similarly delightfully deployable. No build-packs required.
 
@@ -108,7 +110,7 @@ type Greeter =
     :> Get '[PlainText] String
 
 greet :: String -> Handler String
-greet name = 
+greet name =
   pure $ "Hello, " <> name <> "!"
 
 getPort :: IO Int
@@ -141,7 +143,7 @@ in
 Then build it.
 
 ```
-~ $ nix-build hello.nix  
+~ $ nix-build hello.nix
 ```
 
 Load the result.
@@ -165,7 +167,7 @@ let
   inherit (nixpkgs)
     callPackage
     dockerTools;
-    
+
   package = callPackage ./. {};
 in
   dockerTools.buildImage {
@@ -182,9 +184,9 @@ Using the [`callPackage`](https://github.com/NixOS/nixpkgs/blob/f9be656873dacbc5
 Let's try to build it and see how big it is.
 
 ```
-~/haskell-on-heroku $ nix-build release.nix 
+~/haskell-on-heroku $ nix-build release.nix
 # ... build output
-~/haskell-on-heroku $ docker load < result 
+~/haskell-on-heroku $ docker load < result
 3f5a871dd9ee: Loading layer   38.1MB/38.1MB
 Loaded image: haskell-on-heroku:latest
 ```

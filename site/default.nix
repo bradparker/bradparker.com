@@ -11,10 +11,10 @@ in
       export LANG="en_AU.UTF-8";
       export LC_TYPE="en_AU.UTF-8";
 
-      ${builder}/bin/builder build
+      ${builder}/bin/builder --input . --output dist
     '';
     installPhase = ''
-      mkdir -p $out/var/www/bradparker.com/
-      cp -R _site/* $out/var/www/bradparker.com/
+      mkdir -p $out
+      cp -R dist/* $out/
     '';
   }

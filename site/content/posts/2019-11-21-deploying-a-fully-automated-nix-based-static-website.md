@@ -1,6 +1,8 @@
 ---
 title: Deploying a fully automated Nix-based static website
-tags: development
+rss_guid: https://bradparker.com/content/posts/2019-11-21-deploying-a-fully-automated-nix-based-static-website.html
+tags:
+  - development
 description: |
   ```nix
   { config, pkgs, ... }:

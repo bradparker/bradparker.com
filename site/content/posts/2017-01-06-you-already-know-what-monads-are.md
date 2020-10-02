@@ -1,6 +1,8 @@
 ---
 title: You already know what Monads are
-tags: development
+rss_guid: https://bradparker.com/content/posts/2017-01-06-you-already-know-what-monads-are.html
+tags:
+  - development
 description: |
   I sought to understand what the fuss was all about and I've now added to the mass of Monad Explainer posts on the internet.
 
@@ -107,7 +109,7 @@ uppercasedAndReversed.then(function (uppercasedAndReversedValue) {
 It looks a lot like performing a chain of transformations on an array to me:
 
 ```javascript
-[1, 2, 3].map(function (value) { 
+[1, 2, 3].map(function (value) {
   return value * 2
 }).map(function (value) {
   return value + 2
@@ -135,9 +137,9 @@ This concept of a container for a value which can have that value transformed by
 The functions passed to `Array#map` and `Promise#then` both return the new contents of their respective containers. So you pass in a fuction which returns a "normal" value and when it's called that value will be wrapped up in a container for us.
 
 ```javascript
-Promise.resolve(1).then(function (a) { 
-  return a + 2 
-//       ^^^^^ 
+Promise.resolve(1).then(function (a) {
+  return a + 2
+//       ^^^^^
 //       normal, un-wrapped value
 })
 
@@ -176,7 +178,7 @@ So you either return a "normal" value and it'll get wrapped up in a Promise for 
 This second version of the function passed to `then`, where it accepts a normal value but returns a Promise has an array equivelant: `flatMap`.
 
 ```javascript
-flatMap([1, 2, 3], function (elem) { 
+flatMap([1, 2, 3], function (elem) {
   return [elem, '-']
 })
 // [ 1, '-', 2, '-', 3, '-' ]

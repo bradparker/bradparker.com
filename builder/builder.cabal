@@ -8,10 +8,40 @@ executable builder
   main-is:
     Main.hs
   build-depends:
-      base == 4.*
-    , filepath
-    , hakyll
-  ghc-options:
-    -threaded -Wall
+    base ^>=4.13.0.0,
+    attoparsec,
+    blaze-html,
+    bytestring,
+    containers,
+    directory,
+    errors,
+    feed,
+    filepath,
+    filepattern,
+    lens,
+    mtl,
+    optparse-applicative,
+    pandoc,
+    pandoc-lens,
+    record-dot-preprocessor,
+    record-hasfield,
+    text,
+    time,
+    vector,
+    yaml-combinators
+  other-modules:
+    Builder
+    Data.Yaml.Combinators.Extended
+    Document
+    Feed
+    Frontmatter
+    Home
+    Html
+    Markdown
+    Page
+    Post
+    PostSummary
+    Posts
+    Tag
   default-language:
     Haskell2010

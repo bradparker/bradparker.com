@@ -1,6 +1,8 @@
 ---
 title: Let's learn about lenses
-tags: development
+rss_guid: https://bradparker.com/content/posts/2018-08-21-lets-learn-about-lenses.html
+tags:
+  - development
 description: |
   ```haskell
   type Lens s t a b =
@@ -466,7 +468,7 @@ modify lens modification value =
 
 (%~) :: Lens s t a b -> (a -> b) -> s -> t
 (%~) lens modification value =
-  runIdentity $ 
+  runIdentity $
     lens (Identity . modification) value
 
 infixr 7 %~

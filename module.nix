@@ -3,10 +3,10 @@ let
   package = import ./.;
   force-https = package.bradparker-com.force-https;
   server = package.bradparker-com.server;
+  site = package.bradparker-com.site;
 
   groupName = "bradparker-com";
   serverName = "bradparker.com";
-  webRoot = "/var/www/${serverName}";
   acmeCredentialsFile = "/etc/${serverName}/acme/environment";
 
   serviceConfig = config.services."${serverName}";
@@ -19,27 +19,6 @@ in
 
     config = lib.mkIf serviceConfig.enable {
       users.groups.${groupName} = {};
-
-      systemd.services."source-${serverName}" = {
-        description = ''
-          https://${serverName} source
-        '';
-        serviceConfig = {
-          Type = "oneshot";
-        };
-        startAt = "*:0/5";
-        path = with pkgs; [ nix gnutar xz gzip curl jq ];
-        script = ''
-          set -ex
-
-          rev=$(curl https://api.github.com/repos/bradparker/bradparker.com/git/ref/heads/main | jq -r .object.sha)
-          result=$(nix-build https://github.com/bradparker/bradparker.com/archive/$rev.tar.gz -A bradparker-com.site)
-
-          mkdir -p /var/www
-
-          ln -snfT $result${webRoot} ${webRoot}
-        '';
-      };
 
       systemd.services."force-https-${serverName}" = {
         wantedBy = [ "multi-user.target" ];
@@ -60,11 +39,10 @@ in
       systemd.services.${serverName} = {
         wantedBy = [ "multi-user.target" ];
         wants = [ "acme-${serverName}.service" ];
-        requires = ["source-${serverName}.service"];
         script = ''
           ${server}/bin/server \
             --port 443 \
-            --site-directory ${webRoot} \
+            --site-directory ${site} \
             --https-cert-file /var/lib/acme/${serverName}/fullchain.pem \
             --https-key-file /var/lib/acme/${serverName}/key.pem
         '';
