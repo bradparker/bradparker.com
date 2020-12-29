@@ -1,14 +1,8 @@
 { modulesPath, config, pkgs, ... }:
-let
-  bradparker-source = builtins.fetchTarball {
-    url = https://github.com/bradparker/bradparker.com/archive/e483bfd404ed1c5e4d17b40f98ee04e76bf84f3e.tar.gz;
-    sha256 = "0axj0yws11442z3nby9bbx314gi8wcyryzf5w5ficw73gi52xwb7";
-  };
-in
 {
   imports = [
     "${modulesPath}/virtualisation/digital-ocean-config.nix"
-    "${bradparker-source}/module.nix"
+    <bradparker.com/module.nix>
   ];
 
   nix.gc = {

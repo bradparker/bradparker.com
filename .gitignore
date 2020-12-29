@@ -1,10 +1,5 @@
 .envrc
 .ghc.environment.*
-_cache
-_site
 dist*
 result
-
-deployment/host/etc/bradparker.com/acme/environment
-
-builder/www
+bradparker.com/etc/bradparker.com/acme/environment
