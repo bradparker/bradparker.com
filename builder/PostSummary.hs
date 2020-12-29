@@ -25,6 +25,7 @@ import GHC.Records.Compat (HasField)
 import Markdown (Markdown)
 import qualified Markdown
 import qualified Post
+import System.FilePath ((</>))
 import Text.Blaze.Html (Html, (!))
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
@@ -43,7 +44,7 @@ component props =
   H.article do
     (H.header ! A.class_ "bb b--near-white sticky top-0 bg-white") do
       (H.section ! A.class_ "mw7 center lh-copy pa3 flex flex-wrap justify-between") do
-        (H.a ! A.href (fromString props.url) ! A.class_ "link hover-dark-green") do
+        (H.a ! A.href (fromString ("/" </> props.url)) ! A.class_ "link hover-dark-green") do
           (H.h1 ! A.class_ "f5 ma0") do
             H.strong do
               H.string props.title
