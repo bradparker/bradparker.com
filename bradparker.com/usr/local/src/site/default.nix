@@ -1,6 +1,7 @@
 { stdenv, glibcLocales, callPackage }:
 let
   builder = callPackage ../builder {};
+  vendor-assets = callPackage ../vendor-assets {};
 in
   stdenv.mkDerivation {
     name = "bradparker-com-site";
@@ -11,7 +12,7 @@ in
       export LANG="en_AU.UTF-8";
       export LC_TYPE="en_AU.UTF-8";
 
-      ${builder}/bin/builder --input . --output dist
+      ${builder}/bin/builder --input $src --input ${vendor-assets} --output dist
     '';
     installPhase = ''
       mkdir -p $out

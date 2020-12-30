@@ -97,8 +97,8 @@ component props children =
       me "https://twitter.com/@parkerbrads"
       H.link ! A.rel "webmention" ! A.href "https://webmention.io/bradparker.com/webmention"
       H.link ! A.rel "shortcut icon" ! A.href "/assets/images/b.svg" ! A.type_ "image/svg+xml"
-      stylesheet "https://unpkg.com/minimal.css@1.0.1/minimal.css"
-      stylesheet "https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"
+      stylesheet "/assets/stylesheets/minimal.css"
+      stylesheet "/assets/stylesheets/tachyons.min.css"
       stylesheet "/assets/stylesheets/main.css"
 
     H.body do

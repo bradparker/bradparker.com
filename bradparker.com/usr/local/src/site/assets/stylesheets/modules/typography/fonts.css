@@ -1,34 +1,32 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto%20Mono');
-
 @font-face {
   font-family:"Tiempos Text";
   src:
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/TiemposTextWeb-Regular.woff"),
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/TiemposTextWeb-Regular.woff2");
+    url("/assets/fonts/tiempos/TiemposTextWeb-Regular.woff"),
+    url("/assets/fonts/tiempos/TiemposTextWeb-Regular.woff2");
   font-weight:normal;
   font-style:normal
 }
 @font-face {
   font-family:"Tiempos Text";
   src:
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/TiemposTextWeb-RegularItalic.woff"),
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/TiemposTextWeb-RegularItalic.woff2");
+    url("/assets/fonts/tiempos/TiemposTextWeb-RegularItalic.woff"),
+    url("/assets/fonts/tiempos/TiemposTextWeb-RegularItalic.woff2");
   font-weight:normal;
   font-style:italic
 }
 @font-face {
   font-family:"Tiempos Text";
   src:
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/TiemposTextWeb-Semibold.woff"),
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/TiemposTextWeb-Semibold.woff2");
+    url("/assets/fonts/tiempos/TiemposTextWeb-Semibold.woff"),
+    url("/assets/fonts/tiempos/TiemposTextWeb-Semibold.woff2");
   font-weight:bold;
   font-style:normal
 }
 @font-face {
   font-family:"Tiempos Text";
   src:
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/TiemposTextWeb-SemiboldItalic.woff"),
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/TiemposTextWeb-SemiboldItalic.woff2");
+    url("/assets/fonts/tiempos/TiemposTextWeb-SemiboldItalic.woff"),
+    url("/assets/fonts/tiempos/TiemposTextWeb-SemiboldItalic.woff2");
   font-weight:bold;
   font-style:italic
 }
@@ -36,8 +34,8 @@
 @font-face {
   font-family:"Founders Grotesk Extra Condensed";
   src:
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskX-CondensedWeb-Regular.woff"),
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskX-CondensedWeb-Regular.woff2");
+    url("/assets/fonts/founders-grotesk/FoundersGroteskX-CondensedWeb-Regular.woff"),
+    url("/assets/fonts/founders-grotesk/FoundersGroteskX-CondensedWeb-Regular.woff2");
   font-weight:normal;
   font-style:normal
 }
@@ -45,32 +43,44 @@
 @font-face {
   font-family:"Founders Grotesk";
   src:
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskWeb-Regular.woff"),
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskWeb-Regular.woff2");
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-Regular.woff"),
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-Regular.woff2");
   font-weight:normal;
   font-style:normal
 }
 @font-face {
   font-family:"Founders Grotesk";
   src:
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskWeb-RegularItalic.woff"),
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskWeb-RegularItalic.woff2");
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-RegularItalic.woff"),
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-RegularItalic.woff2");
   font-weight:normal;
   font-style:italic
 }
 @font-face {
   font-family:"Founders Grotesk";
   src:
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskWeb-Bold.woff"),
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskWeb-Bold.woff2");
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-Bold.woff"),
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-Bold.woff2");
   font-weight:bold;
   font-style:normal
 }
 @font-face {
   font-family:"Founders Grotesk";
   src:
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskWeb-BoldItalic.woff"),
-    url("https://bradparker.sgp1.digitaloceanspaces.com/assets/fonts/FoundersGroteskWeb-BoldItalic.woff2");
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-BoldItalic.woff"),
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-BoldItalic.woff2");
   font-weight:bold;
   font-style:italic
+}
+
+@font-face {
+  font-family: "Fira Mono";
+  src: url("/assets/fonts/fira/FiraMono-Regular.eot");
+  src:
+    url("/assets/fonts/fira/FiraMono-Regular.eot") format("embedded-opentype"),
+    url("/assets/fonts/fira/FiraMono-Regular.woff2") format("woff2"),
+    url("/assets/fonts/fira/FiraMono-Regular.woff") format("woff"),
+    url("/assets/fonts/fira/FiraMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
 }

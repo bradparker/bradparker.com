@@ -1,4 +1,28 @@
 {
+    "Fira": {
+        "branch": "master",
+        "description": "Mozilla's new typeface, used in Firefox OS",
+        "homepage": "mozilla.github.io/Fira",
+        "owner": "mozilla",
+        "repo": "Fira",
+        "rev": "fd8c8c0a3d353cd99e8ca1662942d165e6961407",
+        "sha256": "01cmam79kj0w2aw4a5hnh52d385fyn6li3apmxdsangcy99cx69m",
+        "type": "tarball",
+        "url": "https://github.com/mozilla/Fira/archive/fd8c8c0a3d353cd99e8ca1662942d165e6961407.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "minimal.css": {
+        "branch": "master",
+        "description": "An opinionated (currently naïve), inheritance focused alternative to CSS resets",
+        "homepage": "https://lukebrooker.com/minimal.css",
+        "owner": "lukebrooker",
+        "repo": "minimal.css",
+        "rev": "0e60c54e908328c8d6f9659b8dd1e549d3fdb28a",
+        "sha256": "0xb4psqagkcmjymwk7wvf9injxq0c4xr3lxs59pniiavx6kxc1j9",
+        "type": "tarball",
+        "url": "https://github.com/lukebrooker/minimal.css/archive/0e60c54e908328c8d6f9659b8dd1e549d3fdb28a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixpkgs": {
         "branch": "nixpkgs-unstable",
         "description": "DEPRECATED! This is an obsolete, read-only mirror of the NixOS/nixpkgs repository.",
@@ -21,6 +45,18 @@
         "sha256": "1xvj2i66w52bbm6rwrqvh7g0lfg9x8rdh9cljniifm4f89nzrjj7",
         "type": "tarball",
         "url": "https://github.com/bradparker/pandoc-lens/archive/320bba506305f16e581b8fb31c32d3233975c2fc.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "tachyons": {
+        "branch": "master",
+        "description": "Functional css for humans",
+        "homepage": "https://tachyons.io",
+        "owner": "tachyons-css",
+        "repo": "tachyons",
+        "rev": "79f4de4ea4b999200cfe0cf6c53738a18bc399c3",
+        "sha256": "0nsj1cwarwn3flpz4jb1vs1dj3h489j7m303wyqj5057s7grz6ns",
+        "type": "tarball",
+        "url": "https://github.com/tachyons-css/tachyons/archive/79f4de4ea4b999200cfe0cf6c53738a18bc399c3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

@@ -28,18 +28,19 @@ where
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad.Reader (ReaderT (runReaderT), asks)
 import qualified Data.ByteString.Lazy as LBS
+import Data.Foldable (asum)
 import Options.Applicative as OptParse
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath (dropDrive, takeDirectory, (</>))
 import qualified System.FilePattern.Directory as Directory
 
 data Config = Config
-  { input :: FilePath,
+  { inputs :: [FilePath],
     output :: FilePath
   }
 
 configP :: OptParse.Parser Config
-configP = Config <$> inputP <*> outputP
+configP = Config <$> some inputP <*> outputP
   where
     inputP :: OptParse.Parser FilePath
     inputP =
@@ -76,8 +77,8 @@ outputFile path content = do
 
 inputFile :: FilePath -> Builder LBS.ByteString
 inputFile path = do
-  input <- asks (.input)
-  liftIO (LBS.readFile (input </> path))
+  inputs <- asks (.inputs)
+  liftIO (asum (map (\input -> LBS.readFile (input </> path)) inputs))
 
 copyFile :: FilePath -> Builder ()
 copyFile path = outputFile path =<< inputFile path
@@ -87,5 +88,5 @@ toFile url = outputFile (dropDrive url </> "index.html")
 
 getDirectoryFiles :: [String] -> Builder [FilePath]
 getDirectoryFiles patterns = do
-  input <- asks (.input)
-  liftIO (Directory.getDirectoryFiles input patterns)
+  inputs <- asks (.inputs)
+  liftIO (foldMap (`Directory.getDirectoryFiles` patterns) inputs)

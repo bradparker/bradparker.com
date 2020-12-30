@@ -17,9 +17,9 @@ module Main
 where
 
 import Builder
-  ( getConfig,
-    build,
+  ( build,
     copyFile,
+    getConfig,
     getDirectoryFiles,
     outputFile,
     toFile,
