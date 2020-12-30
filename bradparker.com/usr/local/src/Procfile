@@ -1,0 +1,2 @@
+site: fd .md site | entr cabal new-run builder -- --input site --output dist-site
+server: cabal new-run server -- --port 8080 --site-directory dist-site

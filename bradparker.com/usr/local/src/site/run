@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-nix-shell \
-  -A bradparker-com.builder.env \
-  --run "SOURCE_DIR=${SOURCE_DIR:-site} runhaskell builder/Main.hs $@"

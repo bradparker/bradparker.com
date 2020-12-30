@@ -52,8 +52,7 @@ Then we can ask Cabal to get us started with a scaffold.
 Finally, we add a `default.nix` which makes use of [`cabal2nix`](https://github.com/NixOS/cabal2nix).
 
 ```nix
-{ haskellPackages ? (import <nixpkgs> {}).haskellPackages
-}:
+{ haskellPackages ? (import <nixpkgs> {}).haskellPackages }:
   haskellPackages
     .callCabal2nix "haskell-on-heroku" ./. {}
 ```
