@@ -5,6 +5,7 @@ let
     haskellPackages = super.haskellPackages.override {
       overrides = (hself: hsuper: {
         pandoc-lens = hself.callCabal2nix "pandoc-lens" sources.pandoc-lens {};
+        warp-systemd = hself.callCabal2nix "warp-systemd" sources.warp-systemd {};
       });
     };
   };

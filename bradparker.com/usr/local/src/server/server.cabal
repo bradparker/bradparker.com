@@ -17,6 +17,7 @@ executable server
                     wai-extra,
                     wai-middleware-static,
                     warp,
+                    warp-systemd,
                     warp-tls,
                     text,
                     tls

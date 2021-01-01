@@ -11,6 +11,7 @@ import qualified Network.TLS.Extra as TLSExtra
 import Network.Wai (Application)
 import Network.Wai.Handler.Warp (Port)
 import qualified Network.Wai.Handler.Warp as Warp
+import qualified Network.Wai.Handler.Warp.Systemd as WarpSystemd
 import qualified Network.Wai.Handler.WarpTLS as WarpTLS
 import Network.Wai.Middleware.RequestLogger (logStdout)
 import Options.Applicative
@@ -61,25 +62,30 @@ optionsP =
 
 tlsSettings :: HttpsOptions -> WarpTLS.TLSSettings
 tlsSettings httpsOpts =
-  (WarpTLS.tlsSettings
-    (certFile httpsOpts)
-    (keyFile httpsOpts))
-      { WarpTLS.tlsCiphers = TLSExtra.ciphersuite_default
-      }
-
-runTLS :: HttpsOptions -> Warp.Settings -> Application -> IO ()
-runTLS httpsOpts = WarpTLS.runTLS (tlsSettings httpsOpts)
+  ( WarpTLS.tlsSettings
+      (certFile httpsOpts)
+      (keyFile httpsOpts)
+  )
+    { WarpTLS.tlsCiphers = TLSExtra.ciphersuite_default
+    }
 
 settings :: Options -> Warp.Settings
 settings options = Warp.setPort (port options) Warp.defaultSettings
 
 run :: Options -> Application -> IO ()
-run options =
-  maybe
-    Warp.runSettings
-    runTLS
-    (https options)
-    (settings options)
+run options app =
+  case https options of
+    Nothing ->
+      WarpSystemd.runSystemdWarp
+        WarpSystemd.defaultSystemdSettings
+        (settings options)
+        app
+    Just httpsOptions ->
+      WarpSystemd.runSystemdWarpTLS
+        WarpSystemd.defaultSystemdSettings
+        (tlsSettings httpsOptions)
+        (settings options)
+        app
 
 main :: IO ()
 main = do
