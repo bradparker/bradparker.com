@@ -6,7 +6,7 @@ let
   minimal-css = sources."minimal.css";
 in
   stdenv.mkDerivation {
-    name = "bradparker-com-fonts";
+    pname = "bradparker-com-vendor-assets";
     version = "1.0.0";
     src = ./.;
     installPhase = ''
