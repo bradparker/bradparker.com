@@ -22,9 +22,6 @@ in
 
       systemd.services."force-https-${serverName}" = {
         wantedBy = [ "multi-user.target" ];
-        script = ''
-          ${force-https}/bin/force-https --port 80
-        '';
         description = ''
           Redirects to https://${serverName}
         '';
@@ -33,27 +30,33 @@ in
           Type = "simple";
           Restart = "on-abort";
           RestartSec = "10";
+          ExecStart = ''
+            ${force-https}/bin/force-https --port 80
+          '';
+        };
+      };
+
+      systemd.sockets.${serverName} = {
+        description = "https://${serverName} socket";
+        wantedBy = [ "sockets.target" ];
+        socketConfig = {
+          ListenStream = 443;
         };
       };
 
       systemd.services.${serverName} = {
-        wantedBy = [ "multi-user.target" ];
         wants = [ "acme-${serverName}.service" ];
-        script = ''
-          ${server}/bin/server \
-            --port 443 \
-            --site-directory ${site} \
-            --https-cert-file /var/lib/acme/${serverName}/fullchain.pem \
-            --https-key-file /var/lib/acme/${serverName}/key.pem
-        '';
         description = ''
           https://${serverName}
         '';
         serviceConfig = {
-          KillSignal="INT";
-          Type = "simple";
-          Restart = "on-abort";
-          RestartSec = "10";
+          ExecStart = ''
+            ${server}/bin/server \
+              --port 443 \
+              --site-directory ${site} \
+              --https-cert-file /var/lib/acme/${serverName}/fullchain.pem \
+              --https-key-file /var/lib/acme/${serverName}/key.pem
+          '';
         };
       };
 
