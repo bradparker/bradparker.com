@@ -4,6 +4,6 @@ set -exuo pipefail
 
 (
   cd $(dirname $BASH_SOURCE)/..
-  rsync -va --no-owner --no-group bradparker.com/ $1:bradparker.com
+  rsync -va --no-owner --no-group --exclude dist-* bradparker.com/ $1:bradparker.com
   ssh -t $1 "sudo bash -c 'rsync -va --no-owner --no-group bradparker.com/ / && nixos-rebuild -I bradparker.com=/usr/local/src switch'"
 )
