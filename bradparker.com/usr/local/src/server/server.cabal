@@ -13,17 +13,14 @@ executable server
                     http-types,
                     optparse-applicative,
                     path-pieces,
-                    record-dot-preprocessor,
-                    record-hasfield,
-                    text,
-                    tls,
-                    transformers,
                     wai,
                     wai-extra,
                     wai-middleware-static,
                     warp,
                     warp-systemd,
                     warp-tls,
+                    text,
+                    tls
   other-modules:    Site
                     Site.Redirect
   default-language: Haskell2010
