@@ -295,7 +295,7 @@ app_name=$1
 result=$(nix-build --no-out-link release.nix)
 
 docker load < $result
-docker tag $app_name registry.heroku.com/$app_name/web
+docker tag haskell-on-heroku registry.heroku.com/$app_name/web
 docker push registry.heroku.com/$app_name/web
 
 nix run nixpkgs.heroku --command \
