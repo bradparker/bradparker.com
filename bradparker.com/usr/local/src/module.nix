@@ -45,10 +45,11 @@ in
       };
 
       systemd.services.${serverName} = {
-        wants = [ "acme-${serverName}.service" ];
         description = ''
           https://${serverName}
         '';
+        wants = [ "acme-${serverName}.service" ];
+        stopIfChanged = false;
         serviceConfig = {
           ExecStart = ''
             ${server}/bin/server \
