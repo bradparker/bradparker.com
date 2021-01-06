@@ -1,2 +1,2 @@
-site: fd .md site | entr cabal new-run builder -- --input site --input $VENDOR_ASSETS --output dist-site
+site: fd '.md|.css|.hs' {site,builder} | entr cabal new-run builder -- --input site --input $VENDOR_ASSETS --output dist-site
 server: cabal new-run server -- --port 8080 --site-directory dist-site
