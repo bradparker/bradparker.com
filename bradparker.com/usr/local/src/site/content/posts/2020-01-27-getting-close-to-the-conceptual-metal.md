@@ -412,32 +412,36 @@ Before we begin: this is going to move quite fast. Don't worry if you miss some 
 Now, the first thing we should do is redefine _Pair_ and _Either_ using `newtype`, rather than `type` (GHC is pretty great, but sometimes we need to cut it some slack).
 
 ```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -Wall -Werror #-}
 
 module HotAir where
 
-import Data.Function (($))
-
-newtype Pair a b
-  = Pair
-      { runPair :: forall c. (a -> b -> c) -> c
-        }
+newtype Pair a b = Pair
+  { runPair ::
+      forall c.
+      (a -> b -> c) ->
+      c
+  }
 
 pair :: a -> b -> Pair a b
-pair x1 x2 = Pair $ \c -> c x1 x2
+pair x1 x2 = Pair \c -> c x1 x2
 
-newtype Either a b
-  = Either
-      { runEither :: forall c. (a -> c) -> (b -> c) -> c
-        }
+newtype Either a b = Either
+  { runEither ::
+      forall c.
+      (a -> c) ->
+      (b -> c) ->
+      c
+  }
 
 left :: a -> Either a b
-left x = Either $ \c1 _ -> c1 x
+left x = Either \c1 _ -> c1 x
 
 right :: b -> Either a b
-right x = Either $ \_ c2 -> c2 x
+right x = Either \_ c2 -> c2 x
 ```
 
 Next, we might define a [monadic parser](http://www.cs.nott.ac.uk/~pszgmh/pearl.pdf).
@@ -445,10 +449,11 @@ Next, we might define a [monadic parser](http://www.cs.nott.ac.uk/~pszgmh/pearl.
 ```haskell
 import Data.String (String)
 
-newtype Parser a
-  = Parser
-      { parse :: String -> Either String (Pair a String)
-        }
+newtype Parser a = Parser
+  { parse ::
+      String ->
+      Either String (Pair a String)
+  }
 ```
 
 A `satisfy` function for creating a `Parser` which compares the next character using given `Char -> Bool` predicate would be handy.
@@ -456,12 +461,12 @@ A `satisfy` function for creating a `Parser` which compares the next character u
 ```haskell
 {-# LANGUAGE LambdaCase #-}
 
-import Data.List ((++))
 import Data.Bool (Bool)
 import Data.Char (Char)
+import Data.List ((++))
 
 satisfy :: (Char -> Bool) -> Parser Char
-satisfy p = Parser $ \case
+satisfy p = Parser \case
   [] -> left "Unexpected EOF"
   (c : cs) ->
     if p c
@@ -482,16 +487,16 @@ char = satisfy . (==)
 
 ```haskell
 import Control.Applicative
-  ( Alternative ((<|>), empty),
-    Applicative ((<*>), pure)
-    )
+  ( Alternative (empty, (<|>)),
+    Applicative (pure, (<*>)),
+  )
 import Data.Function (const)
 import Data.Functor (Functor (fmap))
 
 instance Functor Parser where
   fmap :: (a -> b) -> Parser a -> Parser b
   fmap f pa =
-    Parser $ \str ->
+    Parser \str ->
       runEither (parse pa str)
         left
         (\p -> right (runPair p (pair . f)))
@@ -502,18 +507,18 @@ instance Applicative Parser where
 
   (<*>) :: Parser (a -> b) -> Parser a -> Parser b
   pf <*> pa =
-    Parser $ \str ->
-      runEither (parse pf str)
+    Parser \str ->
+      runEither (parse f str)
         left
         (\p -> runPair p (\f -> parse (fmap f pa)))
 
 instance Alternative Parser where
   empty :: Parser a
-  empty = Parser $ const (left "Empty")
+  empty = Parser (const (left "Empty"))
 
   (<|>) :: Parser a -> Parser a -> Parser a
   Parser l <|> Parser r =
-    Parser $ \str ->
+    Parser \str ->
       runEither (l str)
         (const (r str))
         right
@@ -535,7 +540,7 @@ execParser p str =
 That should be enough to write an `eval` function for our little language.
 
 ```haskell
-import Control.Applicative ((*>), (<*), some)
+import Control.Applicative (some, (*>), (<*))
 import Data.Char (isDigit)
 import Data.Functor ((<$), (<$>))
 import GHC.Num ((*), (+))
@@ -550,13 +555,9 @@ eval = execParser expression
     natural = read <$> some (satisfy isDigit)
     application :: Parser Natural
     application =
-      char '('
-        *> operator
-        <* space
-        <*> expression
-        <* space
-        <*> expression
-        <* char ')'
+      char '(' *> operator <* space
+        <*> expression <* space
+        <*> expression <* char ')'
     operator :: Parser (Natural -> Natural -> Natural)
     operator = (+) <$ char '+' <|> (*) <$ char '*'
     space :: Parser Char
@@ -566,10 +567,7 @@ eval = execParser expression
 Finally, a `main` function that lets a user input expressions and view the result of evaluating them.
 
 ```haskell
-module HotAir
-  ( main
-    )
-where
+module HotAir (main) where
 
 import Control.Monad (forever)
 import System.IO
@@ -577,8 +575,8 @@ import System.IO
     getLine,
     print,
     putStr,
-    putStrLn
-    )
+    putStrLn,
+  )
 
 main :: IO ()
 main = do
@@ -595,30 +593,28 @@ main = do
 And here it is, a little REPL made of _mostly_ hot air.
 
 ```haskell
+{-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -Wall -Werror #-}
 
-module HotAir
-  ( main
-    )
-where
+module HotAir (main) where
 
 import Control.Applicative
-  ( (*>),
+  ( Alternative (empty, (<|>)),
+    Applicative (pure, (<*>)),
+    some,
+    (*>),
     (<*),
-    Alternative ((<|>), empty),
-    Applicative ((<*>), pure),
-    some
-    )
+  )
 import Control.Monad (forever)
 import Data.Bool (Bool)
 import Data.Char (Char, isDigit)
 import Data.Eq ((==))
-import Data.Function (($), (.), const)
-import Data.Functor ((<$), (<$>), Functor (fmap))
+import Data.Function (const, ($), (.))
+import Data.Functor (Functor (fmap), (<$), (<$>))
 import Data.List ((++))
 import Data.String (String)
 import GHC.Num ((*), (+))
@@ -628,40 +624,46 @@ import System.IO
     getLine,
     print,
     putStr,
-    putStrLn
-    )
+    putStrLn,
+  )
 import Text.Read (read)
 import Text.Show (Show (show))
 
-newtype Pair a b
-  = Pair
-      { runPair :: forall c. (a -> b -> c) -> c
-        }
+newtype Pair a b = Pair
+  { runPair ::
+      forall c.
+      (a -> b -> c) ->
+      c
+  }
 
 pair :: a -> b -> Pair a b
-pair x1 x2 = Pair $ \c -> c x1 x2
+pair x1 x2 = Pair \c -> c x1 x2
 
 fst :: Pair a b -> a
 fst = (`runPair` const)
 
-newtype Either a b
-  = Either
-      { runEither :: forall c. (a -> c) -> (b -> c) -> c
-        }
+newtype Either a b = Either
+  { runEither ::
+      forall c.
+      (a -> c) ->
+      (b -> c) ->
+      c
+  }
 
 left :: a -> Either a b
-left x = Either $ \c1 _ -> c1 x
+left x = Either \c1 _ -> c1 x
 
 right :: b -> Either a b
-right x = Either $ \_ c2 -> c2 x
+right x = Either \_ c2 -> c2 x
 
-newtype Parser a
-  = Parser
-      { parse :: String -> Either String (Pair a String)
-        }
+newtype Parser a = Parser
+  { parse ::
+      String ->
+      Either String (Pair a String)
+  }
 
 satisfy :: (Char -> Bool) -> Parser Char
-satisfy p = Parser $ \case
+satisfy p = Parser \case
   [] -> left "Unexpected EOF"
   (c : cs) ->
     if p c
@@ -674,7 +676,7 @@ char = satisfy . (==)
 instance Functor Parser where
   fmap :: (a -> b) -> Parser a -> Parser b
   fmap f pa =
-    Parser $ \str ->
+    Parser \str ->
       runEither (parse pa str)
         left
         (\p -> right (runPair p (pair . f)))
@@ -685,18 +687,18 @@ instance Applicative Parser where
 
   (<*>) :: Parser (a -> b) -> Parser a -> Parser b
   pf <*> pa =
-    Parser $ \str ->
+    Parser \str ->
       runEither (parse pf str)
         left
         (\p -> runPair p (\f -> parse (fmap f pa)))
 
 instance Alternative Parser where
   empty :: Parser a
-  empty = Parser $ const (left "Empty")
+  empty = Parser (const (left "Empty"))
 
   (<|>) :: Parser a -> Parser a -> Parser a
   Parser l <|> Parser r =
-    Parser $ \str ->
+    Parser \str ->
       runEither (l str)
         (const (r str))
         right
@@ -716,13 +718,9 @@ eval = execParser expression
     natural = read <$> some (satisfy isDigit)
     application :: Parser Natural
     application =
-      char '('
-        *> operator
-        <* space
-        <*> expression
-        <* space
-        <*> expression
-        <* char ')'
+      char '(' *> operator <* space
+        <*> expression <* space
+        <*> expression <* char ')'
     operator :: Parser (Natural -> Natural -> Natural)
     operator = (+) <$ char '+' <|> (*) <$ char '*'
     space :: Parser Char
