@@ -63,7 +63,7 @@ Eventually I'd happen across [Scott encoding](https://oxij.org/paper/Exceptional
 With Scott encoding we have a consistent method for representing any algebraic datatype in the untyped [lambda calculus](https://www.futurelearn.com/courses/functional-programming-haskell/0/steps/27249). It goes something like this: say we have a datatype _D_, with _N_ [constructors](https://wiki.haskell.org/Constructor#Data_constructor), (_d_<sub>1</sub> &hellip; _d<sub>N</sub>_), such that constructor _d<sub>i</sub>_ has [arity](https://en.wikipedia.org/wiki/Arity) _A<sub>i_. The Scott encoding for constructor _d<sub>i</sub>_ of _D_ would be:
 
 <figure class="figure">
-_d<sub>i</sub>_ := _&lambda;x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_. _&lambda;c_<sub>1</sub> &hellip; _c<sub>N</sub>_. _c<sub>i</sub>_ _x_<sub>1</sub> &hellip; _x<sub>A<sub>i</sub></sub>_
+<em>d<sub>i</sub></em> := <em>&lambda;x</em><sub>1</sub> &hellip; <em>x<sub>A<sub>i</sub></sub></em>. <em>&lambda;c</em><sub>1</sub> &hellip; <em>c<sub>N</sub></em>. <em>c<sub>i</sub></em> <em>x</em><sub>1</sub> &hellip; <em>x<sub>A<sub>i</sub></sub></em>
 </figure>
 
 If you've never seen this sort of notation before don't worry we'll be moving to mostly Haskell soon enough. Until then we could have a couple of swings at stating this in words.
@@ -95,7 +95,7 @@ It has one constructor which happens to share the name of its type.
 For our purposes we'll rename the `(,)` type to _Pair_ and the `(,)` constructor to _pair_. As _Pair's_ only constructor, _pair_ need only accept one continuation _c_. The arguments that _pair_ accepts, such that it can call _c_ with them, are the resulting _Pair's_ first and second elements.
 
 <figure class="figure">
-  _pair_ := _&lambda;x_<sub>1</sub>, _x_<sub>2</sub>. _&lambda;c_. _c x_<sub>1</sub> _x_<sub>2</sub>
+  <em>pair</em> := <em>&lambda;x</em><sub>1</sub>, <em>x</em><sub>2</sub>. <em>&lambda;c</em>. <em>c x</em><sub>1</sub> <em>x</em><sub>2</sub>
 </figure>
 
 But what is _Pair_? How might we write the type of a function that accepts a _Pair_? First we might rewrite _pair_ in Haskell, initially as a fairly direct translation.
@@ -166,8 +166,8 @@ to = _
 Their composition in either direction is equivalent to an identity function.
 
 <figure class="figure">
-  _from_ &#8728; _to_ = _id<sub>Pair</sub>_<br/>
-  _to_ &#8728; _from_ = _id<sub>(,)</sub>_
+  <em>from</em> &#8728; <em>to</em> = <em>id<sub>Pair</sub></em><br/>
+  <em>to</em> &#8728; <em>from</em> = <em>id<sub>(,)</sub></em>
 </figure>
 
 If these two functions can be written, and they have this property, it means that `Pair` and `(,)` are [isomorphic](https://en.wiktionary.org/wiki/isomorphic).
@@ -242,20 +242,20 @@ For the purposes of Scott encoding we can say that _Either_ has two constructors
 The first constructor _left_, then, will accept one argument to pass to the first continuation.
 
 <figure class="figure">
-  _left_ := _&lambda;x. &lambda;c<sub>1</sub>, c<sub>2</sub>. c<sub>1</sub> x_
+  <em>left</em> := <em>&lambda;x. &lambda;c<sub>1</sub>, c<sub>2</sub>. c<sub>1</sub> x</em>
 </figure>
 
 And the second will accept one to pass to the second continuation.
 
 <figure class="figure">
-  _right_ := _&lambda;x. &lambda;c<sub>1</sub>, c<sub>2</sub>. c<sub>2</sub> x_
+  <em>right</em> := <em>&lambda;x. &lambda;c<sub>1</sub>, c<sub>2</sub>. c<sub>2</sub> x</em>
 </figure>
 
 Each continuation can accept an argument of a different type (say _c<sub>1</sub>_ takes an _&alpha;_ and _c<sub>2</sub>_ takes a _&beta;_) but both should return something of the same type (say _&#947;_). The reason for this is how values of the _Either_ type are used, this may become evident later. Using a [polymorphic lambda calculus](https://en.wikipedia.org/wiki/System_F) rather than an untyped lambda calculus we can write out how those types line up.
 
 <figure class="figure">
-  _left_ := _&Lambda;&alpha;, &beta;, &#947;. &lambda;x <sup>&alpha;</sup>. &lambda;c<sub>1</sub> <sup>&alpha; &rarr; &#947;</sup>, c<sub>2</sub> <sup>&beta; &rarr; &#947;</sup>. c<sub>1</sub> x_<br/>
-  _right_ := _&Lambda;&alpha;, &beta;, &#947;. &lambda;x <sup>&beta;</sup>. &lambda;c<sub>1</sub> <sup>&alpha; &rarr; &#947;</sup>, c<sub>2</sub> <sup>&beta; &rarr; &#947;</sup>. c<sub>2</sub> x_
+  <em>left</em> := <em>&Lambda;&alpha;, &beta;, &#947;. &lambda;x <sup>&alpha;</sup>. &lambda;c<sub>1</sub> <sup>&alpha; &rarr; &#947;</sup>, c<sub>2</sub> <sup>&beta; &rarr; &#947;</sup>. c<sub>1</sub> x</em><br/>
+  <em>right</em> := <em>&Lambda;&alpha;, &beta;, &#947;. &lambda;x <sup>&beta;</sup>. &lambda;c<sub>1</sub> <sup>&alpha; &rarr; &#947;</sup>, c<sub>2</sub> <sup>&beta; &rarr; &#947;</sup>. c<sub>2</sub> x</em>
 </figure>
 
 For me at least, it's a little easier to see in Haskell.
