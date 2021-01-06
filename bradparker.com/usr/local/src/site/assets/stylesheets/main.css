@@ -235,10 +235,11 @@
 .markdown pre {
   line-height: 1.25;
   overflow: auto;
-  padding: 1rem;
+  padding: 0.875rem;
   white-space: pre;
   word-wrap: normal;
   border-radius: 0.125rem;
+  font-size: 0.875rem;
 }
 
 .markdown table {
