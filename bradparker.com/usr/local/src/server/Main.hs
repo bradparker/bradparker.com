@@ -1,12 +1,12 @@
+{-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Main
-  ( main,
-  )
-where
+module Main (main) where
 
 import Control.Applicative (optional)
+import Data.Foldable (for_)
+import Data.Function ((&))
 import qualified Network.TLS.Extra as TLSExtra
 import Network.Wai (Application)
 import Network.Wai.Handler.Warp (Port)
@@ -26,6 +26,7 @@ import Options.Applicative
     strOption,
   )
 import qualified Site
+import System.Posix.Signals (Handler (Default), installHandler, sigINT, sigTERM)
 
 data HttpsOptions = HttpsOptions
   { keyFile :: String,
@@ -70,7 +71,15 @@ tlsSettings httpsOpts =
     }
 
 settings :: Options -> Warp.Settings
-settings options = Warp.setPort (port options) Warp.defaultSettings
+settings options =
+  Warp.defaultSettings
+    & Warp.setPort (port options)
+    & Warp.setInstallShutdownHandler shutdown
+    & Warp.setGracefulShutdownTimeout (Just 30)
+  where
+    shutdown :: IO () -> IO ()
+    shutdown _ = for_ [sigTERM, sigINT] \sig ->
+      installHandler sig Default Nothing
 
 run :: Options -> Application -> IO ()
 run options app =
