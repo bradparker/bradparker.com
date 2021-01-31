@@ -25,13 +25,14 @@ module Builder
   )
 where
 
+import qualified Codec.Compression.GZip as GZip
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad.Reader (ReaderT (runReaderT), asks)
 import qualified Data.ByteString.Lazy as LBS
 import Data.Foldable (asum)
 import Options.Applicative as OptParse
 import System.Directory (createDirectoryIfMissing)
-import System.FilePath (dropDrive, takeDirectory, (</>))
+import System.FilePath (dropDrive, takeDirectory, (<.>), (</>))
 import qualified System.FilePattern.Directory as Directory
 
 data Config = Config
@@ -73,6 +74,7 @@ outputFile path content = do
   liftIO do
     putStrLn ("Writing: " <> path)
     createDirectoryIfMissing True (takeDirectory outputPath)
+    LBS.writeFile (outputPath <.> "gz") (GZip.compress content)
     LBS.writeFile outputPath content
 
 inputFile :: FilePath -> Builder LBS.ByteString

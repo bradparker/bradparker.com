@@ -28,7 +28,8 @@ executable builder
     text,
     time,
     vector,
-    yaml-combinators
+    yaml-combinators,
+    zlib
   other-modules:
     Builder
     Data.Yaml.Combinators.Extended

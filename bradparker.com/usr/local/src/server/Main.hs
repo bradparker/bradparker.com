@@ -9,6 +9,12 @@ import Data.Bool (bool)
 import Data.Function ((&))
 import Network.Wai.Cli (defWaiMain)
 import Network.Wai.Middleware.ForceSSL (forceSSL)
+import Network.Wai.Middleware.Gzip
+  ( GzipFiles (GzipIgnore, GzipPreCompressed),
+    def,
+    gzip,
+    gzipFiles,
+  )
 import Network.Wai.Middleware.RequestLogger (logStdout)
 import qualified Site
 import System.Environment (getEnv)
@@ -21,4 +27,5 @@ main = do
   app
     & logStdout
     & bool id forceSSL (ssl == "true")
+    & gzip (def {gzipFiles = GzipPreCompressed GzipIgnore})
     & defWaiMain
