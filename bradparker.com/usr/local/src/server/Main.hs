@@ -16,7 +16,7 @@ import System.Environment (getEnv)
 main :: IO ()
 main = do
   ssl <- getEnv "FORCE_SSL" <|> pure "false"
-  webRoot <- getEnv "WEB_ROOT"
+  webRoot <- getEnv "WEB_ROOT" <|> pure ""
   app <- Site.new (Site.Options webRoot)
   app
     & logStdout

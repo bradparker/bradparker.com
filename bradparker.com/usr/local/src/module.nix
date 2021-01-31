@@ -35,7 +35,6 @@ in
         stopIfChanged = false;
         environment = {
           FORCE_SSL = "true";
-          WEB_ROOT = "${site}";
         };
         serviceConfig = {
           ExecStart = ''
