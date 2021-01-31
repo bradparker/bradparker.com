@@ -1,7 +1,6 @@
 { options, lib, config, pkgs, ... }:
 let
   package = import ./.;
-  force-https = package.bradparker-com.force-https;
   server = package.bradparker-com.server;
   site = package.bradparker-com.site;
 
@@ -20,18 +19,28 @@ in
     config = lib.mkIf serviceConfig.enable {
       users.groups.${groupName} = {};
 
-      systemd.services."force-https-${serverName}" = {
-        wantedBy = [ "multi-user.target" ];
+      systemd.sockets."${serverName}-http" = {
+        description = "http://${serverName} socket";
+        wantedBy = [ "sockets.target" ];
+        socketConfig = {
+          ListenStream = 80;
+        };
+      };
+
+      systemd.services."${serverName}-http" = {
         description = ''
-          Redirects to https://${serverName}
+          https://${serverName}
         '';
+        wants = [ "acme-${serverName}.service" ];
+        stopIfChanged = false;
+        environment = {
+          FORCE_SSL = "true";
+          WEB_ROOT = "${site}";
+        };
         serviceConfig = {
-          KillSignal="INT";
-          Type = "simple";
-          Restart = "on-abort";
-          RestartSec = "10";
           ExecStart = ''
-            ${force-https}/bin/force-https --port 80
+            ${server}/bin/server \
+              --protocol activate
           '';
         };
       };
@@ -50,13 +59,16 @@ in
         '';
         wants = [ "acme-${serverName}.service" ];
         stopIfChanged = false;
+        environment = {
+          WEB_ROOT = "${site}";
+        };
         serviceConfig = {
           ExecStart = ''
             ${server}/bin/server \
-              --port 443 \
-              --site-directory ${site} \
-              --https-cert-file /var/lib/acme/${serverName}/fullchain.pem \
-              --https-key-file /var/lib/acme/${serverName}/key.pem
+              --protocol activate+tls \
+              --tlscert /var/lib/acme/${serverName}/fullchain.pem \
+              --tlskey /var/lib/acme/${serverName}/key.pem \
+              --graceful serve-normally
           '';
         };
       };

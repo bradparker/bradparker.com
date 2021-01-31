@@ -11,17 +11,11 @@ executable server
   build-depends:    base ^>=4.13.0.0,
                     filepath,
                     http-types,
-                    optparse-applicative,
-                    path-pieces,
                     text,
-                    tls,
-                    unix,
                     wai,
+                    wai-cli,
                     wai-extra,
                     wai-middleware-static,
-                    warp,
-                    warp-systemd,
-                    warp-tls,
   other-modules:    Site
                     Site.Redirect
   default-language: Haskell2010

@@ -11,6 +11,18 @@
         "url": "https://github.com/mozilla/Fira/archive/fd8c8c0a3d353cd99e8ca1662942d165e6961407.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "haskell-socket-activation": {
+        "branch": "network-3",
+        "description": "systemd socket activation library for Haskell",
+        "homepage": null,
+        "owner": "Infinisil",
+        "repo": "haskell-socket-activation",
+        "rev": "7e33b1f89e2eb7c4b6fd92fdbd89a65e93c25d3a",
+        "sha256": "099wxmbqph3k66fcynvpr2swlqylh0yhis0kxcpkmjz2gr66jwgf",
+        "type": "tarball",
+        "url": "https://github.com/Infinisil/haskell-socket-activation/archive/7e33b1f89e2eb7c4b6fd92fdbd89a65e93c25d3a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "minimal.css": {
         "branch": "master",
         "description": "An opinionated (currently naïve), inheritance focused alternative to CSS resets",
@@ -59,16 +71,16 @@
         "url": "https://github.com/tachyons-css/tachyons/archive/79f4de4ea4b999200cfe0cf6c53738a18bc399c3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "warp-systemd": {
+    "wai-cli": {
         "branch": "master",
-        "description": "Socket activation and other systemd integration for the Warp web server (WAI)",
+        "description": "Command line runner for Wai apps (using Warp) with TLS, CGI, socket activation & graceful shutdown",
         "homepage": null,
-        "owner": "bradparker",
-        "repo": "warp-systemd",
-        "rev": "35cab9dd1114374f9297a27c6986792ccfec200c",
-        "sha256": "00lc7zsr5kpgblb2nv2d10cw593i0r9mq0brzxbnrlhhawn7k8ga",
+        "owner": "myfreeweb",
+        "repo": "wai-cli",
+        "rev": "adb835e46269cf62698e6bcdf2a3f10e1af0d4b3",
+        "sha256": "0wy8wakpps059fjh9p9x969655171zsbcmnvk4ik2fw7rrz5g1l2",
         "type": "tarball",
-        "url": "https://github.com/bradparker/warp-systemd/archive/35cab9dd1114374f9297a27c6986792ccfec200c.tar.gz",
+        "url": "https://github.com/myfreeweb/wai-cli/archive/adb835e46269cf62698e6bcdf2a3f10e1af0d4b3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

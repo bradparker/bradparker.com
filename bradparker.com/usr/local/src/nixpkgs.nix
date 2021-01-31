@@ -5,7 +5,8 @@ let
     haskellPackages = super.haskellPackages.override {
       overrides = (hself: hsuper: {
         pandoc-lens = hself.callCabal2nix "pandoc-lens" sources.pandoc-lens {};
-        warp-systemd = hself.callCabal2nix "warp-systemd" sources.warp-systemd {};
+        wai-cli = hself.callCabal2nix "wai-cli" sources.wai-cli {};
+        socket-activation = hself.callCabal2nix "socket-activation" sources.haskell-socket-activation {};
       });
     };
   };
