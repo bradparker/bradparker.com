@@ -61,6 +61,6 @@ component props =
       Markdown.toHtml props.description
 
     (H.footer ! A.class_ "mw7 center ph3 pt0 pb4") do
-      (H.a ! A.href (fromString props.url) ! A.class_ "link hover-dark-green founders-grotesk") do
+      (H.a ! A.href (fromString ("/" </> props.url)) ! A.class_ "link hover-dark-green founders-grotesk") do
         "Read more →"
     H.hr ! A.class_ "ba-0 bt bw3 b--near-white"
