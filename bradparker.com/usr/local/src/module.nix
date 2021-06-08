@@ -29,7 +29,7 @@ in
 
       systemd.services."${serverName}-http" = {
         description = ''
-          https://${serverName}
+          http://${serverName}
         '';
         wants = [ "acme-${serverName}.service" ];
         stopIfChanged = false;
