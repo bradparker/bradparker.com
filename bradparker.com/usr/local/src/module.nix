@@ -72,6 +72,18 @@ in
         };
       };
 
+      systemd.services."restart-${serverName}" = {
+        description = "restart https://${serverName}";
+        script = "systemctl restart ${serverName}.service";
+      };
+
+      systemd.timers."restart-${serverName}" = {
+        description = "restart https://${serverName} timer ";
+        partOf = [ "restart-${serverName}.service" ];
+        wantedBy = [ "timers.target" ];
+        timerConfig.OnCalendar = "hourly";
+      };
+
       systemd.services."acme-environment-file" = {
         wantedBy = [ "acme-${serverName}.service" ];
         before = [ "acme-${serverName}.service" ];
