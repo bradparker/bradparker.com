@@ -13,6 +13,7 @@
 
 module Feed (render) where
 
+import Control.Applicative ((<|>))
 import qualified Data.ByteString.Lazy as LBS
 import Data.Maybe (listToMaybe)
 import Data.Text (Text)
@@ -25,7 +26,6 @@ import Post (Post)
 import System.FilePath ((</>))
 import Text.RSS.Export (textRSS)
 import Text.RSS.Syntax (RSS (..), RSSChannel (..), RSSGuid (..), RSSItem (..))
-import Control.Applicative ((<|>))
 
 render :: [Post] -> Maybe LBS.ByteString
 render = fmap Text.encodeUtf8 . textRSS . feed
@@ -47,7 +47,7 @@ channel posts =
   RSSChannel
     { rssTitle = "Brad Parker — Designer + Developer",
       rssLink = "https://bradparker.com",
-      rssDescription = "I've been making software professionally for about seven years and I really love it. I believe software has this empowering potential, I believe everyone should be able to understand it if they want to. This means I prefer open and accessible tools and standards wherever possible. It also means I try to learn in the open, sharing what I learn as I learn it.",
+      rssDescription = "I've been making software professionally for about nine years and I really love it. I believe software has this empowering potential, I believe everyone should be able to understand it if they want to. This means I prefer open and accessible tools and standards wherever possible. It also means I try to learn in the open, sharing what I learn as I learn it.",
       rssItems = map item posts,
       rssLanguage = Nothing,
       rssCopyright = Nothing,
@@ -70,20 +70,18 @@ channel posts =
 
 item :: Post -> RSSItem
 item post =
-  let
-    url = "https://bradparker.com" </> post.url
-  in
-    RSSItem
-      { rssItemTitle = Just (Text.pack post.title),
-        rssItemLink = Just (Text.pack url),
-        rssItemDescription = Just (Markdown.toText (Markdown.absoluteUrls "https://bradparker.com" post.content)),
-        rssItemAuthor = Just "Brad Parker",
-        rssItemCategories = [],
-        rssItemComments = Nothing,
-        rssItemEnclosure = Nothing,
-        rssItemGuid = RSSGuid Nothing [] . Text.pack <$> (post.rssGuid <|> Just url),
-        rssItemPubDate = Just (formatDate post.date),
-        rssItemSource = Nothing,
-        rssItemAttrs = [],
-        rssItemOther = []
-      }
+  let url = "https://bradparker.com" </> post.url
+   in RSSItem
+        { rssItemTitle = Just (Text.pack post.title),
+          rssItemLink = Just (Text.pack url),
+          rssItemDescription = Just (Markdown.toText (Markdown.absoluteUrls "https://bradparker.com" post.content)),
+          rssItemAuthor = Just "Brad Parker",
+          rssItemCategories = [],
+          rssItemComments = Nothing,
+          rssItemEnclosure = Nothing,
+          rssItemGuid = RSSGuid Nothing [] . Text.pack <$> (post.rssGuid <|> Just url),
+          rssItemPubDate = Just (formatDate post.date),
+          rssItemSource = Nothing,
+          rssItemAttrs = [],
+          rssItemOther = []
+        }
