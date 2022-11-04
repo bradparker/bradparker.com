@@ -7,7 +7,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE UndecidableInstances #-}
 {-# OPTIONS_GHC -Wall #-}
 {-# OPTIONS_GHC -Wno-name-shadowing #-}
 {-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
@@ -28,7 +30,7 @@ import qualified Data.ByteString.Lazy as LBS
 import Data.String (fromString)
 import Data.Text (Text)
 import qualified Data.Text.Encoding as Text
-import qualified Data.Yaml.Combinators.Extended as Yaml
+import qualified Data.Yaml as Yaml
 import qualified Frontmatter
 import GHC.Records.Compat (HasField)
 import Text.Blaze.Html (Html, (!))
@@ -38,13 +40,13 @@ import qualified Text.Blaze.Html5.Attributes as A
 data Document a = Document
   {frontmatter :: a, content :: Text}
 
-parser :: Yaml.Parser a -> Parser (Document a)
+parser :: (Yaml.Value -> Yaml.Parser a) -> Parser (Document a)
 parser frontmatter =
   Document
     <$> Frontmatter.parser frontmatter
     <*> takeText
 
-fromFile :: forall a. Yaml.Parser a -> FilePath -> Builder (Document a)
+fromFile :: forall a. (Yaml.Value -> Yaml.Parser a) -> FilePath -> Builder (Document a)
 fromFile frontmatter path = do
   content <- Text.decodeUtf8 . LBS.toStrict <$> Builder.inputFile path
   case parseOnly (parser frontmatter) content of

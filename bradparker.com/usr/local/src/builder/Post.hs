@@ -7,7 +7,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE UndecidableInstances #-}
 {-# OPTIONS_GHC -Wall #-}
 {-# OPTIONS_GHC -Wno-name-shadowing #-}
 {-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
@@ -28,7 +30,8 @@ import qualified Data.Text as Text
 import Data.Time (Day, defaultTimeLocale, formatTime)
 import Data.Time.Format.ISO8601 (iso8601ParseM)
 import Data.Vector (Vector)
-import qualified Data.Yaml.Combinators.Extended as Yaml
+import Data.Yaml.Extended ((.:), (.:?))
+import qualified Data.Yaml.Extended as Yaml
 import qualified Document
 import GHC.Records.Compat (HasField)
 import Markdown (Markdown)
@@ -56,14 +59,14 @@ data Frontmatter = Frontmatter
     rssGuid :: Maybe String
   }
 
-frontmatterParser :: Yaml.Parser Frontmatter
+frontmatterParser :: Yaml.Value -> Yaml.Parser Frontmatter
 frontmatterParser =
-  Yaml.object $
+  Yaml.withObject "PageFrontmatter" \o ->
     Frontmatter
-      <$> Yaml.field "title" Yaml.string
-      <*> Yaml.field "tags" (Yaml.array Yaml.string)
-      <*> Yaml.field "description" Yaml.string
-      <*> Yaml.optField "rss_guid" Yaml.string
+      <$> o .: "title"
+      <*> o .: "tags"
+      <*> o .: "description"
+      <*> o .:? "rss_guid"
 
 slugFromPath :: FilePath -> String
 slugFromPath = drop 11 . takeBaseName

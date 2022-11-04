@@ -36,15 +36,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "nixpkgs-unstable",
-        "description": "DEPRECATED! This is an obsolete, read-only mirror of the NixOS/nixpkgs repository.",
-        "homepage": "https://github.com/NixOS/nixpkgs",
-        "owner": "NixOS",
-        "repo": "nixpkgs-channels",
-        "rev": "502845c3e31ef3de0e424f3fcb09217df2ce6df6",
-        "sha256": "0fcqpsy6y7dgn0y0wgpa56gsg0b0p8avlpjrd79fp4mp9bl18nda",
+        "branch": "master",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "3f450df5b48f627101bfba274a7679dbd2235cdc",
+        "sha256": "1g3mbcri9q91vn81l37653246brfzb3h6hcvnygjhsd9v7jz2pbq",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs-channels/archive/502845c3e31ef3de0e424f3fcb09217df2ce6df6.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/3f450df5b48f627101bfba274a7679dbd2235cdc.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pandoc-lens": {
@@ -53,10 +53,10 @@
         "homepage": null,
         "owner": "bradparker",
         "repo": "pandoc-lens",
-        "rev": "320bba506305f16e581b8fb31c32d3233975c2fc",
-        "sha256": "1xvj2i66w52bbm6rwrqvh7g0lfg9x8rdh9cljniifm4f89nzrjj7",
+        "rev": "9cd494f657e67c5a40a976b2d24c9693c0184693",
+        "sha256": "1dzidagizm9qh034ynzsr8fqsxd59lzw0qx0s3pbm4ifqz1sdms6",
         "type": "tarball",
-        "url": "https://github.com/bradparker/pandoc-lens/archive/320bba506305f16e581b8fb31c32d3233975c2fc.tar.gz",
+        "url": "https://github.com/bradparker/pandoc-lens/archive/9cd494f657e67c5a40a976b2d24c9693c0184693.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tachyons": {

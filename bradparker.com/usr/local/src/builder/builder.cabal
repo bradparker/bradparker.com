@@ -8,7 +8,7 @@ executable builder
   main-is:
     Main.hs
   build-depends:
-    base ^>=4.13.0.0,
+    base ^>=4.15.0.0,
     attoparsec,
     blaze-html,
     bytestring,
@@ -28,11 +28,11 @@ executable builder
     text,
     time,
     vector,
-    yaml-combinators,
+    yaml,
     zlib
   other-modules:
     Builder
-    Data.Yaml.Combinators.Extended
+    Data.Yaml.Extended
     Document
     Feed
     Frontmatter

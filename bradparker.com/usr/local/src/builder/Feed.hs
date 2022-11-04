@@ -74,7 +74,8 @@ item post =
    in RSSItem
         { rssItemTitle = Just (Text.pack post.title),
           rssItemLink = Just (Text.pack url),
-          rssItemDescription = Just (Markdown.toText (Markdown.absoluteUrls "https://bradparker.com" post.content)),
+          rssItemDescription = Just (Markdown.toText (Markdown.absoluteUrls "https://bradparker.com" post.description)),
+          rssItemContent = Just (Markdown.toText (Markdown.absoluteUrls "https://bradparker.com" post.content)),
           rssItemAuthor = Just "Brad Parker",
           rssItemCategories = [],
           rssItemComments = Nothing,

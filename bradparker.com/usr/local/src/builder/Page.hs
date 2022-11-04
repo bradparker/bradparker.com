@@ -7,7 +7,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE UndecidableInstances #-}
 {-# OPTIONS_GHC -Wall #-}
 {-# OPTIONS_GHC -Wno-name-shadowing #-}
 {-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
@@ -22,9 +24,11 @@ where
 
 import Builder (Builder)
 import qualified Data.ByteString.Lazy as LBS
-import qualified Data.Yaml.Combinators.Extended as Yaml
+import Data.Yaml ((.:))
+import qualified Data.Yaml as Yaml
 import qualified Document
 import GHC.Records.Compat (HasField)
+import qualified Html
 import Markdown (Markdown)
 import qualified Markdown
 import System.FilePath (takeExtension)
@@ -32,7 +36,6 @@ import Text.Blaze.Html (Html, (!))
 import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
-import qualified Html
 
 data Content = Html Html | Markdown Markdown
 
@@ -44,7 +47,7 @@ data Page = Page
 
 fromFile :: FilePath -> FilePath -> Builder Page
 fromFile path url = do
-  document <- Document.fromFile (Yaml.object (Yaml.field "title" Yaml.string)) path
+  document <- Document.fromFile (Yaml.withObject "PageFrontmatter" (.: "title")) path
   pure
     Page
       { url = url,
