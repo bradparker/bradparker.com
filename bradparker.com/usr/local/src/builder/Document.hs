@@ -94,7 +94,7 @@ component props children =
       title_ props.title
       H.meta ! A.charset "utf8"
       H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1"
-      me "https://toot.cafe/@brad"
+      me "https://bne.social/@brad"
       me "https://github.com/bradparker"
       me "https://twitter.com/@parkerbrads"
       H.link ! A.rel "webmention" ! A.href "https://webmention.io/bradparker.com/webmention"

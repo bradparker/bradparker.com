@@ -12,7 +12,7 @@ I've been making software professionally for about nine years and I really love 
 
 I can be found in some of the usual online places, say g'day if you have any questions about anything you've seen here.
 
-* [twitter/\@parkerbrads](https://mobile.twitter.com/@parkerbrads)
+* [bne.social/\@brad](https://bne.social/@brad)
 * [github/bradparker](https://github.com/bradparker)
-* [toot.cafe/\@brad](https://toot.cafe/@brad)
+* [twitter/\@parkerbrads](https://mobile.twitter.com/@parkerbrads)
 * [linkedin/brad-parker-40488456](https://www.linkedin.com/in/brad-parker-40488456/)
