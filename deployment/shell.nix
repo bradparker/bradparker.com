@@ -1,5 +1,5 @@
 let
-  nixpkgs = import ../nixpkgs.nix;
+  nixpkgs = import ../bradparker.com/usr/local/src/nixpkgs.nix;
 in
   nixpkgs.mkShell {
     buildInputs = with nixpkgs; [
