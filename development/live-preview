@@ -3,6 +3,6 @@
 set -exuo pipefail
 
 (
-  cd $(dirname $BASH_SOURCE)/../bradparker.com/usr/local/src
+  cd $(dirname $BASH_SOURCE)/../bradparker.com/usr/local/src/bradparker.com
   nix-shell --command 'overmind s'
 )

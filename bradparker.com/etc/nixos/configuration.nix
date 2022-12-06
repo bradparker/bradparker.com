@@ -2,7 +2,7 @@
 {
   imports = [
     "${modulesPath}/virtualisation/digital-ocean-config.nix"
-    <bradparker.com/module.nix>
+    "/usr/local/src/bradparker.com/module.nix"
   ];
 
   nix.gc = {
