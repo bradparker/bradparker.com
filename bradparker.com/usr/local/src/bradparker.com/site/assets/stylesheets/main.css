@@ -199,6 +199,7 @@
 }
 
 .markdown a[href] {
+  color: var(--fbc-blue-60);
   text-decoration: underline;
 }
 
@@ -207,7 +208,7 @@
 }
 
 .markdown a:visited {
-  color: hsl(0, 0%, 25%);
+  color: var(--fbc-blue-70);
 }
 
 .markdown img {
