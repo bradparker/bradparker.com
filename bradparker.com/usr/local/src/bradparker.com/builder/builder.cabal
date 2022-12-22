@@ -11,6 +11,7 @@ executable builder
     base ^>=4.15.0.0,
     attoparsec,
     blaze-html,
+    blaze-markup,
     bytestring,
     containers,
     directory,

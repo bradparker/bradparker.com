@@ -40,9 +40,9 @@ component posts =
             "Pleased to meet you."
       (H.footer ! A.class_ "bt b--near-white") do
         (H.section ! A.class_ "mw7 center flex flex-wrap lh-copy pa3") do
-          (H.a ! A.class_ "link hover-dark-green" ! A.href "https://bne.social/@brad" ! A.rel "me") do
+          (H.a ! A.class_ "link hover-dark-green mr1" ! A.href "https://bne.social/@brad" ! A.rel "me") do
             "bne.social/@brad"
-          (H.span ! A.class_ "moon-gray") do
+          (H.span ! A.class_ "moon-gray mr1") do
             " / "
           (H.a ! A.class_ "link hover-dark-green" ! A.href "https://github.com/bradparker" ! A.rel "me") do
             "github.com/bradparker"

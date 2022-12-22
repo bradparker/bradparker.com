@@ -56,10 +56,22 @@
 
 .tiempos-text {
   font-family:
-    Tiempos Text,
-    Georgia,
-    Times New Roman,
+    "Tiempos Text",
+    "Georgia",
+    "Times New Roman",
     serif;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-y-8 > * + * {
+  margin-top: 2rem;
 }
 
 .block-columns-2-ns {
@@ -77,7 +89,11 @@
 }
 
 .markdown {
-  font-family: "Tiempos Text", "Georgia", "Times New Roman", serif;
+  font-family:
+    "Tiempos Text",
+    "Georgia",
+    "Times New Roman",
+    serif;
 }
 
 .markdown h1,
