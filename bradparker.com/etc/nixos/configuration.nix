@@ -5,6 +5,8 @@
     "/usr/local/src/bradparker.com/module.nix"
   ];
 
+  system.stateVersion = "22.05";
+
   nix.gc = {
     automatic = true;
     dates = "00:00";
@@ -18,7 +20,7 @@
 
   services.openssh = {
     passwordAuthentication = false;
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
     permitRootLogin = "no";
   };
 
