@@ -1,5 +1,4 @@
 {-# LANGUAGE BlockArguments #-}
-{-# LANGUAGE LambdaCase #-}
 {-# OPTIONS_GHC -Wall #-}
 
 module Markdown
@@ -12,6 +11,7 @@ module Markdown
 where
 
 import Control.Lens ((%~), (&), _1, _2)
+import Data.Either (fromRight)
 import Data.Text (Text)
 import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
@@ -29,7 +29,7 @@ newtype Markdown = Markdown {unMarkdown :: Pandoc}
 read :: Text -> Markdown
 read =
   Markdown
-    . either (const mempty) id
+    . fromRight mempty
     . Pandoc.runPure
     . Pandoc.readCommonMark Pandoc.def
 

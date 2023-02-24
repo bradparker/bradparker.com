@@ -2,17 +2,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoFieldSelectors #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeSynonymInstances #-}
-{-# LANGUAGE UndecidableInstances #-}
 {-# OPTIONS_GHC -Wall #-}
-{-# OPTIONS_GHC -Wno-name-shadowing #-}
-{-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
 
 module Post
   ( Post (..),
@@ -33,7 +27,7 @@ import Data.Vector (Vector)
 import Data.Yaml.Extended ((.:), (.:?))
 import qualified Data.Yaml.Extended as Yaml
 import qualified Document
-import GHC.Records.Compat (HasField)
+import GHC.Records (HasField)
 import Markdown (Markdown)
 import qualified Markdown
 import System.FilePath (takeBaseName, takeFileName, (</>))

@@ -2,17 +2,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoFieldSelectors #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeSynonymInstances #-}
-{-# LANGUAGE UndecidableInstances #-}
 {-# OPTIONS_GHC -Wall #-}
-{-# OPTIONS_GHC -Wno-name-shadowing #-}
-{-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
 
 module Tag
   ( render,
@@ -27,7 +21,7 @@ import Data.Foldable (traverse_)
 import Data.Map (Map)
 import qualified Data.Map as Map
 import qualified Document
-import Post (Post)
+import Post (Post(..))
 import qualified PostSummary
 import System.FilePath ((</>))
 import Text.Blaze.Html (Html, (!))

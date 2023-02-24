@@ -2,17 +2,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoFieldSelectors #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeSynonymInstances #-}
-{-# LANGUAGE UndecidableInstances #-}
 {-# OPTIONS_GHC -Wall #-}
-{-# OPTIONS_GHC -Wno-name-shadowing #-}
-{-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
 
 module Document
   ( component,
@@ -32,7 +26,7 @@ import Data.Text (Text)
 import qualified Data.Text.Encoding as Text
 import qualified Data.Yaml as Yaml
 import qualified Frontmatter
-import GHC.Records.Compat (HasField)
+import GHC.Records (HasField)
 import Text.Blaze.Html (Html, (!))
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A

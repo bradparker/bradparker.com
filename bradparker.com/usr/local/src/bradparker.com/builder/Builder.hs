@@ -1,18 +1,10 @@
 {-# LANGUAGE BlockArguments #-}
-{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoFieldSelectors #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE TypeSynonymInstances #-}
 {-# OPTIONS_GHC -Wall #-}
-{-# OPTIONS_GHC -Wno-name-shadowing #-}
-{-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
 
 module Builder
   ( build,
@@ -31,7 +23,6 @@ import qualified Codec.Compression.GZip as GZip
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad.Reader (ReaderT (runReaderT), asks)
 import qualified Data.ByteString.Lazy as LBS
-import Data.Foldable (asum)
 import Options.Applicative as OptParse
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath (dropDrive, takeDirectory, (<.>), (</>))

@@ -2,22 +2,17 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoFieldSelectors #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeSynonymInstances #-}
 {-# OPTIONS_GHC -Wall #-}
-{-# OPTIONS_GHC -Wno-name-shadowing #-}
-{-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
 
 module Home (render) where
 
 import qualified Data.ByteString.Lazy as LBS
 import Data.Foldable (traverse_)
 import qualified Document
-import Post (Post)
+import Post (Post(..))
 import qualified PostSummary
 import Text.Blaze.Html (Html, (!))
 import Text.Blaze.Html.Renderer.Utf8 (renderHtml)

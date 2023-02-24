@@ -2,17 +2,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoFieldSelectors #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeSynonymInstances #-}
-{-# LANGUAGE UndecidableInstances #-}
 {-# OPTIONS_GHC -Wall #-}
-{-# OPTIONS_GHC -Wno-name-shadowing #-}
-{-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
 
 module Page
   ( Page (..),
@@ -28,7 +22,7 @@ import Data.Text (Text)
 import Data.Yaml ((.:))
 import qualified Data.Yaml as Yaml
 import qualified Document
-import GHC.Records.Compat (HasField)
+import GHC.Records (HasField)
 import Markdown (Markdown)
 import qualified Markdown
 import System.FilePath (takeExtension)
@@ -61,7 +55,7 @@ fromFile path url = do
 render :: Page -> LBS.ByteString
 render page = renderHtml $
   component page $
-    case Page.content page of
+    case page.content of
       Markdown c -> Markdown.toHtml c
       Html c -> H.preEscapedToMarkup c
 

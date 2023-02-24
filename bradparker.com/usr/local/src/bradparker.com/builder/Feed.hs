@@ -1,15 +1,12 @@
+{-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoFieldSelectors #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeSynonymInstances #-}
 {-# OPTIONS_GHC -Wall #-}
-{-# OPTIONS_GHC -Wno-name-shadowing #-}
-{-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
 
 module Feed (render) where
 
@@ -22,7 +19,7 @@ import qualified Data.Text.Lazy.Encoding as Text
 import Data.Time (Day, UTCTime (UTCTime))
 import Data.Time.Format (defaultTimeLocale, formatTime, rfc822DateFormat)
 import qualified Markdown
-import Post (Post)
+import Post (Post(..))
 import System.FilePath ((</>))
 import Text.RSS.Export (textRSS)
 import Text.RSS.Syntax (RSS (..), RSSChannel (..), RSSGuid (..), RSSItem (..))

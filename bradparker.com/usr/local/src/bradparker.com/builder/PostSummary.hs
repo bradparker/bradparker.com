@@ -2,15 +2,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoFieldSelectors #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeSynonymInstances #-}
 {-# OPTIONS_GHC -Wall #-}
-{-# OPTIONS_GHC -Wno-name-shadowing #-}
-{-# OPTIONS_GHC -fplugin=RecordDotPreprocessor #-}
 
 module PostSummary
   ( component,
@@ -21,7 +17,7 @@ import Data.Foldable (for_)
 import Data.String (IsString (fromString))
 import Data.Time (Day)
 import Data.Vector (Vector)
-import GHC.Records.Compat (HasField)
+import GHC.Records (HasField)
 import Markdown (Markdown)
 import qualified Markdown
 import qualified Post

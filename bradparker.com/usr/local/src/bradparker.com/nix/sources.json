@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "3f450df5b48f627101bfba274a7679dbd2235cdc",
-        "sha256": "1g3mbcri9q91vn81l37653246brfzb3h6hcvnygjhsd9v7jz2pbq",
+        "rev": "c029b91d68e08d42d5397fc8d481cf4236688522",
+        "sha256": "03srcpvs7b3f1wp6ilcn4ay2a34w03n4ghypw09a00vxr9nxszb8",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/3f450df5b48f627101bfba274a7679dbd2235cdc.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/c029b91d68e08d42d5397fc8d481cf4236688522.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pandoc-lens": {
@@ -41,22 +41,22 @@
         "homepage": null,
         "owner": "bradparker",
         "repo": "pandoc-lens",
-        "rev": "9cd494f657e67c5a40a976b2d24c9693c0184693",
-        "sha256": "1dzidagizm9qh034ynzsr8fqsxd59lzw0qx0s3pbm4ifqz1sdms6",
+        "rev": "5038793648e0de1e47c6764ac657ff8fe4bf9c85",
+        "sha256": "1y9c9bqvwvrncw47fi72l9nah00i61g04jpjbhakfn7bc9dasc1w",
         "type": "tarball",
-        "url": "https://github.com/bradparker/pandoc-lens/archive/9cd494f657e67c5a40a976b2d24c9693c0184693.tar.gz",
+        "url": "https://github.com/bradparker/pandoc-lens/archive/5038793648e0de1e47c6764ac657ff8fe4bf9c85.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tachyons": {
-        "branch": "master",
+        "branch": "main",
         "description": "Functional css for humans",
         "homepage": "https://tachyons.io",
         "owner": "tachyons-css",
         "repo": "tachyons",
-        "rev": "79f4de4ea4b999200cfe0cf6c53738a18bc399c3",
-        "sha256": "0nsj1cwarwn3flpz4jb1vs1dj3h489j7m303wyqj5057s7grz6ns",
+        "rev": "139156c724f8b3e4155ca75d8e353a172c541c36",
+        "sha256": "0l9scasqzn2awfvnm2qw7dgfcqggz5ydh6nj2ly0yfffchzf3s0x",
         "type": "tarball",
-        "url": "https://github.com/tachyons-css/tachyons/archive/79f4de4ea4b999200cfe0cf6c53738a18bc399c3.tar.gz",
+        "url": "https://github.com/tachyons-css/tachyons/archive/139156c724f8b3e4155ca75d8e353a172c541c36.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
