@@ -61,7 +61,7 @@ title_ :: String -> Html
 title_ page =
   H.title $
     H.string $
-      "Brad Parker - Designer + Developer"
+      "Brad Parker"
         <> if null page
           then ""
           else " / " <> page
@@ -104,12 +104,6 @@ component props children =
             (H.a ! A.href "/" ! A.class_ "link hover-dark-green") do
               (H.h1 ! A.class_ "f5 ma0 b dib") do
                 "Brad Parker"
-            " — "
-            navLink props.url "/tags/design" do
-              "Designer"
-            " + "
-            navLink props.url "/tags/development" do
-              "Developer"
           H.nav do
             navLink props.url "/posts" do
               "Posts"

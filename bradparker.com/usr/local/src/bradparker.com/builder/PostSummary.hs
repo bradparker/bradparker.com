@@ -38,20 +38,20 @@ component ::
   Html
 component props =
   H.article do
-    (H.header ! A.class_ "bb b--near-white sticky top-0 bg-white") do
-      (H.section ! A.class_ "mw7 center lh-copy pa3 flex flex-wrap justify-between") do
-        (H.a ! A.href (fromString ("/" </> props.url)) ! A.class_ "link hover-dark-green") do
-          (H.h1 ! A.class_ "f5 ma0") do
+    (H.header ! A.class_ "bb b--near-white sticky top-0 bg-white flex") do
+      (H.section ! A.class_ "w-100 mw7 center lh-copy pa3 flex flex-wrap align-center g2") do
+        (H.a ! A.href (fromString ("/" </> props.url)) ! A.class_ "link hover-dark-green mr-auto") do
+          (H.h1 ! A.class_ "f4 ma0") do
             H.strong do
               H.string props.title
               " "
-            (H.div ! A.class_ "dib") do
-              "— "
-              H.string (Post.formattedDate props.date)
-        (H.div ! A.class_ "post-tags") do
-          for_ props.tags \tag ->
-            (H.span ! A.class_ "ttc") do
-              H.string tag
+        (H.div ! A.class_ "flex flex-wrap align-center shrink-0 g2") do
+          H.div do
+            H.string (Post.formattedDate props.date)
+          (H.div ! A.class_ "flex g2") do
+            for_ props.tags \tag ->
+              (H.a ! A.class_ "ttc hover-dark-green" ! A.href (fromString ("/tags" </> tag))) do
+                H.string tag
 
     (H.section ! A.class_ "mw7 center pa3 pt4 block-columns-2-ns markdown lh-copy") do
       Markdown.toHtml props.description

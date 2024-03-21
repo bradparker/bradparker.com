@@ -109,7 +109,6 @@ component props children =
           (H.h1 ! A.class_ "f2 lh-solid b ma0 mv3") do
             H.string props.title
           (H.p ! A.class_ "mv3") do
-            H.small do
-              H.string ("Posted on " <> formattedDate props.date)
+            H.string ("Posted on " <> formattedDate props.date)
           (H.section ! A.class_ "markdown markdown--full") do
             children

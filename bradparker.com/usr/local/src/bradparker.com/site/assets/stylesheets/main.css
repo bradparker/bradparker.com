@@ -139,7 +139,7 @@
 .markdown p > code, .markdown a > code, .markdown li > code {
   background-color: #f0c674;
   padding: 0.12rem 0.3rem 0.16rem;
-  border-radius: 0.12rem;
+  border-radius: 0.5rem;
   box-decoration-break: clone;
 }
 
@@ -214,6 +214,7 @@
 .markdown img {
   width: 100%;
   display: block;
+  border-radius: 0.5rem;
 }
 
 .markdown li {
@@ -234,7 +235,7 @@
 
 .markdown ol li:before {
   counter-increment: order;
-  content: counter(order);
+  content: counter(order)".";
   left: 0;
   top: 0;
   position: absolute;
@@ -255,7 +256,7 @@
   padding: 0.875rem;
   white-space: pre;
   word-wrap: normal;
-  border-radius: 0.125rem;
+  border-radius: 0.5rem;
   font-size: 0.875rem;
 }
 
@@ -347,12 +348,16 @@
     1px 1px 0 white;
 }
 
-.post-tags > a {
-  display: inline-block;
-  text-transform: capitalize;
+.g2 {
+  gap: 0.5rem;
 }
-.post-tags > a:hover {
-  color: #137752;
+
+.align-center {
+  align-items: center;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
 }
 
 @media print {

@@ -30,7 +30,7 @@ component posts =
         (H.h1 ! A.class_ "f2 ttu tc founders-grotesk-extra-condensed lh-title mt2 mb2") do
           (H.span ! A.class_ "fine-underline") do
             "Hi, I'm"
-          H.img ! A.alt "Brad" ! A.src "/assets/images/brad.jpg" ! A.class_ "mw6 w-100 center db"
+          H.img ! A.alt "Brad" ! A.src "/assets/images/brad.webp" ! A.class_ "mw6 w-100 center db"
           (H.span ! A.class_ "fine-underline") do
             "Pleased to meet you."
       (H.footer ! A.class_ "bt b--near-white") do
