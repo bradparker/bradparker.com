@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -exuo pipefail
+
+(
+  cd $(dirname $BASH_SOURCE)/..
+  rg '^([0-9]{4})-([0-9]{2}).*"GET /posts/([a-z-]+) HTTP.*$' --replace '$1 $2 $3' logs/bradparker.com.log | sort| uniq -c | less
+)

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -exuo pipefail
+
+(
+  cd $(dirname $BASH_SOURCE)/..
+  mkdir -p logs
+  ssh $1 "journalctl -u bradparker.com.service --output=short-iso" > logs/bradparker.com.log
+)
