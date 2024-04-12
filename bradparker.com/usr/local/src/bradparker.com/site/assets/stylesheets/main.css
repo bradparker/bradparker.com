@@ -199,7 +199,7 @@
 }
 
 .markdown a[href] {
-  color: var(--fbc-blue-60);
+  color:  #00449e;
   text-decoration: underline;
 }
 
@@ -208,7 +208,7 @@
 }
 
 .markdown a:visited {
-  color: var(--fbc-blue-70);
+  color: #5e2ca5
 }
 
 .markdown img {
