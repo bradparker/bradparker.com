@@ -12,6 +12,7 @@ module Post
   ( Post (..),
     component,
     fromFile,
+    fromFileToNamespace,
     render,
     formattedDate,
   )
@@ -68,13 +69,13 @@ slugFromPath = drop 11 . takeBaseName
 dateFromPath :: FilePath -> IO Day
 dateFromPath = iso8601ParseM . take 10 . takeFileName
 
-fromFile :: FilePath -> Builder Post
-fromFile path = do
+fromFileToNamespace :: String -> FilePath -> Builder Post
+fromFileToNamespace namespace path = do
   document <- Document.fromFile frontmatterParser path
   date <- liftIO (dateFromPath path)
   pure
     Post
-      { url = "posts" </> slugFromPath path,
+      { url = namespace </> slugFromPath path,
         date = date,
         title = document.frontmatter.title,
         tags = document.frontmatter.tags,
@@ -82,6 +83,9 @@ fromFile path = do
         content = Markdown.read document.content,
         rssGuid = document.frontmatter.rssGuid
       }
+
+fromFile :: FilePath -> Builder Post
+fromFile = fromFileToNamespace "posts"
 
 render :: Post -> ByteString
 render post =

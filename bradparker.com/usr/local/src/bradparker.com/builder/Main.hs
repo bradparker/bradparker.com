@@ -53,4 +53,7 @@ main = do
     resume <- Page.fromFile "content/resume.html" "/resume"
     toFile resume.url (Page.render resume)
 
+    notes <- traverse (Post.fromFileToNamespace "notes") =<< getDirectoryFiles ["content/notes/*.md"]
+    traverse_ (toFile <$> (.url) <*> Post.render) notes
+
     traverse_ (outputFile "rss.xml") (Feed.render posts)
