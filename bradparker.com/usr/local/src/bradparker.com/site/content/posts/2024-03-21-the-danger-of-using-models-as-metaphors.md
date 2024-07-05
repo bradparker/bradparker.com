@@ -30,9 +30,14 @@ I'm not exactly sure where all this leads me. Wanting to apply the scientific me
 ## Notes
 
 <ol>
-<li id="footnote-1">
-<blockquote>And then there is the idea of simulation itself, where the whole idea of “data” and “state” starts to get eclipsed by “competent objects” that can cooperate, much more like biological cells and human societies can.</blockquote>
-
-<cite>From Alan Kay answering the question <a href="https://www.quora.com/What-thought-process-would-lead-one-to-invent-object-oriented-programming/answer/Alan-Kay-11">'What thought process would lead one to invent object-oriented programming?' on Quora</a></cite>
-</li>
+  <li id="footnote-1" class="markdown">
+    <blockquote>
+      <p>And then there is the idea of simulation itself, where the whole idea of “data” and “state” starts to get eclipsed by “competent objects” that can cooperate, much more like biological cells and human societies can.</p>
+    </blockquote>
+    <p>
+      <cite>
+        From Alan Kay answering the question <a href="https://www.quora.com/What-thought-process-would-lead-one-to-invent-object-oriented-programming/answer/Alan-Kay-11">'What thought process would lead one to invent object-oriented programming?' on Quora</a>
+      </cite>
+    </p>
+  </li>
 </ol>

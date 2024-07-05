@@ -144,7 +144,7 @@
   box-decoration-break: clone;
 }
 
-.markdown * + * {
+.markdown > * + * {
   margin-top: 1rem;
 }
 
@@ -156,6 +156,10 @@
   padding-left: 1.6rem;
   position: relative;
   z-index: 0;
+}
+
+.markdown blockquote > * + * {
+  margin-top: 1rem;
 }
 
 .markdown blockquote:before {
@@ -234,16 +238,12 @@
   counter-reset: order;
 }
 
-.markdown ol li:before {
+.markdown ol > li:before {
   counter-increment: order;
   content: counter(order)".";
   left: 0;
   top: 0;
   position: absolute;
-}
-
-.markdown li + li {
-  margin-top: 0;
 }
 
 .markdown hr {

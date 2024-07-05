@@ -12,8 +12,10 @@ The Real numbers can be defined as a set, &#x211D;, along with two operators, + 
   <math>
     <mrow>
       <mo>(</mo>
-      <mi normal>&#x211D;</mi>,
-      <mo>+</mo>,
+      <mi normal>&#x211D;</mi>
+      <mo>,</mo>
+      <mo>+</mo>
+      <mo>,</mo>
       <mo>&bullet;</mo>
       <mo>)</mo>
     </mrow>
@@ -44,11 +46,14 @@ The following 9 axioms complete the description.
 <p>
   <math>
     <mrow>
-      <mi>x</mi>,&nbsp;
-      <mi>y</mi>,&nbsp;
+      <mi>x</mi>
+      <mo>,</mo>
+      <mi>y</mi>
+      <mo>,</mo>
       <mi>z</mi>
       <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>.&nbsp;
+      <mi normal>&#x211D;</mi>
+      <mo>.</mo>
       <mi>x</mi>
       <mo>+</mo>
       <mo>(</mo>
@@ -74,10 +79,12 @@ The following 9 axioms complete the description.
 <p>
   <math>
     <mrow>
-      <mi>x</mi>,&nbsp;
+      <mi>x</mi>
+      <mo>,</mo>
       <mi>y</mi>
       <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>.&nbsp;
+      <mi normal>&#x211D;</mi>
+      <mo>.</mo>
       <mi>x</mi>
       <mo>+</mo>
       <mi>y</mi>
@@ -106,7 +113,8 @@ There is an additive identity element.
       <mo>&#x2200;</mo>
       <mi>x</mi>
       <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>.&nbsp;
+      <mi normal>&#x211D;</mi>
+      <mo>.</mo>
       <mn>0</mn>
       <mo>+</mo>
       <mi>x</mi>
@@ -116,7 +124,7 @@ There is an additive identity element.
   </math>
 </p>
 
-### Additive inverse
+### Additive inverse (<a id="additive-inverse" href="#additive-inverse">#</a>)
 
 There is an additive inverse for every element.
 
@@ -129,13 +137,13 @@ There is an additive inverse for every element.
       <mi normal>&#x211D;</mi>&nbsp;
       <mo>&#x2203;</mo>
       <mo>(</mo>
-      <mi>-x</mi>
+      <mrow><mo>&minus;</mo><mi>x</mi></mrow>
       <mo>)</mo>
       <mo>&#x220B;</mo>
       <mi>x</mi>
       <mo>+</mo>
       <mo>(</mo>
-      <mi>-x</mi>
+      <mrow><mo>&minus;</mo><mi>x</mi></mrow>
       <mo>)</mo>
       <mo>=</mo>
       <mn>0</mn>
@@ -148,11 +156,14 @@ There is an additive inverse for every element.
 <p>
   <math>
     <mrow>
-      <mi>x</mi>,&nbsp;
-      <mi>y</mi>,&nbsp;
+      <mi>x</mi>
+      <mo>,</mo>
+      <mi>y</mi>
+      <mo>,</mo>
       <mi>z</mi>
       <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>.&nbsp;
+      <mi normal>&#x211D;</mi>
+      <mo>.</mo>
       <mi>x</mi>
       <mo>(</mo>
       <mi>y</mi>
@@ -173,10 +184,12 @@ There is an additive inverse for every element.
 <p>
   <math>
     <mrow>
-      <mi>x</mi>,&nbsp;
+      <mi>x</mi>
+      <mo>,</mo>
       <mi>y</mi>
       <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>.&nbsp;
+      <mi normal>&#x211D;</mi>
+      <mo>.</mo>
       <mi>x</mi>
       <mi>y</mi>
       <mo>=</mo>
@@ -199,7 +212,8 @@ There is an additive inverse for every element.
       <mo>&#x2200;</mo>
       <mi>x</mi>
       <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>.&nbsp;
+      <mi normal>&#x211D;</mi>
+      <mo>.</mo>
       <mn>1</mn>
       <mi>x</mi>
       <mo>=</mo>
@@ -220,24 +234,27 @@ For every element, except 0, there is a multiplicative inverse.
       <mo>&#x2208;</mo>
       <mo>(</mo>
       <mi normal>&#x211D;</mi>
-      <mo>-</mo>
+      <mo>&minus;</mo>
       <mo>{</mo>
       <mn>0</mn>
       <mo>}</mo>
-      <mo>)</mo>&nbsp;
+      <mo>)</mo>
+      <mo>,</mo>
       <mo>&#x2203;</mo>
       <mo>(</mo>
       <msup>
         <mi>x</mi>
-        <mn>-1</mn>
+        <mrow><mo>&minus;</mo><mn>1</mn></mrow>
       </msup>
       <mo>)</mo>
+      <mo>&#x2208;</mo>
+      <mi normal>&#x211D;</mi>
       <mo>&#x220B;</mo>
       <mi>x</mi>
       <mo>(</mo>
       <msup>
         <mi>x</mi>
-        <mn>-1</mn>
+        <mrow><mo>&minus;</mo><mn>1</mn></mrow>
       </msup>
       <mo>)</mo>
       <mo>=</mo>
@@ -251,11 +268,14 @@ For every element, except 0, there is a multiplicative inverse.
 <p>
   <math>
     <mrow>
-      <mi>x</mi>,&nbsp;
-      <mi>y</mi>,&nbsp;
+      <mi>x</mi>
+      <mo>,</mo>
+      <mi>y</mi>
+      <mo>,</mo>
       <mi>z</mi>
       <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>.&nbsp;
+      <mi normal>&#x211D;</mi>
+      <mo>.</mo>
       <mi>x</mi>
       <mo>(</mo>
       <mi>y</mi>
@@ -274,13 +294,14 @@ For every element, except 0, there is a multiplicative inverse.
 
 ## Toolkit
 
-### Multiplying by zero
+### Multiplication by zero (<a id="multiplication-by-zero" href="#multiplication-by-zero">#</a>)
 
 Multiplying any element by zero equals zero.
 
 <p>
   <math>
     <mrow>
+      <mi>x</mi><mo>&#x2208;</mo><mi normal>&#x211D;</mi><mo>.</mo>
       <mi>x</mi><mn>0</mn><mo>=</mo><mn>0</mn>
     </mrow>
   </math>
@@ -296,7 +317,7 @@ Multiplying any element by zero equals zero.
   </math>
 </p>
 
-As per the [the additive identity axiom](#additive-identity) <math><mrow><mn>0</mn><mo>=</mo><mn>0</mn><mo>+</mo><mn>0</mn></math>.
+[The additive identity axiom](#additive-identity) tells us that <math><mrow><mn>0</mn><mo>=</mo><mn>0</mn><mo>+</mo><mn>0</mn></math>.
 
 <p>
   <math>
@@ -316,4 +337,43 @@ As per the [the additive identity axiom](#additive-identity) <math><mrow><mn>0</
   </math>
 </p>
 
-This matches [the additive identity axiom](#additive-identity) where <math><mrow><mi>x</mi><mn>0</mn></mrow></math> is 0. Therefore <math><mrow><mi>x</mi><mn>0</mn><mo>=</mo><mn>0</mn></mrow></math>.
+This matches [the additive identity axiom](#additive-identity) where <math><mi>x</mi><mo>=</mo><mn>0</mn></math>. Therefore <math><mrow><mi>x</mi><mn>0</mn><mo>=</mo><mn>0</mn></mrow></math>.
+
+### Multiplication by negative one
+
+Multiplying any element by negative one yields the additive inverse for that element.
+
+<p>
+  <math>
+    <mrow>
+      <mi>x</mi><mo>&#x2208;</mo><mi normal>&#x211D;</mi><mo>.</mo>
+      <mi>x</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo><mo>=</mo><mrow><mo>&minus;</mo><mi>x</mi></mrow>
+    </mrow>
+  </math>
+</p>
+
+#### Proof
+
+Given the knowledge that <a href="#multiplication-by-zero"><math><mrow><mn>0</mn><mo>=</mo><mi>x</mi><mn>0</mn></mrow></math></a>, and using the [additive inverse](#additive-inverse) for 1 we can write the following equation.
+
+<p>
+  <math>
+    <mrow>
+      <mn>0</mn>
+      <mo>=</mo>
+      <mi>x</mi><mo>(</mo><mn>1</mn><mo>+</mo><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo><mo>)</mo>
+    </mrow>
+  </math>
+</p>
+
+Which we can rewrite using the knowledge that [multiplication distributes over addition](#multiplication-distributes-over-addition)
+
+<p>
+  <math>
+    <mrow>
+      <mn>0</mn><mo>=</mo><mi>x</mi><mo>+</mo><mi>x</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo>
+    </mrow>
+  </math>
+</p>
+
+Which is the same as the equation for the [additive inverse](#additive-inverse). Therefore <math><mrow><mi>x</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo><mo>=</mo><mrow><mo>&minus;</mo><mi>x</mi></mrow></mrow></math>.
