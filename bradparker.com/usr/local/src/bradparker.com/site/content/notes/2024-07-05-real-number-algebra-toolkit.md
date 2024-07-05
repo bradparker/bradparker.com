@@ -235,9 +235,11 @@ For every element, except 0, there is a multiplicative inverse.
       <mo>(</mo>
       <mi normal>&#x211D;</mi>
       <mo>&minus;</mo>
-      <mo>{</mo>
-      <mn>0</mn>
-      <mo>}</mo>
+      <mrow>
+        <mo>{</mo>
+        <mn>0</mn>
+        <mo>}</mo>
+      </mrow>
       <mo>)</mo>
       <mo>,</mo>
       <mo>&#x2203;</mo>
