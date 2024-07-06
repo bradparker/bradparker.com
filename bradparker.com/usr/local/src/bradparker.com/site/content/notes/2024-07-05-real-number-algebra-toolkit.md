@@ -74,7 +74,7 @@ The following 9 axioms complete the description.
 </p>
 
 
-### Addition is commutative
+### Addition is commutative (<a id="addition-is-commutative" href="#addition-is-commutative">#</a>)
 
 <p>
   <math>
@@ -151,7 +151,7 @@ There is an additive inverse for every element.
   </math>
 </p>
 
-### Multiplication is associative
+### Multiplication is associative (<a id="multiplication-is-associative"  href="#multiplication-is-associative">#</a>)
 
 <p>
   <math>
@@ -179,7 +179,7 @@ There is an additive inverse for every element.
   </math>
 </p>
 
-### Multiplication is commutative
+### Multiplication is commutative (<a id="multiplication-is-commutative"  href="#multiplication-is-commutative">#</a>)
 
 <p>
   <math>
@@ -199,7 +199,7 @@ There is an additive inverse for every element.
   </math>
 </p>
 
-### Multiplicative identity
+### Multiplicative identity (<a id="multiplicative-identity" href="#multiplicative-identity">#</a>)
 
 <p>
   <math>
@@ -341,7 +341,7 @@ Multiplying any element by zero equals zero.
 
 This matches [the additive identity axiom](#additive-identity) where <math><mi>x</mi><mo>=</mo><mn>0</mn></math>. Therefore <math><mrow><mi>x</mi><mn>0</mn><mo>=</mo><mn>0</mn></mrow></math>.
 
-### Multiplication by negative one
+### Multiplication by negative one (<a id="multiplication-by-negative-one" href="#multiplication-by-negative-one">#</a>)
 
 Multiplying any element by negative one yields the additive inverse for that element.
 
@@ -379,3 +379,207 @@ Which we can rewrite using the knowledge that [multiplication distributes over a
 </p>
 
 Which is the same as the equation for the [additive inverse](#additive-inverse). Therefore <math><mrow><mi>x</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo><mo>=</mo><mrow><mo>&minus;</mo><mi>x</mi></mrow></mrow></math>.
+
+### The additive inverse of an additive inverse is identity (<a id="double-additive-inverse" href="#double-additive-inverse">#</a>)
+
+<p>
+  <math>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+      <mrow><mo>&minus;</mo><mi>x</mi></mrow>
+      <mo>)</mo>
+      <mo>=</mo>
+      <mi>x</mi>
+    </mrow>
+  </math>
+</p>
+
+#### Proof
+
+This is true by definition.
+
+<p>
+  <math>
+    <mrow>
+      <mi>x</mi>
+      <mo>+</mo>
+      <mo>(</mo>
+      <mrow><mo>&minus;</mo><mi>x</mi></mrow>
+      <mo>)</mo>
+      <mo>=</mo>
+      <mn>0</mn>
+    </mrow>
+  </math>
+</p>
+
+Now let <math><mi>x</mi></math> be <math><mo>(</mo><mrow><mo>&minus;</mo><mi>x</mi></mrow><mo>)</mo></math>.
+
+<p>
+  <math>
+    <mrow>
+      <mo>(</mo>
+      <mrow><mo>&minus;</mo><mi>x</mi></mrow>
+      <mo>)</mo>
+      <mo>+</mo>
+      <mo>(</mo>
+      <mrow>
+        <mo>&minus;</mo>
+        <mo>(</mo>
+        <mrow><mo>&minus;</mo><mi>x</mi></mrow>
+        <mo>)</mo>
+      </mrow>
+      <mo>)</mo>
+      <mo>=</mo>
+      <mn>0</mn>
+    </mrow>
+  </math>
+</p>
+
+We can use the knowledge that [addition is commutative](#addition-is-commutative) to make the match to the additive inverse definition very clear.
+
+<p>
+  <math>
+    <mtable>
+      <mtr>
+        <mtd style="text-align: right">
+          <mo>(</mo>
+          <mrow>
+            <mo>&minus;</mo>
+            <mo>(</mo>
+            <mrow><mo>&minus;</mo><mi>x</mi></mrow>
+            <mo>)</mo>
+          </mrow>
+          <mo>)</mo>
+          <mo>+</mo>
+          <mo>(</mo>
+          <mrow><mo>&minus;</mo><mi>x</mi></mrow>
+          <mo>)</mo>
+        </mtd>
+        <mtd>
+          <mo>=</mo>
+          <mn>0</mn>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd style="text-align: right">
+          <mi>x</mi>
+          <mo>+</mo>
+          <mo>(</mo>
+          <mrow><mo>&minus;</mo><mi>x</mi></mrow>
+          <mo>)</mo>
+        </mtd>
+        <mtd>
+          <mo>=</mo>
+          <mn>0</mn>
+        </mtd>
+      </mtr>
+    </mtable>
+  </math>
+</p>
+
+### Additive inverse multiplied by additive inverse
+
+When an additive inverse is multiplied by another additive inverse the result is doubly inverted.
+
+<p>
+  <math>
+    <mrow><mo>&minus;</mo><mi>x</mi></mrow>
+    <mo>(</mo>
+    <mrow><mo>&minus;</mo><mi>y</mi></mrow>
+    <mo>)</mo>
+    <mo>=</mo>
+    <mi>x</mi>
+    <mi>y</mi>
+  </math>
+</p>
+
+#### Proof
+
+We can use the knowledge that [multiplying any element by negative one yields the additive inverse for that element](#multiplication-by-negative-one) to rewrite the expression.
+
+<p>
+  <math>
+    <mi>x</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo>
+    <mo>(</mo>
+    <mi>y</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo>
+    <mo>)</mo>
+    <mo>=</mo>
+    <mi>x</mi>
+    <mi>y</mi>
+  </math>
+</p>
+
+Which we can rewrite using the knowledge that [multiplication is associative](#multiplication-is-associative).
+
+<p>
+  <math>
+    <mi>x</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo>
+    <mi>y</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo>
+    <mo>=</mo>
+    <mi>x</mi>
+    <mi>y</mi>
+  </math>
+</p>
+
+Which we can rewrite using the knowledge that [multiplication is commutative](#multiplication-is-commutative).
+
+<p>
+  <math>
+    <mi>x</mi>
+    <mi>y</mi>
+    <mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo>
+    <mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo>
+    <mo>=</mo>
+    <mi>x</mi>
+    <mi>y</mi>
+  </math>
+</p>
+
+Which we can rewrite using the knowledge that [multiplication by negative one is the additive inverse](#multiplication-by-negative-one).
+
+<p>
+  <math>
+    <mi>x</mi>
+    <mi>y</mi>
+    <mo>(</mo>
+      <mrow>
+        <mo>&minus;</mo>
+        <mo>(</mo>
+          <mrow>
+            <mo>&minus;</mo>
+            <mn>1</mn>
+          </mrow>
+        <mo>)</mo>
+      </mrow>
+    <mo>)</mo>
+    <mo>=</mo>
+    <mi>x</mi>
+    <mi>y</mi>
+  </math>
+</p>
+
+Which we can rewrite using the knowledge that [the additive inverse of an additive inverse is identity](#double-additive-inverse).
+
+<p>
+  <math>
+    <mi>x</mi>
+    <mi>y</mi>
+    <mn>1</mn>
+    <mo>=</mo>
+    <mi>x</mi>
+    <mi>y</mi>
+  </math>
+</p>
+
+Which we can rewrite using the knowledge that [1 is the multiplicative identity element](#multiplicative-identity).
+
+<p>
+  <math>
+    <mi>x</mi>
+    <mi>y</mi>
+    <mo>=</mo>
+    <mi>x</mi>
+    <mi>y</mi>
+  </math>
+</p>
