@@ -837,7 +837,7 @@ We can rewrite this expression using the knowledge that [multiplication by negat
               <mrow>
                 <mn>1</mn>
                 <mover>
-                  <mover>
+                  <mover accent="true">
                     <mrow>
                       <mo>&bullet;</mo>
                       <mi>x</mi>
@@ -861,7 +861,7 @@ We can rewrite this expression using the knowledge that [multiplication by negat
               <mrow>
                 <mn>1</mn>
                 <mover>
-                  <mover>
+                  <mover accent="true">
                     <mrow>
                       <mo>&bullet;</mo>
                       <mo>(</mo><msup><mi>x</mi><mrow><mo>&minus;</mo><mn>1</mn></mrow></msup><mo>)</mo>
