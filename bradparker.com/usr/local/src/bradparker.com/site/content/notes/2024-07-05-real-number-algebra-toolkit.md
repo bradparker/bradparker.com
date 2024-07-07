@@ -583,3 +583,237 @@ Which we can rewrite using the knowledge that [1 is the multiplicative identity 
     <mi>y</mi>
   </math>
 </p>
+
+### Multiplication by an additive inverse produces an additive inverse (<a id="multiplication-by-additive-inverse" href="#multiplication-by-additive-inverse">#</a>)
+
+<p>
+  <math>
+    <mi>x</mi>
+    <mo>(</mo>
+      <mrow>
+        <mo>&minus;</mo>
+        <mi>y</mi>
+      </mrow>
+    <mo>)</mo>
+    <mo>=</mo>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+      <mo>)</mo>
+    </mrow>
+  </math>
+</p>
+
+#### Proof
+
+Using the knowledge that [the additive inverse for an element is equal to multiplying that element by negative one](#multiplication-by-negative-one) we can write the following expression.
+
+<p>
+  <math>
+    <mi>x</mi>
+    <mo>(</mo>
+      <mi>y</mi>
+      <mo>(</mo>
+        <mrow>
+          <mo>&minus;</mo>
+          <mn>1</mn>
+        </mrow>
+      <mo>)</mo>
+    <mo>)</mo>
+    <mo>=</mo>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+      <mo>)</mo>
+    </mrow>
+  </math>
+</p>
+
+Which we can rewrite using the knowledge that [multiplication is associative](#multiplication-is-associative).
+
+<p>
+  <math>
+    <mo>(</mo>
+      <mi>x</mi>
+      <mi>y</mi>
+    <mo>)</mo>
+    <mo>(</mo>
+      <mrow>
+        <mo>&minus;</mo>
+        <mn>1</mn>
+      </mrow>
+    <mo>)</mo>
+    <mo>=</mo>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+      <mo>)</mo>
+    </mrow>
+  </math>
+</p>
+
+Which we can rewrite using the knowledge that [multiplication by negative one is equal to the additive inverse](#multiplication-by-negative-one).
+
+<p>
+  <math>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+      <mo>)</mo>
+    </mrow>
+    <mo>=</mo>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+      <mo>)</mo>
+    </mrow>
+  </math>
+</p>
+
+### The additive inverse of a product is equal to either element being an additive inverse
+
+<p>
+  <math>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+      <mo>)</mo>
+    </mrow>
+    <mo>=</mo>
+    <mrow>
+      <mo>&minus;</mo>
+      <mi>x</mi>
+      <mi>y</mi>
+    </mrow>
+    <mo>=</mo>
+    <mi>x</mi>
+    <mo>(</mo>
+      <mrow>
+        <mo>&minus;</mo>
+        <mi>y</mi>
+      </mrow>
+    <mo>)</mo>
+  </math>
+</p>
+
+#### Proof
+
+This has already been proved while proving that [multiplication by an additive inverse produces an additive inverse](#multiplication-by-addition-inverse). 
+
+<p>
+  <math>
+    <mo>(</mo>
+      <mi>x</mi>
+      <mi>y</mi>
+    <mo>)</mo>
+    <mo>(</mo>
+      <mrow>
+        <mo>&minus;</mo>
+        <mn>1</mn>
+      </mrow>
+    <mo>)</mo>
+    <mo>=</mo>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+      <mo>)</mo>
+    </mrow>
+  </math>
+</p>
+
+The extra steps that make it clearer are the use of the knowledge that [multiplication is associative](#multiplication-is-associative) &hellip;
+
+<p>
+  <math>
+    <mi>x</mi>
+    <mi>y</mi>
+    <mo>(</mo>
+      <mrow>
+        <mo>&minus;</mo>
+        <mn>1</mn>
+      </mrow>
+    <mo>)</mo>
+    <mo>=</mo>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+      <mo>)</mo>
+    </mrow>
+  </math>
+</p>
+
+And [multiplication is commutative](#multiplication-is-commutative).
+
+<p>
+  <math>
+    <mi>x</mi>
+    <mi>y</mi>
+    <mo>(</mo>
+      <mrow>
+        <mo>&minus;</mo>
+        <mn>1</mn>
+      </mrow>
+    <mo>)</mo>
+    <mo>=</mo>
+    <mi>x</mi>
+    <mo>(</mo>
+      <mrow>
+        <mo>&minus;</mo>
+        <mn>1</mn>
+      </mrow>
+    <mo>)</mo>
+    <mi>y</mi>
+    <mo>=</mo>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+      <mo>)</mo>
+    </mrow>
+  </math>
+</p>
+
+We can rewrite this expression using the knowledge that [multiplication by negative one is equal to the additive inverse](#multiplication-by-negative-one).
+
+<p>
+  <math>
+    <mi>x</mi>
+    <mo>(</mo>
+      <mrow>
+        <mo>&minus;</mo>
+        <mi>y</mi>
+      </mrow>
+    <mo>)</mo>
+    <mo>=</mo>
+    <mrow>
+      <mo>&minus;</mo>
+      <mi>x</mi>
+    </mrow>
+    <mi>y</mi>
+    <mo>=</mo>
+    <mrow>
+      <mo>&minus;</mo>
+      <mo>(</mo>
+        <mi>x</mi>
+        <mi>y</mi>
+      <mo>)</mo>
+    </mrow>
+  </math>
+</p>

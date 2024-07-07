@@ -1,6 +1,6 @@
 @import url('./modules/typography/fonts.css');
 
-.lh-copy { line-height: 1.6; }
+.lh-copy { line-height: 1.5rem; }
 
 :root {
   color: hsl(0, 0%, 15%);
@@ -117,15 +117,36 @@
     arial,
     sans-serif;
   font-weight: bold;
-  margin-top: 2rem;
+  margin-top: 1.75rem;
 }
 
-.markdown h2, .markdown h3, .markdown h4 { line-height: 1; }
+.markdown h1 + h2,
+.markdown h2 + h3,
+.markdown h3 + h4 {
+  margin-top: 1rem;
+}
 
-.markdown h1 { font-size: 2rem; }
-.markdown h2 { font-size: 1.5rem; }
-.markdown h3 { font-size: 1.25rem; }
-.markdown h4 { font-size: 1.125rem; }
+
+.markdown h1 {
+  font-size: 2rem;
+  line-height: 2.25rem;
+  margin-top: 2.25rem;
+}
+.markdown h2 {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  margin-top: 1.75rem;
+}
+.markdown h3 {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  margin-top: 1.5rem;
+}
+.markdown h4 {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  margin-top: 1rem;
+}
 
 .markdown em { font-style: italic; }
 
@@ -145,7 +166,7 @@
 }
 
 .markdown > * + * {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .markdown br {
@@ -159,7 +180,7 @@
 }
 
 .markdown blockquote > * + * {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .markdown blockquote:before {
@@ -247,8 +268,9 @@
 }
 
 .markdown hr {
-  margin: 2rem 0;
-  color: #eee;
+  margin: 1.5rem auto 1rem 0;
+  width: 2rem;
+  border-top: 0.125rem solid;
 }
 
 .markdown pre {
