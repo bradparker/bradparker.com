@@ -821,7 +821,7 @@ We can rewrite this expression using the knowledge that [multiplication by negat
 ### Exponential notation
 
 <p>
-  <math>
+  <math display="block">
     <mrow>
       <mrow>
         <msup>
