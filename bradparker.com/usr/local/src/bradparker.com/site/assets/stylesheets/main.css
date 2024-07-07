@@ -323,6 +323,31 @@
   font-weight: bold;
 }
 
+.markdown math {
+  font-family: Georgia, "Times New Roman", serif;
+  font-family:
+    "Latin Modern Math",
+    "STIX Two Math",
+    "XITS Math",
+    "STIX Math",
+    "Libertinus Math",
+    "TeX Gyre Termes Math",
+    "TeX Gyre Bonum Math",
+    "TeX Gyre Schola",
+    "DejaVu Math TeX Gyre",
+    "TeX Gyre Pagella Math",
+    "Asana Math",
+    "Cambria Math",
+    "Lucida Bright Math",
+    "Minion Math",
+    STIXGeneral,
+    STIXSizeOneSym,
+    Symbol,
+    Georgia,
+    "Times New Roman",
+    serif;
+}
+
 /* Syntax */
 
 .markdown pre {
