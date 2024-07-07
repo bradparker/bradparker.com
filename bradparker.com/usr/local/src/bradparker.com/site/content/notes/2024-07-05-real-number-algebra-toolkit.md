@@ -710,7 +710,7 @@ Which we can rewrite using the knowledge that [multiplication by negative one is
 
 #### Proof
 
-This has already been proved while proving that [multiplication by an additive inverse produces an additive inverse](#multiplication-by-addition-inverse). 
+This has already been proved while proving that [multiplication by an additive inverse produces an additive inverse](#multiplication-by-addition-inverse).
 
 <p>
   <math>
@@ -814,6 +814,68 @@ We can rewrite this expression using the knowledge that [multiplication by negat
         <mi>x</mi>
         <mi>y</mi>
       <mo>)</mo>
+    </mrow>
+  </math>
+</p>
+
+### Exponential notation
+
+<p>
+  <math>
+    <mrow>
+    <msup>
+      <mi>x</mi>
+      <mi>n</mi>
+    </msup>
+    <mo>{</mo>
+    <mtable>
+      <mtr>
+        <mtd>
+          <mrow>
+            <mn>1</mn>
+            <mo>&bullet;</mo>
+            <mover>
+              <mover>
+                <mrow>
+                  <mi>x</mi>
+                  <mi>x</mi>
+                  <mo>&hellip;</mo>
+                </mrow>
+                <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
+              </mover>
+              <mi>n</mi>
+            </mover>
+          </mrow>
+          <mo>,</mo>
+          <mi>n</mi>
+          <mo>&#x2265;</mo>
+          <mn>0</mn>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mrow>
+            <mn>1</mn>
+            <mo>&bullet;</mo>
+            <mover>
+              <mover>
+                <mrow>
+                  <mo>(</mo><msup><mi>x</mi><mrow><mo>&minus;</mo><mn>1</mn></mrow></msup><mo>)</mo>
+                  <mo>(</mo><msup><mi>x</mi><mrow><mo>&minus;</mo><mn>1</mn></mrow></msup><mo>)</mo>
+                  <mo>&hellip;</mo>
+                </mrow>
+                <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
+              </mover>
+              <mrow><mo>|</mo><mi>n</mi><mo>|</mo></mrow>
+            </mover>
+          </mrow>
+          <mo>,</mo>
+          <mi>n</mi>
+          <mo><</mo>
+          <mn>0</mn>
+        </mtd>
+      </mtr>
+    </mtable>
     </mrow>
   </math>
 </p>
