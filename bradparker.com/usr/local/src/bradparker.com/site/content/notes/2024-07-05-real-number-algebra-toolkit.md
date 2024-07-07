@@ -710,7 +710,7 @@ Which we can rewrite using the knowledge that [multiplication by negative one is
 
 #### Proof
 
-This has already been proved while proving that [multiplication by an additive inverse produces an additive inverse](#multiplication-by-addition-inverse).
+This has already been proved while proving that [multiplication by an additive inverse produces an additive inverse](#multiplication-by-additive-inverse).
 
 <p>
   <math>
