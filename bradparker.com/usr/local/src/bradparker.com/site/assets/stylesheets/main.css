@@ -348,6 +348,10 @@
     serif;
 }
 
+.markdown math msup > *:last-child {
+  font-size: 0.75em;
+}
+
 /* Syntax */
 
 .markdown pre {
