@@ -1876,3 +1876,203 @@ If either <math><mi>n</mi></math> or <math><mi>m</mi></math> are negative we can
     </mfrac>
   </math>
 </p>
+
+### Multiplying fractions
+
+<p>
+  <math>
+    <mfrac>
+      <mi>x</mi>
+      <mi>y</mi>
+    </mfrac>
+    <mrow>
+      <mo>(</mo>
+      <mfrac>
+        <mi>a</mi>
+        <mi>b</mi>
+      </mfrac>
+      <mo>)</mo>
+    </mrow>
+    <mo>=</mo>
+    <mfrac>
+      <mrow><mi>x</mi><mi>a</mi></mrow>
+      <mrow><mi>y</mi><mi>b</mi></mrow>
+    </mfrac>
+  </math>
+</p>
+
+#### Proof
+
+```
+(x / y) * (a / b)
+
+(x * y^-1) * (a * b^-1)
+
+x * y^-1 * a * b^-1
+
+x * b * y^-1 * b^-1
+
+x * b * (y * b)^-1
+
+(x * b) / (y * b)
+```
+
+### Adding fractions
+
+<p>
+  <math>
+    <mfrac>
+      <mi>x</mi>
+      <mi>y</mi>
+    </mfrac>
+    <mo>+</mo>
+    <mfrac>
+      <mi>a</mi>
+      <mi>b</mi>
+    </mfrac>
+    <mo>=</mo>
+    <mfrac>
+      <mrow>
+        <mi>x</mi><mi>b</mi>
+        <mo>+</mo>
+        <mi>a</mi><mi>y</mi>
+      </mrow>
+      <mrow><mi>y</mi><mi>b</mi></mrow>
+    </mfrac>
+  </math>
+</p>
+
+#### Proof
+
+```
+x / y + a / b
+
+x * y^-1 + a * b^-1
+
+x * y^-1 * b * b^-1 + a * b^-1 * y * y^-1
+
+x * b * y^-1 * b^-1 + a * y * b^-1 * y^-1
+
+x * b * (y * b)^-1 + a * y * (b * y)^-1
+
+(x * b + a * y)(y * b)^-1
+
+(x * b + a * y) / (y * b)
+```
+
+### Dividing fractions
+
+<p>
+  <math>
+    <mfrac>
+      <mrow>
+        <mo>(</mo>
+          <mfrac>
+            <mi>x</mi>
+            <mi>y</mi>
+          </mfrac>
+        <mo>)</mo>
+      </mrow>
+      <mrow>
+        <mo>(</mo>
+          <mfrac>
+            <mi>a</mi>
+            <mi>b</mi>
+          </mfrac>
+        <mo>)</mo>
+      </mrow>
+    </mfrac>
+    <mo>=</mo>
+    <mfrac>
+      <mrow><mi>x</mi><mi>b</mi></mrow>
+      <mrow><mi>y</mi><mi>a</mi></mrow>
+    </mfrac>
+  </math>
+</p>
+
+#### Proof
+
+```
+(x / y) / (a / b)
+
+(x * y^-1) / (a * b^-1)
+
+(x * y^-1) * (a * b^-1)^-1
+
+(x * y^-1) * (a^-1 * (b^-1)^-1)
+
+(x * y^-1) * (a^-1 * b^(-1 * -1))
+
+(x * y^-1) * (a^-1 * b^1)
+
+(x * y^-1) * (a^-1 * b)
+
+x * y^-1 * a^-1 * b
+
+x * b * y^-1 * a^-1
+
+x * b * (y * a)^-1
+
+(x * b) / (y * a)
+```
+
+### Adding fractions with shared denominator
+
+<p>
+  <math>
+    <mfrac>
+      <mrow>
+        <mo>(</mo>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mi>y</mi>
+        <mo>)</mo>
+      </mrow>
+      <mi>z</mi>
+    </mfrac>
+    <mo>=</mo>
+    <mfrac>
+      <mi>x</mi>
+      <mi>z</mi>
+    </mfrac>
+    <mo>+</mo>
+    <mfrac>
+      <mi>y</mi>
+      <mi>z</mi>
+    </mfrac>
+  </math>
+</p>
+
+#### Proof
+
+This is the distributive axiom.
+
+```
+(x + y) / z
+
+(x + y) * z^-1
+
+x * z^-1 + y * z^-1
+
+x / z + y / z
+```
+
+Alternatively, using the addition of fractions above, and in the opposite direction.
+
+```
+x / z + y / z
+
+(x * z + y * z) / (z * z)
+
+(x * z + y * z) * (z * z)^-1
+
+(x * z + y * z) * z^-1 * z^-1
+
+(x * z * z^-1 + y * z * z^-1) * z^-1
+
+(x * 1 + y * 1) * z^-1
+
+(x + y) * z^-1
+
+(x + y) / z
+```
