@@ -348,7 +348,10 @@
     serif;
 }
 
-.markdown math msup > *:last-child {
+.markdown math msup > *:last-child,
+.markdown math msub > *:last-child,
+.markdown math msubsup > *:nth-child(2),
+.markdown math msubsup > *:nth-child(3) {
   font-size: 0.75em;
 }
 
