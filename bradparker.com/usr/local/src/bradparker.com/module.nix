@@ -60,7 +60,7 @@ in
         stopIfChanged = false;
         environment = {
           WEB_ROOT = "${site}";
-          BUILD_VERSION = "Thu, 24 Oct 2024 12:01:54 GMT";
+          BUILD_VERSION = "Thu, 24 Oct 2024 12:14:22 GMT";
         };
         serviceConfig = {
           ExecStart = ''
