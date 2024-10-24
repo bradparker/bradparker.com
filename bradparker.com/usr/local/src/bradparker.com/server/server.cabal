@@ -9,9 +9,11 @@ executable server
                     lib
   main-is:          Main.hs
   build-depends:    base ^>=4.16.0.0,
+                    bytestring,
                     filepath,
                     http-types,
                     text,
+                    time,
                     wai,
                     wai-cli,
                     wai-extra,

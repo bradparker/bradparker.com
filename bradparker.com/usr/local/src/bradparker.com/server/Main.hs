@@ -6,7 +6,11 @@ module Main (main) where
 
 import Control.Applicative ((<|>))
 import Data.Bool (bool)
+import Data.ByteString (ByteString)
+import qualified Data.ByteString.Char8 as ByteString
 import Data.Function ((&))
+import Data.Time (getCurrentTime)
+import Data.Time.Format (defaultTimeLocale, formatTime)
 import Network.Wai.Cli (defWaiMain)
 import Network.Wai.Middleware.ForceSSL (forceSSL)
 import Network.Wai.Middleware.Gzip
@@ -19,11 +23,20 @@ import Network.Wai.Middleware.RequestLogger (logStdout)
 import qualified Site
 import System.Environment (getEnv)
 
+getStartTime :: IO ByteString
+getStartTime = ByteString.pack . formatRFCRFC2616 <$> getCurrentTime
+  where
+    formatRFCRFC2616 = formatTime defaultTimeLocale "%a, %d %b %Y %H:%M:%S GMT"
+
+getBuildVersion :: IO ByteString
+getBuildVersion = ByteString.pack <$> getEnv "BUILD_VERSION"
+
 main :: IO ()
 main = do
+  buildVersion <- getBuildVersion <|> getStartTime
   ssl <- getEnv "FORCE_SSL" <|> pure "false"
   webRoot <- getEnv "WEB_ROOT" <|> pure ""
-  app <- Site.new (Site.Options webRoot)
+  app <- Site.new buildVersion (Site.Options webRoot)
   app
     & logStdout
     & bool id forceSSL (ssl == "true")

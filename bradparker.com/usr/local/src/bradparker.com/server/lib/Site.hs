@@ -7,12 +7,15 @@ module Site
   )
 where
 
-import Network.HTTP.Types (status404)
+import Data.ByteString (ByteString)
+import Network.HTTP.Types (ResponseHeaders, status404)
 import Network.Wai (Application, responseLBS)
 import Network.Wai.Middleware.Static
-  ( CachingStrategy (PublicStaticCaching),
+  ( CachingStrategy (CustomCaching, PublicStaticCaching),
+    FileMeta,
     Policy,
     addBase,
+    fm_etag,
     hasSuffix,
     initCaching,
     noDots,
@@ -50,7 +53,15 @@ app (Options dir) staticOptions =
           [("Content-Type", "text/plain")]
           "File not found"
 
-new :: Options -> IO Application
-new options = do
-  cacheContainer <- initCaching PublicStaticCaching
+cacheHeaders :: ByteString -> FileMeta -> ResponseHeaders
+cacheHeaders buildVersion fm =
+  [ ("Cache-Control", "no-transform,public,max-age=300,s-maxage=900"),
+    ("Last-Modified", buildVersion),
+    ("ETag", fm_etag fm),
+    ("Vary", "Accept-Encoding")
+  ]
+
+new :: ByteString -> Options -> IO Application
+new buildVersion options = do
+  cacheContainer <- initCaching (CustomCaching (cacheHeaders buildVersion))
   pure (app options Static.defaultOptions {Static.cacheContainer = cacheContainer})
