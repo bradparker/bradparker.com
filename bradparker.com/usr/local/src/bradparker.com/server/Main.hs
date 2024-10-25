@@ -30,7 +30,7 @@ getStartTime = ByteString.pack . formatRFCRFC2616 <$> getCurrentTime
     formatRFCRFC2616 = formatTime defaultTimeLocale "%a, %d %b %Y %H:%M:%S GMT"
 
 getBuiltAt :: FilePath -> IO ByteString
-getBuiltAt directory = ByteString.pack <$> readFile (directory </> "built-at")
+getBuiltAt directory = ByteString.dropWhileEnd (== '\n') . ByteString.pack <$> readFile (directory </> "built-at")
 
 main :: IO ()
 main = do
