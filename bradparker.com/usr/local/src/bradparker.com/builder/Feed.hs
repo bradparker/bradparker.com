@@ -42,7 +42,7 @@ feed posts =
 channel :: [Post] -> RSSChannel
 channel posts =
   RSSChannel
-    { rssTitle = "Brad Parker — Developer",
+    { rssTitle = "Brad Parker",
       rssLink = "https://bradparker.com",
       rssDescription = "I've been making software professionally for about nine years and I really love it. I believe software has this empowering potential, I believe everyone should be able to understand it if they want to. This means I prefer open and accessible tools and standards wherever possible. It also means I try to learn in the open, sharing what I learn as I learn it.",
       rssItems = map item posts,
