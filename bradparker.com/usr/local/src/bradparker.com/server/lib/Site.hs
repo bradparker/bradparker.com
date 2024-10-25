@@ -11,7 +11,7 @@ import Data.ByteString (ByteString)
 import Network.HTTP.Types (ResponseHeaders, status404)
 import Network.Wai (Application, responseLBS)
 import Network.Wai.Middleware.Static
-  ( CachingStrategy (CustomCaching, PublicStaticCaching),
+  ( CachingStrategy (CustomCaching),
     FileMeta,
     Policy,
     addBase,
@@ -54,14 +54,14 @@ app (Options dir) staticOptions =
           "File not found"
 
 cacheHeaders :: ByteString -> FileMeta -> ResponseHeaders
-cacheHeaders buildVersion fm =
+cacheHeaders builtAt fm =
   [ ("Cache-Control", "no-transform,public,max-age=300,s-maxage=900"),
-    ("Last-Modified", buildVersion),
+    ("Last-Modified", builtAt),
     ("ETag", fm_etag fm),
     ("Vary", "Accept-Encoding")
   ]
 
 new :: ByteString -> Options -> IO Application
-new buildVersion options = do
-  cacheContainer <- initCaching (CustomCaching (cacheHeaders buildVersion))
+new builtAt options = do
+  cacheContainer <- initCaching (CustomCaching (cacheHeaders builtAt))
   pure (app options Static.defaultOptions {Static.cacheContainer = cacheContainer})

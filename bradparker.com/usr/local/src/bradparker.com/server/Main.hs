@@ -22,21 +22,22 @@ import Network.Wai.Middleware.Gzip
 import Network.Wai.Middleware.RequestLogger (logStdout)
 import qualified Site
 import System.Environment (getEnv)
+import System.FilePath ((</>))
 
 getStartTime :: IO ByteString
 getStartTime = ByteString.pack . formatRFCRFC2616 <$> getCurrentTime
   where
     formatRFCRFC2616 = formatTime defaultTimeLocale "%a, %d %b %Y %H:%M:%S GMT"
 
-getBuildVersion :: IO ByteString
-getBuildVersion = ByteString.pack <$> getEnv "BUILD_VERSION"
+getBuiltAt :: FilePath -> IO ByteString
+getBuiltAt directory = ByteString.pack <$> readFile (directory </> "built-at")
 
 main :: IO ()
 main = do
-  buildVersion <- getBuildVersion <|> getStartTime
   ssl <- getEnv "FORCE_SSL" <|> pure "false"
   webRoot <- getEnv "WEB_ROOT" <|> pure ""
-  app <- Site.new buildVersion (Site.Options webRoot)
+  builtAt <- getBuiltAt webRoot <|> getStartTime
+  app <- Site.new builtAt (Site.Options webRoot)
   app
     & logStdout
     & bool id forceSSL (ssl == "true")
