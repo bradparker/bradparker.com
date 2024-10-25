@@ -1,4 +1,5 @@
 {-# LANGUAGE BlockArguments #-}
+{-# LANGUAGE LambdaCase #-}
 {-# OPTIONS_GHC -Wall #-}
 
 module Markdown
@@ -10,8 +11,8 @@ module Markdown
   )
 where
 
-import Control.Lens ((%~), (&), _1, _2)
 import Data.Either (fromRight)
+import Data.Function ((&))
 import Data.Text (Text)
 import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
@@ -20,7 +21,8 @@ import Text.Blaze.Html (Html)
 import qualified Text.Blaze.Html.Renderer.Text as Blaze
 import Text.Pandoc (Pandoc)
 import qualified Text.Pandoc as Pandoc
-import Text.Pandoc.Lens (blockInlines, body, _Image, _Link)
+import Text.Pandoc.Definition (Inline (Image, Link))
+import Text.Pandoc.Walk (walk)
 import Prelude hiding (read)
 
 newtype Markdown = Markdown {unMarkdown :: Pandoc}
@@ -58,8 +60,10 @@ absoluteUrls base =
 absoluteUrlsPandoc :: Text -> Pandoc -> Pandoc
 absoluteUrlsPandoc base pandoc =
   pandoc
-    & body . traverse . blockInlines . _Image . _2 . _1 %~ addBase
-    & body . traverse . blockInlines . _Link . _2 . _1 %~ addBase
+    & walk \case
+      Image attrs children (url, title) -> Image attrs children (addBase url, title)
+      Link attrs children (url, title) -> Link attrs children (addBase url, title)
+      a -> a
   where
     addBase t =
       if isAbsolute (Text.unpack t)

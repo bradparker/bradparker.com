@@ -8,7 +8,7 @@ executable builder
   main-is:
     Main.hs
   build-depends:
-    base ^>=4.16.0.0,
+    base ^>=4.18.0.0,
     attoparsec,
     blaze-html,
     blaze-markup,
@@ -23,7 +23,7 @@ executable builder
     mtl,
     optparse-applicative,
     pandoc,
-    pandoc-lens,
+    pandoc-types,
     text,
     time,
     vector,
