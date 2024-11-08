@@ -108,6 +108,7 @@ in
 
             email = "hi@bradparker.com";
             extraDomainNames = [
+              "next.${serverName}"
               "bradparker.au"
               "bradparker.net"
               "bradparker.com.au"
