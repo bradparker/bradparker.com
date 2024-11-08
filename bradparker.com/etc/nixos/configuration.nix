@@ -7,6 +7,7 @@
 
   system.stateVersion = "24.11";
 
+  nix.settings.trusted-users = ["root" "@wheel"];
   nix.gc = {
     automatic = true;
     dates = "00:00";
