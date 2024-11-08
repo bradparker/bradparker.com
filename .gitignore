@@ -3,5 +3,5 @@
 dist*
 logs
 result
-bradparker.com/etc/bradparker.com/acme/environment
+bradparker.com/var/secrets
 bradparker.com/usr/local/src/bradparker.com/vendor-assets/proprietary

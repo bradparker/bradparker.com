@@ -6,7 +6,7 @@ let
 
   groupName = "bradparker-com";
   serverName = "bradparker.com";
-  acmeCredentialsFile = "/etc/${serverName}/acme/environment";
+  acmeCredentialsFile = "/var/secrets/${serverName}/acme/environment";
 
   serviceConfig = config.services."${serverName}";
   options = {

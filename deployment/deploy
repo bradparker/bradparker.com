@@ -1,9 +1,12 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash nixos-rebuild
 
 set -exuo pipefail
 
+target_host="$1"
+
 (
-  cd $(dirname $BASH_SOURCE)/..
-  rsync -va --no-owner --no-group --exclude dist-* --exclude .direnv --exclude .overmind.sock bradparker.com/ "$1":bradparker.com
-  ssh -t "$1" "sudo bash -c 'rsync -va --no-owner --no-group bradparker.com/ / && nixos-rebuild switch'"
+  cd "$(dirname "${BASH_SOURCE[0]}")/.."
+  rsync -va --no-owner --no-group --mkpath bradparker.com/var/secrets/bradparker.com "$target_host":/var/secrets/
+  nixos-rebuild -I nixos-config=bradparker.com/etc/nixos/configuration.nix --target-host "$target_host" --use-remote-sudo switch
 )

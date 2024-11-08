@@ -3,8 +3,8 @@
 set -ex
 
 doctl compute droplet create \
-  "bradparker.com" \
-  --size s-1vcpu-2gb \
-  --image 70134260 \
-  --ssh-keys "9e:f3:01:9e:e8:24:10:94:3b:2f:dc:4f:bf:73:42:9a" \
+  "next.bradparker.com" \
+  --size s-1vcpu-1gb \
+  --image 169860110 \
+  --ssh-keys "cc:6d:07:9b:2c:69:93:a9:e5:cb:87:2c:75:f3:8a:d9" \
   --region sgp1
