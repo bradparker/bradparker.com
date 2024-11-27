@@ -1879,200 +1879,182 @@ If either <math><mi>n</mi></math> or <math><mi>m</mi></math> are negative we can
 
 ### Multiplying fractions
 
-<p>
-  <math>
-    <mfrac>
-      <mi>x</mi>
-      <mi>y</mi>
-    </mfrac>
-    <mrow>
-      <mo>(</mo>
-      <mfrac>
-        <mi>a</mi>
-        <mi>b</mi>
-      </mfrac>
-      <mo>)</mo>
-    </mrow>
-    <mo>=</mo>
-    <mfrac>
-      <mrow><mi>x</mi><mi>a</mi></mrow>
-      <mrow><mi>y</mi><mi>b</mi></mrow>
-    </mfrac>
-  </math>
-</p>
+$$
+\frac{x}{y}(\frac{a}{b})
+= \frac{xa}{yb}
+$$
 
 #### Proof
 
-```
-(x / y) * (a / b)
+$$
+\frac{x}{y}(\frac{a}{b})
+$$
 
-(x * y^-1) * (a * b^-1)
+$$
+= xy^(-1)ab^(-1)
+$$
 
-x * y^-1 * a * b^-1
+$$
+= xay^(-1)b^(-1)
+$$
 
-x * b * y^-1 * b^-1
+$$
+= xa(yb)^(-1)
+$$
 
-x * b * (y * b)^-1
-
-(x * b) / (y * b)
-```
+$$
+= \frac{xa}{yb}
+$$
 
 ### Adding fractions
 
-<p>
-  <math>
-    <mfrac>
-      <mi>x</mi>
-      <mi>y</mi>
-    </mfrac>
-    <mo>+</mo>
-    <mfrac>
-      <mi>a</mi>
-      <mi>b</mi>
-    </mfrac>
-    <mo>=</mo>
-    <mfrac>
-      <mrow>
-        <mi>x</mi><mi>b</mi>
-        <mo>+</mo>
-        <mi>a</mi><mi>y</mi>
-      </mrow>
-      <mrow><mi>y</mi><mi>b</mi></mrow>
-    </mfrac>
-  </math>
-</p>
+$$
+\frac{x}{y} + \frac{a}{b}
+= \frac{xb + ay}{yb}
+$$
 
 #### Proof
 
-```
-x / y + a / b
+$$
+\frac{x}{y} + \frac{a}{b}
+$$
 
-x * y^-1 + a * b^-1
+$$
+= xy^(-1) + ab^(-1)
+$$
 
-x * y^-1 * b * b^-1 + a * b^-1 * y * y^-1
+$$
+= xy^(-1)bb^(-1) + ab^(-1)yy^(-1)
+$$
 
-x * b * y^-1 * b^-1 + a * y * b^-1 * y^-1
+$$
+= xby^(-1)b^(-1) + ayb^(-1)y^(-1)
+$$
 
-x * b * (y * b)^-1 + a * y * (b * y)^-1
+$$
+= xb(yb)^(-1) + ay(by)^(-1)
+$$
 
-(x * b + a * y)(y * b)^-1
+$$
+= xb(yb)^(-1) + ay(yb)^(-1)
+$$
 
-(x * b + a * y) / (y * b)
-```
+$$
+= (xb + ay)(yb)^(-1)
+$$
+
+$$
+= \frac{xb + ay}{yb}
+$$
 
 ### Dividing fractions
 
-<p>
-  <math>
-    <mfrac>
-      <mrow>
-        <mo>(</mo>
-          <mfrac>
-            <mi>x</mi>
-            <mi>y</mi>
-          </mfrac>
-        <mo>)</mo>
-      </mrow>
-      <mrow>
-        <mo>(</mo>
-          <mfrac>
-            <mi>a</mi>
-            <mi>b</mi>
-          </mfrac>
-        <mo>)</mo>
-      </mrow>
-    </mfrac>
-    <mo>=</mo>
-    <mfrac>
-      <mrow><mi>x</mi><mi>b</mi></mrow>
-      <mrow><mi>y</mi><mi>a</mi></mrow>
-    </mfrac>
-  </math>
-</p>
+$$
+\frac{(\frac{x}{y})}{(\frac{a}{b})} = \frac{xb}{ya}
+$$
 
 #### Proof
 
-```
-(x / y) / (a / b)
+$$
+\frac{(\frac{x}{y})}{(\frac{a}{b})}
+$$
 
-(x * y^-1) / (a * b^-1)
+$$
+= \frac{(xy^(-1))}{(ab^(-1))}
+$$
 
-(x * y^-1) * (a * b^-1)^-1
+$$
+= (xy^(-1))(ab^(-1))^(-1)
+$$
 
-(x * y^-1) * (a^-1 * (b^-1)^-1)
+$$
+= (xy^(-1))(a^(-1)(b^(-1))^(-1))
+$$
 
-(x * y^-1) * (a^-1 * b^(-1 * -1))
+$$
+= (xy^(-1))(a^(-1)b^(-1 \times -1))
+$$
 
-(x * y^-1) * (a^-1 * b^1)
+$$
+= (xy^(-1))(a^(-1)b^1)
+$$
 
-(x * y^-1) * (a^-1 * b)
+$$
+= (xy^(-1))(a^(-1)b)
+$$
 
-x * y^-1 * a^-1 * b
+$$
+= xy^(-1)a^(-1)b
+$$
 
-x * b * y^-1 * a^-1
+$$
+= xby^(-1)a^(-1)
+$$
 
-x * b * (y * a)^-1
+$$
+= xb(ya)^(-1)
+$$
 
-(x * b) / (y * a)
-```
+$$
+= \frac{xb}{ya}
+$$
 
 ### Adding fractions with shared denominator
 
-<p>
-  <math>
-    <mfrac>
-      <mrow>
-        <mo>(</mo>
-        <mi>x</mi>
-        <mo>+</mo>
-        <mi>y</mi>
-        <mo>)</mo>
-      </mrow>
-      <mi>z</mi>
-    </mfrac>
-    <mo>=</mo>
-    <mfrac>
-      <mi>x</mi>
-      <mi>z</mi>
-    </mfrac>
-    <mo>+</mo>
-    <mfrac>
-      <mi>y</mi>
-      <mi>z</mi>
-    </mfrac>
-  </math>
-</p>
+$$
+\frac{(x + y)}{z} = \frac{x}{z} + \frac{y}{z}
+$$
 
 #### Proof
 
 This is the distributive axiom.
 
-```
-(x + y) / z
+$$
+\frac{(x + y)}{z}
+$$
 
-(x + y) * z^-1
+$$
+= (x + y)z^(-1)
+$$
 
-x * z^-1 + y * z^-1
+$$
+= xz^(-1) + yz^(-1)
+$$
 
-x / z + y / z
-```
+$$
+= \frac{x}{z} + \frac{y}{z}
+$$
 
 Alternatively, using the addition of fractions above, and in the opposite direction.
 
-```
-x / z + y / z
+$$
+\frac{x}{z} + \frac{y}{z}
+$$
 
-(x * z + y * z) / (z * z)
+$$
+= \frac{(xz + yz)}{(zz)}
+$$
 
-(x * z + y * z) * (z * z)^-1
+$$
+= (xz + yz)(zz)^(-1)
+$$
 
-(x * z + y * z) * z^-1 * z^-1
+$$
+= (xz + yz)z^(-1)z^(-1)
+$$
 
-(x * z * z^-1 + y * z * z^-1) * z^-1
+$$
+= (xzz^(-1) + yzz^(-1))z^-1
+$$
 
-(x * 1 + y * 1) * z^-1
+$$
+= (x(1) + y(1))z^(-1)
+$$
 
-(x + y) * z^-1
+$$
+= (x + y)z^(-1)
+$$
 
-(x + y) / z
-```
+$$
+= \frac{(x + y)}{z}
+$$
