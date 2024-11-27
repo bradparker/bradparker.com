@@ -33,13 +33,19 @@ read =
   Markdown
     . fromRight mempty
     . Pandoc.runPure
-    . Pandoc.readCommonMark Pandoc.def
+    . Pandoc.readCommonMark
+      Pandoc.def
+        { Pandoc.readerExtensions =
+            Pandoc.extensionsFromList
+              [ Pandoc.Ext_tex_math_dollars
+              ]
+        }
 
 toHtml :: Markdown -> Html
 toHtml =
   either mempty id
     . Pandoc.runPure
-    . Pandoc.writeHtml5 Pandoc.def
+    . Pandoc.writeHtml5 Pandoc.def {Pandoc.writerHTMLMathMethod = Pandoc.MathML}
     . unMarkdown
 
 toText :: Markdown -> Text
@@ -48,7 +54,11 @@ toText =
     . Blaze.renderHtml
     . either mempty id
     . Pandoc.runPure
-    . Pandoc.writeHtml5 Pandoc.def {Pandoc.writerHighlightStyle = Nothing}
+    . Pandoc.writeHtml5
+      Pandoc.def
+        { Pandoc.writerHTMLMathMethod = Pandoc.MathML,
+          Pandoc.writerHighlightStyle = Nothing
+        }
     . unMarkdown
 
 absoluteUrls :: Text -> Markdown -> Markdown
