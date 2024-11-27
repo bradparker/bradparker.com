@@ -2058,3 +2058,34 @@ $$
 $$
 = \frac{(x + y)}{z}
 $$
+
+### Denominator with exponents
+
+Just something I saw in a blog post.
+
+$$
+\frac{z}{x^ya^(-b)}
+= zx^(-y)a^(b)
+$$
+
+#### Proof
+
+$$
+\frac{z}{x^ya^(-b)}
+$$
+
+$$
+= z(x^ya^(-b))^(-1)
+$$
+
+$$
+= z(x^y)^(-1)(a^(-b))^(-1)
+$$
+
+$$
+= zx^(y(-1))a^(-b(-1))
+$$
+
+$$
+= zx^(-y)a^(b)
+$$
