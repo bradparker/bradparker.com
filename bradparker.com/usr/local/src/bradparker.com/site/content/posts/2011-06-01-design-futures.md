@@ -1,5 +1,6 @@
 ---
 title: Design futures — Typography
+published: 2011-06-01
 rss_guid: https://bradparker.com/content/posts/2011-06-01-design-futures.html
 tags:
   - design

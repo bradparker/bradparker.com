@@ -2,10 +2,10 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE NoFieldSelectors #-}
 {-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE NoFieldSelectors #-}
 {-# OPTIONS_GHC -Wall #-}
 
 module Main
@@ -22,8 +22,6 @@ import Builder
     toFile,
   )
 import Data.Foldable (traverse_)
-import Data.List (sortOn)
-import Data.Ord (Down (Down))
 import qualified Feed
 import qualified Home
 import qualified Page
@@ -37,8 +35,9 @@ main = do
   build config do
     traverse_ copyFile =<< getDirectoryFiles ["assets/**/*.*", "static/**/*.*"]
 
-    posts <- sortOn (Down . (.date)) <$> (traverse Post.fromFile =<< getDirectoryFiles ["content/posts/*.md"])
+    (posts, drafts) <- Posts.fromFiles =<< getDirectoryFiles ["content/posts/*.md"]
 
+    traverse_ (toFile <$> (.url) <*> Post.render) drafts
     traverse_ (toFile <$> (.url) <*> Post.render) posts
 
     toFile "/" (Home.render posts)

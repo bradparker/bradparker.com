@@ -1,5 +1,6 @@
 ---
 title: Servant's type-level domain specific language
+published: 2019-10-05
 rss_guid: https://bradparker.com/content/posts/2019-10-05-servant-types.html
 tags:
   - development

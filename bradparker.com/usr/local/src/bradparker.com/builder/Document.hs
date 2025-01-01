@@ -2,10 +2,10 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE NoFieldSelectors #-}
 {-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE NoFieldSelectors #-}
 {-# OPTIONS_GHC -Wall #-}
 
 module Document
@@ -18,6 +18,7 @@ where
 
 import Builder (Builder)
 import qualified Builder
+import Control.Monad (unless)
 import Control.Monad.Except (throwError)
 import Data.Attoparsec.Text (Parser, parseOnly, takeText)
 import qualified Data.ByteString.Lazy as LBS
@@ -72,12 +73,17 @@ navLink currentUrl url =
     ! A.href (fromString url)
     ! A.class_ (fromString ("link hover-dark-green" <> if currentUrl == url then " orange" else ""))
 
-data Props = Props {title :: String, url :: String}
+data Props = Props
+  { title :: String,
+    url :: String,
+    index :: Bool
+  }
 
 component ::
   forall props.
   ( HasField "title" props String,
-    HasField "url" props String
+    HasField "url" props String,
+    HasField "index" props Bool
   ) =>
   props ->
   Html ->
@@ -88,6 +94,8 @@ component props children =
       title_ props.title
       H.meta ! A.charset "utf8"
       H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1"
+      unless props.index do
+        H.meta ! A.name "robots" ! A.content "noindex"
       me "https://bne.social/@brad"
       me "https://social.chinwag.org/@brad"
       me "https://github.com/bradparker"

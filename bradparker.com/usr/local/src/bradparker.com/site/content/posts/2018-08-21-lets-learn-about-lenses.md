@@ -1,5 +1,6 @@
 ---
 title: Let's learn about lenses
+published: 2018-08-21
 rss_guid: https://bradparker.com/content/posts/2018-08-21-lets-learn-about-lenses.html
 tags:
   - development

@@ -2,14 +2,16 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE NoFieldSelectors #-}
+{-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE NoFieldSelectors #-}
 {-# OPTIONS_GHC -Wall #-}
 
 module Post
   ( Post (..),
+    isPublished,
     component,
     fromFile,
     fromFileToNamespace,
@@ -21,6 +23,7 @@ where
 import Builder (Builder)
 import Control.Monad.IO.Class (liftIO)
 import Data.ByteString.Lazy (ByteString)
+import Data.Maybe (fromMaybe, isJust)
 import qualified Data.Text as Text
 import Data.Time (Day, defaultTimeLocale, formatTime)
 import Data.Time.Format.ISO8601 (iso8601ParseM)
@@ -28,7 +31,7 @@ import Data.Vector (Vector)
 import Data.Yaml.Extended ((.:), (.:?))
 import qualified Data.Yaml.Extended as Yaml
 import qualified Document
-import GHC.Records (HasField)
+import GHC.Records (HasField (getField))
 import Markdown (Markdown)
 import qualified Markdown
 import System.FilePath (takeBaseName, takeFileName, (</>))
@@ -39,7 +42,8 @@ import qualified Text.Blaze.Html5.Attributes as A
 
 data Post = Post
   { url :: String,
-    date :: Day,
+    created :: Day,
+    published :: Maybe Day,
     title :: String,
     tags :: Vector String,
     description :: Markdown,
@@ -47,10 +51,22 @@ data Post = Post
     rssGuid :: Maybe String
   }
 
+instance HasField "date" Post Day where
+  getField :: Post -> Day
+  getField post = fromMaybe post.created post.published
+
+instance HasField "index" Post Bool where
+  getField :: Post -> Bool
+  getField = isPublished
+
+isPublished :: Post -> Bool
+isPublished = isJust . (.published)
+
 data Frontmatter = Frontmatter
   { title :: String,
     tags :: Vector String,
     description :: String,
+    published :: Maybe Day,
     rssGuid :: Maybe String
   }
 
@@ -61,6 +77,7 @@ frontmatterParser =
       <$> o .: "title"
       <*> o .: "tags"
       <*> o .: "description"
+      <*> o .:? "published"
       <*> o .:? "rss_guid"
 
 slugFromPath :: FilePath -> String
@@ -72,15 +89,16 @@ dateFromPath = iso8601ParseM . take 10 . takeFileName
 fromFileToNamespace :: String -> FilePath -> Builder Post
 fromFileToNamespace namespace path = do
   document <- Document.fromFile frontmatterParser path
-  date <- liftIO (dateFromPath path)
+  created <- liftIO (dateFromPath path)
   pure
     Post
       { url = namespace </> slugFromPath path,
-        date = date,
+        created = created,
         title = document.frontmatter.title,
         tags = document.frontmatter.tags,
         description = Markdown.read (Text.pack document.frontmatter.description),
         content = Markdown.read document.content,
+        published = document.frontmatter.published,
         rssGuid = document.frontmatter.rssGuid
       }
 
@@ -100,7 +118,8 @@ component ::
   forall props.
   ( HasField "url" props String,
     HasField "title" props String,
-    HasField "date" props Day
+    HasField "date" props Day,
+    HasField "index" props Bool
   ) =>
   props ->
   Html ->

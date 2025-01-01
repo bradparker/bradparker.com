@@ -2,10 +2,10 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE NoFieldSelectors #-}
 {-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE NoFieldSelectors #-}
 {-# OPTIONS_GHC -Wall #-}
 
 module Page
@@ -18,9 +18,10 @@ where
 
 import Builder (Builder)
 import qualified Data.ByteString.Lazy as LBS
+import Data.Maybe (fromMaybe)
 import Data.Text (Text)
-import Data.Yaml ((.:))
 import qualified Data.Yaml as Yaml
+import Data.Yaml.Extended ((.:), (.:?))
 import qualified Document
 import GHC.Records (HasField)
 import Markdown (Markdown)
@@ -37,16 +38,30 @@ data Content = Html Text | Markdown Markdown
 data Page = Page
   { url :: String,
     title :: String,
-    content :: Content
+    content :: Content,
+    index :: Bool
   }
+
+data Frontmatter = Frontmatter
+  { title :: String,
+    index :: Bool
+  }
+
+frontmatterParser :: Yaml.Value -> Yaml.Parser Frontmatter
+frontmatterParser =
+  Yaml.withObject "PageFrontmatter" \o ->
+    Frontmatter
+      <$> o .: "title"
+      <*> (fromMaybe True <$> (o .:? "index"))
 
 fromFile :: FilePath -> FilePath -> Builder Page
 fromFile path url = do
-  document <- Document.fromFile (Yaml.withObject "PageFrontmatter" (.: "title")) path
+  document <- Document.fromFile frontmatterParser path
   pure
     Page
       { url = url,
-        title = document.frontmatter,
+        title = document.frontmatter.title,
+        index = document.frontmatter.index,
         content = case takeExtension path of
           ".md" -> Markdown (Markdown.read document.content)
           _ -> Html document.content
@@ -63,6 +78,7 @@ component ::
   forall props.
   ( HasField "url" props String,
     HasField "title" props String,
+    HasField "index" props Bool,
     HasField "content" props Content
   ) =>
   props ->

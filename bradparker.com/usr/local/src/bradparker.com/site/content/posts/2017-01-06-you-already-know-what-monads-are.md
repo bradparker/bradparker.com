@@ -1,5 +1,6 @@
 ---
 title: You already know what Monads are
+published: 2017-01-06
 rss_guid: https://bradparker.com/content/posts/2017-01-06-you-already-know-what-monads-are.html
 tags:
   - development
