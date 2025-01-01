@@ -221,6 +221,16 @@ As with Two-up, many of these possibilities are counted as the same outcome. All
 
 One more game of chance.
 
+Deoxyribonucleic acid is a pretty special molecule. Two chains of smaller molecular units (nucleotides) each zipped together by the propensity for electron density to be greater nearer to nitrogen or oxygen atoms rather than hydrogen atoms (hydrogen bonding).
+
+DNA nucleotides all have a deoxyribose component attached to one of four different sub-units (nitrogenous bases): adenine, cytosine, guanine and thymine. It's from these we get the letters we use to denote the genetic code: A, C, G and T.
+
+Cells use DNA for multiple purposes, one of which is as a sort of template that informs protein construction. Proteins are also pretty special molecules, built out of one or more chains (polypeptides) of other molecular units (amino acids).
+
+In 1961 Francis Crick, Sydney Brenner, Leslie Barnett and R. J. Watts-Tobin figured out that this process of protein construction requires that the nucleotides that make up DNA come in groups of three. They called these groups "codons".
+
+How many different codons could there be?
+
 <div class="overflow-x-auto overflow-y-hidden">
   <ul class="list-none grid">
     <li class="row-span-full col-span-full" style="transform: translate(-12.5%, 12.5%) scale(0.75);">
@@ -709,3 +719,24 @@ One more game of chance.
     </li>
   </ul>
 </div>
+
+There are three 'slots' in each codon, which could each be filled by one of four nucleotide types.
+
+<figure class="figure">
+  <em>No. of nucleotides</em> &times; <em>No. of nucleotides</em> &times; <em>No. of nucleotides</em> = <em>No. of possible codons</em>
+</figure>
+
+So.
+
+<figure class="figure">
+  <p>4 &times; 4 &times; 4 = 64</p>
+</figure>
+
+
+TODO: 20 proteins from 64 codons.
+
+TODO: Somehow shoe-horn in "that's how the cookie crumbles."
+
+## Quartets
+
+TODO: How many voicings can a string quartet play? Enumerate them, generate them maybe using code and choose some favourites.
