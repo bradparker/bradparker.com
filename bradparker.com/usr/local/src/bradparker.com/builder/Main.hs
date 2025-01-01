@@ -33,7 +33,7 @@ main :: IO ()
 main = do
   config <- getConfig
   build config do
-    traverse_ copyFile =<< getDirectoryFiles ["assets/**/*.*", "static/**/*.*"]
+    traverse_ copyFile =<< getDirectoryFiles ["assets/**/*.*", "static/**/*.*", "content/posts/**/assets/**/*.*"]
 
     (posts, drafts) <- Posts.fromFiles =<< getDirectoryFiles ["content/posts/*.md"]
 
