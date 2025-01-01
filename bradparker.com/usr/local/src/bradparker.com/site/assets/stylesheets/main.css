@@ -232,12 +232,12 @@
   border-radius: 0.5rem;
 }
 
-.markdown li {
+.markdown ul:not(.list-none) li {
   padding-left: 1rem;
   position: relative;
 }
 
-.markdown ul li:before {
+.markdown ul:not(.list-none) li:before {
   content: "\2022";
   left: 0;
   top: 0;
