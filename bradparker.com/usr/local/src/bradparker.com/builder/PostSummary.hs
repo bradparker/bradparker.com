@@ -39,13 +39,13 @@ component ::
 component props =
   H.article do
     (H.header ! A.class_ "bb b--near-white sticky top-0 bg-white flex") do
-      (H.section ! A.class_ "w-100 mw7 center lh-copy pa3 flex flex-wrap align-center g2") do
+      (H.section ! A.class_ "w-100 mw7 center lh-copy pa3 flex flex-wrap items-center g2") do
         (H.a ! A.href (fromString ("/" </> props.url)) ! A.class_ "link hover-dark-green mr-auto") do
           (H.h1 ! A.class_ "f4 ma0") do
             H.strong do
               H.string props.title
               " "
-        (H.div ! A.class_ "flex flex-wrap align-center shrink-0 g2") do
+        (H.div ! A.class_ "flex flex-wrap items-center shrink-0 g2") do
           H.div do
             H.string (Post.formattedDate props.date)
           (H.div ! A.class_ "flex g2") do
