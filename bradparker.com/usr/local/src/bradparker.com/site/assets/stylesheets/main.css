@@ -272,29 +272,29 @@
   font-size: 0.875rem;
 }
 
-.markdown table {
+.markdown > table {
   min-width: 100%;
   box-sizing: border-box;
 }
 
-.markdown th, .markdown td {
+.markdown > table th, .markdown > table td {
   padding: 0.25rem 1rem;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.markdown th:first-child, .markdown td:first-child {
+.markdown > table th:first-child, .markdown > table td:first-child {
   padding-left: 0;
   border-left: none;
 }
-.markdown th:last-child, .markdown td:last-child {
+.markdown > table th:last-child, .markdown > table td:last-child {
   padding-right: 0;
 }
 
-.markdown tbody tr {
+.markdown > table tbody tr {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.markdown th {
+.markdown > table th {
   font-family:
     Founders Grotesk,
     -apple-system,
