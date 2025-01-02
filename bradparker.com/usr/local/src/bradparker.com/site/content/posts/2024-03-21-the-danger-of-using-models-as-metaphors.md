@@ -22,23 +22,12 @@ Later she provides an example to illustrate how bad things can get when models b
 
 > Relying on metaphors as the foundation for policy advice can lead to results substantially different from those presumed to be likely. Nationalizing the ownership of forests in Third World countries, for example, has been advocated on the grounds that local villagers cannot manage forests as to sustain their productivity and their value in reducing soil erosion. In countries where small villages had owned and regulated their local communal forests for generations, nationalization meant expropriation.
 
-The three models being referred to in the first quotation are prior attempts to explain the dynamics of common resource governance, but we needn't go into any more detail than that. What I seem to have taken away from this is a broader point about the danger of attempting to fit insights onto a domain over which they were never intended to apply. It's possible I'm zooming out too far, for example one of the model-cum-metaphors Ostrom is referring to above is the [prisoner's dilemma](https://en.wikipedia.org/wiki/Prisoner's_dilemma) which has a precise definition, but this starts to feel close to an impulse in my field. We software developers love a structuring metaphor, such as [architecture](https://en.wikipedia.org/wiki/Pattern_language#Application_domains) or [cellular biology](#footnote-1).
+The three models being referred to in the first quotation are prior attempts to explain the dynamics of common resource governance, but we needn't go into any more detail than that. What I seem to have taken away from this is a broader point about the danger of attempting to fit insights onto a domain over which they were never intended to apply. It's possible I'm zooming out too far, for example one of the model-cum-metaphors Ostrom is referring to above is the [prisoner's dilemma](https://en.wikipedia.org/wiki/Prisoner's_dilemma) which has a precise definition, but this starts to feel close to an impulse in my field. We software developers love a structuring metaphor, such as [architecture](https://en.wikipedia.org/wiki/Pattern_language#Application_domains) or cellular biology[^1].
 
 How do we know when we've inadvertently turned a model into a metaphor and misapplied it? When we've latched onto those couple of similar variables and missed all the dissimilar ones? Ostrom's suggestion is fairly simple to state: if your data contradicts the model you're trying to apply, either your data is wrong, the model is wrong, or the model doesn't fit your domain. This could perhaps be summarised, flippantly, as "do science." Indeed her argument against the inevitability of [the tragedy of the commons](https://en.wikipedia.org/wiki/Tragedy_of_the_commons) is that there are ample examples of self-organizing communities who share common resources without falling prey to the effect.
 
 I'm not exactly sure where all this leads me. Wanting to apply the scientific method to find the boundaries of the myriad structuring metaphors we use to think and communicate sure sounds exhausting; for all involved. But on the other hand we run the risk of accidentally limiting ourselves, or causing real harm, by labouring under a seemingly well justified but ill-fitting model. I genuinely have no idea what I'm supposed to do with these thoughts, but at least now I've shared my unease.
 
-## Notes
+[^1]: > And then there is the idea of simulation itself, where the whole idea of “data” and “state” starts to get eclipsed by “competent objects” that can cooperate, much more like biological cells and human societies can.
 
-<ol>
-  <li id="footnote-1" class="markdown">
-    <blockquote>
-      <p>And then there is the idea of simulation itself, where the whole idea of “data” and “state” starts to get eclipsed by “competent objects” that can cooperate, much more like biological cells and human societies can.</p>
-    </blockquote>
-    <p>
-      <cite>
-        From Alan Kay answering the question <a href="https://www.quora.com/What-thought-process-would-lead-one-to-invent-object-oriented-programming/answer/Alan-Kay-11">'What thought process would lead one to invent object-oriented programming?' on Quora</a>
-      </cite>
-    </p>
-  </li>
-</ol>
+    From Alan Kay answering the question ['What thought process would lead one to invent object-oriented programming?' on Quora](https://www.quora.com/What-thought-process-would-lead-one-to-invent-object-oriented-programming/answer/Alan-Kay-11)
