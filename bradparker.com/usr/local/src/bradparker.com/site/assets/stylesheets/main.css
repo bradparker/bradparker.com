@@ -107,6 +107,7 @@
     sans-serif;
   font-weight: bold;
   margin-top: 1.75rem;
+  scroll-margin-top: 5rem;
 }
 
 .markdown h1 + h2,
@@ -114,7 +115,6 @@
 .markdown h3 + h4 {
   margin-top: 1rem;
 }
-
 
 .markdown h1 {
   font-size: 2rem;
