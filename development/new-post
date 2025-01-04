@@ -4,7 +4,7 @@ set -exu
 
 title=$1
 
-cat > bradparker.com/usr/local/src/bradparker.com/site/content/posts/$(date --iso-8601)-$(echo "$title" | tr " [:upper:]" "-[:lower:]").md <<EOF
+cat > "bradparker.com/usr/local/src/bradparker.com/site/content/posts/$(date --iso-8601)-$(echo "$title" | tr " [:upper:]" "-[:lower:]").md" <<EOF
 ---
 title: $title
 ---
