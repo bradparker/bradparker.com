@@ -5,8 +5,11 @@
 :root {
   color: hsl(0, 0%, 15%);
   font-size: 100%;
-  font-family:
-    Founders Grotesk,
+  --tiempos: "Tiempos Text",
+    "Georgia",
+    "Times New Roman",
+    serif;
+  --founders-grotesk: Founders Grotesk,
     -apple-system,
     BlinkMacSystemFont,
     avenir next,
@@ -19,6 +22,7 @@
     segoe ui,
     arial,
     sans-serif;
+  font-family: var(--founders-grotesk);
 }
 
 @media (min-width: 30rem) {
@@ -38,30 +42,12 @@
 }
 
 .founders-grotesk {
-  font-family:
-    Founders Grotesk,
-    -apple-system,
-    BlinkMacSystemFont,
-    avenir next,
-    avenir,
-    helvetica,
-    helvetica neue,
-    ubuntu,
-    noto,
-    Roboto,
-    segoe ui,
-    arial,
-    sans-serif;
+  font-family: var(--founders-grotesk);
 }
 
 .tiempos-text {
-  font-family:
-    "Tiempos Text",
-    "Georgia",
-    "Times New Roman",
-    serif;
+  font-family: var(--tiempos);
 }
-
 
 .block-columns-2-ns {
   column-gap: 1.5rem;
@@ -77,12 +63,59 @@
   }
 }
 
+button {
+  display: inline-block;
+  line-height: 1rem;
+  padding: 0.5rem 0.6rem 0.6rem;
+  border-radius: 0.5rem;
+  background-color: whitesmoke;
+  border: 2px solid black;
+  transition: background-color ease 0.2s;
+  font-family: var(--founders-grotesk);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: gainsboro;
+}
+
+button:active {
+  color: white;
+  background-color: black;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary {
+  list-style: none;
+  font-family: var(--founders-grotesk);
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  line-height: 1rem;
+  padding: 0.5rem 0.6rem 0.6rem;
+  border-radius: 0.5rem;
+  background-color: whitesmoke;
+}
+
+summary:hover {
+  background-color: gainsboro;
+}
+
+details summary::before {
+  content: "⏵";
+  display: inline-block;
+  margin-right: 0.25rem;
+}
+
+details[open] summary::before {
+  content: "⏷";
+}
+
 .markdown {
-  font-family:
-    "Tiempos Text",
-    "Georgia",
-    "Times New Roman",
-    serif;
+  font-family: var(--tiempos);
 }
 
 .markdown h1,
@@ -91,20 +124,7 @@
 .markdown h4,
 .markdown h5,
 .markdown h6 {
-  font-family:
-    Founders Grotesk,
-    -apple-system,
-    BlinkMacSystemFont,
-    avenir next,
-    avenir,
-    helvetica,
-    helvetica neue,
-    ubuntu,
-    noto,
-    Roboto,
-    segoe ui,
-    arial,
-    sans-serif;
+  font-family: var(--founders-grotesk);
   font-weight: bold;
   margin-top: 1.75rem;
   scroll-margin-top: 5rem;
@@ -193,20 +213,7 @@
   font-size: 0.8rem;
   line-height: 1.25em;
   max-width: 30em;
-  font-family:
-    Founders Grotesk,
-    -apple-system,
-    BlinkMacSystemFont,
-    avenir next,
-    avenir,
-    helvetica,
-    helvetica neue,
-    ubuntu,
-    noto,
-    Roboto,
-    segoe ui,
-    arial,
-    sans-serif;
+  font-family: var(--founders-grotesk);
 }
 
 .markdown * + figcaption {
