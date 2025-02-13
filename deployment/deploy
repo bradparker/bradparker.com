@@ -8,5 +8,9 @@ target_host="$1"
 (
   cd "$(dirname "${BASH_SOURCE[0]}")/.."
   rsync -va --no-owner --no-group --mkpath bradparker.com/var/secrets/bradparker.com "$target_host":/var/secrets/
-  nixos-rebuild -I nixos-config=bradparker.com/etc/nixos/configuration.nix --target-host "$target_host" --use-remote-sudo switch
+  nixos-rebuild \
+    -I "$NIX_PATH" \
+    -I nixos-config=bradparker.com/etc/nixos/configuration.nix \
+    --target-host "$target_host" \
+    --use-remote-sudo switch
 )
