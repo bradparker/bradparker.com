@@ -8,34 +8,15 @@ description: |
 
 The Real numbers can be defined as a set, &#x211D;, along with two operators, + (addition) and &bullet; (multiplication).
 
-<p>
-  <math>
-    <mrow>
-      <mo>(</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>,</mo>
-      <mo>+</mo>
-      <mo>,</mo>
-      <mo>&bullet;</mo>
-      <mo>)</mo>
-    </mrow>
-  </math>
-</p>
+$$
+(\mathbb{R}, +, \bullet)
+$$
 
 Multiplication can alternatively be written omitting the operator (&bullet;) and its surrounding space.
 
-<p>
-  <math>
-    <mrow>
-      <mi>x</mi>
-      <mo>&bullet;</mo>
-      <mi>y</mi>
-      <mo>=</mo>
-      <mi>x</mi>
-      <mi>y</mi>
-    </mrow>
-  </math>
-</p>
+$$
+x \bullet y = xy
+$$
 
 ## Axioms
 
@@ -43,480 +24,179 @@ The following 9 axioms complete the description.
 
 ### Addition is associative
 
-<p>
-  <math>
-    <mrow>
-      <mi>x</mi>
-      <mo>,</mo>
-      <mi>y</mi>
-      <mo>,</mo>
-      <mi>z</mi>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>.</mo>
-      <mi>x</mi>
-      <mo>+</mo>
-      <mo>(</mo>
-      <mi>y</mi>
-      <mo>+</mo>
-      <mi>z</mi>
-      <mo>)</mo>
-      <mo>=</mo>
-      <mo>(</mo>
-      <mi>x</mi>
-      <mo>+</mo>
-      <mi>y</mi>
-      <mo>)</mo>
-      <mo>+</mo>
-      <mi>z</mi>
-    </mrow>
-  </math>
-</p>
+$$
+\forall x, y, z \in \mathbb{R} \hspace{3pt} x + (y + z) = (x + y) + z
+$$
 
+### Addition is commutative
 
-### Addition is commutative (<a id="addition-is-commutative" href="#addition-is-commutative">#</a>)
+$$
+\forall x, y \in \mathbb{R} \hspace{3pt} x + y = y + x
+$$
 
-<p>
-  <math>
-    <mrow>
-      <mi>x</mi>
-      <mo>,</mo>
-      <mi>y</mi>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>.</mo>
-      <mi>x</mi>
-      <mo>+</mo>
-      <mi>y</mi>
-      <mo>=</mo>
-      <mi>y</mi>
-      <mo>+</mo>
-      <mi>x</mi>
-    </mrow>
-  </math>
-</p>
-
-
-
-### Additive identity (<a id="additive-identity" href="#additive-identity">#</a>)
+### Additive identity
 
 There is an additive identity element.
 
-<p>
-  <math>
-    <mrow>
-      <mo>&#x2203;</mo>
-      <mn>0</mn>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>&#x220B;</mo>
-      <mo>&#x2200;</mo>
-      <mi>x</mi>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>.</mo>
-      <mn>0</mn>
-      <mo>+</mo>
-      <mi>x</mi>
-      <mo>=</mo>
-      <mi>x</mi>
-    </mrow>
-  </math>
-</p>
+$$
+\exists 0 \in \mathbb{R} \ni \forall x \in \mathbb{R} \hspace{3pt} 0 + x = x
+$$
 
-### Additive inverse (<a id="additive-inverse" href="#additive-inverse">#</a>)
+### Additive inverse
 
 There is an additive inverse for every element.
 
-<p>
-  <math>
-    <mrow>
-      <mo>&#x2200;</mo>
-      <mi>x</mi>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>&#x2203;</mo>
-      <mo>(</mo>
-      <mrow><mo>&minus;</mo><mi>x</mi></mrow>
-      <mo>)</mo>
-      <mo>&#x220B;</mo>
-      <mi>x</mi>
-      <mo>+</mo>
-      <mo>(</mo>
-      <mrow><mo>&minus;</mo><mi>x</mi></mrow>
-      <mo>)</mo>
-      <mo>=</mo>
-      <mn>0</mn>
-    </mrow>
-  </math>
-</p>
+$$
+\forall x \in \mathbb{R} \hspace{3pt} \exists -x \in \mathbb{R} \ni x + -x = 0
+$$
 
 There is special notation for addition where the right hand side is an additive inverse.
 
-<p>
-  <math>
-    <mi>x</mi>
-    <mo>+</mo>
-    <mrow>
-      <mo>(</mo>
-        <mrow>
-          <mo>&minus;</mo>
-          <mi>y</mi>
-        </mrow>
-      <mo>)</mo>
-    </mrow>
-    <mo>=</mo>
-    <mi>x</mi>
-    <mo>&minus;</mo>
-    <mi>y</mi>
-  </math>
-</p>
+$$
+x + -y = x - y
+$$
 
-### Multiplication is associative (<a id="multiplication-is-associative"  href="#multiplication-is-associative">#</a>)
+### Multiplication is associative
 
-<p>
-  <math>
-    <mrow>
-      <mi>x</mi>
-      <mo>,</mo>
-      <mi>y</mi>
-      <mo>,</mo>
-      <mi>z</mi>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>.</mo>
-      <mi>x</mi>
-      <mo>(</mo>
-      <mi>y</mi>
-      <mi>z</mi>
-      <mo>)</mo>
-      <mo>=</mo>
-      <mo>(</mo>
-      <mi>x</mi>
-      <mi>y</mi>
-      <mo>)</mo>
-      <mi>z</mi>
-    </mrow>
-  </math>
-</p>
+$$
+\forall x, y, z \in \mathbb{R} \hspace{3pt} x(yz) = (xy)z
+$$
 
-### Multiplication is commutative (<a id="multiplication-is-commutative"  href="#multiplication-is-commutative">#</a>)
+### Multiplication is commutative
 
-<p>
-  <math>
-    <mrow>
-      <mi>x</mi>
-      <mo>,</mo>
-      <mi>y</mi>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>.</mo>
-      <mi>x</mi>
-      <mi>y</mi>
-      <mo>=</mo>
-      <mi>y</mi>
-      <mi>z</mi>
-    </mrow>
-  </math>
-</p>
+$$
+\forall x, y \in \mathbb{R} \hspace{3pt} xy = yx
+$$
 
-### Multiplicative identity (<a id="multiplicative-identity" href="#multiplicative-identity">#</a>)
+### Multiplicative identity
 
-<p>
-  <math>
-    <mrow>
-      <mo>&#x2203;</mo>
-      <mn>1</mn>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>&#x220B;</mo>
-      <mo>&#x2200;</mo>
-      <mi>x</mi>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>.</mo>
-      <mn>1</mn>
-      <mi>x</mi>
-      <mo>=</mo>
-      <mi>x</mi>
-    </mrow>
-  </math>
-</p>
+$$
+\exists 1 \in \mathbb{R} \ni \forall x \in \mathbb{R} \hspace{3pt} 1 \bullet x = x
+$$
 
 ### Multiplicative inverse
 
 For every element, except 0, there is a multiplicative inverse.
 
-<p>
-  <math>
-    <mrow>
-      <mo>&#x2200;</mo>
-      <mi>x</mi>
-      <mo>&#x2208;</mo>
-      <mo>(</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>&minus;</mo>
-      <mrow>
-        <mo>{</mo>
-        <mn>0</mn>
-        <mo>}</mo>
-      </mrow>
-      <mo>)</mo>
-      <mo>,</mo>
-      <mo>&#x2203;</mo>
-      <mo>(</mo>
-      <msup>
-        <mi>x</mi>
-        <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-      </msup>
-      <mo>)</mo>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>&#x220B;</mo>
-      <mi>x</mi>
-      <mo>(</mo>
-      <msup>
-        <mi>x</mi>
-        <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-      </msup>
-      <mo>)</mo>
-      <mo>=</mo>
-      <mn>1</mn>
-    </mrow>
-  </math>
-</p>
+$$
+\forall x \in \{ \mathbb{R} - \{ 0 \} \} \hspace{3pt} \exists x^{-1} \in \mathbb{R} \ni xx^{-1} = 1
+$$
 
 There is special notation for when the right hand side of multiplication is a multiplicative inverse.
 
-<p>
-  <math>
-    <mi>x</mi>
-    <mo>(</mo>
-      <msup>
-        <mi>y</mi>
-        <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-      </msup>
-    <mo>)</mo>
-    <mo>=</mo>
-    <mfrac>
-      <mi>x</mi>
-      <mi>y</mi>
-    </mfrac>
-  </math>
-</p>
+$$
+xy^{-1} = \frac{x}{y}
+$$
 
-### Multiplication distributes over addition (<a id="multiplication-distributes-over-addition" href="#multiplication-distributes-over-addition">#</a>)
+### Multiplication distributes over addition
 
-<p>
-  <math>
-    <mrow>
-      <mi>x</mi>
-      <mo>,</mo>
-      <mi>y</mi>
-      <mo>,</mo>
-      <mi>z</mi>
-      <mo>&#x2208;</mo>
-      <mi normal>&#x211D;</mi>
-      <mo>.</mo>
-      <mi>x</mi>
-      <mo>(</mo>
-      <mi>y</mi>
-      <mo>+</mo>
-      <mi>z</mi>
-      <mo>)</mo>
-      <mo>=</mo>
-      <mi>x</mi>
-      <mi>y</mi>
-      <mo>+</mo>
-      <mi>x</mi>
-      <mi>z</mi>
-    </mrow>
-  </math>
-</p>
+$$
+\forall x, y, z \in \mathbb{R} \hspace{3pt} x(y + z) = xy + xz
+$$
 
 ## Toolkit
 
-### Multiplication by zero (<a id="multiplication-by-zero" href="#multiplication-by-zero">#</a>)
+### Multiplication by zero
 
 Multiplying any element by zero equals zero.
 
-<p>
-  <math>
-    <mrow>
-      <mi>x</mi><mo>&#x2208;</mo><mi normal>&#x211D;</mi><mo>.</mo>
-      <mi>x</mi><mn>0</mn><mo>=</mo><mn>0</mn>
-    </mrow>
-  </math>
-</p>
+$$
+\forall x \in \mathbb{R} \hspace{3pt} x0 = 0
+$$
 
 #### Proof
 
-<p>
-  <math>
-    <mrow>
-      <mn>0</mn><mo>=</mo><mi>x</mi><mn>0</mn>
-    </mrow>
-  </math>
-</p>
+$$
+0 = x0
+$$
 
-[The additive identity axiom](#additive-identity) tells us that <math><mrow><mn>0</mn><mo>=</mo><mn>0</mn><mo>+</mo><mn>0</mn></mrow></math>.
+[The additive identity axiom](#additive-identity) tells us that $0 = 0 + 0$
 
-<p>
-  <math>
-    <mrow>
-      <mn>0</mn><mo>=</mo><mi>x</mi><mo>(</mo><mn>0</mn><mo>+</mo><mn>0</mn><mo>)</mo>
-    </mrow>
-  </math>
-</p>
+$$
+0 = x(0 + 0)
+$$
 
 [Multiplication distributes over addition](#multiplication-distributes-over-addition).
 
-<p>
-  <math>
-    <mrow>
-      <mn>0</mn><mo>=</mo><mi>x</mi><mn>0</mn><mo>+</mo><mi>x</mi><mn>0</mn>
-    </mrow>
-  </math>
-</p>
+$$
+0 = x0 + x0
+$$
 
-This matches [the additive identity axiom](#additive-identity) where <math><mi>x</mi><mo>=</mo><mn>0</mn></math>. Therefore <math><mrow><mi>x</mi><mn>0</mn><mo>=</mo><mn>0</mn></mrow></math>.
+This matches [the additive identity axiom](#additive-identity) provided $x = x0 = 0$.
 
-### Multiplication by negative one (<a id="multiplication-by-negative-one" href="#multiplication-by-negative-one">#</a>)
+$$
+\begin{align*}
+x + 0 &= x \\
+x0 + x0 &= 0
+\end{align*}
+$$
+
+Therefore
+
+$$
+x0 = 0
+$$
+
+### Multiplication by negative one
 
 Multiplying any element by negative one yields the additive inverse for that element.
 
-<p>
-  <math>
-    <mrow>
-      <mi>x</mi><mo>&#x2208;</mo><mi normal>&#x211D;</mi><mo>.</mo>
-      <mi>x</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo><mo>=</mo><mrow><mo>&minus;</mo><mi>x</mi></mrow>
-    </mrow>
-  </math>
-</p>
+$$
+\forall x \in \mathbb{R} \hspace{3pt} x(-1) = -x
+$$
 
 #### Proof
 
-Given the knowledge that <a href="#multiplication-by-zero"><math><mrow><mn>0</mn><mo>=</mo><mi>x</mi><mn>0</mn></mrow></math></a>, and using the [additive inverse](#additive-inverse) for 1 we can write the following equation.
+Given the knowledge that [$0 = x0$](#multiplication-by-zero), and using the [additive inverse](#additive-inverse) for 1 we can write the following equation.
 
-<p>
-  <math>
-    <mrow>
-      <mn>0</mn>
-      <mo>=</mo>
-      <mi>x</mi><mo>(</mo><mn>1</mn><mo>+</mo><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo><mo>)</mo>
-    </mrow>
-  </math>
-</p>
+$$
+0 = x(1 + -1)
+$$
 
 Which we can rewrite using the knowledge that [multiplication distributes over addition](#multiplication-distributes-over-addition)
 
-<p>
-  <math>
-    <mrow>
-      <mn>0</mn><mo>=</mo><mi>x</mi><mo>+</mo><mi>x</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo>
-    </mrow>
-  </math>
-</p>
+$$
+0 = x + x(-1)
+$$
 
-Which is the same as the equation for the [additive inverse](#additive-inverse). Therefore <math><mrow><mi>x</mi><mo>(</mo><mrow><mo>&minus;</mo><mn>1</mn></mrow><mo>)</mo><mo>=</mo><mrow><mo>&minus;</mo><mi>x</mi></mrow></mrow></math>.
+Which is the same as the equation for the [additive inverse](#additive-inverse) provided $-x = x(-1)$.
 
-### The additive inverse of an additive inverse is identity (<a id="double-additive-inverse" href="#double-additive-inverse">#</a>)
+$$
+\begin{align*}
+  0 &= x + -x \\
+  0 &= x + x(-1) \\
+  \blacksquare
+\end{align*}
+$$
 
-<p>
-  <math>
-    <mrow>
-      <mo>&minus;</mo>
-      <mo>(</mo>
-      <mrow><mo>&minus;</mo><mi>x</mi></mrow>
-      <mo>)</mo>
-      <mo>=</mo>
-      <mi>x</mi>
-    </mrow>
-  </math>
-</p>
+### The additive inverse of an additive inverse is identity
+
+$$
+-(-x) = x
+$$
 
 #### Proof
 
 This is true by definition.
 
-<p>
-  <math>
-    <mrow>
-      <mi>x</mi>
-      <mo>+</mo>
-      <mo>(</mo>
-      <mrow><mo>&minus;</mo><mi>x</mi></mrow>
-      <mo>)</mo>
-      <mo>=</mo>
-      <mn>0</mn>
-    </mrow>
-  </math>
-</p>
+$$
+x + -x = 0
+$$
 
-Now let <math><mi>x</mi></math> be <math><mo>(</mo><mrow><mo>&minus;</mo><mi>x</mi></mrow><mo>)</mo></math>.
+Now let $x$ be $-x$.
 
-<p>
-  <math>
-    <mrow>
-      <mo>(</mo>
-      <mrow><mo>&minus;</mo><mi>x</mi></mrow>
-      <mo>)</mo>
-      <mo>+</mo>
-      <mo>(</mo>
-      <mrow>
-        <mo>&minus;</mo>
-        <mo>(</mo>
-        <mrow><mo>&minus;</mo><mi>x</mi></mrow>
-        <mo>)</mo>
-      </mrow>
-      <mo>)</mo>
-      <mo>=</mo>
-      <mn>0</mn>
-    </mrow>
-  </math>
-</p>
+$$
+-x + -(-x) = 0
+$$
 
 We can use the knowledge that [addition is commutative](#addition-is-commutative) to make the match to the additive inverse definition very clear.
 
-<p>
-  <math>
-    <mtable>
-      <mtr>
-        <mtd style="text-align: right">
-          <mo>(</mo>
-          <mrow>
-            <mo>&minus;</mo>
-            <mo>(</mo>
-            <mrow><mo>&minus;</mo><mi>x</mi></mrow>
-            <mo>)</mo>
-          </mrow>
-          <mo>)</mo>
-          <mo>+</mo>
-          <mo>(</mo>
-          <mrow><mo>&minus;</mo><mi>x</mi></mrow>
-          <mo>)</mo>
-        </mtd>
-        <mtd>
-          <mo>=</mo>
-          <mn>0</mn>
-        </mtd>
-      </mtr>
-      <mtr>
-        <mtd style="text-align: right">
-          <mi>x</mi>
-          <mo>+</mo>
-          <mo>(</mo>
-          <mrow><mo>&minus;</mo><mi>x</mi></mrow>
-          <mo>)</mo>
-        </mtd>
-        <mtd>
-          <mo>=</mo>
-          <mn>0</mn>
-        </mtd>
-      </mtr>
-    </mtable>
-  </math>
-</p>
+$$
+\begin{align*}
+  0 &= -x + x \\
+  0 &= -x + -(-x)
+\end{align*}
+$$
 
 ### Additive inverse multiplied by additive inverse
 
@@ -599,7 +279,7 @@ Which we can rewrite using the knowledge that [multiplication by negative one is
   </math>
 </p>
 
-Which we can rewrite using the knowledge that [the additive inverse of an additive inverse is identity](#double-additive-inverse).
+Which we can rewrite using the knowledge that [the additive inverse of an additive inverse is identity](#the-additive-inverse-of-an-additive-inverse-is-identity).
 
 <p>
   <math>
@@ -1947,59 +1627,7 @@ $$
 = \frac{xb + ay}{yb}
 $$
 
-### Dividing fractions
-
-$$
-\frac{(\frac{x}{y})}{(\frac{a}{b})} = \frac{xb}{ya}
-$$
-
-#### Proof
-
-$$
-\frac{(\frac{x}{y})}{(\frac{a}{b})}
-$$
-
-$$
-= \frac{(xy^(-1))}{(ab^(-1))}
-$$
-
-$$
-= (xy^(-1))(ab^(-1))^(-1)
-$$
-
-$$
-= (xy^(-1))(a^(-1)(b^(-1))^(-1))
-$$
-
-$$
-= (xy^(-1))(a^(-1)b^(-1 \times -1))
-$$
-
-$$
-= (xy^(-1))(a^(-1)b^1)
-$$
-
-$$
-= (xy^(-1))(a^(-1)b)
-$$
-
-$$
-= xy^(-1)a^(-1)b
-$$
-
-$$
-= xby^(-1)a^(-1)
-$$
-
-$$
-= xb(ya)^(-1)
-$$
-
-$$
-= \frac{xb}{ya}
-$$
-
-### Adding fractions with shared denominator
+#### Special case: Adding fractions with shared denominator
 
 $$
 \frac{(x + y)}{z} = \frac{x}{z} + \frac{y}{z}
@@ -2059,33 +1687,56 @@ $$
 = \frac{(x + y)}{z}
 $$
 
-### Denominator with exponents
-
-Just something I saw in a blog post.
+### Dividing fractions
 
 $$
-\frac{z}{x^ya^(-b)}
-= zx^(-y)a^(b)
+\frac{(\frac{x}{y})}{(\frac{a}{b})} = \frac{xb}{ya}
 $$
 
 #### Proof
 
 $$
-\frac{z}{x^ya^(-b)}
+\frac{(\frac{x}{y})}{(\frac{a}{b})}
 $$
 
 $$
-= z(x^ya^(-b))^(-1)
+= \frac{(xy^(-1))}{(ab^(-1))}
 $$
 
 $$
-= z(x^y)^(-1)(a^(-b))^(-1)
+= (xy^(-1))(ab^(-1))^(-1)
 $$
 
 $$
-= zx^(y(-1))a^(-b(-1))
+= (xy^(-1))(a^(-1)(b^(-1))^(-1))
 $$
 
 $$
-= zx^(-y)a^(b)
+= (xy^(-1))(a^(-1)b^(-1 \times -1))
 $$
+
+$$
+= (xy^(-1))(a^(-1)b^1)
+$$
+
+$$
+= (xy^(-1))(a^(-1)b)
+$$
+
+$$
+= xy^(-1)a^(-1)b
+$$
+
+$$
+= xby^(-1)a^(-1)
+$$
+
+$$
+= xb(ya)^(-1)
+$$
+
+$$
+= \frac{xb}{ya}
+$$
+
+
