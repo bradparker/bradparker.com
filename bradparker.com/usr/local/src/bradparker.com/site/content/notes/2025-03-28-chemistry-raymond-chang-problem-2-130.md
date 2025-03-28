@@ -174,7 +174,7 @@ $$
 = 19.42 \text{g}
 $$
 
-We we can now use.
+Which we can now use.
 
 <div class="wide">
   <div class="wide-content">
