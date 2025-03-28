@@ -1,6 +1,6 @@
 @import url('./modules/typography/fonts.css');
 
-.lh-copy { line-height: 1.5rem; }
+.lh-copy { line-height: 1.55rem; }
 
 :root {
   color: hsl(0, 0%, 15%);
@@ -343,6 +343,7 @@ details[open] summary::before {
     Georgia,
     "Times New Roman",
     serif;
+  font-size: 1rem;
 }
 
 .markdown math msup > *:last-child,
@@ -385,6 +386,31 @@ details[open] summary::before {
 
 .markdown pre.diff .st { color: #cc6666 }
 .markdown pre.diff .va { color: #b5bd68 }
+
+/* Markdown utils */
+.markdown > .wide {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+}
+
+.markdown > .wide:after {
+  content: "";
+  display: block;
+  position: sticky;
+  right: 0;
+  min-width: 2rem;
+  background: linear-gradient(
+    to left,
+    white,
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.markdown .wide > .wide-content > * + * {
+  margin-top: 1rem;
+}
 
 .fine-underline {
   background-image:
