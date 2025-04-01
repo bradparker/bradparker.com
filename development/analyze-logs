@@ -2,7 +2,13 @@
 
 set -exuo pipefail
 
+EXCLUDE=$1
+
 (
-  cd $(dirname $BASH_SOURCE)/..
-  rg '^([0-9]{4})-([0-9]{2}).*"GET /posts/([a-z-]+) HTTP.*$' --replace '$1 $2 $3' logs/bradparker.com.log | sort| uniq -c | less
+  cd "$(dirname "${BASH_SOURCE[0]}")/.."
+  rg -v "$EXCLUDE" logs/bradparker.com.log\
+    | rg '^([0-9]{4})-([0-9]{2}).*"GET /(posts|notes)/([a-z0-9-]+) HTTP.*$' --replace '$1 $2 $3 $4'\
+    | sort\
+    | uniq -c\
+    | less
 )
