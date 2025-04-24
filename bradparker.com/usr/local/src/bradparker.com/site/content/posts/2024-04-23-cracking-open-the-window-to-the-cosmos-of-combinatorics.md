@@ -774,4 +774,8 @@ Here they all are, generated pseudo randomly, without any repeats, twenty per se
 
 <script type="module" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
 
+## Space
+
+Beethoven's tetrachord is in there somewhere, but where I wonder?
+
 [^1]: [Deciphering the Genetic Code: The Most Beautiful False Theory in Biochemistry – Part 1](https://www.chemistryviews.org/details/ezine/11312121/Deciphering_the_Genetic_Code_The_Most_Beautiful_False_Theory_in_Biochemistry__Pa/)
