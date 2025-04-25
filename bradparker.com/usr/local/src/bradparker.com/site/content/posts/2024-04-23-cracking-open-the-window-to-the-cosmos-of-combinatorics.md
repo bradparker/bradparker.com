@@ -738,33 +738,30 @@ This seems like fiendishly complex stuff, there's sure to be many red herrings o
 
 ## Quartets
 
-The string quartet has been around as musical genre and ensemble instrumentation since the 1750s. In 1825 Beethoven wrote some particularly spicy quartets, numbers 12, 13, 14, 15 and 16, the last major compositions he completed. I love them, though not everyone does. A contemporary of Beethoven, and composer himself, Louis Spohr, described them as "indecipherable, uncorrected horrors."
+The string quartet has been around as a musical genre and an ensemble instrumentation since the 1750s. In 1825 Beethoven wrote some particularly spicy quartets, numbers 12 to 16, the last major compositions he completed. I love them, though not everyone does. A contemporary of Beethoven, and composer himself, Louis Spohr, described them as "indecipherable, uncorrected horrors."
 
-Three of the quartets, 15, 13, and 14, centre thematically around a particular group of four notes, a tetrachord. I wonder what other horrors lurk in the collection of all possible groups of four notes a string quartet can play?
+Three of the quartets, 15, 13, and 14, centre thematically around particular groupings of four notes, groupings united by how far away their constituent notes are from each other. Four note groupings that share a shape like this are called tetrachords. Which has me wondering what horrors might lurk in the collection of all possible groups of four notes a string quartet could play simultaneously?
 
 First, how many are there? I'm honestly not sure, the ranges of these instruments are a bit flexible, it can depend on the player, whether harmonics are included, the construction of a particular instance of an instrument. If I might be permitted to use these as the ranges for the instruments in question we can at least get a ballpark figure.
 
-* **Violin** G3 - A7, 51 notes
-* **Viola** C3 - E6, 41 notes
-* **Cello** C2 - A5, 46 notes
+Violin
+:   G3 - A7, 51 notes
 
-<figure class="figure">
-  <em>No. of notes the first violin can play</em><br />
-  &times; <em>No. of notes the second violin can play</em><br />
-  &times; <em>No. of notes the viola can play</em><br />
-  &times; <em>No. of notes the cello can</em><br />
-  = <em>No. of possible voicings a string quartet can play</em>
-</figure>
+Viola
+:   C3 - E6, 41 notes
 
-So.
+Cello
+:   C2 - A5, 46 notes
+
+The fist and second violins can each play any one of 51 notes, the viola one of 41, and the cello one of 46. So.
 
 <figure class="figure">
   <p>51 &times; 51 &times; 41 &times; 46 = 4,905,486</p>
 </figure>
 
-That's a lot.
+That is a lot.
 
-Here they all are, generated pseudo randomly, without any repeats, twenty per second. It would take you nearly three days of uninterrupted listening to hear them all.
+Here they all are, generated pseudo randomly, without any repeats, at a rate of ten per second. It would take you over five days and 16 hours of uninterrupted listening to hear them all.
 
 **Note** if reading on a mobile device you may need to disable silent mode to hear this.
 
@@ -774,8 +771,8 @@ Here they all are, generated pseudo randomly, without any repeats, twenty per se
 
 <script type="module" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
 
-## Space
+## Space, and getting lost in it
 
-Beethoven's tetrachord is in there somewhere, but where I wonder?
+Beethoven's four note groupings are in there somewhere, but where? Where, for example, is E, F, G#, A?
 
 [^1]: [Deciphering the Genetic Code: The Most Beautiful False Theory in Biochemistry – Part 1](https://www.chemistryviews.org/details/ezine/11312121/Deciphering_the_Genetic_Code_The_Most_Beautiful_False_Theory_in_Biochemistry__Pa/)

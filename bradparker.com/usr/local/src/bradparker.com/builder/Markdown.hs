@@ -40,6 +40,7 @@ read =
               [ Pandoc.Ext_tex_math_dollars
               , Pandoc.Ext_footnotes
               , Pandoc.Ext_gfm_auto_identifiers
+              , Pandoc.Ext_definition_lists
               ]
         }
 

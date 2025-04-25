@@ -264,6 +264,10 @@ details[open] summary::before {
   position: absolute;
 }
 
+.markdown dl dt {
+  font-weight: 700;
+}
+
 .markdown hr {
   margin: 1.5rem auto 1rem 0;
   width: 2rem;

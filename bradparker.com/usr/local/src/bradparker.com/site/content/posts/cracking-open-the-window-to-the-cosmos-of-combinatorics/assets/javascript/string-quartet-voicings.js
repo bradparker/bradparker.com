@@ -774,27 +774,32 @@ const generate = async () => {
   }
 };
 
-const control = document.getElementById("string-quartet-control");
 let started = false;
+const startOrResume = () => {
+  if (!started) {
+    generate();
 
+    firstViolin.start(0);
+    secondViolin.start(0);
+    viola.start(0);
+    cello.start(0);
+
+    started = true;
+
+    return Promise.resolve();
+  } else {
+    return audioCtx.resume();
+  }
+}
+
+const control = document.getElementById("string-quartet-control");
 control.addEventListener("click", () => {
   if (audioCtx.state === "running") {
     audioCtx.suspend().then(() => {
       control.textContent = "Play";
     });
   } else if (audioCtx.state === "suspended") {
-    if (!started) {
-      generate();
-
-      firstViolin.start(0);
-      secondViolin.start(0);
-      viola.start(0);
-      cello.start(0);
-
-      started = true;
-    }
-
-    audioCtx.resume().then(() => {
+    startOrResume().then(() => {
       control.textContent = "Pause";
     });
   }
