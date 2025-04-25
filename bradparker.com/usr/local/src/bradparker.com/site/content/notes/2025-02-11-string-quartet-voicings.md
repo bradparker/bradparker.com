@@ -768,9 +768,7 @@ This isn't always resumable in WebKit browsers.
   const indexedSequence = zip(index, sequence);
   const spacedIndexedSequence = intercalcateAsync(indexedSequence, tick(50));
 
-  const generate = async (bufferLength, { audioCtx, firstViolin, secondViolin, viola, cello }) => {
-    const startTime = audioCtx.currentTime;
-
+  const generate = async ({ startTime, buffer, audioCtx, firstViolin, secondViolin, viola, cello }) => {
     return new Promise(async (resolve) => {
       for await (const value of spacedIndexedSequence) {
         if (!value) { continue; } // Skipping delays ...
@@ -805,7 +803,7 @@ This isn't always resumable in WebKit browsers.
           offsetTime,
         );
 
-        if (i === bufferLength) {
+        if (i === buffer) {
           resolve();
         }
       }
@@ -830,18 +828,21 @@ This isn't always resumable in WebKit browsers.
         cello
       } = init());
 
-      await generate(5, {
-        audioCtx,
+      const startTime = audioCtx.currentTime + 0.1;
+
+      await generate({
+        buffer: 5,
+        startTime,
         firstViolin,
         secondViolin,
         viola,
         cello
       });
 
-      firstViolin.start(audioCtx.currentTime);
-      secondViolin.start(audioCtx.currentTime);
-      viola.start(audioCtx.currentTime);
-      cello.start(audioCtx.currentTime);
+      firstViolin.start(startTime);
+      secondViolin.start(startTime);
+      viola.start(startTime);
+      cello.start(startTime);
 
       started = true;
 
