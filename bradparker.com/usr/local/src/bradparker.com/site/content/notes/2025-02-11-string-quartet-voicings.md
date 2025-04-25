@@ -724,21 +724,32 @@ This isn't always resumable in WebKit browsers.
     return [firstViolinIndex, secondViolinIndex, violaIndex, celloIndex];
   }
 
-  const audioCtx = new AudioContext();
-  const gainNode = audioCtx.createGain();
+  const init = () => {
+    const audioCtx = new AudioContext();
+    const gainNode = audioCtx.createGain();
 
-  gainNode.gain.value = 0.1;
-  gainNode.connect(audioCtx.destination);
+    gainNode.gain.value = 0.1;
+    gainNode.connect(audioCtx.destination);
 
-  const firstViolin = audioCtx.createOscillator();
-  const secondViolin = audioCtx.createOscillator();
-  const viola = audioCtx.createOscillator();
-  const cello = audioCtx.createOscillator();
+    const firstViolin = audioCtx.createOscillator();
+    const secondViolin = audioCtx.createOscillator();
+    const viola = audioCtx.createOscillator();
+    const cello = audioCtx.createOscillator();
 
-  firstViolin.connect(gainNode);
-  secondViolin.connect(gainNode);
-  viola.connect(gainNode);
-  cello.connect(gainNode);
+    firstViolin.connect(gainNode);
+    secondViolin.connect(gainNode);
+    viola.connect(gainNode);
+    cello.connect(gainNode);
+
+    return {
+      audioCtx,
+      gainNode,
+      firstViolin,
+      secondViolin,
+      viola,
+      cello
+    }
+  }
 
   const n = (
     celloRange.length *
@@ -757,51 +768,80 @@ This isn't always resumable in WebKit browsers.
   const indexedSequence = zip(index, sequence);
   const spacedIndexedSequence = intercalcateAsync(indexedSequence, tick(50));
 
-  const generate = async () => {
-    for await (const value of spacedIndexedSequence) {
-      if (!value) { continue; } // Skipping delays ...
+  const generate = async (bufferLength, { audioCtx, firstViolin, secondViolin, viola, cello }) => {
+    const startTime = audioCtx.currentTime;
 
-      const [i, x] = value;
+    return new Promise(async (resolve) => {
+      for await (const value of spacedIndexedSequence) {
+        if (!value) { continue; } // Skipping delays ...
 
-      if (i > m) { return; }
+        const [i, x] = value;
 
-      const [
-        firstViolinIndex,
-        secondViolinIndex,
-        violaIndex,
-        celloIndex
-      ] = decode(x);
+        if (i > m) { return; }
 
-      const offsetTime = i * 0.1;
+        const [
+          firstViolinIndex,
+          secondViolinIndex,
+          violaIndex,
+          celloIndex
+        ] = decode(x);
 
-      firstViolin.frequency.setValueAtTime(
-        violinRange.at(firstViolinIndex).frequency,
-        offsetTime,
-      );
-      secondViolin.frequency.setValueAtTime(
-        violinRange.at(secondViolinIndex).frequency,
-        offsetTime,
-      );
-      viola.frequency.setValueAtTime(
-        violaRange.at(violaIndex).frequency,
-        offsetTime,
-      );
-      cello.frequency.setValueAtTime(
-        celloRange.at(celloIndex).frequency,
-        offsetTime,
-      );
-    }
+        const offsetTime = i * 0.1 + startTime;
+
+        firstViolin.frequency.setValueAtTime(
+          violinRange.at(firstViolinIndex).frequency,
+          offsetTime,
+        );
+        secondViolin.frequency.setValueAtTime(
+          violinRange.at(secondViolinIndex).frequency,
+          offsetTime,
+        );
+        viola.frequency.setValueAtTime(
+          violaRange.at(violaIndex).frequency,
+          offsetTime,
+        );
+        cello.frequency.setValueAtTime(
+          celloRange.at(celloIndex).frequency,
+          offsetTime,
+        );
+
+        if (i === bufferLength) {
+          resolve();
+        }
+      }
+    });
   };
 
-  let started = false;
-  const startOrResume = () => {
-    if (!started) {
-      generate();
+  let
+    audioCtx,
+    firstViolin,
+    secondViolin,
+    viola,
+    cello;
 
-      firstViolin.start(0);
-      secondViolin.start(0);
-      viola.start(0);
-      cello.start(0);
+  let started = false;
+  const startOrResume = async () => {
+    if (!started) {
+      ({
+        audioCtx,
+        firstViolin,
+        secondViolin,
+        viola,
+        cello
+      } = init());
+
+      await generate(5, {
+        audioCtx,
+        firstViolin,
+        secondViolin,
+        viola,
+        cello
+      });
+
+      firstViolin.start(audioCtx.currentTime);
+      secondViolin.start(audioCtx.currentTime);
+      viola.start(audioCtx.currentTime);
+      cello.start(audioCtx.currentTime);
 
       started = true;
 
@@ -813,11 +853,11 @@ This isn't always resumable in WebKit browsers.
 
   const control = document.getElementById("string-quartet-control");
   control.addEventListener("click", () => {
-    if (audioCtx.state === "running") {
+    if (audioCtx?.state === "running") {
       audioCtx.suspend().then(() => {
         control.textContent = "Play";
       });
-    } else if (audioCtx.state === "suspended") {
+    } else {
       startOrResume().then(() => {
         control.textContent = "Pause";
       });
