@@ -667,6 +667,15 @@ const range = (start, end) => {
       }
 
       return notes[offsetIndex];
+    },
+    index (note) {
+      const noteIndex = notes.findIndex(noteEqual(note));
+
+      if (noteIndex < startIndex || noteIndex > endIndex) {
+        throw new Error(`Note out of range: ${start.pitch_class}${start.octave} <= ${note.pitch_class}${note.octave} <= ${end.pitch_class}${note.octave}`)
+      }
+
+      return noteIndex - startIndex;
     }
   };
 };
