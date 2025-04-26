@@ -781,8 +781,16 @@ It might seem like a nonesense question, but it has a few answers. One answer is
 
 And where is that exactly? Well, I can't show you. Unlike the examples of coin tosses, dice rolls or codons, I can't create a visualisation of this space of posibilities. I can't see four dimensional things, and I lack the imgination to even try to picture them. What I can do, though, is squish the four dimensional space of possibilities into a different shape and show you that instead.
 
-To demonstrate, here's the space of possibilities cut down to only the first and second violins.
+To demonstrate, here's a two dimensional space of possibilities. Perhaps imagine it's a duet of tiny, five tone, glokenspiels.
 
-...
+![Colourful marbles arranged on a five by five grid. The columns and rows are numbered, zero to four. The first row is red, the second row is orange, the third row is yellow, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-1-small.webp)
+
+![Colourful marbles, arranged on a mostly five by five grid. The first row is ten marbles wide, the second row is missing, it was moved from to the end of the first row. The columns are numbered, zero to nine. The rows are numbered zero to four. The first row is red and orange, the third row is yellow, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-2-small.webp)
+
+![Colourful marbles, arranged on a mostly five by five grid. The first row is fifteen marbles wide, the second and third rows are missing, they have been moved to the first row. The columns are numbered, zero to fourteen. The rows are numbered zero to four. The first row is red, yellow and orange, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-3-small.webp)
+
+![Colourful marbles, arranged on a mostly five by five grid. The first row is twenty marbles wide, the second, third and fourth rows are missing, they have been moved to the first row. The columns are numbered, zero to nineteen. The rows are numbered zero to four. The first row is red, yellow, orange and green, the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-4-small.webp)
+
+![Colourful marbles, arranged in a row of twenty five marbles.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-5-small.webp)
 
 [^1]: [Deciphering the Genetic Code: The Most Beautiful False Theory in Biochemistry – Part 1](https://www.chemistryviews.org/details/ezine/11312121/Deciphering_the_Genetic_Code_The_Most_Beautiful_False_Theory_in_Biochemistry__Pa/)

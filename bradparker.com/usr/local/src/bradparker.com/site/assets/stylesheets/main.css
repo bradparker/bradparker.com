@@ -237,6 +237,7 @@ details[open] summary::before {
   width: 100%;
   display: block;
   border-radius: 0.5rem;
+  border: thin solid #f4f4f4;
 }
 
 .markdown ul:not(.list-none) li,
