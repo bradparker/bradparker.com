@@ -740,7 +740,7 @@ This seems like fiendishly complex stuff, there's sure to be many red herrings o
 
 The string quartet has been around as a musical genre and an ensemble instrumentation since the 1750s. In 1825 Beethoven wrote some particularly spicy quartets, numbers 12 to 16, the last major compositions he completed. I love them, though not everyone does. A contemporary of Beethoven, and composer himself, Louis Spohr, described them as "indecipherable, uncorrected horrors."
 
-Three of the quartets, 15, 13, and 14, centre thematically around particular groupings of four notes, groupings united by how far away their constituent notes are from each other. Four note groupings that share a shape like this are called tetrachords. Which has me wondering what horrors might lurk in the collection of all possible groups of four notes a string quartet could play simultaneously?
+Three of the quartets, 15, 13, and 14, centre thematically around particular groupings of four notes, groupings united by how far away their constituent notes are from each other. Four note groupings that share a shape like this are called tetrachords. This has me wondering what horrors might lurk in the collection of all possible voicings a string quartet could play?
 
 First, how many are there? I'm honestly not sure, the ranges of these instruments are a bit flexible, it can depend on the player, whether harmonics are included, the construction of a particular instance of an instrument. If I might be permitted to use these as the ranges for the instruments in question we can at least get a ballpark figure.
 
@@ -779,6 +779,10 @@ Beethoven's four note groupings are in there somewhere, but where? Where, for ex
 
 It might seem like a nonesense question, but it has a few answers. One answer is this, we can think of each instrument as a dimension in space. Instead of the familiar three dimensions we think of moving about in day to day life, left-right, up-down and forward-backward, we have four dimensions: the cello, the viola, the second violin and the first violin. Because each instrument is constrained in the range of notes they can play this four dimensional space doesn't go on forever like the three dimensional one we live in. Each dimension starts at 0, being the lowest note that instrument can play, and then goes on to count each note finishing at the highest. So, where is E4, F4, G#4, A4? It's at position: (28, 17, 13, 14).
 
-And where is that exactly? Well, I can't show you. Unlike the examples of dice rolls or codons, I can't create a visualisation of this space of posibilities.
+And where is that exactly? Well, I can't show you. Unlike the examples of coin tosses, dice rolls or codons, I can't create a visualisation of this space of posibilities. I can't see four dimensional things, and I lack the imgination to even try to picture them. What I can do, though, is squish the four dimensional space of possibilities into a different shape and show you that instead.
+
+To demonstrate, here's the space of possibilities cut down to only the first and second violins.
+
+...
 
 [^1]: [Deciphering the Genetic Code: The Most Beautiful False Theory in Biochemistry – Part 1](https://www.chemistryviews.org/details/ezine/11312121/Deciphering_the_Genetic_Code_The_Most_Beautiful_False_Theory_in_Biochemistry__Pa/)
