@@ -785,6 +785,8 @@ To demonstrate, here's a two dimensional space of possibilities. Perhaps imagine
 
 ![Colourful marbles arranged on a five by five grid. The columns and rows are numbered, zero to four. The first row is red, the second row is orange, the third row is yellow, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-1-small.webp)
 
+Because both dimensions don't go on forever, they have a start and an end, we can squish two dimensions into one by placing each row end to end. I imagine it a little like the following images.
+
 ![Colourful marbles, arranged on a mostly five by five grid. The first row is ten marbles wide, the second row is missing, it was moved from to the end of the first row. The columns are numbered, zero to nine. The rows are numbered zero to four. The first row is red and orange, the third row is yellow, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-2-small.webp)
 
 ![Colourful marbles, arranged on a mostly five by five grid. The first row is fifteen marbles wide, the second and third rows are missing, they have been moved to the first row. The columns are numbered, zero to fourteen. The rows are numbered zero to four. The first row is red, yellow and orange, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-3-small.webp)
@@ -792,5 +794,35 @@ To demonstrate, here's a two dimensional space of possibilities. Perhaps imagine
 ![Colourful marbles, arranged on a mostly five by five grid. The first row is twenty marbles wide, the second, third and fourth rows are missing, they have been moved to the first row. The columns are numbered, zero to nineteen. The rows are numbered zero to four. The first row is red, yellow, orange and green, the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-4-small.webp)
 
 ![Colourful marbles, arranged in a row of twenty five marbles.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-5-small.webp)
+
+With this scheme the second yellow marble moves from column 1 row 2 to column 11 row 0. Said another way: it moves from column 1 row 2 to column <em> Original row (2) &times; Original total no. of columns (5) + Original column (1)</em> and the only row, 0.
+
+With the addition of another glokenspiel the same process can be demonstrated in three dimensions, this time labeled $x$, $y$, and $z$.
+
+![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-1-small-with-axes.webp)
+
+I imagine squishing this three dimensional space by laying out each layer, end to end.
+
+<div class="grid gap-3 grid-rows-2 grid-cols-2">
+
+  ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-1-small.webp)
+
+  ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-2-small.webp)
+
+  ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-3-small.webp)
+
+  ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-4-small.webp)
+
+</div>
+
+![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-5-small.webp)
+
+The yellow cube that begins at position $x = 1, y = 2, z = 1$ ends up at position $x = 1, y = 0, z = 11$.
+
+![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-open-with-arrow-small.webp)
+
+![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-5-with-arrow-small.webp)
+
+The $y$ dimension will always be 0, it's been squished out of existence. So another way of saying this: is position $(1, 2, 1)$ has moved to $(1, 11)$, or, generally: any position $(x, y, z)$ has moved to position $(x, 5 \times y + z)$.
 
 [^1]: [Deciphering the Genetic Code: The Most Beautiful False Theory in Biochemistry – Part 1](https://www.chemistryviews.org/details/ezine/11312121/Deciphering_the_Genetic_Code_The_Most_Beautiful_False_Theory_in_Biochemistry__Pa/)
