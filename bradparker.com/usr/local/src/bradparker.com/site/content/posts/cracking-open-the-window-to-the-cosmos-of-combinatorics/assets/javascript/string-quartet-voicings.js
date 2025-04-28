@@ -715,16 +715,16 @@ const decode = (index) => {
 }
 
 const init = () => {
-  const audioCtx = new AudioContext();
-  const gainNode = audioCtx.createGain();
+  const audioContext = new AudioContext();
+  const gainNode = audioContext.createGain();
 
   gainNode.gain.value = 0.1;
-  gainNode.connect(audioCtx.destination);
+  gainNode.connect(audioContext.destination);
 
-  const firstViolin = audioCtx.createOscillator();
-  const secondViolin = audioCtx.createOscillator();
-  const viola = audioCtx.createOscillator();
-  const cello = audioCtx.createOscillator();
+  const firstViolin = audioContext.createOscillator();
+  const secondViolin = audioContext.createOscillator();
+  const viola = audioContext.createOscillator();
+  const cello = audioContext.createOscillator();
 
   firstViolin.connect(gainNode);
   secondViolin.connect(gainNode);
@@ -732,7 +732,7 @@ const init = () => {
   cello.connect(gainNode);
 
   return {
-    audioCtx,
+    audioContext,
     gainNode,
     firstViolin,
     secondViolin,
@@ -741,27 +741,22 @@ const init = () => {
   }
 }
 
-const n = (
-  celloRange.length *
-  violaRange.length *
-  violinRange.length *
-  violinRange.length
-);
+const generate = async ({ 
+  sequence,
+  startTime,
+  buffer,
+  audioContext,
+  firstViolin,
+  secondViolin,
+  viola,
+  cello
+}) => {
+  const indexedSequence = zip(iterate(0, n => n + 1), sequence);
+  const spacedIndexedSequence = intercalcateAsync(indexedSequence, tick(50));
 
-const m = n + 1;
-// This is heavily dependant on the value of `m`. It must be a primitive
-// root modulo `m` to work.
-const a = 4905306;
-
-const index = iterate(0, n => n + 1);
-const sequence = iterate(Math.floor(m / 2), x => a * x % m);
-const indexedSequence = zip(index, sequence);
-const spacedIndexedSequence = intercalcateAsync(indexedSequence, tick(50));
-
-const generate = async ({ startTime, buffer, audioCtx, firstViolin, secondViolin, viola, cello }) => {
   return new Promise(async (resolve) => {
     for await (const value of spacedIndexedSequence) {
-      if (!value) { continue; } // Skipping delays ...
+      if (typeof value === "undefined") { continue; } // Skipping delays ...
 
       const [i, x] = value;
 
@@ -800,57 +795,69 @@ const generate = async ({ startTime, buffer, audioCtx, firstViolin, secondViolin
   });
 };
 
-let
-  audioCtx,
-  firstViolin,
-  secondViolin,
-  viola,
-  cello;
+const start = async (sequence) => {
+  const {
+    audioContext,
+    firstViolin,
+    secondViolin,
+    viola,
+    cello
+  } = init();
 
-let started = false;
-const startOrResume = async () => {
-  if (!started) {
-    ({
-      audioCtx,
-      firstViolin,
-      secondViolin,
-      viola,
-      cello
-    } = init());
+  const startTime = audioContext.currentTime + 0.1;
 
-    const startTime = audioCtx.currentTime + 0.1;
+  await generate({
+    buffer: 5,
+    sequence,
+    startTime,
+    firstViolin,
+    secondViolin,
+    viola,
+    cello
+  });
 
-    await generate({
-      buffer: 5,
-      startTime,
-      firstViolin,
-      secondViolin,
-      viola,
-      cello
-    });
+  firstViolin.start(startTime);
+  secondViolin.start(startTime);
+  viola.start(startTime);
+  cello.start(startTime);
 
-    firstViolin.start(startTime);
-    secondViolin.start(startTime);
-    viola.start(startTime);
-    cello.start(startTime);
-
-    started = true;
-
-    return Promise.resolve();
-  } else {
-    return audioCtx.resume();
-  }
+  return {
+    audioContext,
+    firstViolin,
+    secondViolin,
+    viola,
+    cello
+  };
 }
 
-const control = document.getElementById("string-quartet-control");
-control.addEventListener("click", () => {
-  if (audioCtx?.state === "running") {
-    audioCtx.suspend().then(() => {
-      control.textContent = "Play";
-    });
-  } else {
-    startOrResume().then(() => {
-      control.textContent = "Pause";
-    });
-  }
-});
+const initControl = (control, sequence) => {
+  let context = null;
+
+  control.addEventListener("click", () => {
+    if (!context) {
+      start(sequence).then(({ audioContext }) => {
+        context = audioContext;
+        control.textContent = "Pause";
+      })
+    } else if (context.state === "running") {
+      context.suspend().then(() => {
+        control.textContent = "Play";
+      });
+    } else if (context.state === "suspended") {
+      context.resume().then(() => {
+        control.textContent = "Pause";
+      });
+    }
+  }); 
+}
+
+const randomControl = document.getElementById("string-quartet-random-control");
+const n = 4905486; // Cello * Viola * Violin * Violin
+const m = n + 1;
+// This is heavily dependant on the value of `m`. It must be a primitive
+// root modulo `m` to work.
+const a = 4905306;
+initControl(randomControl, iterate(Math.floor(m / 2), x => a * x % m));
+
+const linearControl = document.getElementById("string-quartet-linear-control");
+initControl(linearControl, iterate(0, n => n + 1));
