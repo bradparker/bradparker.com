@@ -740,7 +740,7 @@ This seems like fiendishly complex stuff, there's sure to be many red herrings o
 
 The string quartet has been around as a musical genre and an ensemble instrumentation since the 1750s. In 1825 Beethoven wrote some particularly spicy quartets, numbers 12 to 16, the last major compositions he completed. I love them, though not everyone does. A contemporary of Beethoven, and composer himself, Louis Spohr, described them as "indecipherable, uncorrected horrors."
 
-Three of the quartets, 15, 13, and 14, centre thematically around particular groupings of four notes, groupings united by how far away their constituent notes are from each other. Four note groupings that share a shape like this are called tetrachords. This has me wondering what horrors might lurk in the collection of all possible voicings a string quartet could play?
+Three of the quartets, 15, 13, and 14, centre thematically around particular groupings of four notes, groupings united by how far away their constituents are from each other. Four note groupings that share a shape like this are called tetrachords. This has me wondering what horrors might lurk in the collection of all possible voicings a string quartet could play?
 
 First, how many are there? I'm honestly not sure, the ranges of these instruments are a bit flexible, it can depend on the player, whether harmonics are included, the construction of a particular instance of an instrument. If I might be permitted to use these as the ranges for the instruments in question we can at least get a ballpark figure.
 
