@@ -823,7 +823,87 @@ Which doesn't feel very enlightening to look at, at least for me. It could be no
 
 If we can unfold a two dimensional set of possibilities into a one dimensional set of possibilities, and we can unfold a three dimensional set into a two dimensional set, and we can unfold a four dimensional set into a three dimensional set, then we can unfold a four dimensional set of possibilities into a single dimension of possibilities. We can lay all the possibilities out in a line. We can arrange them in some sort of order.
 
-This allows us to turn any four note voicing into a single, unique, number. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
+This allows us to turn any four note voicing into a single, unique, number between 0 and 4,905,485. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
+
+By referring to the scheme for unfolding dimensions we explored above we can arrive at a method for finding the number ($i$) for any voicing made up of:
+* A note played by the cello ($c$), from within the set of notes it can play ($C$)
+* A note played by the viola ($v$), from within the set of notes it can play ($V$)
+* A note played by the second violin ($w_2$), from within the set of notes it can play ($W$)[^2]
+* A note played by the first violin ($w_1$), from within the set of notes it can play ($W$)
+
+$$
+i = c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))
+$$
+
+Where putting '$|$' either side of the name for a set of things means "the total number of things in the set." For example $|C|$ means: the total number of notes a cello can play.
+
+This allows for counting through all the voicings and it bears a resemblance to how we usually count things. A number such as 1,825 is usually thought of as "5 ones, plus 2 tens, plus 8 hundreds, plus 1 thousand." However it could also be stated as follows.
+
+$$
+\begin{align*}
+1825
+  &= 5 + 10 \times (2 + 10 \times (8 + 10 \times 1)) \\
+  &= 5 + 10 \times (2 + 10 \times (8 + 10)) \\
+  &= 5 + 10 \times (2 + 10 \times 18) \\
+  &= 5 + 10 \times (2 + 180) \\
+  &= 5 + 10 \times 182 \\
+  &= 5 + 1820 \\
+  &= 1825
+\end{align*}
+$$
+
+Which suggests that there should be method for finding the number for Beethoven's notes which matches how we talk about everyday numbers. And indeed there is, though it might not look the same at first flush.
+
+$$
+\begin{align*}
+i &= w_1 \times (|W| \times |V| \times |C|) + w_2 \times (|V| \times |C|) + v \times |C| + c \\
+  &= 14 \times (51 \times 41 \times 46) + 13 \times (41 \times 46) + 17 \times 46 + 28 \\
+  &= 1,371,932
+\end{align*}
+$$
+
+It's possible to express the number 1,825 in the same way.
+
+$$
+\begin{align*}
+1,825
+  &= 1 \times (10 \times 10 \times 10) + 8 \times (10 \times 10) + 2 \times 10 + 5 \\
+  &= 1,825
+\end{align*}
+$$
+
+It's also possible to demonstrate that the two expressions are the same.
+
+$$
+\begin{align*}
+i
+  &= c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1}))) \\
+  &= c + |C| \times (v + |V| \times w_{2} + |V| \times |W| \times w_{1}) \\
+  &= c + |C| \times v + |C| \times (|V| \times w_{2} + |V| \times |W| \times w_{1}) \\
+  &= c + |C| \times v + |C| \times |V| \times w_{2} + |C| \times |V| \times |W| \times w_{1} \\
+  &= w_1 \times |W| \times |V| \times |C| + w_2 \times |V| \times |C| + v \times |C| + c \\
+  &= w_1 \times (|W| \times |V| \times |C|) + w_2 \times (|V| \times |C|) + v \times |C| + c
+\end{align*}
+$$
+
+What has been arrived at here is a sort of number system that counts through all the voicings a string quartet can play, just as we might count anything else. What makes this a little more interesting is that it doesn't _just_ count, it _encodes_. Unlike when counting many things in day to day life, counting using the method described allows for deriving the original thing being counted just by knowing its number. Information about the thing is actually within the number assigned to it. Which means, given one of these numbers we can recover the original notes.
+
+$$
+\begin{align*}
+1,371,932
+  &= c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1}))) \\
+  &= c + 46 \times (v + 41 \times (w_{2} + (51 \times w_{1})))
+\end{align*}
+$$
+
+$$
+\begin{align*}
+c &= c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1}))) \bmod |C| \\
+v &= \lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor \bmod |V| \\
+w_2 &= \lfloor \frac{\lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor}{|V|} \rfloor \bmod |W| \\
+w_1 &= \lfloor \frac{{\lfloor \frac{\lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor}{|V|} \rfloor}}{|W|} \rfloor
+\end{align*}
+$$
 
 ...
 
@@ -842,3 +922,4 @@ Here they all are, generated pseudo randomly, without any repeats, at a rate of 
 <script type="module" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
 
 [^1]: [Deciphering the Genetic Code: The Most Beautiful False Theory in Biochemistry – Part 1](https://www.chemistryviews.org/details/ezine/11312121/Deciphering_the_Genetic_Code_The_Most_Beautiful_False_Theory_in_Biochemistry__Pa/)
+[^2]: My apologies, there's already a 'v' and 'w' is just the next letter in the alphabet. If it helps pronouce if "first wiolin" in your head. Or out loud. Do whatever best appeals.
