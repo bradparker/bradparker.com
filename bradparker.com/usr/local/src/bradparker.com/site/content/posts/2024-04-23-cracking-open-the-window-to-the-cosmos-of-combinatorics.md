@@ -1,12 +1,14 @@
 ---
 title: Cracking open the window to the cosmos of combinatorics
 tags:
-  - development
+  - mathematics
 description: |
-  Lehmer codes encode permutations of sets. They let you efficiently index into the lexicographically ordered sequence of all possible arrangements of a collection of sortable elements. If little to none of that makes sense to you, I hope you'll read on, this is specifically for you.
+  From games of chance like two-up and hazard to listening to finite and discrete N-dimensional spaces of possibilities. Here is a tour through my very early steps into the cosmos of combinatorics.
+
+  ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-1-small-with-axes.webp)
 ---
 
-Lehmer codes encode permutations of sets. They let you efficiently index into the lexicographically ordered sequence of all possible arrangements of a collection of sortable elements. If little to none of that makes sense to you, I hope you'll read on, this is specifically for you.
+I'm a beginner, but it seems to me that at least some applications of combinatorics can make huge spaces of possibilities navigable. With it we can get a handle on the otherwise overwhelmingly huge. To demonstrate how this might be done, however, we shall start small.
 
 ## Two-up
 
@@ -763,17 +765,17 @@ That is a lot.
 
 ### In space
 
-It's a vast space of possibilites, and Beethoven's four note groupings are in there somewhere, but where? Where, for example, is E4, F4, G#4, A4?
+It's a vast space of possibilities, and Beethoven's four note groupings are in there somewhere, but where? Where, for example, is E4, F4, G#4, A4?
 
-It might seem like a nonesense question, but it at least has a few answers. One answer is this, we can think of each instrument as a dimension in space and plot E4, F4, G#4, A4 within it. Instead of the familiar three dimensions we think of moving about in day to day life, left-right, up-down and forward-backward, we have four dimensions: the **cello**, the **viola**, the **second violin** and the **first violin**. Because each instrument is constrained in the range of notes they can play we're really talking about some four dimensional shape. We can imagine plotting coordinates within this shape by measuring how far along each dimension a point extends. Starting at 0, being the lowest note that instrument can play, and counting each subsequent note, ending at the highest.
+It might seem like a nonsense question, but it at least has a few answers. One answer is this, we can think of each instrument as a dimension in space and plot E4, F4, G#4, A4 within it. Instead of the familiar three dimensions we think of moving about in day to day life, left-right, up-down and forward-backward, we have four dimensions: the **cello**, the **viola**, the **second violin** and the **first violin**. Because each instrument is constrained in the range of notes they can play we're really talking about some four dimensional shape. We can imagine plotting coordinates within this shape by measuring how far along each dimension a point extends. Starting at 0, being the lowest note that instrument can play, and counting each subsequent note, ending at the highest.
 
-So, where is E4, F4, G#4, A4 within that shape? It's at position the position: **Cello** = 28, **Viola** = 17, **Second Violin** = 13 and **First Violin** = 14. And where is that exactly? Well, I can't show you. Unlike the examples of coin tosses, dice rolls or codons, I can't create a visualisation of this space of possibilities. I've never seen any four dimensional things, and I lack the imagination to even try to picture them. What I can do though is unfold the four dimensional space of possibilities into a different shape and show you that instead.
+So, where is E4, F4, G#4, A4 within that shape? It's at position the position: **Cello** = 28, **Viola** = 17, **Second Violin** = 13 and **First Violin** = 14. And where is that exactly? Well, I can't show you. Unlike the examples of coin tosses, dice rolls or DNA codons, I can't create a visualisation of this space of possibilities. I've never seen any four dimensional things, and I lack the imagination to even try to picture them. What I can do though is unfold the four dimensional space of possibilities into a different shape and show you that instead.
 
 To demonstrate, here's a two dimensional space of possibilities. Perhaps imagine it's a duet of tiny, five tone, glockenspiels.
 
 ![Colourful marbles arranged on a five by five grid. The columns and rows are numbered, zero to four. The first row is red, the second row is orange, the third row is yellow, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-1-small.webp)
 
-Because this shape doesn't go on forever (it's finite) and we're never going to split a marble into some portion (they're discrete) we can flatten two dimensions into one by placing each row end to end. We can turn a rectangle into a line. I imagine it a little like the following.
+Because this shape doesn't go on forever (it's finite) and we're never going to break any marbles into pieces (they're discrete) two dimensions can be flattened into one by placing each row end to end. A rectangle can become a line.
 
 ![Colourful marbles, arranged on a mostly five by five grid. The first row is ten marbles wide, the second row is missing, it was moved from to the end of the first row. The columns are numbered, zero to nine. The rows are numbered zero to four. The first row is red and orange, the third row is yellow, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-2-small.webp)
 
@@ -785,7 +787,7 @@ Because this shape doesn't go on forever (it's finite) and we're never going to 
 
 With this scheme the second yellow marble moves from column 1 row 2 to column 11 row 0. Said another way: it moves from column 1 row 2 to column <em>Original row (2) &times; Original total no. of columns (5) + Original column (1)</em> and the only row, 0.
 
-With the addition of another imaginary glokenspiel the same process can be demonstrated in three dimensions, this time labeled $x$, $y$, and $z$.
+With the addition of another imaginary glockenspiel the same process can be demonstrated in three dimensions, this time labeled $x$, $y$, and $z$.
 
 ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-1-small-with-axes.webp)
 
@@ -803,29 +805,29 @@ This three dimensional shape can become a two dimensional shape by laying out ea
 
 </div>
 
-![Five five-by-five squares of magnetic blocks layed out in a line. Each has a different colour of block: blue, green, yellow, red and black.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-5-small.webp)
+![Five five-by-five squares of magnetic blocks laid out in a line. Each has a different colour of block: blue, green, yellow, red and black.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-5-small.webp)
 
 The yellow cube that begins at position $x = 1, y = 2, z = 1$ ends up at position $x = 1, y = 0, z = 11$.
 
 ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. The top two layers have been removed to reveal the yellow layer, an arrow is pointing to the block one in from the side and the top.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-open-with-arrow-small.webp)
 
-![Five five-by-five squares of magnetic blocks layed out in a line. Each has a different colour of block: blue, green, yellow, red and black. An arrow is pointing to the block one in from the side and one in from the top within the yellow square of blocks.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-5-with-arrow-small.webp)
+![Five five-by-five squares of magnetic blocks laid out in a line. Each has a different colour of block: blue, green, yellow, red and black. An arrow is pointing to the block one in from the side and one in from the top within the yellow square of blocks.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-5-with-arrow-small.webp)
 
-Because the $y$ dimension will now always be 0 we can ignore it which allows us to say: position $(1, 2, 1)$ has moved to $(1, 11)$. More generally we could say: any position $(x, y, z)$ has moved to position $(x, \text{size } z \times y + z)$. The $z$ dimension has now absorbed the $y$ dimension.
+Because the $y$ dimension will now always be 0 we can ignore it which allows us to say: position $(1, 2, 1)$ has moved to $(1, 11)$. More generally we could say: any position $(x, y, z)$ has moved to position $(x, |Z| \times y + z)$. Where $|Z|$ means: the total number of possible values of $z$. The $z$ dimension has now absorbed the $y$ dimension.
 
-If we unfold the four dimensional shape which contains all the voicings a string quartet can play by combining the two violins into one dimension we get a three dimensional rectangular prism of these measurements: **Cello** = 46, **Viola** = 41, **Violins** = 2,601. Within which Beethoven's four notes (E4, F4, G#4 and A4) can be found at **Cello** = 28, **Viola** = 17, **Violins** = 677.
+Unfolding the four dimensional shape which contains all the voicings a string quartet can play by combining the two violins into one dimension yields a three dimensional rectangular prism of these measurements: **Cello** = 46, **Viola** = 41, **Violins** = 2,601. Within which Beethoven's four notes (E4, F4, G#4 and A4) can be found at **Cello** = 28, **Viola** = 17, **Violins** = 677.
 
-![A skinny and short but deep rectangular prism drawin in a grid lined notebook with a black dot drawn roughly a quarter along the depth, roughly halfway along the width, and roughly halfway up the height. The section with the dot also has a zoomed in copy drawn above, to better show where it is in terms of the height and width.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/prism-hand-drawn.webp)
+![A skinny and short but deep rectangular prism drawn in a grid lined notebook with a black dot drawn roughly a quarter along the depth, roughly halfway along the width, and roughly halfway up the height. The section with the dot also has a zoomed in copy drawn above, to better show where it is in terms of the height and width.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/prism-hand-drawn.webp)
 
 Which doesn't feel very enlightening to look at, at least for me. It could be nonsense. Getting to this point, however, has started to lead somewhere sensible.
 
 ### In time
 
-If we can unfold a two dimensional set of possibilities into a one dimensional set of possibilities, and we can unfold a three dimensional set into a two dimensional set, and we can unfold a four dimensional set into a three dimensional set, then we can unfold a four dimensional set of possibilities into a single dimension of possibilities. We can lay all the possibilities out in a line. We can arrange them in some sort of order.
+If a two dimensional set of possibilities can be unfolded into a one dimensional set of possibilities, and a three dimensional set can be unfolded into a two dimensional set, and a four dimensional set can be unfolded into a three dimensional set, then a four dimensional set of possibilities can be unfolded into a single dimension of possibilities. We can lay all the possibilities out in a line. We can arrange them in some sort of order.
 
-This allows us to turn any four note voicing into a single, unique, number between 0 and 4,905,485. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
+This enables turning any four note voicing into a single, unique, number between 0 and 4,905,485. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
 
-By referring to the scheme for unfolding dimensions we explored above we can arrive at a method for finding the number ($i$) for any voicing made up of:
+By referring to the scheme for unfolding dimensions explored above its possible to describe a method for finding the number ($i$) of any voicing made up of:
 * A note played by the cello ($c$), from within the set of notes it can play ($C$)
 * A note played by the viola ($v$), from within the set of notes it can play ($V$)
 * A note played by the second violin ($w_2$), from within the set of notes it can play ($W$)[^2]
@@ -852,7 +854,7 @@ $$
 \end{align*}
 $$
 
-Which suggests that there should be method for finding the number for Beethoven's notes which matches how we talk about everyday numbers. And indeed there is, though it might not look the same at first flush.
+Which suggests that there should be a method by which the number for Beethoven's notes can be found, a method which matches how we talk about everyday numbers. And indeed there is, though it might not look the same at first flush.
 
 $$
 \begin{align*}
@@ -889,37 +891,81 @@ $$
 What has been arrived at here is a sort of number system that counts through all the voicings a string quartet can play, just as we might count anything else. What makes this a little more interesting is that it doesn't _just_ count, it _encodes_. Unlike when counting many things in day to day life, counting using the method described allows for deriving the original thing being counted just by knowing its number. Information about the thing is actually within the number assigned to it. Which means, given one of these numbers we can recover the original notes.
 
 $$
-\begin{align*}
 1,371,932
-  &= c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1}))) \\
-  &= c + 46 \times (v + 41 \times (w_{2} + (51 \times w_{1})))
+  = c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))
+$$
+
+$$
+\begin{align*}
+c
+  &= (c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))) \bmod |C| \\
+  &= 1,371,932 \bmod 46 \\
+  &= 28
 \end{align*}
 $$
 
 $$
 \begin{align*}
-c &= c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1}))) \bmod |C| \\
-v &= \lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor \bmod |V| \\
-w_2 &= \lfloor \frac{\lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor}{|V|} \rfloor \bmod |W| \\
-w_1 &= \lfloor \frac{{\lfloor \frac{\lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor}{|V|} \rfloor}}{|W|} \rfloor
+v
+  &= \lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor \bmod |V| \\
+  &= \lfloor \frac{1,371,932}{46} \rfloor \bmod 41 \\
+  &= 17
 \end{align*}
 $$
 
-...
+$$
+\begin{align*}
+w_2
+  &= \lfloor \frac{\lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor}{|V|} \rfloor \bmod |W| \\
+  &= \lfloor \frac{\lfloor \frac{1,371,932}{46} \rfloor}{41} \rfloor \bmod 51 \\
+  &= 13
+\end{align*}
+$$
 
-Here they all are, generated pseudo randomly, without any repeats, at a rate of ten per second. It would take you over five days and sixteen hours of uninterrupted listening to hear them all.
+$$
+\begin{align*}
+w_1
+  &= \lfloor \frac{{\lfloor \frac{\lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor}{|V|} \rfloor}}{|W|} \rfloor \\
+  &= \lfloor \frac{{\lfloor \frac{\lfloor \frac{1,371,932}{46} \rfloor}{41} \rfloor}}{51} \rfloor \\
+  &= 14
+\end{align*}
+$$
 
-<button id="string-quartet-linear-control">
-  Play
-</button>
+With this we're able to count up through all the voicings just by counting from 0 to 4,905,485, decoding each number into its corresponding voicing as we go. Doing so sounds like the following.
 
-<button id="string-quartet-random-control">
-  Play
-</button>
+<figure>
+  <button id="string-quartet-linear-control">
+    Play
+  </button>
 
-**Note** if reading on a mobile device you may need to disable silent mode to hear this.
+  <figcaption>
+
+  **Note** if reading on a mobile device you may need to disable silent mode to hear this.
+
+  </figcaption>
+</figure>
+
+At this speed, ten notes per second, it would take you more than a day and a half of uninterrupted listening to reach Beethoven's notes. I've not done that, though I find this very calming to listen to.
+
+Turning voicings into numbers has afforded us another opportunity and it's with this that I'll finish. We can use a non-repeating random number generator to listen to each and every voicing. There's no telling when you'll hit Beethoven's notes, but they're in there. To hear all the voicings, to make sure you hear Beethoven's, would take over five days and sixteen hours.
+
+<figure>
+  <button id="string-quartet-random-control">
+    Play
+  </button>
+
+  <figcaption>
+
+  **Note** if reading on a mobile device you may need to disable silent mode to hear this.
+
+  </figcaption>
+</figure>
+
+***
+
+Combinatorics afforded us a path via which we could navigate an initially overwhelming space of possibilities.
 
 <script type="module" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
 
 [^1]: [Deciphering the Genetic Code: The Most Beautiful False Theory in Biochemistry – Part 1](https://www.chemistryviews.org/details/ezine/11312121/Deciphering_the_Genetic_Code_The_Most_Beautiful_False_Theory_in_Biochemistry__Pa/)
-[^2]: My apologies, there's already a 'v' and 'w' is just the next letter in the alphabet. If it helps pronouce if "first wiolin" in your head. Or out loud. Do whatever best appeals.
+[^2]: My apologies, there's already a 'v' and 'w' is just the next letter in the alphabet. If it helps pronounce it "first wiolin" in your head. Or out loud. Do whatever best appeals.
