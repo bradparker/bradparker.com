@@ -773,7 +773,7 @@ To demonstrate, here's a two dimensional space of possibilities. Perhaps imagine
 
 ![Colourful marbles arranged on a five by five grid. The columns and rows are numbered, zero to four. The first row is red, the second row is orange, the third row is yellow, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-1-small.webp)
 
-Because this shape doesn't go on forever, it has a boundary, we can flatten two dimensions into one by placing each row end to end. We can turn a rectangle into a line. I imagine it a little like the following.
+Because this shape doesn't go on forever (it's finite) and we're never going to split a marble into some portion (they're discrete) we can flatten two dimensions into one by placing each row end to end. We can turn a rectangle into a line. I imagine it a little like the following.
 
 ![Colourful marbles, arranged on a mostly five by five grid. The first row is ten marbles wide, the second row is missing, it was moved from to the end of the first row. The columns are numbered, zero to nine. The rows are numbered zero to four. The first row is red and orange, the third row is yellow, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-2-small.webp)
 
@@ -815,21 +815,15 @@ Because the $y$ dimension will now always be 0 we can ignore it which allows us 
 
 If we unfold the four dimensional shape which contains all the voicings a string quartet can play by combining the two violins into one dimension we get a three dimensional rectangular prism of these measurements: **Cello** = 46, **Viola** = 41, **Violins** = 2,601. Within which Beethoven's four notes (E4, F4, G#4 and A4) can be found at **Cello** = 28, **Viola** = 17, **Violins** = 677.
 
-<figure>
+![A skinny and short but deep rectangular prism drawin in a grid lined notebook with a black dot drawn roughly a quarter along the depth, roughly halfway along the width, and roughly halfway up the height. The section with the dot also has a zoomed in copy drawn above, to better show where it is in terms of the height and width.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/prism-hand-drawn.webp)
 
-  ![A deep rectangular prism drawin in a grid lined notebook with a black dot drawn roughly a quarter along the depth, roughly halfway along the width, and roughly halfway up the height.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/prism-hand-drawn.webp)
-
-  <figcaption>
-
-  A rough diagram of the unfolded space of possibilities. The **Violins** demension is scaled by a ratio of 1:10.
-
-  </figcaption>
-
-</figure>
-
-Which in the end could really be nonsense. I don't feel very enlightened by seeing it. Getting to this point, however, has started to led somewhere more sensible.
+Which doesn't feel very enlightening to look at, at least for me. It could be nonsense. Getting to this point, however, has started to lead somewhere sensible.
 
 ### In time
+
+If we can unfold a two dimensional set of possibilities into a one dimensional set of possibilities, and we can unfold a three dimensional set into a two dimensional set, and we can unfold a four dimensional set into a three dimensional set, then we can unfold a four dimensional set of possibilities into a single dimension of possibilities. We can lay all the possibilities out in a line. We can arrange them in some sort of order.
+
+This allows us to turn any four note voicing into a single, unique, number. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
 
 ...
 
