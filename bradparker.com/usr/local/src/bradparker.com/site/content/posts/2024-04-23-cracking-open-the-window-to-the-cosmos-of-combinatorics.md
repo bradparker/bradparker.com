@@ -833,13 +833,19 @@ By referring to the scheme for unfolding dimensions explored above its possible 
 * A note played by the second violin ($w_2$), from within the set of notes it can play ($W$)[^2]
 * A note played by the first violin ($w_1$), from within the set of notes it can play ($W$)
 
+<figure class="wide">
+
 $$
 i = c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))
 $$
 
+</figure>
+
 Where putting '$|$' either side of the name for a set of things means "the total number of things in the set." For example $|C|$ means: the total number of notes a cello can play.
 
 This allows for counting through all the voicings and it bears a resemblance to how we usually count things. A number such as 1,825 is usually thought of as "5 ones, plus 2 tens, plus 8 hundreds, plus 1 thousand." However it could also be stated as follows.
+
+<figure class="wide">
 
 $$
 \begin{align*}
@@ -854,7 +860,11 @@ $$
 \end{align*}
 $$
 
+</figure>
+
 Which suggests that there should be a method by which the number for Beethoven's notes can be found, a method which matches how we talk about everyday numbers. And indeed there is, though it might not look the same at first flush.
+
+<figure class="wide">
 
 $$
 \begin{align*}
@@ -864,7 +874,11 @@ i &= w_1 \times (|W| \times |V| \times |C|) + w_2 \times (|V| \times |C|) + v \t
 \end{align*}
 $$
 
+</figure>
+
 It's possible to express the number 1,825 in the same way.
+
+<figure class="wide">
 
 $$
 \begin{align*}
@@ -874,7 +888,11 @@ $$
 \end{align*}
 $$
 
+</figure>
+
 It's also possible to demonstrate that the two expressions are the same.
+
+<figure class="wide">
 
 $$
 \begin{align*}
@@ -888,48 +906,95 @@ i
 \end{align*}
 $$
 
+</figure>
+
 What has been arrived at here is a sort of number system that counts through all the voicings a string quartet can play, just as we might count anything else. What makes this a little more interesting is that it doesn't _just_ count, it _encodes_. Unlike when counting many things in day to day life, counting using the method described allows for deriving the original thing being counted just by knowing its number. Information about the thing is actually within the number assigned to it. Which means, given one of these numbers we can recover the original notes.
+
+To do this we need to undo all each multiplication and addition which converted the note positions into their corresponding number. To undo one step of multiplication and addition we can use the following.
+
+Begin with some number $i$ which we know to be made by multiplying some number $q$ by some number $n$ and then adding some number $r$ to that.
+
+<figure class="wide">
+
+$$
+i = r + q \times n
+$$
+
+</figure>
+
+Which can rewritten to produce $q$.
+
+<figure class="wide">
+
+$$
+q = \frac{i - r}{n}
+$$
+
+</figure>
+
+And also $r$.
+
+<figure class="wide">
+
+$$
+r = i - q \times n
+$$
+
+</figure>
+
+However in our case we actually don't know the value of $r$ or $q$, we only know $i$ and $n$. What's required here is a method for finding at least $q$ or $r$ independent of each other. Using "floored division", written like $\lfloor \frac{a}{b} \rfloor$, affords us such a method.
+
+<figure class="wide">
+
+$$
+\begin{align*}
+q &= \lfloor \frac{i}{n} \rfloor \\
+r &= i - n \times \lfloor \frac{i}{n} \rfloor
+\end{align*}
+$$
+
+</figure>
+
+Floored division is like regular division except that the result is rounded down to a whole number. Or said another way: the remainder is discarded.
+
+It's useful to note that if we know $q$ then a slightly terser equation for $r$ can be written.
+
+<figure class="wide">
+
+$$
+r = i - n \times q
+$$
+
+</figure>
+
+Which you might notice is the same as above ...
+
+This enables decoding a number step by step, undoing additions by finding $r$, and undoing multiplications by finding $q$.
+
+<figure class="wide">
 
 $$
 1,371,932
   = c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))
 $$
 
+</figure>
+
+<figure class="wide">
+
 $$
 \begin{align*}
-c
-  &= (c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))) \bmod |C| \\
-  &= 1,371,932 \bmod 46 \\
+q_c
+  &= \lfloor \frac{1,371,932}{|C|} \rfloor \\
+  &= \lfloor \frac{1,371,932}{46} \rfloor \\
+  &= 29,824 \\
+c &= 1,371,932 - |C| \times q_c \\
+  &= 1,371,932 - 46 \times 29,824 \\
   &= 28
 \end{align*}
 $$
 
-$$
-\begin{align*}
-v
-  &= \lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor \bmod |V| \\
-  &= \lfloor \frac{1,371,932}{46} \rfloor \bmod 41 \\
-  &= 17
-\end{align*}
-$$
-
-$$
-\begin{align*}
-w_2
-  &= \lfloor \frac{\lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor}{|V|} \rfloor \bmod |W| \\
-  &= \lfloor \frac{\lfloor \frac{1,371,932}{46} \rfloor}{41} \rfloor \bmod 51 \\
-  &= 13
-\end{align*}
-$$
-
-$$
-\begin{align*}
-w_1
-  &= \lfloor \frac{{\lfloor \frac{\lfloor \frac{c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))}{|C|} \rfloor}{|V|} \rfloor}}{|W|} \rfloor \\
-  &= \lfloor \frac{{\lfloor \frac{\lfloor \frac{1,371,932}{46} \rfloor}{41} \rfloor}}{51} \rfloor \\
-  &= 14
-\end{align*}
-$$
+</figure>
 
 With this we're able to count up through all the voicings just by counting from 0 to 4,905,485, decoding each number into its corresponding voicing as we go. Doing so sounds like the following.
 
