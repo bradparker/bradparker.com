@@ -8,7 +8,7 @@ description: |
   ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-1-small-with-axes.webp)
 ---
 
-I'm a beginner, but it seems to me that at least some applications of combinatorics can make huge spaces of possibilities navigable. With it we can get a handle on the otherwise overwhelmingly huge. To demonstrate how this might be done, however, we shall start small.
+I'm a beginner, but it seems to me that at least some applications of combinatorics can make spaces of possibilities navigable. With it we can get a handle on the otherwise overwhelmingly huge. To demonstrate how this might be done, however, we shall start small.
 
 ## Two-up
 
@@ -828,15 +828,15 @@ If a two dimensional set of possibilities can be unfolded into a one dimensional
 This enables turning any four note voicing into a single, unique, number between 0 and 4,905,485. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
 
 By referring to the scheme for unfolding dimensions explored above its possible to describe a method for finding the number ($i$) of any voicing made up of:
-* A note played by the cello ($c$), from within the set of notes it can play ($C$)
-* A note played by the viola ($v$), from within the set of notes it can play ($V$)
-* A note played by the second violin ($w_2$), from within the set of notes it can play ($W$)[^2]
 * A note played by the first violin ($w_1$), from within the set of notes it can play ($W$)
+* A note played by the second violin ($w_2$), from within the set of notes it can play ($W$)[^2]
+* A note played by the viola ($v$), from within the set of notes it can play ($V$)
+* A note played by the cello ($c$), from within the set of notes it can play ($C$)
 
 <figure class="wide">
 
 $$
-i = c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))
+i = ((w_1 \times |W| + w_2) \times |V| + v) \times |C| + c
 $$
 
 </figure>
@@ -849,20 +849,22 @@ This allows for counting through all the voicings and it bears a resemblance to 
 
 $$
 \begin{align*}
-1825
-  &= 5 + 10 \times (2 + 10 \times (8 + 10 \times 1)) \\
-  &= 5 + 10 \times (2 + 10 \times (8 + 10)) \\
-  &= 5 + 10 \times (2 + 10 \times 18) \\
-  &= 5 + 10 \times (2 + 180) \\
-  &= 5 + 10 \times 182 \\
-  &= 5 + 1820 \\
-  &= 1825
+1,825
+  &= ((1 \times 10 + 8) \times 10 + 2) \times 10 + 5 \\
+  &= ((10 + 8) \times 10 + 2) \times 10 + 5 \\
+  &= (18 \times 10 + 2) \times 10 + 5 \\
+  &= (180 + 2) \times 10 + 5 \\
+  &= 182 \times 10 + 5 \\
+  &= 1,820 + 5 \\
+  &= 1,825
 \end{align*}
 $$
 
 </figure>
 
-Which suggests that there should be a method by which the number for Beethoven's notes can be found, a method which matches how we talk about everyday numbers. And indeed there is, though it might not look the same at first flush.
+Which to me looks like successively pushing the ones place to the left, by multiplying by ten, to make room for the next ones value.
+
+This suggests that there should be a method by which the number for Beethoven's notes can be found which more closely matches how we talk about everyday numbers. And indeed there is, though it might not look the same at first flush.
 
 <figure class="wide">
 
@@ -876,7 +878,7 @@ $$
 
 </figure>
 
-It's possible to express the number 1,825 in the same way.
+It's possible to express the number 1,825 equivalently.
 
 <figure class="wide">
 
@@ -897,20 +899,17 @@ It's also possible to demonstrate that the two expressions are the same.
 $$
 \begin{align*}
 i
-  &= c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1}))) \\
-  &= c + |C| \times (v + |V| \times w_{2} + |V| \times |W| \times w_{1}) \\
-  &= c + |C| \times v + |C| \times (|V| \times w_{2} + |V| \times |W| \times w_{1}) \\
-  &= c + |C| \times v + |C| \times |V| \times w_{2} + |C| \times |V| \times |W| \times w_{1} \\
-  &= w_1 \times |W| \times |V| \times |C| + w_2 \times |V| \times |C| + v \times |C| + c \\
+  &= ((w_1 \times |W| + w_2) \times |V| + v) \times |C| + c \\
+  &= (w_1 \times |W| + w_2) \times (|V| \times |C|) + v \times |C| + c \\
   &= w_1 \times (|W| \times |V| \times |C|) + w_2 \times (|V| \times |C|) + v \times |C| + c
 \end{align*}
 $$
 
 </figure>
 
-What has been arrived at here is a sort of number system that counts through all the voicings a string quartet can play, just as we might count anything else. What makes this a little more interesting is that it doesn't _just_ count, it _encodes_. Unlike when counting many things in day to day life, counting using the method described allows for deriving the original thing being counted just by knowing its number. Information about the thing is actually within the number assigned to it. Which means, given one of these numbers we can recover the original notes.
+What has been arrived at here is a sort of number system that counts through all the voicings a string quartet can play, just as we might count anything else. What makes this a little more interesting is that it doesn't _just_ count, it _encodes_. Unlike when counting many things in day to day life, counting these voicings using the method described allows for recovering the original four parts from the single number assigned to them when counted.
 
-To do this we need to undo all each multiplication and addition which converted the note positions into their corresponding number. To undo one step of multiplication and addition we can use the following.
+To perform this recovery, to decode what was encoded, we need to undo each multiplication and addition which converted the note positions into their corresponding number. To undo one step of multiplication and addition we can use the following.
 
 Begin with some number $i$ which we know to be made by multiplying some number $q$ by some number $n$ and then adding some number $r$ to that.
 
@@ -922,7 +921,7 @@ $$
 
 </figure>
 
-Which can rewritten to produce $q$.
+Which can be shuffled around to produce $q$.
 
 <figure class="wide">
 
@@ -942,53 +941,52 @@ $$
 
 </figure>
 
-However in our case we actually don't know the value of $r$ or $q$, we only know $i$ and $n$. What's required here is a method for finding at least $q$ or $r$ independent of each other. Using "floored division", written like $\lfloor \frac{a}{b} \rfloor$, affords us such a method.
+However in our case we don't know enough to solve these equations. What's required here is a method for finding at least $q$ or $r$ independent of each other. What's needed is "floored division" (written as $\lfloor \frac{a}{b} \rfloor$).
+
+<figure class="wide">
+
+$$
+q = \lfloor \frac{i}{n} \rfloor
+$$
+
+</figure>
+
+Floored division is like regular division except that the result is rounded down to a whole number. Or said another way: the remainder is discarded. It can be recovered however using the reshuffling above.
+
+<figure class="wide">
+
+$$
+r = i - q \times n
+$$
+
+</figure>
+
+This enables decoding a number step by step, undoing multiplications by using floored division and undoing additions by finding the remainder. Beginning with a reminder of the number we're decoding.
 
 <figure class="wide">
 
 $$
 \begin{align*}
-q &= \lfloor \frac{i}{n} \rfloor \\
-r &= i - n \times \lfloor \frac{i}{n} \rfloor
+i
+  &= c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1}))) \\
+  &= c + 46 \times (v + 41 \times (w_{2} + (51 \times w_{1}))) \\
+  &= 1,371,932
 \end{align*}
 $$
 
 </figure>
 
-Floored division is like regular division except that the result is rounded down to a whole number. Or said another way: the remainder is discarded.
-
-It's useful to note that if we know $q$ then a slightly terser equation for $r$ can be written.
-
-<figure class="wide">
-
-$$
-r = i - n \times q
-$$
-
-</figure>
-
-Which you might notice is the same as above ...
-
-This enables decoding a number step by step, undoing additions by finding $r$, and undoing multiplications by finding $q$.
-
-<figure class="wide">
-
-$$
-1,371,932
-  = c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1})))
-$$
-
-</figure>
+And then onto finding the value for $c$, the note the cello plays.
 
 <figure class="wide">
 
 $$
 \begin{align*}
 q_c
-  &= \lfloor \frac{1,371,932}{|C|} \rfloor \\
+  &= \lfloor \frac{i}{|C|} \rfloor \\
   &= \lfloor \frac{1,371,932}{46} \rfloor \\
   &= 29,824 \\
-c &= 1,371,932 - |C| \times q_c \\
+c &= i - |C| \times q_c \\
   &= 1,371,932 - 46 \times 29,824 \\
   &= 28
 \end{align*}
@@ -996,7 +994,58 @@ $$
 
 </figure>
 
-With this we're able to count up through all the voicings just by counting from 0 to 4,905,485, decoding each number into its corresponding voicing as we go. Doing so sounds like the following.
+A layer of addition and multiplication has been peeled off.
+
+<figure class="wide">
+
+$$
+\begin{align*}
+1,371,932
+  &= c + |C| \times q_c \\
+  &= 28 + 46 \times 29,824
+\end{align*}
+$$
+
+</figure>
+
+Which means another layer can be peeled off by starting from $q_c$ instead of $i$, resulting in the value for $v$, the note the viola plays.
+
+<figure class="wide">
+
+$$
+\begin{align*}
+q_v
+  &= \lfloor \frac{q_c}{|V|} \rfloor \\
+  &= \lfloor \frac{29,824}{41} \rfloor \\
+  &= 727 \\
+v &= q_c - |V| \times q_v \\
+  &= 29,824 - 41 \times 727 \\
+  &= 17
+\end{align*}
+$$
+
+</figure>
+
+Continuing this process recovers the remaining two notes, those played by the first and second violins.
+
+<figure class="wide">
+
+$$
+\begin{align*}
+q_{w_2}
+  &= \lfloor \frac{q_v}{|W|} \rfloor \\
+  &= \lfloor \frac{727}{51} \rfloor \\
+  &= 14 \\
+w_2 &= q_{w_2} - |W| \times q_{w_2} \\
+  &= 727 - 51 \times 14 \\
+  &= 13 \\
+w_1 &= q_{w_2}
+\end{align*}
+$$
+
+</figure>
+
+With this ability to decode ordinary numbers into string quartet voicings it's possible to enumerate all the possible voicings just by counting from 0 to 4,905,485. Doing so sounds like this.
 
 <figure>
   <button id="string-quartet-linear-control">
@@ -1010,7 +1059,7 @@ With this we're able to count up through all the voicings just by counting from 
   </figcaption>
 </figure>
 
-At this speed, ten notes per second, it would take you more than a day and a half of uninterrupted listening to reach Beethoven's notes. I've not done that, though I find this very calming to listen to.
+At this speed, ten notes per second, it would take you more than a day and a half of uninterrupted listening to reach Beethoven's notes.
 
 Turning voicings into numbers has afforded us another opportunity and it's with this that I'll finish. We can use a non-repeating random number generator to listen to each and every voicing. There's no telling when you'll hit Beethoven's notes, but they're in there. To hear all the voicings, to make sure you hear Beethoven's, would take over five days and sixteen hours.
 
