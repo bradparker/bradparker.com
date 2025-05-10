@@ -223,7 +223,7 @@ As with Two-up, many of these possibilities are counted as the same outcome. All
 
 One more game of chance.
 
-Deoxyribonucleic acid is a pretty special molecule. Two chains of smaller molecular units (called nucleotides) each zipped together by the propensity for electron density to be greater nearer to nitrogen or oxygen atoms rather than hydrogen atoms.
+Deoxyribonucleic acid is a pretty special molecule. Two chains of smaller molecular units (called nucleotides) each zipped together by the attractive force brought about by the tendancy of electron density near nitrogen or oxygen atoms to be greater than near hydrogen atoms.
 
 DNA nucleotides all have a deoxyribose component attached to one of four different sub-units (nitrogenous bases): adenine, cytosine, guanine and thymine. It's from these we get the letters we use to denote the genetic code: A, C, G and T.
 
@@ -1077,7 +1077,7 @@ Turning voicings into numbers has afforded us another opportunity and it's with 
 
 ***
 
-Combinatorics afforded us a path via which we could navigate an initially overwhelming space of possibilities.
+Combinatorics afforded us a path via which we could navigate an initially overwhelming space of possibilities. And not only that, it has also allowed us to walk a path which visited an Australian literary classic, confusing dice games from Early modern Britain, attempts to explain the bewildering complexities of DNA, and some really banging Beethoven.
 
 <script type="module" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
 
