@@ -8,11 +8,11 @@ description: |
   ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-1-small-with-axes.webp)
 ---
 
-I'm a beginner, but it seems to me that at least some applications of combinatorics can make spaces of possibilities navigable. With it we can get a handle on the otherwise overwhelmingly huge. To demonstrate how this might be done, however, we shall start small.
+I'm becomming more aware of this thing called "combinatorics." Combinatorics can make spaces of possibilities navigable. It allows us to get some handle on the otherwise overwhelmingly huge. Here, I'll try to explain what I mean by that.
 
 ## Two-up
 
-Two-up is a game played in Australia. Someone tosses two coins in the air at the same time and people place bets on the outcome. It is forbidden by law except for one day of the year, ANZAC day. If you want to understand why betting on a coin toss might be outlawed (and otherwise just enjoy a great if but harrowing novel) I reckon [Wake in Fright](https://en.wikipedia.org/wiki/Wake_in_Fright_(novel)) is worth your time.
+Two-up is a game played in Australia. Someone tosses two coins in the air, at the same time, and people place bets on the outcome. It is forbidden by law except for one day of the year, ANZAC day. If you want to understand why betting on a coin toss might be outlawed (and otherwise just enjoy a great if but harrowing novel) I reckon [Wake in Fright](https://en.wikipedia.org/wiki/Wake_in_Fright_(novel)) is worth your time.
 
 How many possible states can two coins be in? The first coin can be heads or tails, and the second coin can be heads or tails.
 
@@ -59,7 +59,7 @@ In Two-up two of these possibilities are counted as the same outcome. The order 
 
 ## Hazard
 
-Hazard is a game that was mostly played in 17th and 18th century England. Someone rolls a pair of dice and places bets on the outcome. The rules for assessing the success or failure of an outcome are fairly complicated. It's referenced in Chaucer's _Canterbury Tales_ in a passage that may have given rise to the idiom "at sixes and sevens", which refers to being in a state of confusion or disarray. I've never read _Canterbury tales_, I suspect if I tried I'd end up at sixes and sevens.
+Hazard is a dice game which was popular in 17th and 18th century England. Someone rolls a pair of dice and places bets on the outcome. The rules for assessing the success or failure of an outcome are fairly complicated. It's referenced in Chaucer's _Canterbury Tales_ in a passage that may have given rise to the idiom "at sixes and sevens", which refers to being in a state of confusion or disarray. I've never read _Canterbury tales_, I suspect if I tried I'd end up at sixes and sevens.
 
 How many possible states can two dice be in? The first dice can have any one of the numbers one to six face up, as can the second.
 
@@ -787,7 +787,7 @@ Because this shape doesn't go on forever (it's finite) and I'm not planning on b
 
 With this scheme the second yellow marble moves from column 1 row 2 to column 11 row 0. Each marble is being counted, left to right along each row.
 
-<div class="founders-grotesk text-center">
+<div class="founders-grotesk lh-solid">
   <table class="table-fixed min-w-full border-separate border-spacing-3">
     <tbody>
       <tr>
@@ -800,43 +800,43 @@ With this scheme the second yellow marble moves from column 1 row 2 to column 11
       </tr>
       <tr>
         <th>0</th>
-        <td><strong>0</strong></td>
-        <td><strong>1</strong></td>
-        <td><strong>2</strong></td>
-        <td><strong>3</strong></td>
-        <td><strong>4</strong></td>
+        <td><div class="p-3 rounded-lg ba b--red"><strong>0</strong></div></td>
+        <td><div class="p-3 rounded-lg ba b--red"><strong>1</strong></div></td>
+        <td><div class="p-3 rounded-lg ba b--red"><strong>2</strong></div></td>
+        <td><div class="p-3 rounded-lg ba b--red"><strong>3</strong></div></td>
+        <td><div class="p-3 rounded-lg ba b--red"><strong>4</strong></div></td>
       </tr>
       <tr>
         <th>1</th>
-        <td><strong>5</strong></td>
-        <td><strong>6</strong></td>
-        <td><strong>7</strong></td>
-        <td><strong>8</strong></td>
-        <td><strong>9</strong></td>
+        <td><div class="p-3 rounded-lg ba b--orange"><strong>5</strong></div></td>
+        <td><div class="p-3 rounded-lg ba b--orange"><strong>6</strong></div></td>
+        <td><div class="p-3 rounded-lg ba b--orange"><strong>7</strong></div></td>
+        <td><div class="p-3 rounded-lg ba b--orange"><strong>8</strong></div></td>
+        <td><div class="p-3 rounded-lg ba b--orange"><strong>9</strong></div></td>
       </tr>
       <tr>
         <th>2</th>
-        <td><strong>10</strong></td>
-        <td><div class="rounded-lg bg-yellow"><strong>11</strong></div></td>
-        <td>12</td>
-        <td>13</td>
-        <td>14</td>
+        <td><div class="p-3 rounded-lg ba b--yellow"><strong>10</strong></div></td>
+        <td><div class="p-3 rounded-lg ba b--yellow bg-yellow"><strong>11</strong></div></td>
+        <td><div class="p-3 rounded-lg">12</div></td>
+        <td><div class="p-3 rounded-lg">13</div></td>
+        <td><div class="p-3 rounded-lg">14</div></td>
       </tr>
       <tr>
         <th>3</th>
-        <td>15</td>
-        <td>16</td>
-        <td>17</td>
-        <td>18</td>
-        <td>19</td>
+        <td><div class="p-3 rounded-lg">15</div></td>
+        <td><div class="p-3 rounded-lg">16</div></td>
+        <td><div class="p-3 rounded-lg">17</div></td>
+        <td><div class="p-3 rounded-lg">18</div></td>
+        <td><div class="p-3 rounded-lg">19</div></td>
       </tr>
       <tr>
         <th>4</th>
-        <td>20</td>
-        <td>21</td>
-        <td>22</td>
-        <td>23</td>
-        <td>24</td>
+        <td><div class="p-3 rounded-lg">20</div></td>
+        <td><div class="p-3 rounded-lg">21</div></td>
+        <td><div class="p-3 rounded-lg">22</div></td>
+        <td><div class="p-3 rounded-lg">23</div></td>
+        <td><div class="p-3 rounded-lg">24</div></td>
       </tr>
     </tbody>
   </table>
@@ -878,7 +878,7 @@ The yellow cube that begins at position $x = 1, y = 2, z = 1$ ends up at positio
 
 Because the $y$ dimension will now always be 0 we can ignore it which allows us to say: position $(1, 2, 1)$ has moved to $(1, 11)$. More generally we could say: any position $(x, y, z)$ has moved to position $(x, |Z| \times y + z)$. Where $|Z|$ means: the total number of possible values of $z$. The $z$ dimension has now absorbed the $y$ dimension.
 
-This, as with turning two dimensions into one, counts positions. However in this case it doesn't count them all, only those on the $y \times z$ plane.
+As with turning two dimensions into one, this counts positions. However here they're not all counted in one go. There's a count per $x$ value.
 
 <div class="founders-grotesk lh-solid overflow-x-auto overflow-y-hidden">
   <ul class="list-none grid">
@@ -891,8 +891,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,0,4">
               0,4
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,0,4">
-              1,4
+            <li class="w-1/5 rounded-lg p-3 ba b--blue" title="1,0,4">
+              <strong>1,4</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,0,4">
               2,4
@@ -911,8 +911,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,1,4">
               0,9
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,1,4">
-              1,9
+            <li class="w-1/5 rounded-lg p-3 ba b--green" title="1,1,4">
+              <strong>1,9</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,1,4">
               2,9
@@ -996,8 +996,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,0,3">
               0,3
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,0,3">
-              1,3
+            <li class="w-1/5 rounded-lg p-3 ba b--blue" title="1,0,3">
+              <strong>1,3</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,0,3">
               2,3
@@ -1016,8 +1016,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,1,3">
               0,8
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,1,3">
-              1,8
+            <li class="w-1/5 rounded-lg p-3 ba b--green" title="1,1,3">
+              <strong>1,8</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,1,3">
               2,8
@@ -1101,8 +1101,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,0,2">
               0,2
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,0,2">
-              1,2
+            <li class="w-1/5 rounded-lg p-3 ba b--blue" title="1,0,2">
+              <strong>1,2</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,0,2">
               2,2
@@ -1121,8 +1121,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,1,2">
               0,7
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,1,2">
-              1,7
+            <li class="w-1/5 rounded-lg p-3 ba b--green" title="1,1,2">
+              <strong>1,7</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,1,2">
               2,7
@@ -1206,8 +1206,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,0,1">
               0,1
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,0,1">
-              1,1
+            <li class="w-1/5 rounded-lg p-3 ba b--blue" title="1,0,1">
+              <strong>1,1</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,0,1">
               2,1
@@ -1226,8 +1226,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,1,1">
               0,6
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,1,1">
-              1,6
+            <li class="w-1/5 rounded-lg p-3 ba b--green" title="1,1,1">
+              <strong>1,6</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,1,1">
               2,6
@@ -1311,8 +1311,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,0,0">
               0,0
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,0,0">
-              1,0
+            <li class="w-1/5 rounded-lg p-3 ba b--blue" title="1,0,0">
+              <strong>1,0</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,0,0">
               2,0
@@ -1331,8 +1331,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,1,0">
               0,5
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,1,0">
-              1,5
+            <li class="w-1/5 rounded-lg p-3 ba b--green" title="1,1,0">
+              <strong>1,5</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,1,0">
               2,5
@@ -1351,8 +1351,8 @@ This, as with turning two dimensions into one, counts positions. However in this
             <li class="w-1/5 rounded-lg p-3" title="0,2,0">
               0,10
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,2,0">
-              1,10
+            <li class="w-1/5 rounded-lg p-3 ba b--yellow" title="1,2,0">
+              <strong>1,10</strong>
             </li>
             <li class="w-1/5 rounded-lg p-3" title="2,2,0">
               2,10
@@ -1672,7 +1672,7 @@ Turning voicings into numbers has afforded us another opportunity and it's with 
 
 ***
 
-Combinatorics afforded us a path via which we could navigate an initially overwhelming space of possibilities. And not only that, it has also allowed us to walk a path which visited an Australian literary classic, confusing dice games from Early modern Britain, attempts to explain the bewildering complexities of DNA, and some really banging Beethoven.
+Here combinatorics provided us a path through an overwhelming space of possibilities. Not only that, along the way we've been able to visit an Australian literary classic, confusing dice games from Early modern Britain, attempts to explain the bewildering complexities of DNA, and some really banging Beethoven. I hope you've enjoyed walking it as much as I've enjoyed trying to find it.
 
 <script type="module" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
 
