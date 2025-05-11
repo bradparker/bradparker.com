@@ -880,108 +880,108 @@ Because the $y$ dimension will now always be 0 we can ignore it which allows us 
 
 This, as with turning two dimensions into one, counts positions. However in this case it doesn't count them all, only those on the $y \times z$ plane.
 
-<div class="overflow-x-auto overflow-y-hidden">
+<div class="founders-grotesk lh-solid overflow-x-auto overflow-y-hidden">
   <ul class="list-none grid">
     <li class="row-span-full col-span-full" style="transform: translate(10%, -10%) scale(0.75);">
       <span class="sr-only">Z = 4</span>
-      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
+      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg p-3">
         <li>
           <span class="sr-only">Z = 4, Y = 0</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,0,4
+            <li class="w-1/5 rounded-lg p-3" title="0,0,4">
+              0,4
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,0,4
+            <li class="w-1/5 rounded-lg p-3" title="1,0,4">
+              1,4
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,0,4
+            <li class="w-1/5 rounded-lg p-3" title="2,0,4">
+              2,4
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,0,4
+            <li class="w-1/5 rounded-lg p-3" title="3,0,4">
+              3,4
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,0,4
+            <li class="w-1/5 rounded-lg p-3" title="4,0,4">
+              4,4
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 4, Y = 1</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,1,4
+            <li class="w-1/5 rounded-lg p-3" title="0,1,4">
+              0,9
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,1,4
+            <li class="w-1/5 rounded-lg p-3" title="1,1,4">
+              1,9
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,1,4
+            <li class="w-1/5 rounded-lg p-3" title="2,1,4">
+              2,9
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,1,4
+            <li class="w-1/5 rounded-lg p-3" title="3,1,4">
+              3,9
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,1,4
+            <li class="w-1/5 rounded-lg p-3" title="4,1,4">
+              4,9
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 4, Y = 2</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,2,4
+            <li class="w-1/5 rounded-lg p-3" title="0,2,4">
+              0,14
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,2,4
+            <li class="w-1/5 rounded-lg p-3" title="1,2,4">
+              1,14
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,2,4
+            <li class="w-1/5 rounded-lg p-3" title="2,2,4">
+              2,14
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,2,4
+            <li class="w-1/5 rounded-lg p-3" title="3,2,4">
+              3,14
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,2,4
+            <li class="w-1/5 rounded-lg p-3" title="4,2,4">
+              4,14
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 4, Y = 3</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,3,4
+            <li class="w-1/5 rounded-lg p-3" title="0,3,4">
+              0,19
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,3,4
+            <li class="w-1/5 rounded-lg p-3" title="1,3,4">
+              1,19
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,3,4
+            <li class="w-1/5 rounded-lg p-3" title="2,3,4">
+              2,19
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,3,4
+            <li class="w-1/5 rounded-lg p-3" title="3,3,4">
+              3,19
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,3,4
+            <li class="w-1/5 rounded-lg p-3" title="4,3,4">
+              4,19
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 4, Y = 4</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,4,4
+            <li class="w-1/5 rounded-lg p-3" title="0,4,4">
+              0,24
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,4,4
+            <li class="w-1/5 rounded-lg p-3" title="1,4,4">
+              1,24
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,4,4
+            <li class="w-1/5 rounded-lg p-3" title="2,4,4">
+              2,24
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,4,4
+            <li class="w-1/5 rounded-lg p-3" title="3,4,4">
+              3,24
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,4,4
+            <li class="w-1/5 rounded-lg p-3" title="4,4,4">
+              4,24
             </li>
           </ul>
         </li>
@@ -989,104 +989,104 @@ This, as with turning two dimensions into one, counts positions. However in this
     </li>
     <li class="row-span-full col-span-full" style="transform: translate(5%, -5%) scale(0.75);">
       <span class="sr-only">Z = 3</span>
-      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
+      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg p-3">
         <li>
           <span class="sr-only">Z = 3, Y = 0</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,0,3
+            <li class="w-1/5 rounded-lg p-3" title="0,0,3">
+              0,3
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,0,3
+            <li class="w-1/5 rounded-lg p-3" title="1,0,3">
+              1,3
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,0,3
+            <li class="w-1/5 rounded-lg p-3" title="2,0,3">
+              2,3
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,0,3
+            <li class="w-1/5 rounded-lg p-3" title="3,0,3">
+              3,3
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,0,3
+            <li class="w-1/5 rounded-lg p-3" title="4,0,3">
+              4,3
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 3, Y = 1</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,1,3
+            <li class="w-1/5 rounded-lg p-3" title="0,1,3">
+              0,8
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,1,3
+            <li class="w-1/5 rounded-lg p-3" title="1,1,3">
+              1,8
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,1,3
+            <li class="w-1/5 rounded-lg p-3" title="2,1,3">
+              2,8
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,1,3
+            <li class="w-1/5 rounded-lg p-3" title="3,1,3">
+              3,8
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,1,3
+            <li class="w-1/5 rounded-lg p-3" title="4,1,3">
+              4,8
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 3, Y = 2</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,2,3
+            <li class="w-1/5 rounded-lg p-3" title="0,2,3">
+              0,13
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,2,3
+            <li class="w-1/5 rounded-lg p-3" title="1,2,3">
+              1,13
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,2,3
+            <li class="w-1/5 rounded-lg p-3" title="2,2,3">
+              2,13
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,2,3
+            <li class="w-1/5 rounded-lg p-3" title="3,2,3">
+              3,13
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,2,3
+            <li class="w-1/5 rounded-lg p-3" title="4,2,3">
+              4,13
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 3, Y = 3</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,3,3
+            <li class="w-1/5 rounded-lg p-3" title="0,3,3">
+              0,18
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,3,3
+            <li class="w-1/5 rounded-lg p-3" title="1,3,3">
+              1,18
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,3,3
+            <li class="w-1/5 rounded-lg p-3" title="2,3,3">
+              2,18
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,3,3
+            <li class="w-1/5 rounded-lg p-3" title="3,3,3">
+              3,18
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,3,3
+            <li class="w-1/5 rounded-lg p-3" title="4,3,3">
+              4,18
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 3, Y = 4</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,4,3
+            <li class="w-1/5 rounded-lg p-3" title="0,4,3">
+              0,23
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,4,3
+            <li class="w-1/5 rounded-lg p-3" title="1,4,3">
+              1,23
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,4,3
+            <li class="w-1/5 rounded-lg p-3" title="2,4,3">
+              2,23
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,4,3
+            <li class="w-1/5 rounded-lg p-3" title="3,4,3">
+              3,23
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,4,3
+            <li class="w-1/5 rounded-lg p-3" title="4,4,3">
+              4,23
             </li>
           </ul>
         </li>
@@ -1094,104 +1094,104 @@ This, as with turning two dimensions into one, counts positions. However in this
     </li>
     <li class="row-span-full col-span-full" style="transform: translate(0%, 0%) scale(0.75);">
       <span class="sr-only">Z = 2</span>
-      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
+      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg p-3">
         <li>
           <span class="sr-only">Z = 2, Y = 0</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,0,2
+            <li class="w-1/5 rounded-lg p-3" title="0,0,2">
+              0,2
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,0,2
+            <li class="w-1/5 rounded-lg p-3" title="1,0,2">
+              1,2
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,0,2
+            <li class="w-1/5 rounded-lg p-3" title="2,0,2">
+              2,2
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,0,2
+            <li class="w-1/5 rounded-lg p-3" title="3,0,2">
+              3,2
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,0,2
+            <li class="w-1/5 rounded-lg p-3" title="4,0,2">
+              4,2
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 2, Y = 1</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,1,2
+            <li class="w-1/5 rounded-lg p-3" title="0,1,2">
+              0,7
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,1,2
+            <li class="w-1/5 rounded-lg p-3" title="1,1,2">
+              1,7
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,1,2
+            <li class="w-1/5 rounded-lg p-3" title="2,1,2">
+              2,7
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,1,2
+            <li class="w-1/5 rounded-lg p-3" title="3,1,2">
+              3,7
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,1,2
+            <li class="w-1/5 rounded-lg p-3" title="4,1,2">
+              4,7
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 2, Y = 2</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,2,2
+            <li class="w-1/5 rounded-lg p-3" title="0,2,2">
+              0,12
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,2,2
+            <li class="w-1/5 rounded-lg p-3" title="1,2,2">
+              1,12
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,2,2
+            <li class="w-1/5 rounded-lg p-3" title="2,2,2">
+              2,12
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,2,2
+            <li class="w-1/5 rounded-lg p-3" title="3,2,2">
+              3,12
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,2,2
+            <li class="w-1/5 rounded-lg p-3" title="4,2,2">
+              4,12
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 2, Y = 3</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,3,2
+            <li class="w-1/5 rounded-lg p-3" title="0,3,2">
+              0,17
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,3,2
+            <li class="w-1/5 rounded-lg p-3" title="1,3,2">
+              1,17
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,3,2
+            <li class="w-1/5 rounded-lg p-3" title="2,3,2">
+              2,17
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,3,2
+            <li class="w-1/5 rounded-lg p-3" title="3,3,2">
+              3,17
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,3,2
+            <li class="w-1/5 rounded-lg p-3" title="4,3,2">
+              4,17
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 2, Y = 4</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,4,2
+            <li class="w-1/5 rounded-lg p-3" title="0,4,2">
+              0,22
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,4,2
+            <li class="w-1/5 rounded-lg p-3" title="1,4,2">
+              1,22
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,4,2
+            <li class="w-1/5 rounded-lg p-3" title="2,4,2">
+              2,22
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,4,2
+            <li class="w-1/5 rounded-lg p-3" title="3,4,2">
+              3,22
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,4,2
+            <li class="w-1/5 rounded-lg p-3" title="4,4,2">
+              4,22
             </li>
           </ul>
         </li>
@@ -1199,104 +1199,104 @@ This, as with turning two dimensions into one, counts positions. However in this
     </li>
     <li class="row-span-full col-span-full" style="transform: translate(-5%, 5%) scale(0.75);">
       <span class="sr-only">Z = 1</span>
-      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
+      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg p-3">
         <li>
           <span class="sr-only">Z = 1, Y = 0</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,0,1
+            <li class="w-1/5 rounded-lg p-3" title="0,0,1">
+              0,1
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,0,1
+            <li class="w-1/5 rounded-lg p-3" title="1,0,1">
+              1,1
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,0,1
+            <li class="w-1/5 rounded-lg p-3" title="2,0,1">
+              2,1
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,0,1
+            <li class="w-1/5 rounded-lg p-3" title="3,0,1">
+              3,1
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,0,1
+            <li class="w-1/5 rounded-lg p-3" title="4,0,1">
+              4,1
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 1, Y = 1</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,1,1
+            <li class="w-1/5 rounded-lg p-3" title="0,1,1">
+              0,6
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,1,1
+            <li class="w-1/5 rounded-lg p-3" title="1,1,1">
+              1,6
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,1,1
+            <li class="w-1/5 rounded-lg p-3" title="2,1,1">
+              2,6
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,1,1
+            <li class="w-1/5 rounded-lg p-3" title="3,1,1">
+              3,6
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,1,1
+            <li class="w-1/5 rounded-lg p-3" title="4,1,1">
+              4,6
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 1, Y = 2</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,2,1
+            <li class="w-1/5 rounded-lg p-3" title="0,2,1">
+              0,11
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,2,1
+            <li class="w-1/5 rounded-lg p-3 bg-yellow" title="1,2,1">
+              <strong>1,11</strong>
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,2,1
+            <li class="w-1/5 rounded-lg p-3" title="2,2,1">
+              2,11
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,2,1
+            <li class="w-1/5 rounded-lg p-3" title="3,2,1">
+              3,11
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,2,1
+            <li class="w-1/5 rounded-lg p-3" title="4,2,1">
+              4,11
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 1, Y = 3</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,3,1
+            <li class="w-1/5 rounded-lg p-3" title="0,3,1">
+              0,16
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,3,1
+            <li class="w-1/5 rounded-lg p-3" title="1,3,1">
+              1,16
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,3,1
+            <li class="w-1/5 rounded-lg p-3" title="2,3,1">
+              2,16
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,3,1
+            <li class="w-1/5 rounded-lg p-3" title="3,3,1">
+              3,16
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,3,1
+            <li class="w-1/5 rounded-lg p-3" title="4,3,1">
+              4,16
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 1, Y = 4</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,4,1
+            <li class="w-1/5 rounded-lg p-3" title="0,4,1">
+              0,21
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,4,1
+            <li class="w-1/5 rounded-lg p-3" title="1,4,1">
+              1,21
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,4,1
+            <li class="w-1/5 rounded-lg p-3" title="2,4,1">
+              2,21
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,4,1
+            <li class="w-1/5 rounded-lg p-3" title="3,4,1">
+              3,21
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,4,1
+            <li class="w-1/5 rounded-lg p-3" title="4,4,1">
+              4,21
             </li>
           </ul>
         </li>
@@ -1304,104 +1304,104 @@ This, as with turning two dimensions into one, counts positions. However in this
     </li>
     <li class="row-span-full col-span-full" style="transform: translate(-10%, 10%) scale(0.75);">
       <span class="sr-only">Z = 0</span>
-      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
+      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg p-3">
         <li>
           <span class="sr-only">Z = 0, Y = 0</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,0,0
+            <li class="w-1/5 rounded-lg p-3" title="0,0,0">
+              0,0
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,0,0
+            <li class="w-1/5 rounded-lg p-3" title="1,0,0">
+              1,0
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,0,0
+            <li class="w-1/5 rounded-lg p-3" title="2,0,0">
+              2,0
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,0,0
+            <li class="w-1/5 rounded-lg p-3" title="3,0,0">
+              3,0
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,0,0
+            <li class="w-1/5 rounded-lg p-3" title="4,0,0">
+              4,0
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 0, Y = 1</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,1,0
+            <li class="w-1/5 rounded-lg p-3" title="0,1,0">
+              0,5
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,1,0
+            <li class="w-1/5 rounded-lg p-3" title="1,1,0">
+              1,5
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,1,0
+            <li class="w-1/5 rounded-lg p-3" title="2,1,0">
+              2,5
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,1,0
+            <li class="w-1/5 rounded-lg p-3" title="3,1,0">
+              3,5
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,1,0
+            <li class="w-1/5 rounded-lg p-3" title="4,1,0">
+              4,5
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 0, Y = 2</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,2,0
+            <li class="w-1/5 rounded-lg p-3" title="0,2,0">
+              0,10
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,2,0
+            <li class="w-1/5 rounded-lg p-3" title="1,2,0">
+              1,10
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,2,0
+            <li class="w-1/5 rounded-lg p-3" title="2,2,0">
+              2,10
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,2,0
+            <li class="w-1/5 rounded-lg p-3" title="3,2,0">
+              3,10
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,2,0
+            <li class="w-1/5 rounded-lg p-3" title="4,2,0">
+              4,10
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 0, Y = 3</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,3,0
+            <li class="w-1/5 rounded-lg p-3" title="0,3,0">
+              0,15
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,3,0
+            <li class="w-1/5 rounded-lg p-3" title="1,3,0">
+              1,15
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,3,0
+            <li class="w-1/5 rounded-lg p-3" title="2,3,0">
+              2,15
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,3,0
+            <li class="w-1/5 rounded-lg p-3" title="3,3,0">
+              3,15
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,3,0
+            <li class="w-1/5 rounded-lg p-3" title="4,3,0">
+              4,15
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 0, Y = 4</span>
           <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg">
-              0,4,0
+            <li class="w-1/5 rounded-lg p-3" title="0,4,0">
+              0,20
             </li>
-            <li class="w-1/5 rounded-lg">
-              1,4,0
+            <li class="w-1/5 rounded-lg p-3" title="1,4,0">
+              1,20
             </li>
-            <li class="w-1/5 rounded-lg">
-              2,4,0
+            <li class="w-1/5 rounded-lg p-3" title="2,4,0">
+              2,20
             </li>
-            <li class="w-1/5 rounded-lg">
-              3,4,0
+            <li class="w-1/5 rounded-lg p-3" title="3,4,0">
+              3,20
             </li>
-            <li class="w-1/5 rounded-lg">
-              4,4,0
+            <li class="w-1/5 rounded-lg p-3" title="4,4,0">
+              4,20
             </li>
           </ul>
         </li>
