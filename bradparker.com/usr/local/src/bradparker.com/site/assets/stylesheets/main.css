@@ -481,6 +481,8 @@ details[open] summary::before {
 
 .min-w-full { min-width: 100%; }
 
+.w-1\/5 { width: 20%; }
+
 .w-1\/4 { width: 25%; }
 
 .w-2\/3 { width: 66.667%; }
@@ -504,6 +506,8 @@ details[open] summary::before {
 /* Border radius */
 
 .rounded-lg { border-radius: 0.5rem; }
+
+.rounded-full { border-radius: 9999px; }
 
 /* Border */
 

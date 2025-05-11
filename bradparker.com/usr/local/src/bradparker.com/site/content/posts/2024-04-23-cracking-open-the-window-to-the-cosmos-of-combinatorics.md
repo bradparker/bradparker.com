@@ -12,7 +12,7 @@ I'm a beginner, but it seems to me that at least some applications of combinator
 
 ## Two-up
 
-Two-up is a game played in Australia. Someone tosses two coins in the air at the same time and people place bets on the outcome. It is forbidden by law except for one day of the year, ANZAC day. If you want to understand why betting on a coin toss might be outlawed (and otherwise just enjoy a great if but harrowing novel) I reckon [Wake in Fright](https://en.wikipedia.org/wiki/Wake_in_Fright) is worth your time.
+Two-up is a game played in Australia. Someone tosses two coins in the air at the same time and people place bets on the outcome. It is forbidden by law except for one day of the year, ANZAC day. If you want to understand why betting on a coin toss might be outlawed (and otherwise just enjoy a great if but harrowing novel) I reckon [Wake in Fright](https://en.wikipedia.org/wiki/Wake_in_Fright_(novel)) is worth your time.
 
 How many possible states can two coins be in? The first coin can be heads or tails, and the second coin can be heads or tails.
 
@@ -55,7 +55,7 @@ So.
   <p>2 &times; 2 = 4</p>
 </figure>
 
-In Two-up two of these possibilities are counted as the same outcome. The order of the coins doesn't matter, which is handy, keeping track of them flying through the air, a few pints deep, would surely be diabolical. So one outcome ends up being twice as likely as the other two. Sounds simple, ends up pretty complicated for [John Grant](https://en.wikipedia.org/wiki/Wake_in_Fright).
+In Two-up two of these possibilities are counted as the same outcome. The order of the coins doesn't matter, which is handy, keeping track of them flying through the air, a few pints deep, would surely be diabolical. So one outcome ends up being twice as likely as the other two. Sounds simple, ends up pretty complicated for [John Grant](https://en.wikipedia.org/wiki/Wake_in_Fright_(novel)#Plot_summary).
 
 ## Hazard
 
@@ -742,7 +742,7 @@ This seems like fiendishly complex stuff, there's sure to be many red herrings o
 
 The string quartet has been around as a musical genre and an ensemble instrumentation since the 1750s. In 1825 Beethoven wrote some particularly spicy quartets, numbers 12 to 16, the last major compositions he completed. I love them, though not everyone does. A contemporary of Beethoven, and composer himself, Louis Spohr, described them as "indecipherable, uncorrected horrors."
 
-Three of the quartets, 15, 13, and 14, centre thematically around particular groupings of four notes, groupings united by how far away their constituents are from each other. Four note groupings that share a shape like this are called tetrachords. This has me wondering what horrors might lurk in the collection of all possible voicings a string quartet could play?
+Three of the quartets, 15, 13, and 14, centre thematically around particular groupings of four notes, groupings united by how far away their constituents are from each other. Which has me wondering what indecipherable, uncorrected horrors might lurk in the collection of all possible voicings a string quartet could play?
 
 First, how many are there? I'm honestly not sure, the ranges of these instruments are a bit flexible, it can depend on the player, whether harmonics are included, the construction of a particular instance of an instrument. If I might be permitted to use these as the ranges for the instruments in question we can at least get a ballpark figure.
 
@@ -767,15 +767,15 @@ That is a lot.
 
 It's a vast space of possibilities, and Beethoven's four note groupings are in there somewhere, but where? Where, for example, is E4, F4, G#4, A4?
 
-It might seem like a nonsense question, but it at least has a few answers. One answer is this, we can think of each instrument as a dimension in space and plot E4, F4, G#4, A4 within it. Instead of the familiar three dimensions we think of moving about in day to day life, left-right, up-down and forward-backward, we have four dimensions: the **cello**, the **viola**, the **second violin** and the **first violin**. Because each instrument is constrained in the range of notes they can play we're really talking about some four dimensional shape. We can imagine plotting coordinates within this shape by measuring how far along each dimension a point extends. Starting at 0, being the lowest note that instrument can play, and counting each subsequent note, ending at the highest.
+It might seem like a nonsense question, but at least it can be answered. One answer is this, we can think of each instrument as a dimension in space and plot E4, F4, G#4, A4 within it. Instead of the familiar three dimensions we think of moving about in day to day life, left-right, up-down and forward-backward, we have four dimensions: the **cello**, the **viola**, the **second violin** and the **first violin**. Because each instrument is constrained in the range of notes it can play we're really talking about some four dimensional shape. We can imagine plotting coordinates within this shape by measuring how far along each dimension a point extends. Starting at 0, being the lowest note that instrument can play, and counting each subsequent note, ending at the highest.
 
-So, where is E4, F4, G#4, A4 within that shape? It's at position the position: **Cello** = 28, **Viola** = 17, **Second Violin** = 13 and **First Violin** = 14. And where is that exactly? Well, I can't show you. Unlike the examples of coin tosses, dice rolls or DNA codons, I can't create a visualisation of this space of possibilities. I've never seen any four dimensional things, and I lack the imagination to even try to picture them. What I can do though is unfold the four dimensional space of possibilities into a different shape and show you that instead.
+So, where is E4, F4, G#4, A4 within that shape? It's at the position: **Cello** = 28, **Viola** = 17, **Second Violin** = 13 and **First Violin** = 14. And where is that exactly? Well, I can't show you. Unlike the examples of coin tosses, dice rolls or DNA codons, I can't create a visualisation of this space of possibilities. I've never seen any four dimensional things, and I lack the imagination to even try to picture them. What I can do though is unfold the four dimensional space of possibilities into a different shape and show you that instead.
 
 To demonstrate, here's a two dimensional space of possibilities. Perhaps imagine it's a duet of tiny, five tone, glockenspiels.
 
 ![Colourful marbles arranged on a five by five grid. The columns and rows are numbered, zero to four. The first row is red, the second row is orange, the third row is yellow, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-1-small.webp)
 
-Because this shape doesn't go on forever (it's finite) and we're never going to break any marbles into pieces (they're discrete) two dimensions can be flattened into one by placing each row end to end. A rectangle can become a line.
+Because this shape doesn't go on forever (it's finite) and I'm not planning on breaking any marbles into pieces (they're discrete) two dimensions can be flattened into one by placing each row end to end. A rectangle can become a line.
 
 ![Colourful marbles, arranged on a mostly five by five grid. The first row is ten marbles wide, the second row is missing, it was moved from to the end of the first row. The columns are numbered, zero to nine. The rows are numbered zero to four. The first row is red and orange, the third row is yellow, the fourth row is green and the fifth row is blue.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-2-small.webp)
 
@@ -785,7 +785,70 @@ Because this shape doesn't go on forever (it's finite) and we're never going to 
 
 ![Colourful marbles, arranged in a row of twenty five marbles.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5-space-5-small.webp)
 
-With this scheme the second yellow marble moves from column 1 row 2 to column 11 row 0. Said another way: it moves from column 1 row 2 to column <em>Original row (2) &times; Original total no. of columns (5) + Original column (1)</em> and the only row, 0.
+With this scheme the second yellow marble moves from column 1 row 2 to column 11 row 0. Each marble is being counted, left to right along each row.
+
+<div class="founders-grotesk text-center">
+  <table class="table-fixed min-w-full border-separate border-spacing-3">
+    <tbody>
+      <tr>
+        <th></th>
+        <th>0</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+      </tr>
+      <tr>
+        <th>0</th>
+        <td><strong>0</strong></td>
+        <td><strong>1</strong></td>
+        <td><strong>2</strong></td>
+        <td><strong>3</strong></td>
+        <td><strong>4</strong></td>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td><strong>5</strong></td>
+        <td><strong>6</strong></td>
+        <td><strong>7</strong></td>
+        <td><strong>8</strong></td>
+        <td><strong>9</strong></td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td><strong>10</strong></td>
+        <td><div class="rounded-lg bg-yellow"><strong>11</strong></div></td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+      </tr>
+      <tr>
+        <th>3</th>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+      </tr>
+      <tr>
+        <th>4</th>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+In general, columns are counted <em>row number</em> times (in this case 2), then <em>column number</em> is added.
+
+<figure class="figure">
+
+<em>No. of columns</em> &times; <em>Row number</em> + <em>Column number</em>
+
+</figure>
 
 With the addition of another imaginary glockenspiel the same process can be demonstrated in three dimensions, this time labeled $x$, $y$, and $z$.
 
@@ -814,6 +877,538 @@ The yellow cube that begins at position $x = 1, y = 2, z = 1$ ends up at positio
 ![Five five-by-five squares of magnetic blocks laid out in a line. Each has a different colour of block: blue, green, yellow, red and black. An arrow is pointing to the block one in from the side and one in from the top within the yellow square of blocks.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-5-with-arrow-small.webp)
 
 Because the $y$ dimension will now always be 0 we can ignore it which allows us to say: position $(1, 2, 1)$ has moved to $(1, 11)$. More generally we could say: any position $(x, y, z)$ has moved to position $(x, |Z| \times y + z)$. Where $|Z|$ means: the total number of possible values of $z$. The $z$ dimension has now absorbed the $y$ dimension.
+
+This, as with turning two dimensions into one, counts positions. However in this case it doesn't count them all, only those on the $y \times z$ plane.
+
+<div class="overflow-x-auto overflow-y-hidden">
+  <ul class="list-none grid">
+    <li class="row-span-full col-span-full" style="transform: translate(10%, -10%) scale(0.75);">
+      <span class="sr-only">Z = 4</span>
+      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
+        <li>
+          <span class="sr-only">Z = 4, Y = 0</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,0,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,0,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,0,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,0,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,0,4
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 4, Y = 1</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,1,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,1,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,1,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,1,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,1,4
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 4, Y = 2</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,2,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,2,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,2,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,2,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,2,4
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 4, Y = 3</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,3,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,3,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,3,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,3,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,3,4
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 4, Y = 4</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,4,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,4,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,4,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,4,4
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,4,4
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="row-span-full col-span-full" style="transform: translate(5%, -5%) scale(0.75);">
+      <span class="sr-only">Z = 3</span>
+      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
+        <li>
+          <span class="sr-only">Z = 3, Y = 0</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,0,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,0,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,0,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,0,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,0,3
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 3, Y = 1</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,1,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,1,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,1,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,1,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,1,3
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 3, Y = 2</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,2,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,2,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,2,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,2,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,2,3
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 3, Y = 3</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,3,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,3,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,3,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,3,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,3,3
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 3, Y = 4</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,4,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,4,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,4,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,4,3
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,4,3
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="row-span-full col-span-full" style="transform: translate(0%, 0%) scale(0.75);">
+      <span class="sr-only">Z = 2</span>
+      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
+        <li>
+          <span class="sr-only">Z = 2, Y = 0</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,0,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,0,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,0,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,0,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,0,2
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 2, Y = 1</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,1,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,1,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,1,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,1,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,1,2
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 2, Y = 2</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,2,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,2,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,2,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,2,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,2,2
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 2, Y = 3</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,3,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,3,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,3,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,3,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,3,2
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 2, Y = 4</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,4,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,4,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,4,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,4,2
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,4,2
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="row-span-full col-span-full" style="transform: translate(-5%, 5%) scale(0.75);">
+      <span class="sr-only">Z = 1</span>
+      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
+        <li>
+          <span class="sr-only">Z = 1, Y = 0</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,0,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,0,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,0,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,0,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,0,1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 1, Y = 1</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,1,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,1,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,1,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,1,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,1,1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 1, Y = 2</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,2,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,2,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,2,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,2,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,2,1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 1, Y = 3</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,3,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,3,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,3,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,3,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,3,1
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 1, Y = 4</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,4,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,4,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,4,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,4,1
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,4,1
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="row-span-full col-span-full" style="transform: translate(-10%, 10%) scale(0.75);">
+      <span class="sr-only">Z = 0</span>
+      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
+        <li>
+          <span class="sr-only">Z = 0, Y = 0</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,0,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,0,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,0,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,0,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,0,0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 0, Y = 1</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,1,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,1,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,1,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,1,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,1,0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 0, Y = 2</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,2,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,2,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,2,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,2,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,2,0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 0, Y = 3</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,3,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,3,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,3,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,3,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,3,0
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="sr-only">Z = 0, Y = 4</span>
+          <ul class="list-none flex gap-3">
+            <li class="w-1/5 rounded-lg">
+              0,4,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              1,4,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              2,4,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              3,4,0
+            </li>
+            <li class="w-1/5 rounded-lg">
+              4,4,0
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
 
 Unfolding the four dimensional shape which contains all the voicings a string quartet can play by combining the two violins into one dimension yields a three dimensional rectangular prism of these measurements: **Cello** = 46, **Viola** = 41, **Violins** = 2,601. Within which Beethoven's four notes (E4, F4, G#4 and A4) can be found at **Cello** = 28, **Viola** = 17, **Violins** = 677.
 
