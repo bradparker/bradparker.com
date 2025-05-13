@@ -8,7 +8,7 @@ description: |
   ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-1-small-with-axes.webp)
 ---
 
-I'm becomming more aware of this thing called "combinatorics." Combinatorics can make spaces of possibilities navigable. It allows us to get some handle on the otherwise overwhelmingly huge. Here, hang on, I'll try to explain what I mean.
+I'm becoming more aware of this thing called "combinatorics." Combinatorics can make spaces of possibilities navigable. It allows us to get some handle on the otherwise overwhelmingly huge. Here, hang on, I'll try to explain what I mean.
 
 ## Two-up
 
@@ -787,56 +787,56 @@ Because this shape doesn't go on forever (it's finite) and I'm not planning on b
 
 With this scheme the second yellow marble moves from column 1 row 2 to column 11 row 0. Each marble is being counted, left to right along each row.
 
-<div class="founders-grotesk lh-solid">
+<div class="founders-grotesk lh-solid text-center" style="">
   <table class="table-fixed min-w-full border-separate border-spacing-3">
     <tbody>
       <tr>
-        <th></th>
-        <th>0</th>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
+        <th class="" style="/*! width: 1rem; */"></th>
+        <th class="w-1/5">0</th>
+        <th class="w-1/5">1</th>
+        <th class="w-1/5">2</th>
+        <th class="w-1/5">3</th>
+        <th class="w-1/5">4</th>
       </tr>
       <tr>
         <th>0</th>
-        <td><div class="p-3 rounded-lg ba b--red"><strong>0</strong></div></td>
-        <td><div class="p-3 rounded-lg ba b--red"><strong>1</strong></div></td>
-        <td><div class="p-3 rounded-lg ba b--red"><strong>2</strong></div></td>
-        <td><div class="p-3 rounded-lg ba b--red"><strong>3</strong></div></td>
-        <td><div class="p-3 rounded-lg ba b--red"><strong>4</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--red bg-red/20"><strong>0</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--red bg-red/20"><strong>1</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--red bg-red/20"><strong>2</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--red bg-red/20"><strong>3</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--red bg-red/20"><strong>4</strong></div></td>
       </tr>
       <tr>
         <th>1</th>
-        <td><div class="p-3 rounded-lg ba b--orange"><strong>5</strong></div></td>
-        <td><div class="p-3 rounded-lg ba b--orange"><strong>6</strong></div></td>
-        <td><div class="p-3 rounded-lg ba b--orange"><strong>7</strong></div></td>
-        <td><div class="p-3 rounded-lg ba b--orange"><strong>8</strong></div></td>
-        <td><div class="p-3 rounded-lg ba b--orange"><strong>9</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--orange bg-orange/20"><strong>5</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--orange bg-orange/20"><strong>6</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--orange bg-orange/20"><strong>7</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--orange bg-orange/20"><strong>8</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--orange bg-orange/20"><strong>9</strong></div></td>
       </tr>
       <tr>
         <th>2</th>
-        <td><div class="p-3 rounded-lg ba b--yellow"><strong>10</strong></div></td>
-        <td><div class="p-3 rounded-lg ba b--yellow bg-yellow"><strong>11</strong></div></td>
-        <td><div class="p-3 rounded-lg">12</div></td>
-        <td><div class="p-3 rounded-lg">13</div></td>
-        <td><div class="p-3 rounded-lg">14</div></td>
+        <td><div class="p-4 rounded-lg ba b--yellow bg-yellow/20"><strong>10</strong></div></td>
+        <td><div class="p-4 rounded-lg ba b--yellow bg-yellow"><strong>11</strong></div></td>
+        <td><div class="p-4 rounded-lg">12</div></td>
+        <td><div class="p-4 rounded-lg">13</div></td>
+        <td><div class="p-4 rounded-lg">14</div></td>
       </tr>
       <tr>
         <th>3</th>
-        <td><div class="p-3 rounded-lg">15</div></td>
-        <td><div class="p-3 rounded-lg">16</div></td>
-        <td><div class="p-3 rounded-lg">17</div></td>
-        <td><div class="p-3 rounded-lg">18</div></td>
-        <td><div class="p-3 rounded-lg">19</div></td>
+        <td><div class="p-4 rounded-lg">15</div></td>
+        <td><div class="p-4 rounded-lg">16</div></td>
+        <td><div class="p-4 rounded-lg">17</div></td>
+        <td><div class="p-4 rounded-lg">18</div></td>
+        <td><div class="p-4 rounded-lg">19</div></td>
       </tr>
       <tr>
         <th>4</th>
-        <td><div class="p-3 rounded-lg">20</div></td>
-        <td><div class="p-3 rounded-lg">21</div></td>
-        <td><div class="p-3 rounded-lg">22</div></td>
-        <td><div class="p-3 rounded-lg">23</div></td>
-        <td><div class="p-3 rounded-lg">24</div></td>
+        <td><div class="p-4 rounded-lg">20</div></td>
+        <td><div class="p-4 rounded-lg">21</div></td>
+        <td><div class="p-4 rounded-lg">22</div></td>
+        <td><div class="p-4 rounded-lg">23</div></td>
+        <td><div class="p-4 rounded-lg">24</div></td>
       </tr>
     </tbody>
   </table>
@@ -882,525 +882,525 @@ As with turning two dimensions into one, this counts positions. However here the
 
 <div class="founders-grotesk lh-solid overflow-x-auto overflow-y-hidden">
   <ul class="list-none grid">
-    <li class="row-span-full col-span-full" style="transform: translate(10%, -10%) scale(0.75);">
+    <li class="row-span-full col-span-full pointer hover:z-1 group" style="transform: translate(10%, -8%) scale(0.75);">
       <span class="sr-only">Z = 4</span>
-      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg p-3">
+      <ul class="list-none space-y-3 p-4 bg-white/60 group-hover:bg-white/80 group-hover:border-moon-grey b--transparent border-3 rounded-lg p-4">
         <li>
           <span class="sr-only">Z = 4, Y = 0</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,0,4">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,0,4">
               0,4
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--blue" title="1,0,4">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--blue bg-blue/20" title="1,0,4">
               <strong>1,4</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,0,4">
+            <li class="w-1/5 rounded-lg p-4" title="2,0,4">
               2,4
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,0,4">
+            <li class="w-1/5 rounded-lg p-4" title="3,0,4">
               3,4
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,0,4">
+            <li class="w-1/5 rounded-lg p-4" title="4,0,4">
               4,4
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 4, Y = 1</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,1,4">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,1,4">
               0,9
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--green" title="1,1,4">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--green bg-green/20" title="1,1,4">
               <strong>1,9</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,1,4">
+            <li class="w-1/5 rounded-lg p-4" title="2,1,4">
               2,9
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,1,4">
+            <li class="w-1/5 rounded-lg p-4" title="3,1,4">
               3,9
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,1,4">
+            <li class="w-1/5 rounded-lg p-4" title="4,1,4">
               4,9
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 4, Y = 2</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,2,4">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,2,4">
               0,14
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,2,4">
+            <li class="w-1/5 rounded-lg p-4" title="1,2,4">
               1,14
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,2,4">
+            <li class="w-1/5 rounded-lg p-4" title="2,2,4">
               2,14
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,2,4">
+            <li class="w-1/5 rounded-lg p-4" title="3,2,4">
               3,14
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,2,4">
+            <li class="w-1/5 rounded-lg p-4" title="4,2,4">
               4,14
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 4, Y = 3</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,3,4">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,3,4">
               0,19
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,3,4">
+            <li class="w-1/5 rounded-lg p-4" title="1,3,4">
               1,19
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,3,4">
+            <li class="w-1/5 rounded-lg p-4" title="2,3,4">
               2,19
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,3,4">
+            <li class="w-1/5 rounded-lg p-4" title="3,3,4">
               3,19
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,3,4">
+            <li class="w-1/5 rounded-lg p-4" title="4,3,4">
               4,19
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 4, Y = 4</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,4,4">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,4,4">
               0,24
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,4,4">
+            <li class="w-1/5 rounded-lg p-4" title="1,4,4">
               1,24
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,4,4">
+            <li class="w-1/5 rounded-lg p-4" title="2,4,4">
               2,24
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,4,4">
+            <li class="w-1/5 rounded-lg p-4" title="3,4,4">
               3,24
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,4,4">
+            <li class="w-1/5 rounded-lg p-4" title="4,4,4">
               4,24
             </li>
           </ul>
         </li>
       </ul>
     </li>
-    <li class="row-span-full col-span-full" style="transform: translate(5%, -5%) scale(0.75);">
+    <li class="row-span-full col-span-full pointer hover:z-1 group" style="transform: translate(5%, -4%) scale(0.75);">
       <span class="sr-only">Z = 3</span>
-      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg p-3">
+      <ul class="list-none space-y-3 p-4 bg-white/60 group-hover:bg-white/80 group-hover:border-moon-grey b--transparent border-3 rounded-lg p-4">
         <li>
           <span class="sr-only">Z = 3, Y = 0</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,0,3">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,0,3">
               0,3
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--blue" title="1,0,3">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--blue bg-blue/20" title="1,0,3">
               <strong>1,3</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,0,3">
+            <li class="w-1/5 rounded-lg p-4" title="2,0,3">
               2,3
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,0,3">
+            <li class="w-1/5 rounded-lg p-4" title="3,0,3">
               3,3
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,0,3">
+            <li class="w-1/5 rounded-lg p-4" title="4,0,3">
               4,3
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 3, Y = 1</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,1,3">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,1,3">
               0,8
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--green" title="1,1,3">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--green bg-green/20" title="1,1,3">
               <strong>1,8</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,1,3">
+            <li class="w-1/5 rounded-lg p-4" title="2,1,3">
               2,8
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,1,3">
+            <li class="w-1/5 rounded-lg p-4" title="3,1,3">
               3,8
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,1,3">
+            <li class="w-1/5 rounded-lg p-4" title="4,1,3">
               4,8
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 3, Y = 2</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,2,3">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,2,3">
               0,13
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,2,3">
+            <li class="w-1/5 rounded-lg p-4" title="1,2,3">
               1,13
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,2,3">
+            <li class="w-1/5 rounded-lg p-4" title="2,2,3">
               2,13
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,2,3">
+            <li class="w-1/5 rounded-lg p-4" title="3,2,3">
               3,13
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,2,3">
+            <li class="w-1/5 rounded-lg p-4" title="4,2,3">
               4,13
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 3, Y = 3</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,3,3">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,3,3">
               0,18
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,3,3">
+            <li class="w-1/5 rounded-lg p-4" title="1,3,3">
               1,18
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,3,3">
+            <li class="w-1/5 rounded-lg p-4" title="2,3,3">
               2,18
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,3,3">
+            <li class="w-1/5 rounded-lg p-4" title="3,3,3">
               3,18
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,3,3">
+            <li class="w-1/5 rounded-lg p-4" title="4,3,3">
               4,18
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 3, Y = 4</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,4,3">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,4,3">
               0,23
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,4,3">
+            <li class="w-1/5 rounded-lg p-4" title="1,4,3">
               1,23
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,4,3">
+            <li class="w-1/5 rounded-lg p-4" title="2,4,3">
               2,23
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,4,3">
+            <li class="w-1/5 rounded-lg p-4" title="3,4,3">
               3,23
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,4,3">
+            <li class="w-1/5 rounded-lg p-4" title="4,4,3">
               4,23
             </li>
           </ul>
         </li>
       </ul>
     </li>
-    <li class="row-span-full col-span-full" style="transform: translate(0%, 0%) scale(0.75);">
+    <li class="row-span-full col-span-full pointer hover:z-1 group" style="transform: translate(0%, 0%) scale(0.75);">
       <span class="sr-only">Z = 2</span>
-      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg p-3">
+      <ul class="list-none space-y-3 p-4 bg-white/60 group-hover:bg-white/80 group-hover:border-moon-grey b--transparent border-3 rounded-lg p-4">
         <li>
           <span class="sr-only">Z = 2, Y = 0</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,0,2">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,0,2">
               0,2
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--blue" title="1,0,2">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--blue bg-blue/20" title="1,0,2">
               <strong>1,2</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,0,2">
+            <li class="w-1/5 rounded-lg p-4" title="2,0,2">
               2,2
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,0,2">
+            <li class="w-1/5 rounded-lg p-4" title="3,0,2">
               3,2
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,0,2">
+            <li class="w-1/5 rounded-lg p-4" title="4,0,2">
               4,2
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 2, Y = 1</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,1,2">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,1,2">
               0,7
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--green" title="1,1,2">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--green bg-green/20" title="1,1,2">
               <strong>1,7</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,1,2">
+            <li class="w-1/5 rounded-lg p-4" title="2,1,2">
               2,7
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,1,2">
+            <li class="w-1/5 rounded-lg p-4" title="3,1,2">
               3,7
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,1,2">
+            <li class="w-1/5 rounded-lg p-4" title="4,1,2">
               4,7
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 2, Y = 2</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,2,2">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,2,2">
               0,12
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,2,2">
+            <li class="w-1/5 rounded-lg p-4" title="1,2,2">
               1,12
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,2,2">
+            <li class="w-1/5 rounded-lg p-4" title="2,2,2">
               2,12
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,2,2">
+            <li class="w-1/5 rounded-lg p-4" title="3,2,2">
               3,12
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,2,2">
+            <li class="w-1/5 rounded-lg p-4" title="4,2,2">
               4,12
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 2, Y = 3</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,3,2">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,3,2">
               0,17
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,3,2">
+            <li class="w-1/5 rounded-lg p-4" title="1,3,2">
               1,17
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,3,2">
+            <li class="w-1/5 rounded-lg p-4" title="2,3,2">
               2,17
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,3,2">
+            <li class="w-1/5 rounded-lg p-4" title="3,3,2">
               3,17
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,3,2">
+            <li class="w-1/5 rounded-lg p-4" title="4,3,2">
               4,17
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 2, Y = 4</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,4,2">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,4,2">
               0,22
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,4,2">
+            <li class="w-1/5 rounded-lg p-4" title="1,4,2">
               1,22
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,4,2">
+            <li class="w-1/5 rounded-lg p-4" title="2,4,2">
               2,22
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,4,2">
+            <li class="w-1/5 rounded-lg p-4" title="3,4,2">
               3,22
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,4,2">
+            <li class="w-1/5 rounded-lg p-4" title="4,4,2">
               4,22
             </li>
           </ul>
         </li>
       </ul>
     </li>
-    <li class="row-span-full col-span-full" style="transform: translate(-5%, 5%) scale(0.75);">
+    <li class="row-span-full col-span-full pointer hover:z-1 group" style="transform: translate(-5%, 4%) scale(0.75);">
       <span class="sr-only">Z = 1</span>
-      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg p-3">
+      <ul class="list-none space-y-3 p-4 bg-white/60 group-hover:bg-white/80 group-hover:border-moon-grey b--transparent border-3 rounded-lg p-4">
         <li>
           <span class="sr-only">Z = 1, Y = 0</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,0,1">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,0,1">
               0,1
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--blue" title="1,0,1">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--blue bg-blue/20" title="1,0,1">
               <strong>1,1</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,0,1">
+            <li class="w-1/5 rounded-lg p-4" title="2,0,1">
               2,1
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,0,1">
+            <li class="w-1/5 rounded-lg p-4" title="3,0,1">
               3,1
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,0,1">
+            <li class="w-1/5 rounded-lg p-4" title="4,0,1">
               4,1
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 1, Y = 1</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,1,1">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,1,1">
               0,6
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--green" title="1,1,1">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--green bg-green/20" title="1,1,1">
               <strong>1,6</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,1,1">
+            <li class="w-1/5 rounded-lg p-4" title="2,1,1">
               2,6
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,1,1">
+            <li class="w-1/5 rounded-lg p-4" title="3,1,1">
               3,6
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,1,1">
+            <li class="w-1/5 rounded-lg p-4" title="4,1,1">
               4,6
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 1, Y = 2</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,2,1">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,2,1">
               0,11
             </li>
-            <li class="w-1/5 rounded-lg p-3 bg-yellow" title="1,2,1">
+            <li class="w-1/5 rounded-lg p-4 bg-yellow" title="1,2,1">
               <strong>1,11</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,2,1">
+            <li class="w-1/5 rounded-lg p-4" title="2,2,1">
               2,11
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,2,1">
+            <li class="w-1/5 rounded-lg p-4" title="3,2,1">
               3,11
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,2,1">
+            <li class="w-1/5 rounded-lg p-4" title="4,2,1">
               4,11
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 1, Y = 3</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,3,1">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,3,1">
               0,16
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,3,1">
+            <li class="w-1/5 rounded-lg p-4" title="1,3,1">
               1,16
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,3,1">
+            <li class="w-1/5 rounded-lg p-4" title="2,3,1">
               2,16
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,3,1">
+            <li class="w-1/5 rounded-lg p-4" title="3,3,1">
               3,16
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,3,1">
+            <li class="w-1/5 rounded-lg p-4" title="4,3,1">
               4,16
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 1, Y = 4</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,4,1">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,4,1">
               0,21
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,4,1">
+            <li class="w-1/5 rounded-lg p-4" title="1,4,1">
               1,21
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,4,1">
+            <li class="w-1/5 rounded-lg p-4" title="2,4,1">
               2,21
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,4,1">
+            <li class="w-1/5 rounded-lg p-4" title="3,4,1">
               3,21
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,4,1">
+            <li class="w-1/5 rounded-lg p-4" title="4,4,1">
               4,21
             </li>
           </ul>
         </li>
       </ul>
     </li>
-    <li class="row-span-full col-span-full" style="transform: translate(-10%, 10%) scale(0.75);">
+    <li class="row-span-full col-span-full pointer hover:z-1 group" style="transform: translate(-10%, 8%) scale(0.75);">
       <span class="sr-only">Z = 0</span>
-      <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg p-3">
+      <ul class="list-none space-y-3 p-4 bg-white/60 group-hover:bg-white/80 group-hover:border-moon-grey b--transparent border-3 rounded-lg p-4">
         <li>
           <span class="sr-only">Z = 0, Y = 0</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,0,0">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,0,0">
               0,0
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--blue" title="1,0,0">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--blue bg-blue/20" title="1,0,0">
               <strong>1,0</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,0,0">
+            <li class="w-1/5 rounded-lg p-4" title="2,0,0">
               2,0
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,0,0">
+            <li class="w-1/5 rounded-lg p-4" title="3,0,0">
               3,0
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,0,0">
+            <li class="w-1/5 rounded-lg p-4" title="4,0,0">
               4,0
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 0, Y = 1</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,1,0">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,1,0">
               0,5
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--green" title="1,1,0">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--green bg-green/20" title="1,1,0">
               <strong>1,5</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,1,0">
+            <li class="w-1/5 rounded-lg p-4" title="2,1,0">
               2,5
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,1,0">
+            <li class="w-1/5 rounded-lg p-4" title="3,1,0">
               3,5
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,1,0">
+            <li class="w-1/5 rounded-lg p-4" title="4,1,0">
               4,5
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 0, Y = 2</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,2,0">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,2,0">
               0,10
             </li>
-            <li class="w-1/5 rounded-lg p-3 ba b--yellow" title="1,2,0">
+            <li class="w-1/5 rounded-lg p-4 border-3 b--yellow bg-yellow/20" title="1,2,0">
               <strong>1,10</strong>
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,2,0">
+            <li class="w-1/5 rounded-lg p-4" title="2,2,0">
               2,10
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,2,0">
+            <li class="w-1/5 rounded-lg p-4" title="3,2,0">
               3,10
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,2,0">
+            <li class="w-1/5 rounded-lg p-4" title="4,2,0">
               4,10
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 0, Y = 3</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,3,0">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,3,0">
               0,15
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,3,0">
+            <li class="w-1/5 rounded-lg p-4" title="1,3,0">
               1,15
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,3,0">
+            <li class="w-1/5 rounded-lg p-4" title="2,3,0">
               2,15
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,3,0">
+            <li class="w-1/5 rounded-lg p-4" title="3,3,0">
               3,15
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,3,0">
+            <li class="w-1/5 rounded-lg p-4" title="4,3,0">
               4,15
             </li>
           </ul>
         </li>
         <li>
           <span class="sr-only">Z = 0, Y = 4</span>
-          <ul class="list-none flex gap-3">
-            <li class="w-1/5 rounded-lg p-3" title="0,4,0">
+          <ul class="list-none flex gap-4">
+            <li class="w-1/5 rounded-lg p-4" title="0,4,0">
               0,20
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="1,4,0">
+            <li class="w-1/5 rounded-lg p-4" title="1,4,0">
               1,20
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="2,4,0">
+            <li class="w-1/5 rounded-lg p-4" title="2,4,0">
               2,20
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="3,4,0">
+            <li class="w-1/5 rounded-lg p-4" title="3,4,0">
               3,20
             </li>
-            <li class="w-1/5 rounded-lg p-3" title="4,4,0">
+            <li class="w-1/5 rounded-lg p-4" title="4,4,0">
               4,20
             </li>
           </ul>
@@ -1504,24 +1504,26 @@ $$
 
 What has been arrived at here is a sort of number system that counts through all the voicings a string quartet can play, just as we might count anything else. What makes this a little more interesting is that it doesn't _just_ count, it _encodes_. Unlike when counting many things in day to day life, counting these voicings using the method described allows for recovering the original four parts from the single number assigned to them when counted.
 
-To perform this recovery, to decode what was encoded, we need to undo each multiplication and addition which converted the note positions into their corresponding number. To undo one step of multiplication and addition we can use the following.
+To perform this recovery, to decode what was encoded, we need to undo each multiplication and addition which converted the note positions into their corresponding number. To undo one step of multiplication and addition we can use what's called "Euclidian division."
 
-Begin with some number $i$ which we know to be made by multiplying some number $q$ by some number $n$ and then adding some number $r$ to that.
+If you ever did long division in school, where you figured out how many times some number (the "divisor", $d$) fit into some other number ($n$) with some remainder ($r$) left over, you've done Euclidian division. It's division where you end up with a whole number (the "quotient" $q$), and possibly some remainder; some amount smaller than the number you were dividing by.
+
+It's something like this this. Begin with some number $n$ which we know to be made by multiplying some number $q$ by some number $d$ and then adding some number $r$ (which we know is less than $d$) to that.
 
 <figure class="wide">
 
 $$
-i = r + q \times n
+n = q \times d + r
 $$
 
 </figure>
 
-Which can be shuffled around to produce $q$.
+This can be shuffled around to produce $q$.
 
 <figure class="wide">
 
 $$
-q = \frac{i - r}{n}
+q = \frac{n - r}{d}
 $$
 
 </figure>
@@ -1531,27 +1533,27 @@ And also $r$.
 <figure class="wide">
 
 $$
-r = i - q \times n
+r = n - q \times d
 $$
 
 </figure>
 
-However in our case we don't know enough to solve these equations. What's required here is a method for finding at least $q$ or $r$ independent of each other. What's needed is "floored division" (written as $\lfloor \frac{a}{b} \rfloor$).
+There are many methods to figure out $q$, one is to perform something called "floored division" which is regular division but the result is rounded down to the nearest whole number. It's written like this.
 
 <figure class="wide">
 
 $$
-q = \lfloor \frac{i}{n} \rfloor
+q = \lfloor \frac{n}{d} \rfloor
 $$
 
 </figure>
 
-Floored division is like regular division except that the result is rounded down to a whole number. Or said another way: the remainder is discarded. It can be recovered however using the reshuffling above.
+Floored division discards the remainder, but it can be recovered with one of the above shufflings.
 
 <figure class="wide">
 
 $$
-r = i - q \times n
+r = n - q \times d
 $$
 
 </figure>
@@ -1562,7 +1564,7 @@ This enables decoding a number step by step, undoing multiplications by using fl
 
 $$
 \begin{align*}
-i
+n
   &= c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1}))) \\
   &= c + 46 \times (v + 41 \times (w_{2} + (51 \times w_{1}))) \\
   &= 1,371,932
@@ -1578,10 +1580,10 @@ And then onto finding the value for $c$, the note the cello plays.
 $$
 \begin{align*}
 q_c
-  &= \lfloor \frac{i}{|C|} \rfloor \\
+  &= \lfloor \frac{n}{|C|} \rfloor \\
   &= \lfloor \frac{1,371,932}{46} \rfloor \\
   &= 29,824 \\
-c &= i - |C| \times q_c \\
+c &= n - |C| \times q_c \\
   &= 1,371,932 - 46 \times 29,824 \\
   &= 28
 \end{align*}
@@ -1603,7 +1605,7 @@ $$
 
 </figure>
 
-Which means another layer can be peeled off by starting from $q_c$ instead of $i$, resulting in the value for $v$, the note the viola plays.
+Which means another layer can be peeled off by starting from $q_c$ instead of $n$, resulting in the value for $v$, the note the viola plays.
 
 <figure class="wide">
 

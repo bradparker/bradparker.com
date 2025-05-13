@@ -513,9 +513,31 @@ details[open] summary::before {
 
 .border { border-style: solid; border-width: 1px; }
 
+.border-2 { border-style: solid; border-width: 2px; }
+
+.border-3 { border-style: solid; border-width: 3px; }
+
+/* Border color */
+
+.group:hover .group-hover\:border-moon-grey { border-color: #ccc; }
+
 /* Background colour */
 
 .bg-white\/60 { background-color: rgb(255 255 255 / 60%) }
+
+.group:hover .group-hover\:bg-white\/80 { background-color: rgb(255 255 255 / 80%) }
+
+.bg-washed-orange { background-color: #ffe6d6; }
+
+.bg-red\/20 { background-color: rgb(255 65 54 / 20%) }
+
+.bg-orange\/20 { background-color: rgb(255 99 0 / 20%) }
+
+.bg-yellow\/20 { background-color: rgb(255 215 0 / 20%) }
+
+.bg-blue\/20 { background-color: rgb(53 126 221 / 20%) }
+
+.bg-green\/20 { background-color: rgb(25 169 116 / 20%) }
 
 /* Spacing */
 
@@ -560,6 +582,18 @@ details[open] summary::before {
 .text-center { text-align: center; }
 
 .font-bold { font-weight: 700; }
+
+/* Z-index */
+
+.hover\:z-1:hover { z-index: 1; }
+
+/* Position */
+
+.relative { position: relative; }
+
+/* Cursor */
+
+.pointer { cursor: pointer; }
 
 /* Screen readers */
 
