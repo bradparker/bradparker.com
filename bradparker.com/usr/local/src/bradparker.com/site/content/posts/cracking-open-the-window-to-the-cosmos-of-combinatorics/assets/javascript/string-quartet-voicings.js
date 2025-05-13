@@ -16,26 +16,25 @@ const zip = function* (ia, ib) {
   }
 }
 
-const intercalcateAsync = async function* (ia, ib) {
+const zipAsync = async function* (ia, ib) {
   let a = await ia.next();
   let b = await ib.next();
   while (!a.done && !b.done) {
-    yield a.value;
-    yield b.value;
+    yield [a.value, b.value];
     a = await ia.next();
     b = await ib.next();
   }
 }
 
-const delay = (t) => new Promise(resolve => {
-  setTimeout(() => {
+const animationFrame = () => new Promise(resolve => {
+  requestAnimationFrame(() => {
     resolve()
-  }, t);
+  });
 });
 
-const tick = async function* (interval) {
+const animationFrames = async function* () {
   while (true) {
-    yield await delay(interval);
+    yield await animationFrame();
   }
 }
 
@@ -741,7 +740,7 @@ const init = () => {
   }
 }
 
-const generate = async ({ 
+const generate = async ({
   sequence,
   startTime,
   buffer,
@@ -752,12 +751,10 @@ const generate = async ({
   cello
 }) => {
   const indexedSequence = zip(iterate(0, n => n + 1), sequence);
-  const spacedIndexedSequence = intercalcateAsync(indexedSequence, tick(50));
+  const spacedIndexedSequence = zipAsync(indexedSequence, animationFrames());
 
   return new Promise(async (resolve) => {
-    for await (const value of spacedIndexedSequence) {
-      if (typeof value === "undefined") { continue; } // Skipping delays ...
-
+    for await (const [value] of spacedIndexedSequence) {
       const [i, x] = value;
 
       if (i > m) { return; }
@@ -848,7 +845,7 @@ const initControl = (control, sequence) => {
         control.textContent = "Pause";
       });
     }
-  }); 
+  });
 }
 
 const randomControl = document.getElementById("string-quartet-random-control");

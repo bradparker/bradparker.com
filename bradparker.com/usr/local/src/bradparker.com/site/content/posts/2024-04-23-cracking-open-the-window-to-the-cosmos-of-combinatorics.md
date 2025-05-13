@@ -8,7 +8,7 @@ description: |
   ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/5x5x5-space-1-small-with-axes.webp)
 ---
 
-I'm becomming more aware of this thing called "combinatorics." Combinatorics can make spaces of possibilities navigable. It allows us to get some handle on the otherwise overwhelmingly huge. Here, I'll try to explain what I mean by that.
+I'm becomming more aware of this thing called "combinatorics." Combinatorics can make spaces of possibilities navigable. It allows us to get some handle on the otherwise overwhelmingly huge. Here, hang on, I'll try to explain what I mean.
 
 ## Two-up
 
