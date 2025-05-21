@@ -1414,7 +1414,7 @@ Unfolding the four dimensional shape which contains all the voicings a string qu
 
 ![A skinny and short but deep rectangular prism drawn in a grid lined notebook with a black dot drawn roughly a quarter along the depth, roughly halfway along the width, and roughly halfway up the height. The section with the dot also has a zoomed in copy drawn above, to better show where it is in terms of the height and width.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/prism-hand-drawn.webp)
 
-Which doesn't feel very enlightening to look at, at least for me. It could be nonsense. Getting to this point, however, has started to lead somewhere sensible.
+I'm not sure exactly what the above shows me. Perhaps only that unfolding one dimension has hinted how big the space of possibilities is. It has me wondering what could be found by continuing down this path.
 
 ### In time
 
@@ -1422,16 +1422,22 @@ If a two dimensional set of possibilities can be unfolded into a one dimensional
 
 This enables turning any four note voicing into a single, unique, number between 0 and 4,905,485. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
 
-By referring to the scheme for unfolding dimensions explored above its possible to describe a method for finding the number ($i$) of any voicing made up of:
-* A note played by the first violin ($w_1$), from within the set of notes it can play ($W$)
-* A note played by the second violin ($w_2$), from within the set of notes it can play ($W$)[^2]
-* A note played by the viola ($v$), from within the set of notes it can play ($V$)
+By referring to the scheme for unfolding dimensions explored above its possible to describe a method for finding the number ($n$) of any voicing made up of:
+* A note played by the first violin ($v_1$), from within the set of notes it can play ($V$)
+* A note played by the second violin ($v_2$), from within the set of notes it can play ($V$)
+* A note played by the viola ($w$), from within the set of notes it can play ($W$)[^2]
 * A note played by the cello ($c$), from within the set of notes it can play ($C$)
 
 <figure class="wide">
 
 $$
-i = ((w_1 \times |W| + w_2) \times |V| + v) \times |C| + c
+\begin{align*}
+n
+  &= (v_1, v_2, w, c) \\
+  &= (v_1 \times |V| + v_2, w, c) \\
+  &= ((v_1 \times |V| + v_2) \times |W| + w, c) \\
+  &= ((v_1 \times |V| + v_2) \times |W| + w) \times |C| + c
+\end{align*}
 $$
 
 </figure>
@@ -1465,7 +1471,7 @@ This suggests that there should be a method by which the number for Beethoven's 
 
 $$
 \begin{align*}
-i &= w_1 \times (|W| \times |V| \times |C|) + w_2 \times (|V| \times |C|) + v \times |C| + c \\
+n &= v_1 \times (|V| \times |V| \times |C|) + v_2 \times (|W| \times |C|) + w \times |C| + c \\
   &= 14 \times (51 \times 41 \times 46) + 13 \times (41 \times 46) + 17 \times 46 + 28 \\
   &= 1,371,932
 \end{align*}
@@ -1487,28 +1493,28 @@ $$
 
 </figure>
 
-It's also possible to demonstrate that the two expressions are the same.
+Which suggests that these two expressions are equivalent in general.
 
 <figure class="wide">
 
 $$
 \begin{align*}
-i
-  &= ((w_1 \times |W| + w_2) \times |V| + v) \times |C| + c \\
-  &= (w_1 \times |W| + w_2) \times (|V| \times |C|) + v \times |C| + c \\
-  &= w_1 \times (|W| \times |V| \times |C|) + w_2 \times (|V| \times |C|) + v \times |C| + c
+n
+  &= ((v_1 \times |V| + v_2) \times |W| + w) \times |C| + c \\
+  &= (v_1 \times |V| + v_2) \times (|W| \times |C|) + v \times |C| + c \\
+  &= v_1 \times (|V| \times |W| \times |C|) + v_2 \times (|W| \times |C|) + v \times |C| + c
 \end{align*}
 $$
 
 </figure>
 
-What has been arrived at here is a sort of number system that counts through all the voicings a string quartet can play, just as we might count anything else. What makes this a little more interesting is that it doesn't _just_ count, it _encodes_. Unlike when counting many things in day to day life, counting these voicings using the method described allows for recovering the original four parts from the single number assigned to them when counted.
+What has been arrived at here is a sort of number system[^3] that counts through all the voicings a string quartet can play, just as we might count anything else. What makes this a little more interesting is that it doesn't _just_ count, it _encodes_. Unlike when counting many things in day to day life, counting these voicings using the method described allows for recovering the original four parts from the single number assigned to them when counted.
 
 To perform this recovery, to decode what was encoded, we need to undo each multiplication and addition which converted the note positions into their corresponding number. To undo one step of multiplication and addition we can use what's called "Euclidian division."
 
 If you ever did long division in school, where you figured out how many times some number (the "divisor", $d$) fit into some other number ($n$) with some remainder ($r$) left over, you've done Euclidian division. It's division where you end up with a whole number (the "quotient" $q$), and possibly some remainder; some amount smaller than the number you were dividing by.
 
-It's something like this this. Begin with some number $n$ which we know to be made by multiplying some number $q$ by some number $d$ and then adding some number $r$ (which we know is less than $d$) to that.
+Let's say we begin with some number $n$ which we know to be made by multiplying some number $q$ by some number $d$ and then adding some number $r$ (which we know is less than $d$) to that.
 
 <figure class="wide">
 
@@ -1518,7 +1524,23 @@ $$
 
 </figure>
 
-This can be shuffled around to produce $q$.
+This is an abstract form of the numbers we're aiming to decode.
+
+<figure class="wide">
+
+$$
+\begin{align*}
+n &= ((v_1 \times |V| + v_2) \times |W| + w) \times |C| + c \\
+q &= ((v_1 \times |V| + v_2) \times |W| + w) \\
+d &= |C| \\
+r &= c \\
+n &= q \times d + r
+\end{align*}
+$$
+
+</figure>
+
+Which can be shuffled around to produce $q$.
 
 <figure class="wide">
 
@@ -1558,22 +1580,24 @@ $$
 
 </figure>
 
-This enables decoding a number step by step, undoing multiplications by using floored division and undoing additions by finding the remainder. Beginning with a reminder of the number we're decoding.
+This enables decoding a number step by step, undoing multiplications by using floored division and undoing additions by finding the remainder.
+
+First, a reminder of the number we're decoding.
 
 <figure class="wide">
 
 $$
 \begin{align*}
 n
-  &= c + |C| \times (v + |V| \times (w_{2} + (|W| \times w_{1}))) \\
-  &= c + 46 \times (v + 41 \times (w_{2} + (51 \times w_{1}))) \\
+  &= ((v_1 \times |V| + v_2) \times |W| + w) \times |C| + c \\
+  &= ((v_1 \times 51 + v_2) \times 41 + w) \times 46 + c \\
   &= 1,371,932
 \end{align*}
 $$
 
 </figure>
 
-And then onto finding the value for $c$, the note the cello plays.
+Then, finding the value for $c$, the note the cello plays.
 
 <figure class="wide">
 
@@ -1591,7 +1615,7 @@ $$
 
 </figure>
 
-A layer of addition and multiplication has been peeled off.
+By which a layer of addition and multiplication has been peeled off.
 
 <figure class="wide">
 
@@ -1605,17 +1629,17 @@ $$
 
 </figure>
 
-Which means another layer can be peeled off by starting from $q_c$ instead of $n$, resulting in the value for $v$, the note the viola plays.
+Meaning another layer can be peeled off by starting from $q_c$ instead of $n$, resulting in the value for $v$, the note the viola plays.
 
 <figure class="wide">
 
 $$
 \begin{align*}
-q_v
-  &= \lfloor \frac{q_c}{|V|} \rfloor \\
+q_w
+  &= \lfloor \frac{q_c}{|W|} \rfloor \\
   &= \lfloor \frac{29,824}{41} \rfloor \\
   &= 727 \\
-v &= q_c - |V| \times q_v \\
+w &= q_c - |W| \times q_w \\
   &= 29,824 - 41 \times 727 \\
   &= 17
 \end{align*}
@@ -1623,20 +1647,22 @@ $$
 
 </figure>
 
-Continuing this process recovers the remaining two notes, those played by the first and second violins.
+Lastly, continuing this process recovers the remaining two notes, those played by the first and second violins.
 
 <figure class="wide">
 
 $$
 \begin{align*}
-q_{w_2}
-  &= \lfloor \frac{q_v}{|W|} \rfloor \\
+q_{v_2}
+  &= \lfloor \frac{q_v}{|V|} \rfloor \\
   &= \lfloor \frac{727}{51} \rfloor \\
   &= 14 \\
-w_2 &= q_{w_2} - |W| \times q_{w_2} \\
+v_2 &= q_w - |V| \times q_{v_2} \\
   &= 727 - 51 \times 14 \\
   &= 13 \\
-w_1 &= q_{w_2}
+v_1
+  &= q_{v_2} \\
+  &= 14
 \end{align*}
 $$
 
@@ -1656,9 +1682,9 @@ With this ability to decode ordinary numbers into string quartet voicings it's p
   </figcaption>
 </figure>
 
-At this speed, ten notes per second, it would take you more than a day and a half of uninterrupted listening to reach Beethoven's notes.
+At this speed, ten notes per second, it would take you more than a day and a half of uninterrupted listening to reach Beethoven's notes. I like it. I think it sounds very meditative.
 
-Turning voicings into numbers has afforded us another opportunity and it's with this that I'll finish. We can use a non-repeating random number generator to listen to each and every voicing. There's no telling when you'll hit Beethoven's notes, but they're in there. To hear all the voicings, to make sure you hear Beethoven's, would take over five days and sixteen hours.
+Turning voicings into numbers has afforded us another opportunity and it's with this that I'll finish. We can use a non-repeating random number generator[^4] to listen to each and every voicing. I'm not sure if there's any telling when you'll hit E4, F4, G#4, A4, but it's in there. To hear all the voicings, to make sure you hear Beethoven's, would take over five days and sixteen hours.
 
 <figure>
   <button id="string-quartet-random-control">
@@ -1672,11 +1698,15 @@ Turning voicings into numbers has afforded us another opportunity and it's with 
   </figcaption>
 </figure>
 
+If I listen for long enough I can talk myself into hearing bass lines and melodies. I think it's sort of fun. Bleep bloop.
+
 ***
 
-Here combinatorics provided us a path through an overwhelming space of possibilities. Not only that, along the way we've been able to visit an Australian literary classic, confusing dice games from Early modern Britain, attempts to explain the bewildering complexities of DNA, and some really banging Beethoven. I hope you've enjoyed walking it as much as I've enjoyed trying to find it.
+Here combinatorics provided a path through an overwhelming space of possibilities. Not only that, along the way we've been able to visit an Australian literary classic, confusing dice games from Early modern Britain, attempts to explain the bewildering complexities of DNA, and some really banging Beethoven. I hope you enjoyed walking it as much as I enjoyed trying to find it.
 
 <script type="module" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
 
 [^1]: [Deciphering the Genetic Code: The Most Beautiful False Theory in Biochemistry – Part 1](https://www.chemistryviews.org/details/ezine/11312121/Deciphering_the_Genetic_Code_The_Most_Beautiful_False_Theory_in_Biochemistry__Pa/)
-[^2]: My apologies, there's already a 'v' and 'w' is just the next letter in the alphabet. If it helps pronounce it "first wiolin" in your head. Or out loud. Do whatever best appeals.
+[^2]: I'm sorry, there's already a 'v' and 'w' is just the next letter in the alphabet. If it helps pronounce it "wiola" in your head. Or out loud. Whatever you're up for.
+[^3]: A [mixed radix number system](https://en.wikipedia.org/wiki/Mixed_radix).
+[^4]: In this case a [Lehmer random number generator](https://en.wikipedia.org/wiki/Lehmer_random_number_generator).
