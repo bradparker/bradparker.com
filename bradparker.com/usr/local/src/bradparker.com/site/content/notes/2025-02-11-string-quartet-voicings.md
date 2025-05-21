@@ -9,15 +9,51 @@ description: |
 
 ## Linear
 
-<button id="string-quartet-linear-control">
-  Play
+<audio id="string-quartet-linear-initial" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/audio/string-quartets-linear.ogx" controls></audio>
+
+<template id="string-quartet-linear">
+<figure>
+  <button id="string-quartet-linear-control">
+    Play
+  </button>
+
+  <figcaption>
+
+  **Note** if reading on a mobile device you may need to disable silent mode to hear this.
+
+  </figcaption>
+</figure>
+</template>
+
+<button id="string-quartet-linear-recorder">
+  Start recording
 </button>
+
+<div id="string-quartet-linear-recorder-output"></div>
 
 ## Pseudo random
 
-<button id="string-quartet-random-control">
-  Play
+<audio id="string-quartet-random-initial" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/audio/string-quartets-random.ogx" controls></audio>
+
+<template id="string-quartet-random">
+<figure>
+  <button id="string-quartet-random-control">
+    Play
+  </button>
+
+  <figcaption>
+
+  **Note** if reading on a mobile device you may need to disable silent mode to hear this.
+
+  </figcaption>
+</figure>
+</template>
+
+<button id="string-quartet-random-recorder">
+  Start recording
 </button>
+
+<div id="string-quartet-random-recorder-output"></div>
 
 <details>
   <summary>Source code</summary>
@@ -817,15 +853,14 @@ description: |
     });
   };
 
-  const start = async (sequence) => {
-    const {
-      audioContext,
-      firstViolin,
-      secondViolin,
-      viola,
-      cello
-    } = init();
-
+  const start = async ({
+    sequence,
+    audioContext,
+    firstViolin,
+    secondViolin,
+    viola,
+    cello
+  }) => {
     const startTime = audioContext.currentTime + 0.1;
 
     await generate({
@@ -842,47 +877,130 @@ description: |
     secondViolin.start(startTime);
     viola.start(startTime);
     cello.start(startTime);
-
-    return {
-      audioContext,
-      firstViolin,
-      secondViolin,
-      viola,
-      cello
-    };
   }
 
-  const initControl = (control, sequence) => {
+  const record = ({ sequence, audioContext, gainNode }) => {
+    const destination = audioContext.createMediaStreamDestination();
+    const mediaRecorder = new MediaRecorder(destination.stream);
+
+    gainNode.connect(destination);
+
+    return { mediaRecorder }
+  }
+
+  const initControl = (element, sequence) => {
     let context = null;
 
-    control.addEventListener("click", () => {
+    element.addEventListener("click", () => {
       if (!context) {
-        start(sequence).then(({ audioContext }) => {
-          context = audioContext;
-          control.textContent = "Pause";
+        const { audioContext, ...startParams } = init();
+        context = audioContext;
+
+        start({ sequence, audioContext, ...startParams }).then(() => {
+          element.textContent = "Pause";
         })
       } else if (context.state === "running") {
         context.suspend().then(() => {
-          control.textContent = "Play";
+          element.textContent = "Play";
         });
       } else if (context.state === "suspended") {
         context.resume().then(() => {
-          control.textContent = "Pause";
+          element.textContent = "Pause";
         });
       }
     });
   }
 
-  const randomControl = document.getElementById("string-quartet-random-control");
+  const initRecorder = (element, output, sequence) => {
+    let context = null;
+    let recorder = null;
+    let chunks = [];
+
+    element.addEventListener("click", () => {
+      if (!context) {
+        const { audioContext, gainNode, ...startParams } = init();
+        context = audioContext;
+
+        const { mediaRecorder } = record({ audioContext, gainNode });
+        recorder = mediaRecorder;
+
+        recorder.start();
+
+        recorder.addEventListener("dataavailable", (event) => {
+          chunks.push(event.data);
+        });
+
+        recorder.addEventListener("stop", () => {
+          const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
+          const audio = document.createElement("audio");
+          audio.src = URL.createObjectURL(blob);
+          audio.setAttribute("controls", "true");
+          output.replaceChildren(audio);
+
+          context.close();
+          context = null;
+          recorder = null;
+          chunks = [];
+        });
+
+        start({ sequence, audioContext, ...startParams }).then(() => {
+          element.textContent = "Stop and capture";
+        });
+      } else {
+        context.suspend().then(() => {
+          recorder.stop();
+          element.textContent = "Start recording";
+        });
+      }
+    });
+  }
+
+  const linearSequence = () => iterate(0, n => n + 1)
+
   const n = 4905486; // Cello * Viola * Violin * Violin
   const m = n + 1;
-  // This is heavily dependant on the value of `m`. It must be a primitive
-  // root modulo `m` to work.
-  const a = 4905306;
-  initControl(randomControl, iterate(Math.floor(m / 2), x => a * x % m));
 
-  const linearControl = document.getElementById("string-quartet-linear-control");
-  initControl(linearControl, iterate(0, n => n + 1));
+  const randomSequence = () => {
+    // This is heavily dependant on the value of `m`. It must be a primitive
+    // root modulo `m` to work.
+    const a = 4905306;
+
+    return iterate(Math.floor(m / 2), x => a * x % m)
+  }
+
+  const linearTemplate = document.getElementById("string-quartet-linear");
+  const linearInitial = document.getElementById("string-quartet-linear-initial");
+
+  if (linearTemplate && linearInitial) {
+    const linear = linearTemplate.content.cloneNode(true);
+    linearInitial.replaceWith(linear);
+
+    const linearControl = document.getElementById("string-quartet-linear-control");
+    initControl(linearControl, linearSequence());
+  }
+
+  const randomTemplate = document.getElementById("string-quartet-random");
+  const randomInitial = document.getElementById("string-quartet-random-initial");
+
+  if (randomTemplate && randomInitial) {
+    const random = randomTemplate.content.cloneNode(true);
+    randomInitial.replaceWith(random);
+
+    const randomControl = document.getElementById("string-quartet-random-control");
+    initControl(randomControl, randomSequence());
+  }
+
+  const linearRecorder = document.getElementById("string-quartet-linear-recorder");
+  const linearRecorderOutput = document.getElementById("string-quartet-linear-recorder-output");
+  if (linearRecorder && linearRecorderOutput) {
+    initRecorder(linearRecorder, linearRecorderOutput, linearSequence());
+  }
+
+  const randomRecorder = document.getElementById("string-quartet-random-recorder");
+  const randomRecorderOutput = document.getElementById("string-quartet-random-recorder-output");
+  if (randomRecorder && randomRecorderOutput) {
+    initRecorder(randomRecorder, randomRecorderOutput, randomSequence());
+  }
   ```
 </details>
 

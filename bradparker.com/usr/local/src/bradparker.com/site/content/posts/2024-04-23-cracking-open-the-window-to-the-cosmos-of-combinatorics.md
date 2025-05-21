@@ -736,7 +736,7 @@ So.
 
 In 1954 Watson and Crick intuited a list of the 20 amino acids believed to be constructed according to DNA's template. They were inspired to do so in response to a tidy, but ultimately incorrect, geometric explanation of the process put forward by a theoretical physicist, George Gamow. Later, in 1956, they came up with their own tidy, but ultimately incorrect, combinatorial explanation.[^1]
 
-This seems like fiendishly complex stuff, there's sure to be many red herrings on the path to the right explanation. I guess that's just how the cookie crumbles.
+This seems like fiendishly complex stuff, there's sure to be many red herrings on the path to the right explanation. I guess that's just how the [cookie](https://www.ikea.com/au/en/p/kafferep-biscuits-letter-shaped-70546375/) crumbles.
 
 ## Quartets
 
@@ -1670,6 +1670,17 @@ $$
 
 With this ability to decode ordinary numbers into string quartet voicings it's possible to enumerate all the possible voicings just by counting from 0 to 4,905,485. Doing so sounds like this.
 
+<figure id="string-quartet-linear-initial">
+  <audio class="w-full" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/audio/string-quartets-linear.ogx" controls></audio>
+
+  <figcaption>
+
+  **Note** without JavaScript you'll only get about a one minute sample.
+
+  </figcaption>
+</figure>
+
+<template id="string-quartet-linear">
 <figure>
   <button id="string-quartet-linear-control">
     Play
@@ -1681,11 +1692,23 @@ With this ability to decode ordinary numbers into string quartet voicings it's p
 
   </figcaption>
 </figure>
+</template>
 
 At this speed, ten notes per second, it would take you more than a day and a half of uninterrupted listening to reach Beethoven's notes. I like it. I think it sounds very meditative.
 
 Turning voicings into numbers has afforded us another opportunity and it's with this that I'll finish. We can use a non-repeating random number generator[^4] to listen to each and every voicing. I'm not sure if there's any telling when you'll hit E4, F4, G#4, A4, but it's in there. To hear all the voicings, to make sure you hear Beethoven's, would take over five days and sixteen hours.
 
+<figure id="string-quartet-random-initial">
+  <audio class="w-full" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/audio/string-quartets-random.ogx" controls></audio>
+
+  <figcaption>
+
+  **Note** without JavaScript you'll only get about a one minute sample.
+
+  </figcaption>
+</figure>
+
+<template id="string-quartet-random">
 <figure>
   <button id="string-quartet-random-control">
     Play
@@ -1697,6 +1720,7 @@ Turning voicings into numbers has afforded us another opportunity and it's with 
 
   </figcaption>
 </figure>
+</template>
 
 If I listen for long enough I can talk myself into hearing bass lines and melodies. I think it's sort of fun. Bleep bloop.
 

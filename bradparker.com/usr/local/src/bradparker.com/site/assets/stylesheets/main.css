@@ -479,6 +479,8 @@ details[open] summary::before {
 
 /* Width */
 
+.w-full { width: 100%; }
+
 .min-w-full { min-width: 100%; }
 
 .w-1\/5 { width: 20%; }
