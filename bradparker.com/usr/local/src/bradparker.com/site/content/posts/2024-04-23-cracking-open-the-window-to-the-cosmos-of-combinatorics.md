@@ -1410,15 +1410,27 @@ As with turning two dimensions into one, this counts positions. However here the
   </ul>
 </div>
 
-Unfolding the four dimensional shape which contains all the voicings a string quartet can play by combining the two violins into one dimension yields a three dimensional rectangular prism of these measurements: **Cello** = 46, **Viola** = 41, **Violins** = 2,601. Within which Beethoven's four notes (E4, F4, G#4 and A4) can be found at **Cello** = 28, **Viola** = 17, **Violins** = 677.
+Unfolding the four dimensional shape which contains all the voicings a string quartet can play by combining the two violins into one dimension yields a three dimensional rectangular prism of these measurements: **Cello** = 46, **Viola** = 41, **Violins** = 2,601.
 
-![A skinny and short but deep rectangular prism drawn in a grid lined notebook with a black dot drawn roughly a quarter along the depth, roughly halfway along the width, and roughly halfway up the height. The section with the dot also has a zoomed in copy drawn above, to better show where it is in terms of the height and width.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/prism-hand-drawn.webp)
+Allotting one cubic millimetre to each voicing yields something very roughly the size and shape of one of these standard cuts of timber. (If you look closely you might see a magpie for scale.)
 
-I'm not sure exactly what the above shows me. Perhaps only that unfolding one dimension has hinted how big the space of possibilities is. It has me wondering what could be found by continuing down this path.
+![A piece of timber laid out on a bitumen road. It's 45mm by 90mm by 2400mm.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/45x90x2400-space.webp)
+
+The profile is wrong, it should be nearly square, and it's too short by about 200 millimeters. But it still helps me to look at it and think about what it tells me about the space of possibilities we've been talking about.
+
+Firstly though, thinking about the specific position of Beethoven's four notes (E4, F4, G#4 and A4) doesn't feel very enlightening to me. Those notes can be found at **Cello** = 28, **Viola** = 17, **Violins** = 677. Which is about where I've placed this marble, except it'd be embedded within the timber, roughly in the centre of the cross-section.
+
+![A piece of timber laid out on a bitumen road. It's 45mm by 90mm by 2400mm. There's a white arrow pointing to a white marble resting on top. The marble is about one quarter to one third along the length.](/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/images/spaces/45x90x2400-space-with-arrow.webp)
+
+What I do find enlightening is imagining what happens to this piece of timber if we continue this process of unfolding dimensions.
+
+If a three dimensional set can be unfolded into a two dimensional set, then we can imagine slicing this piece of timber into one millimeter thin layers and laying them out side by side. If the timber were the right length to begin with we'd have a 2.6 metre square sheet. Which doesn't seem all that surprising to me.
+
+Now, if a two dimensional set of possibilities can be unfolded into a one dimensional set of possibilities, then we can imagine slicing this sheet into one millimetre by one millimetre pieces of dowel and laying them out end to end. If we did so we'd have a nearly five kilometre long line.
 
 ### In time
 
-If a two dimensional set of possibilities can be unfolded into a one dimensional set of possibilities, and a three dimensional set can be unfolded into a two dimensional set, and a four dimensional set can be unfolded into a three dimensional set, then a four dimensional set of possibilities can be unfolded into a single dimension of possibilities. We can lay all the possibilities out in a line. We can arrange them in some sort of order.
+Laying everything out in a line like this is, in a sense, providing a way to visit every possibility in a space. A path which snakes (a very orderly snake) through this whole four dimensional shape. It's laid every possibility out in some sort of order.
 
 This enables turning any four note voicing into a single, unique, number between 0 and 4,905,485. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
 
@@ -1629,7 +1641,7 @@ $$
 
 </figure>
 
-Meaning another layer can be peeled off by starting from $q_c$ instead of $n$, resulting in the value for $v$, the note the viola plays.
+Meaning another layer can be peeled off by starting from $q_c$ instead of $n$, resulting in the value for $w$, the note the viola plays.
 
 <figure class="wide">
 
@@ -1654,7 +1666,7 @@ Lastly, continuing this process recovers the remaining two notes, those played b
 $$
 \begin{align*}
 q_{v_2}
-  &= \lfloor \frac{q_v}{|V|} \rfloor \\
+  &= \lfloor \frac{q_w}{|V|} \rfloor \\
   &= \lfloor \frac{727}{51} \rfloor \\
   &= 14 \\
 v_2 &= q_w - |V| \times q_{v_2} \\
@@ -1671,11 +1683,11 @@ $$
 With this ability to decode ordinary numbers into string quartet voicings it's possible to enumerate all the possible voicings just by counting from 0 to 4,905,485. Doing so sounds like this.
 
 <figure id="string-quartet-linear-initial">
-  <audio class="w-full" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/audio/string-quartets-linear.ogx" controls></audio>
+  <audio class="w-full" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/audio/string-quartet-linear.ogg" controls></audio>
 
   <figcaption>
 
-  **Note** without JavaScript you'll only get about a one minute sample.
+  **Note** without JavaScript you'll get about a six minute sample.
 
   </figcaption>
 </figure>
@@ -1694,16 +1706,16 @@ With this ability to decode ordinary numbers into string quartet voicings it's p
 </figure>
 </template>
 
-At this speed, ten notes per second, it would take you more than a day and a half of uninterrupted listening to reach Beethoven's notes. I like it. I think it sounds very meditative.
+At this speed, ten notes per second, it would take you more than a day and a half of uninterrupted listening to reach Beethoven's notes. I like it. I think it sounds very meditative. Very *swoopey*.
 
 Turning voicings into numbers has afforded us another opportunity and it's with this that I'll finish. We can use a non-repeating random number generator[^4] to listen to each and every voicing. I'm not sure if there's any telling when you'll hit E4, F4, G#4, A4, but it's in there. To hear all the voicings, to make sure you hear Beethoven's, would take over five days and sixteen hours.
 
 <figure id="string-quartet-random-initial">
-  <audio class="w-full" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/audio/string-quartets-random.ogx" controls></audio>
+  <audio class="w-full" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/audio/string-quartet-random.ogg" controls></audio>
 
   <figcaption>
 
-  **Note** without JavaScript you'll only get about a one minute sample.
+  **Note** without JavaScript you'll get about a six minute sample.
 
   </figcaption>
 </figure>
