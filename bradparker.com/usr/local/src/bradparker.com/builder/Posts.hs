@@ -31,5 +31,5 @@ render = renderHtml . component
 
 component :: [Post] -> Html
 component posts =
-  Document.component (Document.Props "Posts" "/posts" True) do
+  Document.component (Document.Props "Posts" "/posts" Nothing True) do
     traverse_ PostSummary.component posts

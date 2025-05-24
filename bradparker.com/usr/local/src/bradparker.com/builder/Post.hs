@@ -47,6 +47,7 @@ data Post = Post
     title :: String,
     tags :: Vector String,
     description :: Markdown,
+    thumbnail :: Maybe String,
     content :: Markdown,
     rssGuid :: Maybe String
   }
@@ -66,6 +67,7 @@ data Frontmatter = Frontmatter
   { title :: String,
     tags :: Vector String,
     description :: String,
+    thumbnail :: Maybe String,
     published :: Maybe Day,
     rssGuid :: Maybe String
   }
@@ -77,6 +79,7 @@ frontmatterParser =
       <$> o .: "title"
       <*> o .: "tags"
       <*> o .: "description"
+      <*> o .:? "thumbnail"
       <*> o .:? "published"
       <*> o .:? "rss_guid"
 
@@ -97,6 +100,7 @@ fromFileToNamespace namespace path = do
         title = document.frontmatter.title,
         tags = document.frontmatter.tags,
         description = Markdown.read (Text.pack document.frontmatter.description),
+        thumbnail = document.frontmatter.thumbnail,
         content = Markdown.read document.content,
         published = document.frontmatter.published,
         rssGuid = document.frontmatter.rssGuid
@@ -118,6 +122,7 @@ component ::
   forall props.
   ( HasField "url" props String,
     HasField "title" props String,
+    HasField "thumbnail" props (Maybe String),
     HasField "date" props Day,
     HasField "index" props Bool
   ) =>

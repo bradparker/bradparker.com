@@ -24,7 +24,7 @@ render = renderHtml . component
 
 component :: [Post] -> Html
 component posts =
-  let props = Document.Props {title = "Home", url = "/", index = True}
+  let props = Document.Props {title = "Home", url = "/", index = True, thumbnail = Nothing}
    in Document.component props do
         H.article do
           (H.section ! A.class_ "mw7 center pa3") do

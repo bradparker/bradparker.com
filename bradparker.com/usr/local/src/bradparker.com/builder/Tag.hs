@@ -54,6 +54,7 @@ component tag =
         Document.Props
           { title = "Posts / " <> tag.name,
             url = "/tags" </> tag.name,
+            thumbnail = Nothing,
             index = True
           }
    in Document.component props do

@@ -38,12 +38,14 @@ data Content = Html Text | Markdown Markdown
 data Page = Page
   { url :: String,
     title :: String,
+    thumbnail :: Maybe String,
     content :: Content,
     index :: Bool
   }
 
 data Frontmatter = Frontmatter
   { title :: String,
+    thumbnail :: Maybe String,
     index :: Bool
   }
 
@@ -52,6 +54,7 @@ frontmatterParser =
   Yaml.withObject "PageFrontmatter" \o ->
     Frontmatter
       <$> o .: "title"
+      <*> o .:? "thumbnail"
       <*> (fromMaybe True <$> (o .:? "index"))
 
 fromFile :: FilePath -> FilePath -> Builder Page
@@ -61,6 +64,7 @@ fromFile path url = do
     Page
       { url = url,
         title = document.frontmatter.title,
+        thumbnail = document.frontmatter.thumbnail,
         index = document.frontmatter.index,
         content = case takeExtension path of
           ".md" -> Markdown (Markdown.read document.content)
@@ -78,6 +82,7 @@ component ::
   forall props.
   ( HasField "url" props String,
     HasField "title" props String,
+    HasField "thumbnail" props (Maybe String),
     HasField "index" props Bool,
     HasField "content" props Content
   ) =>

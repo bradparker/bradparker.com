@@ -28,9 +28,16 @@ import qualified Data.Text.Encoding as Text
 import qualified Data.Yaml as Yaml
 import qualified Frontmatter
 import GHC.Records (HasField)
+import System.FilePath ((</>), dropDrive)
 import Text.Blaze.Html (Html, (!))
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
+
+baseURL :: String
+baseURL = "https://bradparker.com"
+
+addBaseURL :: String -> String
+addBaseURL = (baseURL </>) . dropDrive
 
 data Document a = Document
   {frontmatter :: a, content :: Text}
@@ -76,6 +83,7 @@ navLink currentUrl url =
 data Props = Props
   { title :: String,
     url :: String,
+    thumbnail :: Maybe String,
     index :: Bool
   }
 
@@ -83,6 +91,7 @@ component ::
   forall props.
   ( HasField "title" props String,
     HasField "url" props String,
+    HasField "thumbnail" props (Maybe String),
     HasField "index" props Bool
   ) =>
   props ->
@@ -91,15 +100,20 @@ component ::
 component props children =
   (H.docTypeHtml ! A.lang "en") do
     H.head do
-      title_ props.title
       H.meta ! A.charset "utf8"
       H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1"
       unless props.index do
         H.meta ! A.name "robots" ! A.content "noindex"
+      title_ props.title
       me "https://bne.social/@brad"
       me "https://social.chinwag.org/@brad"
       me "https://github.com/bradparker"
       H.meta ! A.name "fediverse:creator" ! A.content "@brad@chinwag.org"
+      H.meta ! A.name "og:title" ! A.content (H.stringValue props.title)
+      H.meta ! A.name "og:url" ! A.content (H.stringValue (addBaseURL props.url))
+      case props.thumbnail of
+        Nothing -> pure ()
+        Just src -> H.meta ! A.name "og:image" ! A.content (H.stringValue (addBaseURL src))
       H.link ! A.rel "webmention" ! A.href "https://webmention.io/bradparker.com/webmention"
       H.link ! A.rel "shortcut icon" ! A.href "/assets/images/b.svg" ! A.type_ "image/svg+xml"
       stylesheet "/assets/stylesheets/minimal.css"

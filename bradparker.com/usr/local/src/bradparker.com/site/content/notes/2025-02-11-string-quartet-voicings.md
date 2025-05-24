@@ -9,7 +9,7 @@ description: |
 
 ## Linear
 
-<audio id="string-quartet-linear-initial" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/audio/string-quartets-linear.ogx" controls></audio>
+<audio id="string-quartet-linear-initial" src="/content/posts/crossing-paths-with-combinatorics/assets/audio/string-quartets-linear.ogx" controls></audio>
 
 <template id="string-quartet-linear">
 <figure>
@@ -33,7 +33,7 @@ description: |
 
 ## Pseudo random
 
-<audio id="string-quartet-random-initial" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/audio/string-quartets-random.ogx" controls></audio>
+<audio id="string-quartet-random-initial" src="/content/posts/crossing-paths-with-combinatorics/assets/audio/string-quartets-random.ogx" controls></audio>
 
 <template id="string-quartet-random">
 <figure>
@@ -1004,4 +1004,4 @@ description: |
   ```
 </details>
 
-<script type="module" src="/content/posts/cracking-open-the-window-to-the-cosmos-of-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
+<script type="module" src="/content/posts/crossing-paths-with-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
