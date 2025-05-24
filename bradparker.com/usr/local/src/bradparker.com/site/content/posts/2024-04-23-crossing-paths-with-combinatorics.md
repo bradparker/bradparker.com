@@ -1456,9 +1456,9 @@ Now, if a two dimensional set of possibilities can be unfolded into a one dimens
 
 ### In time
 
-Laying everything out in a line like this is, in a sense, providing a way to visit every possibility in a space. A path which snakes (a very orderly snake) through this whole four dimensional shape. It's laid every possibility out in some sort of order.
+Laying everything out in a line like this is, in a sense, providing a way to visit every possibility in a space. If it were to be folded back up again we'd have a path which snakes (in this case a very orderly snake) through this whole four dimensional shape I've been alluding to. Unfolding the whole thing into a line has laid every voicing out in an order.
 
-This enables turning any four note voicing into a single, unique, number between 0 and 4,905,485. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
+Having this order has enabled turning any four note voicing into a single, unique, number between 0 and 4,905,485. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
 
 By referring to the scheme for unfolding dimensions explored above its possible to describe a method for finding the number ($n$) of any voicing made up of:
 * A note played by the first violin ($v_1$), from within the set of notes it can play ($V$)
