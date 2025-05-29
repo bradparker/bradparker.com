@@ -242,8 +242,18 @@ details[open] summary::before {
 
 .markdown ul:not(.list-none) li,
 .markdown ol:not(.list-none) li {
-  padding-left: 1rem;
+  padding-left: 1.4rem;
   position: relative;
+}
+
+.markdown ul:not(.list-none) li + li,
+.markdown ol:not(.list-none) li + li {
+  margin-top: 0.5rem;
+}
+
+.markdown ul:not(.list-none) li > * + *,
+.markdown ol:not(.list-none) li > * + * {
+  margin-top: 0.5rem;
 }
 
 .markdown ul:not(.list-none) li:before {
@@ -406,14 +416,14 @@ details[open] summary::before {
 .markdown pre.diff .va { color: #b5bd68 }
 
 /* Markdown utils */
-.markdown > .wide {
+.markdown .wide {
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   display: flex;
 }
 
-.markdown > .wide:before {
+.markdown .wide:before {
   content: "";
   display: block;
   position: sticky;
@@ -426,7 +436,7 @@ details[open] summary::before {
   );
 }
 
-.markdown > .wide:after {
+.markdown .wide:after {
   content: "";
   display: block;
   position: sticky;

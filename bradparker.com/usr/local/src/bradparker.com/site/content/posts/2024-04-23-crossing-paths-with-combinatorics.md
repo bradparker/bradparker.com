@@ -69,14 +69,23 @@ How many possible states can two coins be in? The first coin can be heads or tai
 
 There are two coins, each with two sides they could land on.
 
-<figure class="figure">
-  <em>No. of sides coin 1</em> &times; <em>No. of sides coin 2</em> = <em>No. of possibilities</em>
+<figure class="wide">
+
+$$
+\mathit{\text{No. of sides coin 1}} \times \mathit{\text{No. of sides coin 2}}
+  = \mathit{\text{No. of possibilities}}
+$$
+
 </figure>
 
 So.
 
-<figure class="figure">
-  <p>2 &times; 2 = 4</p>
+<figure class="wide">
+
+$$
+2 \times 2 = 4
+$$
+
 </figure>
 
 In Two-up two of these possibilities are counted as the same outcome. The order of the coins doesn't matter, which is handy, keeping track of them flying through the air, a few pints deep, would surely be diabolical. So one outcome ends up being twice as likely as the other two. Sounds simple, ends up pretty complicated for [John Grant](https://en.wikipedia.org/wiki/Wake_in_Fright_(novel)#Plot_summary).
@@ -229,14 +238,23 @@ How many possible states can two dice be in? The first dice can have any one of 
 
 There are two dice, each with six sides they could land on.
 
-<figure class="figure">
-  <em>No. of sides dice 1</em> &times; <em>No. of sides dice 2</em> = <em>No. of possibilities</em>
+<figure class="wide">
+
+$$
+\mathit{\text{No. of sides dice 1}} \times \mathit{\text{No. of sides dice 2}}
+  = \mathit{\text{No. of possibilities}}
+$$
+
 </figure>
 
 So.
 
-<figure class="figure">
-  <p>6 &times; 6 = 36</p>
+<figure class="wide">
+
+$$
+6 \times 6 = 36
+$$
+
 </figure>
 
 As with Two-up, many of these possibilities are counted as the same outcome. All that matters is the sum of the numbers on each dice. So not only is 6 and 4 equal to 4 and 6, but also 3 and 7. But we needn't worry about all that.
@@ -255,503 +273,27 @@ In 1961 Francis Crick, Sydney Brenner, Leslie Barnett and R. J. Watts-Tobin figu
 
 How many different codons could there be?
 
-<ul class="list-none grid">
-  <li class="row-span-full col-span-full" style="transform: translate(-12.5%, 12.5%) scale(0.75);">
-    <span class="sr-only">T</span>
-    <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
-      <li>
-        <span class="sr-only">TT</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TTT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TTT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TTC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TTC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TTA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TTA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TTG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TTG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">TC</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TCT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TCT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TCC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TCC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TCA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TCA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TCG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TCG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">TA</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TAT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TAT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TAC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TAC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TAA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TAA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TAG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TAG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">TG</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TGT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TGT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TGC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TGC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TGA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TGA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/TGG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: TGG"
-            />
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li class="row-span-full col-span-full" style="transform: translate(-4.1666%, 4.1666%) scale(0.75);">
-    <span class="sr-only">C</span>
-    <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
-      <li>
-        <span class="sr-only">CT</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CTT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CTT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CTC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CTC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CTA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CTA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CTG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CTG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">CC</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CCT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CCT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CCC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CCC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CCA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CCA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CCG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CCG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">CA</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CAT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CAT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CAC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CAC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CAA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CAA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CAG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CAG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">CG</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CGT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CGT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CGC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CGC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CGA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CGA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/CGG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: CGG"
-            />
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li class="row-span-full col-span-full" style="transform: translate(4.1666%, -4.1666%) scale(0.75);">
-    <span class="sr-only">A</span>
-    <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
-      <li>
-        <span class="sr-only">AT</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/ATT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: ATT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/ATC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: ATC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/ATA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: ATA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/ATG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: ATG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">AC</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/ACT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: ACT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/ACC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: ACC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/ACA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: ACA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/ACG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: ACG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">AA</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/AAT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: AAT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/AAC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: AAC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/AAA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: AAA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/AAG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: AAG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">AG</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/AGT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: AGT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/AGC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: AGC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/AGA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: AGA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/AGG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: AGG"
-            />
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li class="row-span-full col-span-full" style="transform: translate(12.5%, -12.5%) scale(0.75);">
-    <span class="sr-only">G</span>
-    <ul class="list-none space-y-3 p-3 bg-white/60 rounded-lg">
-      <li>
-        <span class="sr-only">GT</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GTT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GTT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GTC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GTC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GTA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GTA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GTG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GTG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">GC</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GCT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GCT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GCC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GCC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GCA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GCA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GCG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GCG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">GA</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GAT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GAT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GAC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GAC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GAA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GAA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GAG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GAG"
-            />
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span class="sr-only">GG</span>
-        <ul class="list-none flex gap-3">
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GGT.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GGT"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GGC.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GGC"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GGA.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GGA"
-            />
-          </li>
-          <li class="w-1/4 rounded-lg">
-            <img
-              src="/content/posts/crossing-paths-with-combinatorics/assets/images/codons/GGG.JPEG.204.webp"
-              alt="Cookies in the shape of letters, in this case: GGG"
-            />
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
+![A three dimensional four by four by four grid of images, forming roughly a cube. Each image is a group of three cookies which are in the shapes of letters. The only letters used are A, T, G and C. The first image is of three 'A' cookies. The second a 'T' cookie and two 'A' cookies. The third a 'G' cookie and two 'A' cookies and so on through all possible combinations.](/content/posts/crossing-paths-with-combinatorics/assets/images/codons/codons.svg)
 
 There are three 'slots' in each codon, which could each be filled by one of four nucleotide types.
 
-<figure class="figure">
-  <em>No. of nucleotides</em> &times; <em>No. of nucleotides</em> &times; <em>No. of nucleotides</em> = <em>No. of possible codons</em>
+<figure class="wide">
+
+$$
+\mathit{\text{No. of nucleotides}} \times \mathit{\text{No. of nucleotides}} \times \mathit{\text{No. of nucleotides}}
+  = \mathit{\text{No. of possible codons}}
+$$
+
 </figure>
 
 So.
 
-<figure class="figure">
-  <p>4 &times; 4 &times; 4 = 64</p>
+<figure class="wide">
+
+$$
+4 \times 4 \times 4 = 64
+$$
+
 </figure>
 
 In 1954 Watson and Crick intuited a list of the 20 amino acids believed to be constructed according to DNA's template. They were inspired to do so in response to a tidy, but ultimately incorrect, geometric explanation of the process put forward by a theoretical physicist, George Gamow. Later, in 1956, they came up with their own tidy, but ultimately incorrect, combinatorial explanation.[^1]
@@ -764,7 +306,7 @@ The string quartet has been around as a musical genre and an ensemble instrument
 
 Three of the quartets, 15, 13, and 14, centre thematically around particular groupings of four notes, groupings united by how far away their constituents are from each other. Which has me wondering what indecipherable, uncorrected horrors might lurk in the collection of all possible voicings a string quartet could play?
 
-First, how many are there? I'm honestly not sure, the ranges of these instruments are a bit flexible, it can depend on the player, whether harmonics are included, the construction of a particular instance of an instrument. If I might be permitted to use these as the ranges for the instruments in question we can at least get a ballpark figure.
+First, how many are there? I'm honestly not sure, the ranges of these instruments are a bit flexible, it can depend on the player, whether harmonics are included, the construction of a particular instance of an instrument. I'll use these ranges so we can at least get a ballpark figure.
 
 Violin
 :   G3 - A7, 51 notes
@@ -775,10 +317,14 @@ Viola
 Cello
 :   C2 - A5, 46 notes
 
-The fist and second violins can each play any one of 51 notes, the viola one of 41, and the cello one of 46. So.
+The first and second violins can each play any one of 51 notes, the viola one of 41, and the cello one of 46. So.
 
-<figure class="figure">
-  <p>51 &times; 51 &times; 41 &times; 46 = 4,905,486</p>
+<figure class="wide">
+
+$$
+51 \times 51 \times 41 \times 46 = \text{4,905,486}
+$$
+
 </figure>
 
 That is a lot.
@@ -789,7 +335,7 @@ It's a vast space of possibilities, and Beethoven's four note groupings are in t
 
 It might seem like a nonsense question, but at least it can be answered. One answer is this, we can think of each instrument as a dimension in space and plot E4, F4, G#4, A4 within it. Instead of the familiar three dimensions we think of moving about in day to day life, left-right, up-down and forward-backward, we have four dimensions: the **cello**, the **viola**, the **second violin** and the **first violin**. Because each instrument is constrained in the range of notes it can play we're really talking about some four dimensional shape. We can imagine plotting coordinates within this shape by measuring how far along each dimension a point extends. Starting at 0, being the lowest note that instrument can play, and counting each subsequent note, ending at the highest.
 
-So, where is E4, F4, G#4, A4 within that shape? It's at the position: **Cello** = 28, **Viola** = 17, **Second Violin** = 13 and **First Violin** = 14. And where is that exactly? Well, I can't show you. Unlike the examples of coin tosses, dice rolls or DNA codons, I can't create a visualisation of this space of possibilities. I've never seen any four dimensional things, and I lack the imagination to even try to picture them. What I can do though is unfold the four dimensional space of possibilities into a different shape and show you that instead.
+So, where is E4, F4, G#4, A4 within that shape? It's at the position: **Cello** = 28, **Viola** = 17, **Second Violin** = 13 and **First Violin** = 14. And where is that exactly? Well, I can't show you. Unlike the examples of coin tosses, dice rolls or DNA codons, I can't create a visualisation of this space of possibilities. I've never seen any four dimensional things, and I lack the imagination to even try to picture them. What I can do though is change the four dimensional space of possibilities into a different shape and show you that instead.
 
 To demonstrate, here's a two dimensional space of possibilities. Perhaps imagine it's a duet of tiny, five tone, glockenspiels.
 
@@ -872,9 +418,11 @@ With this scheme the second yellow marble moves from column 1 row 2 to column 11
 
 In general, columns are counted <em>row number</em> times (in this case 2), then <em>column number</em> is added.
 
-<figure class="figure">
+<figure class="wide">
 
-<em>No. of columns</em> &times; <em>Row number</em> + <em>Column number</em>
+$$
+\mathit{\text{No. of columns}} \times \mathit{\text{Row number}} + \mathit{\text{Column number}}
+$$
 
 </figure>
 
@@ -882,7 +430,7 @@ With the addition of another imaginary glockenspiel the same process can be demo
 
 ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-1-small-with-axes.webp)
 
-This three dimensional shape can become a two dimensional shape by laying out each layer, end to end.
+This three dimensional shape can become a two dimensional shape by unstacking and each layer and placing them end to end.
 
 <div class="grid gap-3 grid-rows-2 grid-cols-2">
 
@@ -910,7 +458,7 @@ As with turning two dimensions into one, this counts positions. However here the
 
 ![A three dimensional five by five by five grid of rectangles, forming roughly a cube. Each rectangle is labelled with the two dimensional position they'd have if each layer were unstacked and placed end to end. The rectangles labelled (1, 0) through to (1, 11) are highlighted.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-counting.svg)
 
-Unfolding the four dimensional shape which contains all the voicings a string quartet can play by combining the two violins into one dimension yields a three dimensional rectangular prism of these measurements: **Cello** = 46, **Viola** = 41, **Violins** = 2,601.
+Unstacking the four dimensional shape containing all the string quartet voicings by combining the two violins into one dimension yields a three dimensional rectangular prism of these measurements: **Cello** = 46, **Viola** = 41, **Violins** = 2,601.
 
 Allotting one cubic millimetre to each voicing yields something very roughly the size and shape of one of these standard cuts of timber. (If you look closely you might see a magpie for scale.)
 
@@ -918,23 +466,23 @@ Allotting one cubic millimetre to each voicing yields something very roughly the
 
 The profile is wrong, it should be nearly square, and it's too short by about 200 millimeters. But it still helps me to look at it and think about what it tells me about the space of possibilities we've been talking about.
 
-Firstly though, thinking about the specific position of Beethoven's four notes (E4, F4, G#4 and A4) doesn't feel very enlightening to me. Those notes can be found at **Cello** = 28, **Viola** = 17, **Violins** = 677. Which is about where I've placed this marble, except it'd be embedded within the timber, roughly in the centre of the cross-section.
+Firstly though, what it doesn't tell me is much about Beethoven's four notes (E4, F4, G#4 and A4). Those notes can be found at **Cello** = 28, **Viola** = 17, **Violins** = 677. Which is about where I've placed this marble, except it'd be embedded within the timber, roughly in the centre of the cross-section.
 
 ![A piece of timber laid out on a bitumen road. It's 45mm by 90mm by 2400mm. There's a white arrow pointing to a white marble resting on top. The marble is about one quarter to one third along the length.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/45x90x2400-space-with-arrow.webp)
 
-What I do find enlightening is imagining what happens to this piece of timber if we continue this process of unfolding dimensions.
+I just don't find it all that enlighting to see. What I do find enlightening is imagining what happens to this piece of timber if we continue this process of unstacking dimensions.
 
-If a three dimensional set can be unfolded into a two dimensional set, then we can imagine slicing this piece of timber into one millimeter thin layers and laying them out side by side. If the timber were the right length to begin with we'd have a 2.6 metre square sheet. Which doesn't seem all that surprising to me.
+If a three dimensional set of possibilities can be unstacked into a two dimensional set, then we can imagine slicing this piece of timber into one millimeter thin layers and laying them out side by side. If the timber were the right length to begin with we'd have a 2.6 metre square sheet. Which doesn't seem all that surprising to me.
 
-Now, if a two dimensional set of possibilities can be unfolded into a one dimensional set of possibilities, then we can imagine slicing this sheet into one millimetre by one millimetre pieces of dowel and laying them out end to end. If we did so we'd have a nearly five kilometre long line.
+Now, if a two dimensional set of possibilities can be unfolded into a one dimensional set, then we can imagine slicing this sheet into one millimetre by one millimetre pieces of dowel and laying them out end to end. If we did so we'd have a nearly five kilometre long line.
 
 ### In time
 
-Laying everything out in a line like this is, in a sense, providing a way to visit every possibility in a space. If it were to be folded back up again we'd have a path which snakes (in this case a very orderly snake) through this whole four dimensional shape I've been alluding to. Unfolding the whole thing into a line has laid every voicing out in an order.
+Laying everything out in a line like this is, in a sense, providing a way to visit every possibility in a space. If it were to be folded back up again we'd have a path which snakes (in this case a very orderly, if but zig-zaggy, snake) through the whole four dimensional shape. Unfolding the whole thing into a line has laid every voicing out in an order; a sequence.
 
-Having this order has enabled turning any four note voicing into a single, unique, number between 0 and 4,905,485. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
+Having this sequence enables us to turn any four note voicing into a single, unique, number between 0 and 4,905,485. For example Beethoven's group of four notes (E4, F4, G#4 and A4), which, in the space of string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
 
-By referring to the scheme for unfolding dimensions explored above its possible to describe a method for finding the number ($n$) of any voicing made up of:
+By referring to the scheme for unstacking shapes explored above its possible to describe a method for finding the number ($n$) of any voicing made up of:
 * A note played by the first violin ($v_1$), from within the set of notes it can play ($V$)
 * A note played by the second violin ($v_2$), from within the set of notes it can play ($V$)
 * A note played by the viola ($w$), from within the set of notes it can play ($W$)[^2]
@@ -962,14 +510,14 @@ This allows for counting through all the voicings and it bears a resemblance to 
 
 $$
 \begin{align*}
-1,825
+\text{1,825}
   &= ((1 \times 10 + 8) \times 10 + 2) \times 10 + 5 \\
   &= ((10 + 8) \times 10 + 2) \times 10 + 5 \\
   &= (18 \times 10 + 2) \times 10 + 5 \\
   &= (180 + 2) \times 10 + 5 \\
   &= 182 \times 10 + 5 \\
-  &= 1,820 + 5 \\
-  &= 1,825
+  &= \text{1,820} + 5 \\
+  &= \text{1,825}
 \end{align*}
 $$
 
@@ -985,7 +533,7 @@ $$
 \begin{align*}
 n &= v_1 \times (|V| \times |V| \times |C|) + v_2 \times (|W| \times |C|) + w \times |C| + c \\
   &= 14 \times (51 \times 41 \times 46) + 13 \times (41 \times 46) + 17 \times 46 + 28 \\
-  &= 1,371,932
+  &= \text{1,371,932}
 \end{align*}
 $$
 
@@ -997,9 +545,9 @@ It's possible to express the number 1,825 equivalently.
 
 $$
 \begin{align*}
-1,825
+\text{1,825}
   &= 1 \times (10 \times 10 \times 10) + 8 \times (10 \times 10) + 2 \times 10 + 5 \\
-  &= 1,825
+  &= \text{1,825}
 \end{align*}
 $$
 
@@ -1092,89 +640,139 @@ $$
 
 </figure>
 
-This enables decoding a number step by step, undoing multiplications by using floored division and undoing additions by finding the remainder.
+This provides us with a procedure for decoding a number step by step. Multiplications are undone by using floored division and additions by finding the remainder.
 
-First, a reminder of the number we're decoding.
+It goes something like this.
+
+1.  Begin with the number we want to decode.
+
+    <figure class="wide">
+
+    $$
+    \begin{align*}
+    n
+      &= ((v_1 \times |V| + v_2) \times |W| + w) \times |C| + c \\
+      &= ((v_1 \times 51 + v_2) \times 41 + w) \times 46 + c \\
+      &= 1,371,932
+    \end{align*}
+    $$
+
+    </figure>
+
+2.  Then, find the value for $q_c$, the first quotient.
+
+    <figure class="wide">
+
+    $$
+    \begin{align*}
+    q_c
+      &= \lfloor \frac{n}{|C|} \rfloor \\
+      &= \lfloor \frac{1,371,932}{46} \rfloor \\
+      &= 29,824 \\
+    \end{align*}
+    $$
+
+    </figure>
+
+    Which can be used to find $c$, the note the cello plays.
+
+    <figure class="wide">
+
+    $$
+    \begin{align*}
+    c &= n - |C| \times q_c \\
+      &= 1,371,932 - 46 \times 29,824 \\
+      &= 28
+    \end{align*}
+    $$
+
+    </figure>
+
+    The first layer of addition and multiplication has been peeled off.
+
+    <figure class="wide">
+
+    $$
+    \begin{align*}
+    1,371,932
+      &= c + |C| \times q_c \\
+      &= 28 + 46 \times 29,824
+    \end{align*}
+    $$
+
+    </figure>
+
+3.  Another layer can now be peeled off by starting from $q_c$ instead of $n$, resulting in the value for $q_w$, second quotient.
+
+    <figure class="wide">
+
+    $$
+    \begin{align*}
+    q_w
+      &= \lfloor \frac{q_c}{|W|} \rfloor \\
+      &= \lfloor \frac{29,824}{41} \rfloor \\
+      &= 727 \\
+    \end{align*}
+    $$
+
+    </figure>
+
+    Which can be used to find $w$, the note the viola plays.
+
+    <figure class="wide">
+
+    $$
+    \begin{align*}
+    w &= q_c - |W| \times q_w \\
+      &= 29,824 - 41 \times 727 \\
+      &= 17
+    \end{align*}
+    $$
+
+    </figure>
+
+4.  The process can be repeated to find $q_{v_2}$ in order to find $v_2$, the note the second violin plays.
+
+    <figure class="wide">
+
+    $$
+    \begin{align*}
+    q_{v_2}
+      &= \lfloor \frac{q_w}{|V|} \rfloor \\
+      &= \lfloor \frac{727}{51} \rfloor \\
+      &= 14 \\
+    v_2 &= q_w - |V| \times q_{v_2} \\
+      &= 727 - 51 \times 14 \\
+      &= 13 \\
+    \end{align*}
+    $$
+
+    </figure>
+
+5.  By finding $q_{v_2}$ we've already found the note the first violin plays.
+
+    <figure class="wide">
+
+    $$
+    \begin{align*}
+    v_1
+      &= q_{v_2} \\
+      &= 14
+    \end{align*}
+    $$
+
+    </figure>
+
+With that we're done.
 
 <figure class="wide">
 
 $$
 \begin{align*}
-n
-  &= ((v_1 \times |V| + v_2) \times |W| + w) \times |C| + c \\
-  &= ((v_1 \times 51 + v_2) \times 41 + w) \times 46 + c \\
-  &= 1,371,932
-\end{align*}
-$$
-
-</figure>
-
-Then, finding the value for $c$, the note the cello plays.
-
-<figure class="wide">
-
-$$
-\begin{align*}
-q_c
-  &= \lfloor \frac{n}{|C|} \rfloor \\
-  &= \lfloor \frac{1,371,932}{46} \rfloor \\
-  &= 29,824 \\
-c &= n - |C| \times q_c \\
-  &= 1,371,932 - 46 \times 29,824 \\
-  &= 28
-\end{align*}
-$$
-
-</figure>
-
-By which a layer of addition and multiplication has been peeled off.
-
-<figure class="wide">
-
-$$
-\begin{align*}
-1,371,932
-  &= c + |C| \times q_c \\
-  &= 28 + 46 \times 29,824
-\end{align*}
-$$
-
-</figure>
-
-Meaning another layer can be peeled off by starting from $q_c$ instead of $n$, resulting in the value for $w$, the note the viola plays.
-
-<figure class="wide">
-
-$$
-\begin{align*}
-q_w
-  &= \lfloor \frac{q_c}{|W|} \rfloor \\
-  &= \lfloor \frac{29,824}{41} \rfloor \\
-  &= 727 \\
-w &= q_c - |W| \times q_w \\
-  &= 29,824 - 41 \times 727 \\
-  &= 17
-\end{align*}
-$$
-
-</figure>
-
-Lastly, continuing this process recovers the remaining two notes, those played by the first and second violins.
-
-<figure class="wide">
-
-$$
-\begin{align*}
-q_{v_2}
-  &= \lfloor \frac{q_w}{|V|} \rfloor \\
-  &= \lfloor \frac{727}{51} \rfloor \\
-  &= 14 \\
-v_2 &= q_w - |V| \times q_{v_2} \\
-  &= 727 - 51 \times 14 \\
-  &= 13 \\
-v_1
-  &= q_{v_2} \\
-  &= 14
+c &= 28 \\
+w &= 17 \\
+v_2 &= 13 \\
+v_1 &= 14
 \end{align*}
 $$
 
@@ -1208,7 +806,7 @@ With this ability to decode ordinary numbers into string quartet voicings it's p
 
 At this speed, ten notes per second, it would take you more than a day and a half of uninterrupted listening to reach Beethoven's notes. I like it. I think it sounds very meditative. Very *swoopey*.
 
-Turning voicings into numbers has afforded us the opportunity to be disorderly, rather than orderly, snakes. We can use a non-repeating random number generator[^4] to erratically jump around, but still visit each and every voicing. I'm not sure if there's any telling when you'll hit E4, F4, G#4, A4, but it's in there. To hear all the voicings, to make sure you hear Beethoven's, would take over five days and sixteen hours.
+Turning voicings into numbers has afforded us the opportunity to be disorderly, rather than orderly, snakes. We can use a non-repeating random number generator[^4] to erratically jump around, but still visit each and every voicing no more than once. I'm not sure if there's any telling when you'll hit E4, F4, G#4, A4, but it's in there. To hear all the voicings, to make sure you hear Beethoven's, would take over five days and sixteen hours.
 
 <figure id="string-quartet-random-initial">
   <audio class="w-full" src="/content/posts/crossing-paths-with-combinatorics/assets/audio/string-quartet-random.ogg" controls></audio>
