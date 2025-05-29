@@ -8,7 +8,7 @@ executable server
   hs-source-dirs:   .,
                     lib
   main-is:          Main.hs
-  build-depends:    base ^>=4.18.0.0,
+  build-depends:    base ^>=4.19.0.0,
                     bytestring,
                     filepath,
                     http-types,

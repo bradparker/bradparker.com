@@ -8,7 +8,7 @@ executable builder
   main-is:
     Main.hs
   build-depends:
-    base ^>=4.18.0.0,
+    base ^>=4.19.0.0,
     attoparsec,
     blaze-html,
     blaze-markup,
