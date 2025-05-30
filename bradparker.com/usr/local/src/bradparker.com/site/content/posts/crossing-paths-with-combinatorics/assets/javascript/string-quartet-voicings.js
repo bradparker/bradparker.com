@@ -917,7 +917,7 @@ const initPlayer = (type) => {
     initial.replaceWith(final);
 
     const control = document.getElementById(`string-quartet-${type}-control`);
-    initPlayerControl(control, sequences[type]);
+    initPlayerControl(control, sequences[type]());
   }
 }
 
@@ -925,7 +925,7 @@ const initRecorder = (type) => {
   const recorder = document.getElementById(`string-quartet-${type}-recorder`);
   const output = document.getElementById(`string-quartet-${type}-recorder-output`);
   if (recorder && output) {
-    initRecorderControl(recorder, output, sequences[type]);
+    initRecorderControl(recorder, output, sequences[type]());
   }
 }
 
