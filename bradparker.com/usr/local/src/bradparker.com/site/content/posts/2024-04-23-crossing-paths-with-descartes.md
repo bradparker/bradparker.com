@@ -356,62 +356,62 @@ With this scheme the second yellow marble moves from column 1 row 2 to column 11
 <ol class="list-none grid grid-cols-3 grid-rows-4 gap-3">
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. There's a single blue marble in the first row and in the first column. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-00-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. There's a single blue marble in the first row and in the first column. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-00-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. There are two blue marbles in the first row, in the first and second columns. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-01-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. There are two blue marbles in the first row, in the first and second columns. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-01-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. There are three blue marbles in the first row. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-02-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. There are three blue marbles in the first row. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-02-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. There are four blue marbles in the first row. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-03-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. There are four blue marbles in the first row. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-03-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-04-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-04-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There is a single green marble in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-05-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There is a single green marble in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-05-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are two green marbles in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-06-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are two green marbles in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-06-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are three greeen marables in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-07-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are three green marbles in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-07-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are four green marbles in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-08-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are four green marbles in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-08-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-09-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-09-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first column has a yellow marble in it, the second is empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-10-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first column has a yellow marble in it, the second is empty, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-10-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first two columns have yellow marbles in them, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-11-small.webp){ loading=lazy width=210 height=158 }
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first two columns have yellow marbles in them, the remaining columns are occupied by white marbles. The fourth and fifth rows are filled with white marbles.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5-counting-11-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
 </ol>
