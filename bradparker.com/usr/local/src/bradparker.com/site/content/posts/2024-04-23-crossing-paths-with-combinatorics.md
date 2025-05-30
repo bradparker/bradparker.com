@@ -30,7 +30,7 @@ How many possible states can two coins be in? The first coin can be heads or tai
       <th class="sr-only">First heads</th>
       <td>
         <figure>
-          <img src="/content/posts/crossing-paths-with-combinatorics/assets/images/two-up/heads-heads.jpeg.webp" />
+          <img src="/content/posts/crossing-paths-with-combinatorics/assets/images/two-up/heads-heads.jpeg.webp" width="560" height="448" />
           <figcaption>
             First heads, second heads
           </figcaption>
@@ -38,7 +38,7 @@ How many possible states can two coins be in? The first coin can be heads or tai
       </td>
       <td>
         <figure>
-          <img src="/content/posts/crossing-paths-with-combinatorics/assets/images/two-up/heads-tails.jpeg.webp" />
+          <img src="/content/posts/crossing-paths-with-combinatorics/assets/images/two-up/heads-tails.jpeg.webp" width="560" height="448" />
           <figcaption>
             First heads, second tails
           </figcaption>
@@ -49,7 +49,7 @@ How many possible states can two coins be in? The first coin can be heads or tai
       <th class="sr-only">First tails</th>
       <td>
         <figure>
-          <img src="/content/posts/crossing-paths-with-combinatorics/assets/images/two-up/tails-heads.jpeg.webp" />
+          <img src="/content/posts/crossing-paths-with-combinatorics/assets/images/two-up/tails-heads.jpeg.webp" width="560" height="448" />
           <figcaption>
             First tails, second heads
           </figcaption>
@@ -57,7 +57,7 @@ How many possible states can two coins be in? The first coin can be heads or tai
       </td>
       <td>
         <figure>
-          <img src="/content/posts/crossing-paths-with-combinatorics/assets/images/two-up/tails-tails.jpeg.webp" />
+          <img src="/content/posts/crossing-paths-with-combinatorics/assets/images/two-up/tails-tails.jpeg.webp" width="560" height="448" />
           <figcaption>
             First tails, second tails
           </figcaption>
@@ -110,127 +110,127 @@ How many possible states can two dice be in? The first dice can have any one of 
     <tr>
       <th class="align-middle">1</th>
       <td>
-        <img alt="Two dice. The first with the 1 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-1.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 1 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-1.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 1 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-2.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 1 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-2.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 1 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-3.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 1 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-3.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 1 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-4.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 1 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-4.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 1 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-5.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 1 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-5.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 1 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-6.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 1 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/1-6.JPEG.190.webp" width="190" height="127" />
       </td>
     </tr>
     <tr>
       <th class="align-middle">2</th>
       <td>
-        <img alt="Two dice. The first with the 2 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-1.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 2 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-1.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 2 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-2.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 2 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-2.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 2 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-3.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 2 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-3.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 2 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-4.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 2 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-4.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 2 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-5.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 2 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-5.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 2 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-6.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 2 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/2-6.JPEG.190.webp" width="190" height="127" />
       </td>
     </tr>
     <tr>
       <th class="align-middle">3</th>
       <td>
-        <img alt="Two dice. The first with the 3 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-1.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 3 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-1.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 3 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-2.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 3 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-2.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 3 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-3.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 3 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-3.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 3 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-4.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 3 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-4.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 3 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-5.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 3 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-5.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 3 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-6.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 3 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/3-6.JPEG.190.webp" width="190" height="127" />
       </td>
     </tr>
     <tr>
       <th class="align-middle">4</th>
       <td>
-        <img alt="Two dice. The first with the 4 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-1.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 4 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-1.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 4 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-2.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 4 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-2.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 4 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-3.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 4 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-3.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 4 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-4.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 4 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-4.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 4 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-5.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 4 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-5.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 4 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-6.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 4 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/4-6.JPEG.190.webp" width="190" height="127" />
       </td>
     </tr>
     <tr>
       <th class="align-middle">5</th>
       <td>
-        <img alt="Two dice. The first with the 5 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-1.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 5 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-1.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 5 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-2.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 5 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-2.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 5 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-3.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 5 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-3.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 5 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-4.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 5 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-4.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 5 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-5.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 5 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-5.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 5 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-6.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 5 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/5-6.JPEG.190.webp" width="190" height="127" />
       </td>
     </tr>
     <tr>
       <th class="align-middle">6</th>
       <td>
-        <img alt="Two dice. The first with the 6 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-1.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 6 side up, the second with the 1 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-1.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 6 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-2.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 6 side up, the second with the 2 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-2.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 6 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-3.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 6 side up, the second with the 3 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-3.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 6 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-4.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 6 side up, the second with the 4 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-4.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 6 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-5.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 6 side up, the second with the 5 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-5.JPEG.190.webp" width="190" height="127" />
       </td>
       <td>
-        <img alt="Two dice. The first with the 6 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-6.JPEG.190.webp" />
+        <img loading="lazy" alt="Two dice. The first with the 6 side up, the second with the 6 side up" src="/content/posts/crossing-paths-with-combinatorics/assets/images/hazard/6-6.JPEG.190.webp" width="190" height="127" />
       </td>
     </tr>
   </tbody>
@@ -273,7 +273,7 @@ In 1961 Francis Crick, Sydney Brenner, Leslie Barnett and R. J. Watts-Tobin figu
 
 How many different codons could there be?
 
-![A three dimensional four by four by four grid of images, forming roughly a cube. Each image is a group of three cookies which are in the shapes of letters. The only letters used are A, T, G and C. The first image is of three 'A' cookies. The second a 'T' cookie and two 'A' cookies. The third a 'G' cookie and two 'A' cookies and so on through all possible combinations.](/content/posts/crossing-paths-with-combinatorics/assets/images/codons/codons.svg)
+![A three dimensional four by four by four grid of images, forming roughly a cube. Each image is a group of three cookies which are in the shapes of letters. The only letters used are A, T, G and C. The first image is of three 'A' cookies. The second a 'T' cookie and two 'A' cookies. The third a 'G' cookie and two 'A' cookies and so on through all possible combinations.](/content/posts/crossing-paths-with-combinatorics/assets/images/codons/codons.svg){ loading=lazy width=1208 height=852 }
 
 There are three 'slots' in each codon, which could each be filled by one of four nucleotide types.
 
@@ -339,79 +339,79 @@ So, where is E4, F4, G#4, A4 within that shape? It's at the position: **Cello** 
 
 To demonstrate, here's a two dimensional space of possibilities. Perhaps imagine it's a duet of tiny, five tone, glockenspiels.
 
-![Colourful marbles arranged on a five by five grid. The first row is blue, the second row is green, the third row is yellow, the fourth row is orange and the fifth row is red.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-space-1-small.webp)
+![Colourful marbles arranged on a five by five grid. The first row is blue, the second row is green, the third row is yellow, the fourth row is orange and the fifth row is red.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-space-1-small.webp){ loading=lazy width=630 height=280 }
 
 Because this shape doesn't go on forever (it's finite) and I'm not planning on breaking any marbles into pieces (they're discrete) two dimensions can be flattened into one by placing each row end to end. A rectangle can become a line.
 
-![Colourful marbles, arranged on a mostly five by five grid. The first row is ten marbles wide, the second row is missing, it was moved from to the end of the first row.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-space-2-small.webp)
+![Colourful marbles, arranged on a mostly five by five grid. The first row is ten marbles wide, the second row is missing, it was moved from to the end of the first row.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-space-2-small.webp){ loading=lazy width=630 height=280 }
 
-![Colourful marbles, arranged on a mostly five by five grid. The first row is fifteen marbles wide, the second and third rows are missing, they have been moved to the first row.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-space-3-small.webp)
+![Colourful marbles, arranged on a mostly five by five grid. The first row is fifteen marbles wide, the second and third rows are missing, they have been moved to the first row.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-space-3-small.webp){ loading=lazy width=630 height=280 }
 
-![Colourful marbles, arranged on a mostly five by five grid. The first row is twenty marbles wide, the second, third and fourth rows are missing, they have been moved to the first row.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-space-4-small.webp)
+![Colourful marbles, arranged on a mostly five by five grid. The first row is twenty marbles wide, the second, third and fourth rows are missing, they have been moved to the first row.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-space-4-small.webp){ loading=lazy width=630 height=280 }
 
-![Colourful marbles, arranged in a row of twenty five.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-space-5-small.webp)
+![Colourful marbles, arranged in a row of twenty five.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-space-5-small.webp){ loading=lazy width=630 height=280 }
 
 With this scheme the second yellow marble moves from column 1 row 2 to column 11 row 0. Each marble is being counted, left to right along each row.
 
 <ol class="list-none grid grid-cols-3 grid-rows-4 gap-3">
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. There's a single blue marble in the first row and in the first column. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-00-small.webp)
+  ![Colourful marbles arranged on a five by five grid. There's a single blue marble in the first row and in the first column. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-00-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. There are two blue marbles in the first row, in the first and second columns. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-01-small.webp)
+  ![Colourful marbles arranged on a five by five grid. There are two blue marbles in the first row, in the first and second columns. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-01-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. There are three blue marbles in the first row. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-02-small.webp)
+  ![Colourful marbles arranged on a five by five grid. There are three blue marbles in the first row. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-02-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. There are four blue marbles in the first row. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-03-small.webp)
+  ![Colourful marbles arranged on a five by five grid. There are four blue marbles in the first row. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-03-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-04-small.webp)
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There is no second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-04-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There is a single green marble in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-05-small.webp)
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There is a single green marble in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-05-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are two green marbles in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-06-small.webp)
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are two green marbles in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-06-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are three greeen marables in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-07-small.webp)
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are three greeen marables in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-07-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are four green marbles in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-08-small.webp)
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. There are four green marbles in the second row. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-08-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-09-small.webp)
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first two columns are empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-09-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first column has a yellow marble in it, the second is empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-10-small.webp)
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first column has a yellow marble in it, the second is empty, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-10-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
   <li>
 
-  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first two columns have yellow marbles in them, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-11-small.webp)
+  ![Colourful marbles arranged on a five by five grid. The first row is filled with blue marbles. The second row is filled with green marbles. In the third row the first two columns have yellow marbles in them, the remaining columns are occupied by white marbles. The fourth and fith rows are filled with white marbles.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5-counting-11-small.webp){ loading=lazy width=210 height=158 }
 
   </li>
 </ol>
@@ -428,29 +428,29 @@ $$
 
 With the addition of another imaginary glockenspiel the same process can be demonstrated in three dimensions, this time labeled $x$, $y$, and $z$.
 
-![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-1-small-with-axes.webp)
+![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-1-small-with-axes.webp){ loading=lazy }
 
 This three dimensional shape can become a two dimensional shape by unstacking and each layer and placing them end to end.
 
 <div class="grid gap-3 grid-rows-2 grid-cols-2">
 
-  ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. Each layer has a different colour of magnetic block. Top to bottom it goes: blue, green, yellow, red and black.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-1-small.webp)
+  ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. Each layer has a different colour of magnetic block. Top to bottom it goes: blue, green, yellow, red and black.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-1-small.webp){ loading=lazy width=630 height=473 }
 
-  ![Colourful magnetic blocks, arranged in a rectangular prism, five wide, five high and four deep. Each layer has a different colour of magnetic block. Top to bottom it goes: blue, green, yellow, and red. A black five by five square of blocks sits just behind.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-2-small.webp)
+  ![Colourful magnetic blocks, arranged in a rectangular prism, five wide, five high and four deep. Each layer has a different colour of magnetic block. Top to bottom it goes: blue, green, yellow, and red. A black five by five square of blocks sits just behind.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-2-small.webp){ loading=lazy width=630 height=473 }
 
-  ![Colourful magnetic blocks, arranged in a rectangular prism, five wide, five high and three deep. Each layer has a different colour of magnetic block. Top to bottom it goes: blue, green and yellow. Two five by five squares of blocks sit just behind, one red and one black.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-3-small.webp)
+  ![Colourful magnetic blocks, arranged in a rectangular prism, five wide, five high and three deep. Each layer has a different colour of magnetic block. Top to bottom it goes: blue, green and yellow. Two five by five squares of blocks sit just behind, one red and one black.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-3-small.webp){ loading=lazy width=630 height=473 }
 
-  ![Colourful magnetic blocks, arranged in a rectangular prism, five wide, five high and two deep. Each layer has a different colour of magnetic block. The top is blue, and the bottom is green. Three five by five squares of blocks sit just behind, one yellow, one red and one black.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-4-small.webp)
+  ![Colourful magnetic blocks, arranged in a rectangular prism, five wide, five high and two deep. Each layer has a different colour of magnetic block. The top is blue, and the bottom is green. Three five by five squares of blocks sit just behind, one yellow, one red and one black.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-4-small.webp){ loading=lazy width=630 height=473 }
 
 </div>
 
-![Five five-by-five squares of magnetic blocks laid out in a line. Each has a different colour of block: blue, green, yellow, red and black.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-5-small.webp)
+![Five five-by-five squares of magnetic blocks laid out in a line. Each has a different colour of block: blue, green, yellow, red and black.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-5-small.webp){ loading=lazy width=630 height=473 }
 
 The yellow cube that begins at position $x = 1, y = 2, z = 1$ ends up at position $x = 1, y = 0, z = 11$.
 
-![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. The top two layers have been removed to reveal the yellow layer, an arrow is pointing to the block one in from the side and the top.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-open-with-arrow-small.webp)
+![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. The top two layers have been removed to reveal the yellow layer, an arrow is pointing to the block one in from the side and the top.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-open-with-arrow-small.webp){ loading=lazy width=630 height=473 }
 
-![Five five-by-five squares of magnetic blocks laid out in a line. Each has a different colour of block: blue, green, yellow, red and black. An arrow is pointing to the block one in from the side and one in from the top within the yellow square of blocks.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-5-with-arrow-small.webp)
+![Five five-by-five squares of magnetic blocks laid out in a line. Each has a different colour of block: blue, green, yellow, red and black. An arrow is pointing to the block one in from the side and one in from the top within the yellow square of blocks.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/5x5x5-space-5-with-arrow-small.webp){ loading=lazy width=630 height=473 }
 
 Because the $y$ dimension will now always be 0 we can ignore it which allows us to say: position $(1, 2, 1)$ has moved to $(1, 11)$. More generally we could say: any position $(x, y, z)$ has moved to position $(x, |Z| \times y + z)$. Where $|Z|$ means: the total number of possible values of $z$. The $z$ dimension has now absorbed the $y$ dimension.
 
@@ -462,13 +462,13 @@ Unstacking the four dimensional shape containing all the string quartet voicings
 
 Allotting one cubic millimetre to each voicing yields something very roughly the size and shape of one of these standard cuts of timber. (If you look closely you might see a magpie for scale.)
 
-![A piece of timber laid out on a bitumen road. It's 45mm by 90mm by 2400mm.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/45x90x2400-space.webp)
+![A piece of timber laid out on a bitumen road. It's 45mm by 90mm by 2400mm.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/45x90x2400-space.webp){ loading=lazy width=630 height=473 }
 
 The profile is wrong, it should be nearly square, and it's too short by about 200 millimeters. But it still helps me to look at it and think about what it tells me about the space of possibilities we've been talking about.
 
 Firstly though, what it doesn't tell me is much about Beethoven's four notes (E4, F4, G#4 and A4). Those notes can be found at **Cello** = 28, **Viola** = 17, **Violins** = 677. Which is about where I've placed this marble, except it'd be embedded within the timber, roughly in the centre of the cross-section.
 
-![A piece of timber laid out on a bitumen road. It's 45mm by 90mm by 2400mm. There's a white arrow pointing to a white marble resting on top. The marble is about one quarter to one third along the length.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/45x90x2400-space-with-arrow.webp)
+![A piece of timber laid out on a bitumen road. It's 45mm by 90mm by 2400mm. There's a white arrow pointing to a white marble resting on top. The marble is about one quarter to one third along the length.](/content/posts/crossing-paths-with-combinatorics/assets/images/spaces/45x90x2400-space-with-arrow.webp){ loading=lazy width=630 height=473 }
 
 I just don't find it all that enlighting to see. What I do find enlightening is imagining what happens to this piece of timber if we continue this process of unstacking dimensions.
 
@@ -838,7 +838,7 @@ If I listen for long enough I can talk myself into hearing bass lines and melodi
 
 Here combinatorics provided a path through an overwhelming space of possibilities. Not only that, along the way we've been able to visit an Australian literary classic, confusing dice games from Early modern Britain, attempts to explain the bewildering complexities of DNA, and some really banging Beethoven. I hope you enjoyed walking it as much as I enjoyed trying to find it.
 
-<script type="module" src="/content/posts/crossing-paths-with-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
+<script type="module" async src="/content/posts/crossing-paths-with-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
 
 [^1]: [Deciphering the Genetic Code: The Most Beautiful False Theory in Biochemistry – Part 1](https://www.chemistryviews.org/details/ezine/11312121/Deciphering_the_Genetic_Code_The_Most_Beautiful_False_Theory_in_Biochemistry__Pa/)
 [^2]: I'm sorry, there's already a 'v' and 'w' is just the next letter in the alphabet. If it helps pronounce it "wiola" in your head. Or out loud. Whatever you're up for.

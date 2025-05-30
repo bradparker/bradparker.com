@@ -22,16 +22,18 @@ import Control.Monad (unless)
 import Control.Monad.Except (throwError)
 import Data.Attoparsec.Text (Parser, parseOnly, takeText)
 import qualified Data.ByteString.Lazy as LBS
+import Data.Foldable (for_)
 import Data.String (fromString)
 import Data.Text (Text)
 import qualified Data.Text.Encoding as Text
 import qualified Data.Yaml as Yaml
 import qualified Frontmatter
 import GHC.Records (HasField)
-import System.FilePath ((</>), dropDrive)
+import System.FilePath (dropDrive, (</>))
 import Text.Blaze.Html (Html, (!))
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
+import qualified Text.Blaze.Internal as I
 
 baseURL :: String
 baseURL = "https://bradparker.com"
@@ -54,6 +56,26 @@ fromFile frontmatter path = do
   case parseOnly (parser frontmatter) content of
     Left e -> throwError (userError (path <> ": " <> e))
     Right document -> pure document
+
+fonts :: [H.AttributeValue]
+fonts =
+  [ "/assets/fonts/tiempos/TiemposTextWeb-RegularItalic.woff2",
+    "/assets/fonts/tiempos/TiemposTextWeb-Semibold.woff2",
+    "/assets/fonts/tiempos/TiemposTextWeb-SemiboldItalic.woff2",
+    "/assets/fonts/founders-grotesk/FoundersGroteskX-CondensedWeb-Regular.woff2",
+    "/assets/fonts/founders-grotesk/FoundersGroteskWeb-Regular.woff2",
+    "/assets/fonts/founders-grotesk/FoundersGroteskWeb-RegularItalic.woff2",
+    "/assets/fonts/founders-grotesk/FoundersGroteskWeb-Bold.woff2",
+    "/assets/fonts/founders-grotesk/FoundersGroteskWeb-BoldItalic.woff2"
+  ]
+
+fontPreload :: H.AttributeValue -> Html
+fontPreload href =
+  H.link
+    ! A.rel "preload"
+    ! A.href href
+    ! I.attribute "as" " as=\"" "font"
+    ! A.type_ "font/woff2"
 
 stylesheet :: H.AttributeValue -> Html
 stylesheet url =
@@ -104,6 +126,8 @@ component props children =
       H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1"
       unless props.index do
         H.meta ! A.name "robots" ! A.content "noindex"
+      for_ fonts \font -> do
+        fontPreload font
       title_ props.title
       me "https://bne.social/@brad"
       me "https://social.chinwag.org/@brad"

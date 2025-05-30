@@ -1,4 +1,95 @@
-@import url('./modules/typography/fonts.css');
+@font-face {
+  font-family:"Tiempos Text";
+  src:
+    url("/assets/fonts/tiempos/TiemposTextWeb-Regular.woff2"),
+    url("/assets/fonts/tiempos/TiemposTextWeb-Regular.woff");
+  font-weight:normal;
+  font-style:normal
+}
+@font-face {
+  font-family:"Tiempos Text";
+  src:
+    url("/assets/fonts/tiempos/TiemposTextWeb-RegularItalic.woff2"),
+    url("/assets/fonts/tiempos/TiemposTextWeb-RegularItalic.woff");
+  font-weight:normal;
+  font-style:italic
+}
+@font-face {
+  font-family:"Tiempos Text";
+  src:
+    url("/assets/fonts/tiempos/TiemposTextWeb-Semibold.woff2"),
+    url("/assets/fonts/tiempos/TiemposTextWeb-Semibold.woff");
+  font-weight:bold;
+  font-style:normal
+}
+@font-face {
+  font-family:"Tiempos Text";
+  src:
+    url("/assets/fonts/tiempos/TiemposTextWeb-SemiboldItalic.woff2"),
+    url("/assets/fonts/tiempos/TiemposTextWeb-SemiboldItalic.woff");
+  font-weight:bold;
+  font-style:italic
+}
+
+@font-face {
+  font-family:"Founders Grotesk Extra Condensed";
+  src:
+    url("/assets/fonts/founders-grotesk/FoundersGroteskX-CondensedWeb-Regular.woff2"),
+    url("/assets/fonts/founders-grotesk/FoundersGroteskX-CondensedWeb-Regular.woff");
+  font-weight:normal;
+  font-style:normal;
+  font-display:fallback;
+}
+
+@font-face {
+  font-family:"Founders Grotesk";
+  src:
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-Regular.woff2"),
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-Regular.woff");
+  font-weight:normal;
+  font-style:normal;
+  font-display:fallback;
+}
+@font-face {
+  font-family:"Founders Grotesk";
+  src:
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-RegularItalic.woff2"),
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-RegularItalic.woff");
+  font-weight:normal;
+  font-style:italic;
+  font-display:fallback;
+}
+@font-face {
+  font-family:"Founders Grotesk";
+  src:
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-Bold.woff2"),
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-Bold.woff");
+  font-weight:bold;
+  font-style:normal;
+  font-display:fallback;
+}
+@font-face {
+  font-family:"Founders Grotesk";
+  src:
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-BoldItalic.woff2"),
+    url("/assets/fonts/founders-grotesk/FoundersGroteskWeb-BoldItalic.woff");
+  font-weight:bold;
+  font-style:italic;
+  font-display:fallback;
+}
+
+@font-face {
+  font-family: "Fira Mono";
+  src: url("/assets/fonts/fira/FiraMono-Regular.eot");
+  src:
+    url("/assets/fonts/fira/FiraMono-Regular.eot") format("embedded-opentype"),
+    url("/assets/fonts/fira/FiraMono-Regular.woff2") format("woff2"),
+    url("/assets/fonts/fira/FiraMono-Regular.woff") format("woff"),
+    url("/assets/fonts/fira/FiraMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display:fallback;
+}
 
 .lh-copy { line-height: 1.55rem; }
 
@@ -235,6 +326,7 @@ details[open] summary::before {
 
 .markdown img {
   width: 100%;
+  height: auto;
   display: block;
   border-radius: 0.5rem;
   border: thin solid #f4f4f4;
