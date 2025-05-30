@@ -348,6 +348,11 @@ details[open] summary::before {
   margin-top: 0.5rem;
 }
 
+.markdown ul:not(.list-none) li > math[display=inline],
+.markdown ol:not(.list-none) li > math[display=inline] {
+  margin-top: 0;
+}
+
 .markdown ul:not(.list-none) li:before {
   content: "\2022";
   left: 0;
