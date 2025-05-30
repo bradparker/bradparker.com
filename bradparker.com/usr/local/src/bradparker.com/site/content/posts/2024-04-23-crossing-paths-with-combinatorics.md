@@ -836,7 +836,7 @@ If I listen for long enough I can talk myself into hearing bass lines and melodi
 
 ***
 
-Here combinatorics provided a path through an overwhelming space of possibilities. Not only that, along the way we've been able to visit an Australian literary classic, confusing dice games from Early modern Britain, attempts to explain the bewildering complexities of DNA, and some really banging Beethoven. I hope you enjoyed walking it as much as I enjoyed trying to find it.
+Here combinatorics provided a path through an overwhelming space of possibilities. Not only that, along the way we've been able to visit an Australian literary classic, confusing dice games from Early modern Britain, attempts to explain the bewildering complexities of DNA, and some really banging Beethoven. I hope you enjoyed walking it as much as I enjoyed finding it.
 
 <script type="module" async src="/content/posts/crossing-paths-with-combinatorics/assets/javascript/string-quartet-voicings.js"></script>
 

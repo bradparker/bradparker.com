@@ -19,9 +19,10 @@ import qualified Data.Text.Lazy as TextLazy
 import System.FilePath (isAbsolute)
 import Text.Blaze.Html (Html)
 import qualified Text.Blaze.Html.Renderer.Text as Blaze
+import qualified Text.HTML.TagSoup as TagSoup
 import Text.Pandoc (Pandoc)
 import qualified Text.Pandoc as Pandoc
-import Text.Pandoc.Definition (Inline (Image, Link))
+import Text.Pandoc.Definition (Block (RawBlock), Inline (Image, Link))
 import Text.Pandoc.Walk (walk)
 import Prelude hiding (read)
 
@@ -37,11 +38,11 @@ read =
       Pandoc.def
         { Pandoc.readerExtensions =
             Pandoc.extensionsFromList
-              [ Pandoc.Ext_tex_math_dollars
-              , Pandoc.Ext_footnotes
-              , Pandoc.Ext_gfm_auto_identifiers
-              , Pandoc.Ext_definition_lists
-              , Pandoc.Ext_attributes
+              [ Pandoc.Ext_tex_math_dollars,
+                Pandoc.Ext_footnotes,
+                Pandoc.Ext_gfm_auto_identifiers,
+                Pandoc.Ext_definition_lists,
+                Pandoc.Ext_attributes
               ]
         }
 
@@ -75,11 +76,45 @@ absoluteUrlsPandoc :: Text -> Pandoc -> Pandoc
 absoluteUrlsPandoc base pandoc =
   pandoc
     & walk \case
-      Image attrs children (url, title) -> Image attrs children (addBase url, title)
-      Link attrs children (url, title) -> Link attrs children (addBase url, title)
+      Image attrs children (url, title) -> Image attrs children (addBaseText url, title)
+      Link attrs children (url, title) -> Link attrs children (addBaseText url, title)
+      a -> a
+    & walk \case
+      RawBlock format source -> RawBlock format (Text.pack (addBasesRaw (Text.unpack source)))
       a -> a
   where
-    addBase t =
-      if isAbsolute (Text.unpack t)
-        then base <> t
-        else t
+    addBasesRaw source = case TagSoup.parseTags source of
+      [] -> source
+      tags ->
+        TagSoup.renderTags
+          ( flip map tags \case
+              TagSoup.TagOpen "img" attributes ->
+                TagSoup.TagOpen
+                  "img"
+                  ( flip map attributes \case
+                      ("src", str) -> ("src", addBase str)
+                      attr -> attr
+                  )
+              TagSoup.TagOpen "audio" attributes ->
+                TagSoup.TagOpen
+                  "audio"
+                  ( flip map attributes \case
+                      ("src", str) -> ("src", addBase str)
+                      attr -> attr
+                  )
+              TagSoup.TagOpen "a" attributes ->
+                TagSoup.TagOpen
+                  "a"
+                  ( flip map attributes \case
+                      ("href", str) -> ("href", addBase str)
+                      attr -> attr
+                  )
+              tag -> tag
+          )
+
+    addBase str =
+      if isAbsolute str
+        then Text.unpack base <> str
+        else str
+
+    addBaseText = Text.pack . addBase . Text.unpack

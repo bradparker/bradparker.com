@@ -24,6 +24,7 @@ executable builder
     optparse-applicative,
     pandoc,
     pandoc-types,
+    tagsoup,
     text,
     time,
     vector,
