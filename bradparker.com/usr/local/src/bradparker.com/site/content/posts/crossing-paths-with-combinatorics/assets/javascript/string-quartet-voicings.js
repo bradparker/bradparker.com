@@ -827,7 +827,7 @@ const record = ({ sequence, audioContext, gainNode }) => {
   return { mediaRecorder }
 }
 
-const initControl = (element, sequence) => {
+const initPlayerControl = (element, sequence) => {
   let context = null;
 
   element.addEventListener("click", () => {
@@ -850,7 +850,7 @@ const initControl = (element, sequence) => {
   });
 }
 
-const initRecorder = (element, output, sequence) => {
+const initRecorderControl = (element, output, sequence) => {
   let context = null;
   let recorder = null;
   let chunks = [];
@@ -894,49 +894,50 @@ const initRecorder = (element, output, sequence) => {
   });
 }
 
-const linearSequence = () => iterate(0, n => n + 1)
-
 const n = 4905486; // Cello * Viola * Violin * Violin
 const m = n + 1;
 
-const randomSequence = () => {
-  // This is heavily dependant on the value of `m`. It must be a primitive
-  // root modulo `m` to work.
-  const a = 4905306;
+const sequences = {
+  linear: () => iterate(0, n => n + 1),
+  random: () => {
+    // This is heavily dependant on the value of `m`. It must be a primitive
+    // root modulo `m` to work.
+    const a = 4905306;
 
-  return iterate(Math.floor(m / 2), x => a * x % m)
+    return iterate(Math.floor(m / 2), x => a * x % m)
+  },
+};
+
+const initPlayer = (type) => {
+  const template = document.getElementById(`string-quartet-${type}`);
+  const initial = document.getElementById(`string-quartet-${type}-initial`);
+
+  if (template && initial) {
+    const final = template.content.cloneNode(true);
+    initial.replaceWith(final);
+
+    const control = document.getElementById(`string-quartet-${type}-control`);
+    initPlayerControl(control, sequences[type]);
+  }
 }
 
-const linearTemplate = document.getElementById("string-quartet-linear");
-const linearInitial = document.getElementById("string-quartet-linear-initial");
-
-if (linearTemplate && linearInitial) {
-  const linear = linearTemplate.content.cloneNode(true);
-  linearInitial.replaceWith(linear);
-
-  const linearControl = document.getElementById("string-quartet-linear-control");
-  initControl(linearControl, linearSequence());
+const initRecorder = (type) => {
+  const recorder = document.getElementById(`string-quartet-${type}-recorder`);
+  const output = document.getElementById(`string-quartet-${type}-recorder-output`);
+  if (recorder && output) {
+    initRecorderControl(recorder, output, sequences[type]);
+  }
 }
 
-const randomTemplate = document.getElementById("string-quartet-random");
-const randomInitial = document.getElementById("string-quartet-random-initial");
-
-if (randomTemplate && randomInitial) {
-  const random = randomTemplate.content.cloneNode(true);
-  randomInitial.replaceWith(random);
-
-  const randomControl = document.getElementById("string-quartet-random-control");
-  initControl(randomControl, randomSequence());
+const main = () => {
+  initPlayer("linear");
+  initRecorder("linear");
+  initPlayer("random");
+  initRecorder("random");
 }
 
-const linearRecorder = document.getElementById("string-quartet-linear-recorder");
-const linearRecorderOutput = document.getElementById("string-quartet-linear-recorder-output");
-if (linearRecorder && linearRecorderOutput) {
-  initRecorder(linearRecorder, linearRecorderOutput, linearSequence());
-}
-
-const randomRecorder = document.getElementById("string-quartet-random-recorder");
-const randomRecorderOutput = document.getElementById("string-quartet-random-recorder-output");
-if (randomRecorder && randomRecorderOutput) {
-  initRecorder(randomRecorder, randomRecorderOutput, randomSequence());
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", main);
+} else {
+  main();
 }
