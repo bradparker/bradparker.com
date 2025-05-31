@@ -5,16 +5,16 @@ tags:
   - mathematics
 thumbnail: /content/posts/crossing-paths-with-descartes/assets/images/thumbnail.webp
 description: |
-  Lately I've been thinking about solutions that have delighted me. You know, those solutions which use some insight you were completely unaware of and make it all look like magic. With the help of a classic Australian thriller novel, a dice game from early modern Britain, and Beethoven, I'll explore some foundations of an area of mathematics called _combinatorics_.
+  Lately I've been thinking about really fun solutions. You know, those solutions which use some insight you were completely unaware of and make it all look like magic. With the help of a classic Australian thriller novel, a dice game from early modern Britain, and Beethoven, I'll explore some foundations of an area of mathematics called _combinatorics_.
 
   ![A collage of images from the post. Colorful marbles arranged in a grid, cookies in the shape of letters spelling out ATG, colorful magnetic cubes with axes drawn against it.](/content/posts/crossing-paths-with-descartes/assets/images/thumbnail.webp)
 ---
 
-Lately I've been thinking about solutions that have delighted me. You know, those solutions which use some insight you were completely unaware of and make it all look like magic. It's been more than once that I've found myself stumbling into something called _combinatorics_ when trying to learn more about them. On the way to better understanding these combinatorial solutions I've been reflecting on things more foundational. Here, hang on, I'll try to explain what I mean.
+Lately I've been thinking about really fun solutions. You know, those solutions which use some insight you were completely unaware of and make it all look like magic. It's been more than once that I've found myself stumbling into something called _combinatorics_ when trying to learn more about them. On the way to better understanding these combinatorial solutions I've been reflecting on things more foundational. Here, hang on, I'll try to explain what I mean.
 
 ## Two-up
 
-Two-up is a game played in Australia. Someone tosses two coins in the air, at the same time, and people place bets on the outcome. It is forbidden by law except for one day of the year, ANZAC day. If you want to understand why betting on a coin toss might be outlawed (and otherwise just enjoy a great if but harrowing novel) I reckon [Wake in Fright](https://en.wikipedia.org/wiki/Wake_in_Fright_(novel)) is worth your time.
+Two-up is a game played in Australia. Someone tosses two coins in the air, at the same time, and people place bets on the outcome. It is forbidden by law except for one day of the year, ANZAC day. If you want to understand why betting on a coin toss might be outlawed (and otherwise just enjoy a great if but harrowing read) I reckon [Wake in Fright](https://en.wikipedia.org/wiki/Wake_in_Fright_(novel)) is worth your time.
 
 How many possible states can two coins be in? The first coin can be heads or tails, and the second coin can be heads or tails.
 
@@ -431,7 +431,7 @@ With the addition of another imaginary glockenspiel the same process can be demo
 
 ![Colourful magnetic blocks, arranged in a cube, five wide, five high and five deep. There are arrows labelling the width, height, and depth as 'x', 'y' and 'z' respectively.](/content/posts/crossing-paths-with-descartes/assets/images/spaces/5x5x5-space-1-small-with-axes.webp){ loading=lazy width=630 height=473 }
 
-This three dimensional shape can become a two dimensional shape by unstacking and each layer and placing them end to end.
+This three dimensional shape can become a two dimensional shape by unstacking each layer and placing them end to end.
 
 <div class="grid gap-3 grid-rows-2 grid-cols-2">
 
@@ -485,7 +485,7 @@ Laying everything out in a line like this is, in a sense, providing a way to vis
 
 Having this sequence enables us to turn any four note voicing into a single, unique, number between 0 and 4,905,485. For example The Voicing, which, in the space of all string quartet voicings, has the coordinates **Cello** = 28, **Viola** = 17, **Second Violin** = 13, **First Violin** = 14, becomes 1,371,932.
 
-By referring to the scheme for unstacking shapes explored above its possible to describe a method for finding the number ($n$) of any voicing made up of:
+By referring to the scheme for unstacking shapes explored above it's possible to describe a method for finding the number ($n$) of any voicing made up of:
 * A note played by the first violin ($v_1$), from within the set of notes it can play ($V$)
 * A note played by the second violin ($v_2$), from within the set of notes it can play ($V$)
 * A note played by the viola ($w$), from within the set of notes it can play ($W$)[^2]
@@ -644,9 +644,7 @@ $$
 
 </figure>
 
-This provides us with a procedure for decoding a number step by step. Multiplications are undone by using floored division and additions by finding the remainder.
-
-It goes something like this.
+This provides us with a procedure for decoding a number step by step, which goes something like this.
 
 1.  Begin with the number we want to decode.
 
@@ -735,7 +733,7 @@ It goes something like this.
 
     </figure>
 
-4.  We repeat the former process once more to find $q_{v_2}$ in order to find $v_2$, the note the second violin plays.
+4.  We repeat the process once more to find $q_{v_2}$ in order to find $v_2$, the note the second violin plays.
 
     <figure class="wide">
 
