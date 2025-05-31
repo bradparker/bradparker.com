@@ -1,5 +1,6 @@
 ---
 title: Crossing paths with Descartes
+published: 2025-05-31
 tags:
   - mathematics
 thumbnail: /content/posts/crossing-paths-with-descartes/assets/images/thumbnail.webp
