@@ -4,12 +4,12 @@ tags:
   - mathematics
 thumbnail: /content/posts/crossing-paths-with-descartes/assets/images/thumbnail.webp
 description: |
-  Lately I've been thinking about some solutions that have delighted me. It's been more than once that I've found myself stumbling into something called _combinatorics_ when trying to learn more about them. On the way to better upstanding these combinatorial solutions I've been reflecting on things more foundational. With the help of a classic Australian thriller novel, a dice game from early modern Britain, and Beethoven, I'll try to explain myself.
+  Lately I've been thinking about solutions that have delighted me. You know, those solutions which use some insight you were completely unaware of and make it all look like magic. With the help of a classic Australian thriller novel, a dice game from early modern Britain, and Beethoven, I'll explore some foundations of an area of mathematics called _combinatorics_.
 
   ![A collage of images from the post. Colorful marbles arranged in a grid, cookies in the shape of letters spelling out ATG, colorful magnetic cubes with axes drawn against it.](/content/posts/crossing-paths-with-descartes/assets/images/thumbnail.webp)
 ---
 
-Lately I've been thinking about some solutions that have delighted me. It's been more than once that I've found myself stumbling into something called _combinatorics_ when trying to learn more about them. On the way to better understanding these combinatorial solutions I've been reflecting on things more foundational. Here, hang on, I'll try to explain what I mean.
+Lately I've been thinking about solutions that have delighted me. You know, those solutions which use some insight you were completely unaware of and make it all look like magic. It's been more than once that I've found myself stumbling into something called _combinatorics_ when trying to learn more about them. On the way to better understanding these combinatorial solutions I've been reflecting on things more foundational. Here, hang on, I'll try to explain what I mean.
 
 ## Two-up
 
@@ -490,15 +490,16 @@ By referring to the scheme for unstacking shapes explored above its possible to 
 * A note played by the viola ($w$), from within the set of notes it can play ($W$)[^2]
 * A note played by the cello ($c$), from within the set of notes it can play ($C$)
 
+Each dimension can be unstacked just as the rows of the five by five grid of marbles were laid out end to end.
+
 <figure class="wide">
 
 $$
 \begin{align*}
-n
-  &= (v_1, v_2, w, c) \\
-  &= (v_1 \times |V| + v_2, w, c) \\
-  &= ((v_1 \times |V| + v_2) \times |W| + w, c) \\
-  &= ((v_1 \times |V| + v_2) \times |W| + w) \times |C| + c
+   & (v_1, v_2, w, c) \\
+   & (v_1 \times |V| + v_2, w, c) \\
+   & ((v_1 \times |V| + v_2) \times |W| + w, c) \\
+n =& ((v_1 \times |V| + v_2) \times |W| + w) \times |C| + c
 \end{align*}
 $$
 
@@ -527,13 +528,13 @@ $$
 
 Which to me looks like successively pushing the ones place to the left, by multiplying by ten, to make room for the next ones value.
 
-This suggests that there should be a method by which the number for Beethoven's notes can be found which more closely matches how we talk about everyday numbers. And indeed there is, though it might not look the same at first flush.
+This suggests there should be a method for finding The Voicing's number which more closely matches how we talk about everyday numbers, and indeed there is, though it might not look the same at first flush.
 
 <figure class="wide">
 
 $$
 \begin{align*}
-n &= v_1 \times (|V| \times |V| \times |C|) + v_2 \times (|W| \times |C|) + w \times |C| + c \\
+n &= v_1 \times (|V| \times |W| \times |C|) + v_2 \times (|W| \times |C|) + w \times |C| + c \\
   &= 14 \times (51 \times 41 \times 46) + 13 \times (41 \times 46) + 17 \times 46 + 28 \\
   &= \text{1,371,932}
 \end{align*}
@@ -661,7 +662,7 @@ It goes something like this.
 
     </figure>
 
-2.  Then, find the value for $q_c$, the first quotient.
+2.  Then, find the value for $q_c$, the first quotient, by using floored division with $|C|$ as the denominator.
 
     <figure class="wide">
 
@@ -670,13 +671,13 @@ It goes something like this.
     q_c
       &= \lfloor \frac{n}{|C|} \rfloor \\
       &= \lfloor \frac{\text{1,371,932}}{46} \rfloor \\
-      &= 29,824 \\
+      &= \text{29,824} \\
     \end{align*}
     $$
 
     </figure>
 
-    Which can be used to find $c$, the note the cello plays.
+    Which can be used to find $c$, the note the cello plays, by using the shuffling which gave us $r$ above.
 
     <figure class="wide">
 
@@ -690,13 +691,13 @@ It goes something like this.
 
     </figure>
 
-    The first layer of addition and multiplication has been peeled off.
+    The first layer of addition and multiplication has now been peeled off.
 
     <figure class="wide">
 
     $$
     \begin{align*}
-    1,371,932
+    \text{1,371,932}
       &= c + |C| \times q_c \\
       &= 28 + 46 \times \text{29,824}
     \end{align*}
@@ -704,7 +705,7 @@ It goes something like this.
 
     </figure>
 
-3.  Another layer can now be peeled off by starting from $q_c$ instead of $n$, resulting in the value for $q_w$, second quotient.
+3.  The process is then repeated beginning from $q_c$ instead of $n$ to find $q_w$, the second quotient.
 
     <figure class="wide">
 
@@ -733,7 +734,7 @@ It goes something like this.
 
     </figure>
 
-4.  The process can be repeated to find $q_{v_2}$ in order to find $v_2$, the note the second violin plays.
+4.  We repeat the former process once more to find $q_{v_2}$ in order to find $v_2$, the note the second violin plays.
 
     <figure class="wide">
 
@@ -834,7 +835,7 @@ Turning voicings into numbers has also afforded us the opportunity to be disorde
 </figure>
 </template>
 
-If I listen for long enough I can talk myself into hearing bass lines and melodies. I think it's sort of fun. Bleep bloop.
+If I listen for long enough I can talk myself into hearing bass lines and melodies. I think it's sort of fun. _Bleep, bloop_.
 
 ***
 
