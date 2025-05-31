@@ -809,7 +809,7 @@ With this ability to decode ordinary numbers into string quartet voicings it's p
 
 At this speed, ten notes per second, it would take you more than a day and a half of uninterrupted listening to reach The Voicing. I like it. I think it sounds very meditative. Very *swoopey*.
 
-Turning voicings into numbers has also afforded us the opportunity to be disorderly, rather than orderly, snakes. We can use a non-repeating random number generator[^4] to erratically jump around, but still visit each and every voicing no more than once. I'm not sure if there's any telling when you'll hit The Voicing, but it's in there. To hear them all, to make sure you hear it, would take over five days and sixteen hours.
+Turning voicings into numbers has also afforded us the opportunity to be disorderly, rather than orderly, snakes. We can use a non-repeating random number generator[^4] to erratically jump around, but still visit each and every voicing no more than once. I'm not sure if there's any telling when you'll hit The Voicing, but it's in there. To hear them all, to make sure you've heard _the one_, would take over five days and sixteen hours.
 
 <figure id="string-quartet-random-initial">
   <audio class="w-full" src="/content/posts/crossing-paths-with-descartes/assets/audio/string-quartet-random.ogg" controls></audio>
