@@ -738,6 +738,10 @@ details[open] summary::before {
   border-width: 0;
 }
 
+/* Word break */
+
+.break-all { word-break: break-all; }
+
 @media print {
    a[href^=http]:after {
     content: " (" attr(href) ")";
