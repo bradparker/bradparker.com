@@ -7,7 +7,7 @@ description: |
   TBD
 ---
 
-Up until April 2023 we were lucky enough to have a pretty special second hand book shop up the road, next to the local café[^1]. While it was there my mid morning coffee runs usually involved having a browse and picking up whatever seemed interesting. So, yes, during this time our book collection grew a bit.
+Up until April 2023 we were lucky enough to have a pretty special second hand book shop up the road, next to the local café[^1]. While it was there my mid morning coffee runs usually involved having a browse and I often picked something. So, yes, during this time our book collection grew a bit.
 
 <ul class="list-none grid grid-cols-2 grid-rows-2 gap-3">
   <li>
@@ -17,12 +17,12 @@ Up until April 2023 we were lucky enough to have a pretty special second hand bo
   </li>
   <li>
 
-  ![The cover the book Complexity by M. Mitchel Waldrop](/content/posts/books-badgers-and-big-numbers/assets/images/finds/complexity.webp)
+  ![The cover the book Linear Algebra and Its Applications by Gilbert Strang](/content/posts/books-badgers-and-big-numbers/assets/images/finds/linear-algebra-and-its-applications.webp)
 
   </li>
   <li>
 
-  ![The cover of the book Computer Power and Human Reason by Joesph Weizenbaum](/content/posts/books-badgers-and-big-numbers/assets/images/finds/computer-power-and-human-reason.webp)
+  ![The cover of the book The Wonderful World of Steam Locomotives by P. B. Whitehouse](/content/posts/books-badgers-and-big-numbers/assets/images/finds/the-wonderful-world-of-steam-locomotives.webp)
 
   </li>
   <li>
@@ -42,19 +42,19 @@ I'd scanned in all our books at once, so this doesn't represent how many books w
 
 It's not all that many books, but even still I feel the need to choose _some_ sort of order. Without worrying about the usefulness of any particular ordering, I wonder how many options there really are? How many different ways could I sort all these books?
 
-In [my last post](https://bradparker.com/posts/crossing-paths-with-descartes) I talked about enumerating possibilities, but in all the examples I used I permitted every possible option. Nothing was excluded, even if two coin tosses or dice throws resulted in the same outcome I still counted them as a unique possibility. What I was talking about there were Cartesian Products. That is: given a set of options $A$ and a set of options $B$ the total range of possibilities of combing both is $A \times B$, the Cartesian Product of sets $A$ and $B$.
+In [my last post](/posts/crossing-paths-with-descartes) I talked about enumerating possibilities, but in all the examples I used I permitted every possible option. Nothing was excluded, even if two coin tosses or dice throws resulted in the same outcome I still counted them as a unique possibility. What I was talking about there were Cartesian Products. That is: given a set of options $A$ and a set of options $B$ the total range of possibilities of combing both is $A \times B$, the Cartesian Product of sets $A$ and $B$.
 
 <figure class="wide">
 
 $$
 \begin{align*}
-A &= (1, 2, 3) \\
-B &= (a, b, c) \\
-A \times B &= \begin{bmatrix}
+A &= \{1, 2, 3\} \\
+B &= \{a, b, c\} \\
+A \times B &= \begin{Bmatrix}
   (1, a) & (1, b) & (1, c) \\
   (2, a) & (2, b) & (2, c) \\
   (3, a) & (3, b) & (3, c)
-\end{bmatrix}
+\end{Bmatrix}
 \end{align*}
 $$
 
@@ -68,49 +68,155 @@ $$
 \begin{align*}
 |A| &= 3 \\
 |B| &= 3 \\
-|A \times B| &= 9
+|A \times B|
+  &= |A| \times |B| \\
+  &= 9
 \end{align*}
 $$
 
 </figure>
 
-What if we imagine that orderings are the same as combined sets of possibilities? We might say that the total number of orderings for some collection of things, $A$, is $|A|^{|A|}$.
+What if we imagine that orderings are the same as combined sets of possibilities? We might say that the total number of orderings for some collection of things, $A$, is $|A^{|A|}|$.
 
 <figure class="wide">
 
 $$
 \begin{align*}
-A &= (1, 2, 3) \\
-|A| &= 3 \\
-|A|^{|A|}
-  &= |A \times A \times A| \\
-  &= 27 \\
-A^{A} &=
-  \begin{bmatrix}
-    \begin{bmatrix}
-      (1, 1, 1) & (1, 1, 2) & (1, 1, 3) \\
-      (1, 2, 1) & (1, 2, 2) & (1, 2, 3) \\
-      (1, 3, 1) & (1, 3, 2) & (1, 3, 3)
-    \end{bmatrix} \\
-    \begin{bmatrix}
-      (2, 1, 1) & (2, 1, 2) & (2, 1, 3) \\
-      (2, 2, 1) & (2, 2, 2) & (2, 2, 3) \\
-      (2, 3, 1) & (2, 3, 2) & (2, 3, 3)
-    \end{bmatrix} \\
-    \begin{bmatrix}
-      (3, 1, 1) & (3, 1, 2) & (3, 1, 3) \\
-      (3, 2, 1) & (3, 2, 2) & (3, 2, 3) \\
-      (3, 3, 1) & (3, 3, 2) & (3, 3, 3)
-    \end{bmatrix}
-  \end{bmatrix}
+A &= \{1, 2, 3\} \\
+A^{|A|}
+  &= A \times A \times A \\
+  &= \begin{Bmatrix}
+    (1, 1, 1) & (1, 1, 2) & (1, 1, 3) \\
+    (1, 2, 1) & (1, 2, 2) & (1, 2, 3) \\
+    (1, 3, 1) & (1, 3, 2) & (1, 3, 3) \\
+    (2, 1, 1) & (2, 1, 2) & (2, 1, 3) \\
+    (2, 2, 1) & (2, 2, 2) & (2, 2, 3) \\
+    (2, 3, 1) & (2, 3, 2) & (2, 3, 3) \\
+    (3, 1, 1) & (3, 1, 2) & (3, 1, 3) \\
+    (3, 2, 1) & (3, 2, 2) & (3, 2, 3) \\
+    (3, 3, 1) & (3, 3, 2) & (3, 3, 3)
+  \end{Bmatrix} \\
+|A^{|A|}|
+  &= |A| \times |A| \times |A| \\
+  &= 27
 \end{align*}
 $$
 
 </figure>
 
-But we know that's not right. There are many things in there which aren't _orderings_. Sorting a collection shouldn't duplicate any of its elements, so things like $(1, 1, 1)$ shouldn't be counted.
+But we know that's not right. There are many things in there which aren't _orderings_. Sorting a collection shouldn't duplicate any of its elements, so things like $(1, 1, 1)$ and $(3, 2, 2)$ shouldn't be counted.
 
-What we need is something that removes an option once it's been used.
+What we need is a counting method that accounts for elements being used only once. Because that's how we might lay out an ordering of some collection. We'd choose and item to start with, then choose the next item from what's left, then the next from what's left, and so on until we run out of items.
+
+For example, given the following collection of items.
+
+![The letters, 'a', 'b' and 'c'](/content/posts/books-badgers-and-big-numbers/assets/images/permutations/abc-large.webp)
+
+We could come up with an ordering like this.
+
+<ol class="list-none flex flex-row gap-3 founders-grotesk f6">
+  <li>
+    <p>Start with 'b'</p>
+    <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/b.webp" />
+  </li>
+  <li>
+    <p>Then choose 'a'</p>
+    <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ba.webp" />
+  </li>
+  <li>
+    <p>Finally, choose 'c'<p>
+    <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/bac.webp" />
+  </li>
+</ol>
+
+At each step the set of available choices reduces by one. Once 'b' is put down, only 'a' and 'c' are left. On the next step once 'a' is put down only 'c' is left.
+
+<ul class="list-none flex flex-col gap-3 founders-grotesk f6">
+  <li class="grid grid-cols-3 gap-3 bt b--moon-gray pt1">
+    <figure class="col-span-1 col-start-1">
+      <p>Start with 'a'</p>
+      <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/a.webp" />
+    </figure>
+    <ul class="col-span-2 col-start-2 list-none flex flex-col gap-3">
+      <li class="flex flex-row gap-3">
+        <figure>
+          <p>Then choose 'b'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ab.webp" />
+        </figure>
+        <figure>
+          <p>Finally, choose 'c'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/abc.webp" />
+        </figure>
+      </li>
+      <li class="flex flex-row gap-3 bt b--moon-gray pt1">
+        <figure>
+          <p>Then choose 'c'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ac.webp" />
+        </figure>
+        <figure>
+          <p>Finally, choose 'b'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/acb.webp" />
+        </figure>
+      </li>
+    </ul>
+  </li>
+  <li class="grid grid-cols-3 gap-3 bt b--moon-gray pt1">
+    <figure class="col-span-1 col-start-1">
+      <p>Start with 'b'</p>
+      <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/b.webp" />
+    </figure>
+    <ul class="col-span-2 col-start-2 list-none flex flex-col gap-3">
+      <li class="flex flex-row gap-3">
+        <figure>
+          <p>Then choose 'a'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ba.webp" />
+        </figure>
+        <figure>
+          <p>Finally, choose 'c'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/bac.webp" />
+        </figure>
+      </li>
+      <li class="flex flex-row gap-3 bt b--moon-gray pt3">
+        <figure>
+          <p>Then choose 'c'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/bc.webp" />
+        </figure>
+        <figure>
+          <p>Finally, choose 'a'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/bca.webp" />
+        </figure>
+      </li>
+    </ul>
+  </li>
+  <li class="grid grid-cols-3 gap-3 bt b--moon-gray pt3">
+    <figure class="col-span-1 col-start-1">
+      <p>Start with 'c'</p>
+      <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/c.webp" />
+    </figure>
+    <ul class="col-span-2 col-start-2 list-none flex flex-col gap-3">
+      <li class="flex flex-row gap-3">
+        <figure>
+          <p>Then choose 'a'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ca.webp" />
+        </figure>
+        <figure>
+          <p>Finally, choose 'b'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/cab.webp" />
+        </figure>
+      </li>
+      <li class="flex flex-row gap-3 bt b--moon-gray pt3">
+        <figure>
+          <p>Then choose 'b'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/cb.webp" />
+        </figure>
+        <figure>
+          <p>Finally, choose 'c'</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/cba.webp" />
+        </figure>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 <figure class="wide">
 
