@@ -38,11 +38,12 @@ read =
       Pandoc.def
         { Pandoc.readerExtensions =
             Pandoc.extensionsFromList
-              [ Pandoc.Ext_tex_math_dollars,
+              [ Pandoc.Ext_attributes,
+                Pandoc.Ext_definition_lists,
                 Pandoc.Ext_footnotes,
                 Pandoc.Ext_gfm_auto_identifiers,
-                Pandoc.Ext_definition_lists,
-                Pandoc.Ext_attributes
+                Pandoc.Ext_pipe_tables,
+                Pandoc.Ext_tex_math_dollars
               ]
         }
 

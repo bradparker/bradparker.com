@@ -392,7 +392,6 @@ details[open] summary::before {
   font-size: 0.875rem;
 }
 
-
 /* Markdown tables */
 
 .markdown > table {
@@ -402,7 +401,8 @@ details[open] summary::before {
 
 .markdown > table:not(.table-style-none) th,
 .markdown > table:not(.table-style-none) td {
-  padding: 0.25rem 1rem;
+  vertical-align: top;
+  padding: 0.5rem;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -436,6 +436,7 @@ details[open] summary::before {
     arial,
     sans-serif;
   font-weight: bold;
+  line-height: 1.125;
 }
 
 /* Markdown math */
