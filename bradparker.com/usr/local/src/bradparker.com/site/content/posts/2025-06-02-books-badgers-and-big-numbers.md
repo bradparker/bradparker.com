@@ -48,7 +48,7 @@ I'd scanned in all our books at once, so this doesn't represent how many books w
 
 ## Big Numbers
 
-Despite the badgers, it's not all that many books really. But even still I felt the need to choose _some_ sort of order. Now, without worrying about the usefulness of any particular arrangement, I wonder how many options there really are? How many different ways could I have arranged all these books?
+Despite the badgers, it's not all that many books really. But even still I felt the need to choose _some_ sort of order. Now, without worrying about the usefulness of any particular arrangement, I wonder how many options there really are? How many ways could I have arranged these books?
 
 In [my last post](/posts/crossing-paths-with-descartes) I talked about enumerating possibilities, but in all the examples I used I permitted every possible option. Nothing was excluded, even if two coin tosses or dice throws resulted in the same outcome I still counted them as a unique possibility. What I was talking about there were Cartesian Products. That is: given a set of options $A$ and a set of options $B$ the total range of possibilities of combing both is $A \times B$, the Cartesian Product of sets $A$ and $B$.
 
@@ -84,7 +84,7 @@ $$
 
 </figure>
 
-What if we imagine that arrangements are the same as combined sets of possibilities? That we choose an element (any element) from $A$ _number of elements in $A$_ times. We might then say that the total number of arrangements for some collection of things, $A$, is $|A^{|A|}|$.
+What if we imagine that arrangements are the same as combined sets of possibilities? That we choose an element (any element) from $A$ _No. of elements in $A$_ times (AKA $|A|$ times). We might then say that the total number of arrangements for some collection of things, $A$, is $|A^{|A|}|$.
 
 <figure class="wide">
 
