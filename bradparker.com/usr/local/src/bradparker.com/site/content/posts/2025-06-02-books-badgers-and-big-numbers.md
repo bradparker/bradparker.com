@@ -202,7 +202,7 @@ The result you get from multiplying all the numbers less than some number is cal
 <figure class="wide">
 
 $$
-!n = n \times (n - 1) \times (n - 2) \times ... \times 2 \times 1
+n! = n \times (n - 1) \times (n - 2) \times ... \times 2 \times 1
 $$
 
 </figure>
@@ -254,11 +254,13 @@ The example above sorts arrangements with reference to a pre-existing ordering o
 
 The alphabet we have is one possible arrangement. One of 403,<wbr/>291,<wbr/>461,<wbr/>126,<wbr/>605,<wbr/>635,<wbr/>584,<wbr/>000,<wbr/>000 options in fact. To reduce confusion when talking about any alternative, unintuitive, arrangements we can choose to ignore the specific elements of whatever collection we're arranging and instead refer only to their position in some selected _default_ ordering. The alphabet is the chosen default for letters, where 'a' is first, 'b' is second, 'c' is third, and so on. We can then discuss other arrangements by saying only where elements 1, 2, and 3 are. For example, the arrangement $(\text{`b'}, \text{`a'}, \text{`c'})$ becomes $(2, 1, 3)$.
 
+When we can use a sequence of numbers to refer to all the elements of a collection we're able to say that the collection is _indexed_ by those numbers. The numbers _point to_ elements in the collection.
+
 For our book collection I'll treat alphabetical by title as the default arrangement with which I'll compare others.
 
 ## Lehmer codes
 
-Now for the meat of the matter.
+Right, here we go: Lehmer codes index the lexicographically ordered list of all possible arrangements of some collection of elements.
 
 &hellip;
 
