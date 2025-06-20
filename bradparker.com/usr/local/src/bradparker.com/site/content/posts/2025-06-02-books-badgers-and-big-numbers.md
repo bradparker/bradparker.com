@@ -4,7 +4,7 @@ tags:
   - mathematics
   - books
 description: |
-  TBD
+  I stumbled into what might be some combinatorial esoterica and I can't stop thinking about it. Here I spend a bit of time with it
 ---
 
 I stumbled into what might be some combinatorial esoterica and I can't stop thinking about it.
@@ -223,12 +223,12 @@ It's this extremely large number.
 
 And here's the kind of question that led to my current cosy combinatorial corner: given a sorted list of all possible arrangements, what is the (_deep breath_) 2,<wbr/>844,<wbr/>113,<wbr/>050,<wbr/>416,<wbr/>543,<wbr/>052,<wbr/>622,<wbr/>601,<wbr/>377,<wbr/>724,<wbr/>177,<wbr/>730,<wbr/>794,<wbr/>635,<wbr/>580,<wbr/>558,<wbr/>165,<wbr/>101,<wbr/>289,<wbr/>087,<wbr/>907,<wbr/>211,<wbr/>046,<wbr/>617,<wbr/>413,<wbr/>162,<wbr/>202,<wbr/>727,<wbr/>992,<wbr/>682,<wbr/>826,<wbr/>505,<wbr/>610,<wbr/>602,<wbr/>434,<wbr/>122,<wbr/>752,<wbr/>894,<wbr/>055,<wbr/>956,<wbr/>478,<wbr/>001,<wbr/>246,<wbr/>987,<wbr/>975,<wbr/>654,<wbr/>867,<wbr/>880,<wbr/>927,<wbr/>440,<wbr/>389,<wbr/>088,<wbr/>878,<wbr/>653,<wbr/>260,<wbr/>211,<wbr/>539,<wbr/>374,<wbr/>415,<wbr/>866,<wbr/>208,<wbr/>792,<wbr/>187,<wbr/>943,<wbr/>989,<wbr/>161,<wbr/>515,<wbr/>680,<wbr/>780,<wbr/>226,<wbr/>637,<wbr/>325,<wbr/>041,<wbr/>170,<wbr/>571,<wbr/>521,<wbr/>944,<wbr/>136,<wbr/>857,<wbr/>756,<wbr/>357,<wbr/>610,<wbr/>408,<wbr/>690,<wbr/>480,<wbr/>987,<wbr/>642,<wbr/>359,<wbr/>289,<wbr/>070,<wbr/>142,<wbr/>617,<wbr/>861,<wbr/>100,<wbr/>311,<wbr/>817,<wbr/>255,<wbr/>304,<wbr/>659,<wbr/>710,<wbr/>866,<wbr/>175,<wbr/>534,<wbr/>883,<wbr/>866,<wbr/>241,<wbr/>789,<wbr/>715,<wbr/>155,<wbr/>834,<wbr/>223,<wbr/>460,<wbr/>969,<wbr/>127,<wbr/>343,<wbr/>122,<wbr/>506,<wbr/>553,<wbr/>271,<wbr/>818,<wbr/>293,<wbr/>567,<wbr/>727,<wbr/>306,<wbr/>529,<wbr/>166,<wbr/>052,<wbr/>023,<wbr/>268,<wbr/>045,<wbr/>186,<wbr/>141,<wbr/>937,<wbr/>347,<wbr/>041,<wbr/>818,<wbr/>966,<wbr/>122,<wbr/>038,<wbr/>640,<wbr/>793,<wbr/>796,<wbr/>799,<wbr/>685,<wbr/>516,<wbr/>455,<wbr/>929,<wbr/>549,<wbr/>507,<wbr/>013,<wbr/>186,<wbr/>833,<wbr/>430,<wbr/>265,<wbr/>450,<wbr/>466,<wbr/>044,<wbr/>505,<wbr/>744,<wbr/>178,<wbr/>793,<wbr/>393,<wbr/>254,<wbr/>499,<wbr/>311,<wbr/>497,<wbr/>130,<wbr/>361,<wbr/>821,<wbr/>989,<wbr/>719,<wbr/>697,<wbr/>224,<wbr/>981,<wbr/>301,<wbr/>053,<wbr/>842,<wbr/>088,<wbr/>290,<wbr/>183,<wbr/>796,<wbr/>995,<wbr/>774,<wbr/>643,<wbr/>108,<wbr/>623,<wbr/>128,<wbr/>572,<wbr/>424,<wbr/>596,<wbr/>295,<wbr/>207,<wbr/>864,<wbr/>719,<wbr/>379,<wbr/>479,<wbr/>419,<wbr/>093,<wbr/>894,<wbr/>525,<wbr/>035,<wbr/>709,<wbr/>405,<wbr/>252,<wbr/>305,<wbr/>572,<wbr/>483,<wbr/>849,<wbr/>439,<wbr/>595,<wbr/>150,<wbr/>582,<wbr/>362,<wbr/>925,<wbr/>993,<wbr/>365,<wbr/>553,<wbr/>189,<wbr/>173,<wbr/>069,<wbr/>073,<wbr/>069,<wbr/>239,<wbr/>396,<wbr/>792,<wbr/>666,<wbr/>051,<wbr/>139,<wbr/>882,<wbr/>098,<wbr/>736,<wbr/>318,<wbr/>227,<wbr/>488,<wbr/>496,<wbr/>884,<wbr/>365,<wbr/>414,<wbr/>402,<wbr/>236,<wbr/>391,<wbr/>348,<wbr/>245,<wbr/>541,<wbr/>096,<wbr/>370,<wbr/>960,<wbr/>228,<wbr/>964,<wbr/>587,<wbr/>593,<wbr/>160,<wbr/>349,<wbr/>264,<wbr/>902,<wbr/>263,<wbr/>727,<wbr/>302,<wbr/>169,<wbr/>421,<wbr/>863,<wbr/>892,<wbr/>154,<wbr/>866,<wbr/>370,<wbr/>306,<wbr/>041,<wbr/>614,<wbr/>127,<wbr/>727,<wbr/>830,<wbr/>967,<wbr/>236,<wbr/>995,<wbr/>581,<wbr/>667,<wbr/>801,<wbr/>392,<wbr/>480,<wbr/>447,<wbr/>679,<wbr/>422,<wbr/>359,<wbr/>386,<wbr/>205,<wbr/>525,<wbr/>674,<wbr/>979,<wbr/>615,<wbr/>059,<wbr/>536,<wbr/>733,<wbr/>032,<wbr/>646,<wbr/>807,<wbr/>296,<wbr/>164,<wbr/>119,<wbr/>104,<wbr/>440,<wbr/>573,<wbr/>184,<wbr/>560,<wbr/>777,<wbr/>118,<wbr/>241st one? You know &hellip; for example.
 
-## Lexicographic ordering
+## Lexicographic order
 
-How might arrangements be sorted? To answer that I need to define when one arrangement should come before another. Here's a scheme.
+How might arrangements be sorted? To answer that I'd need to define when one arrangement should come before another. Here's a scheme.
 
 * Step through pairs of elements from both arrangements. I.E. First look at the first element of arrangement $x$ and the first element from arrangement $y$, then the second element from arrangement $x$ and the second element from arrangement $y$, and so on.
-* For the first pair with mismatching elements, if the element from $x$ should come before the element from $y$ then the whole arrangement $x$ should come before the arrangement $y$.
+* For the first pair with mismatching elements, if the element from $x$ should come before the element from $y$ then the whole arrangement $x$ should come before the arrangement <nobr>$y$.</nobr>
 
 For example, here's two arrangements of the first three letters of the alphabet.
 
@@ -236,32 +236,220 @@ For example, here's two arrangements of the first three letters of the alphabet.
 
 $$
 \begin{align*}
-  x &= (\text{`b'}, \text{`c'}, \text{`a'}) \\
-  y &= (\text{`b'}, \text{`a'}, \text{`c'})
+  x &= (\text{b}, \text{c}, \text{a}) \\
+  y &= (\text{b}, \text{a}, \text{c})
 \end{align*}
 $$
 
 </figure>
 
-1. Compare the first element of each ordering: $x_1 = \text{`b'}$ and $y_1 = \text{`b'}$. They match, so move onto the next pair of elements.
-2. Compare the second element of each ordering: $x_2 = \text{`c'}$ and $y_2 = \text{`a'}$. They don't match and $\text{`a'}$ comes before $\text{`b'}$, therefore $y$ comes before $x$.
+1. Compare the first element of each ordering: $x_1 = \text{b}$ and $y_1 = \text{b}$. They match, so move onto the next pair of elements.
+2. Compare the second element of each ordering: $x_2 = \text{c}$ and $y_2 = \text{a}$. They don't match and $\text{a}$ comes before $\text{b}$, therefore $y$ comes before $x$.
 
-This is the [_Lexicographic order_](https://en.wikipedia.org/wiki/Lexicographic_order), and it might seem like the way mostly everything is sorted in day to day life &hellip; because it is! This is how we sort words in the dictionary, hence the name.
+Sorting elements this way will result in them being in [_Lexicographic order_](https://en.wikipedia.org/wiki/Lexicographic_order), and it might seem like the way mostly everything is sorted in day to day life &hellip; because it is! This is how we sort words in the dictionary, hence the name.
 
-## Enumeration and indexing
+## Indexing
 
-The example above sorts arrangements with reference to a pre-existing ordering of their elements: the alphabet. But it didn't _have_ to. We could've used some other ordering and then got a different result. For example we could live in an alternate timeline where the Latin alphabet begins $(\text{`c'}, \text{`a'}, \text{`b'})$ rather than $(\text{`a'}, \text{`b'}, \text{`c'})$. In that case the order of our example arrangements would be reversed and $x$ would come before $y$.
+The example above sorts arrangements with reference to a pre-existing ordering of their elements: the alphabet. But it didn't _have_ to. We could've used some other ordering, and ended up with a different result. For example we could live in an alternate timeline where the Latin alphabet begins $(\text{c}, \text{a}, \text{b})$ rather than $(\text{a}, \text{b}, \text{c})$. In that case the order of our example arrangements would be reversed and $x$ would come before <nobr>$y$.</nobr>
 
-The alphabet we have is one possible arrangement. One of 403,<wbr/>291,<wbr/>461,<wbr/>126,<wbr/>605,<wbr/>635,<wbr/>584,<wbr/>000,<wbr/>000 options in fact. To reduce confusion when talking about any alternative, unintuitive, arrangements we can choose to ignore the specific elements of whatever collection we're arranging and instead refer only to their position in some selected _default_ ordering. The alphabet is the chosen default for letters, where 'a' is first, 'b' is second, 'c' is third, and so on. We can then discuss other arrangements by saying only where elements 1, 2, and 3 are. For example, the arrangement $(\text{`b'}, \text{`a'}, \text{`c'})$ becomes $(2, 1, 3)$.
+The alphabet we have is one possible arrangement. One of 403,<wbr/>291,<wbr/>461,<wbr/>126,<wbr/>605,<wbr/>635,<wbr/>584,<wbr/>000,<wbr/>000 options in fact. To reduce confusion when talking about any alternative arrangements we can choose to ignore the specific elements of whatever collection we're arranging and instead refer only to their position in some select _conventional_ ordering. The alphabet is the convention for letters, where 'a' is first, 'b' is second, 'c' is third, and so on. We can then discuss other arrangements by saying only where elements 1, 2, and 3 are. For example, the arrangement $(\text{b}, \text{a}, \text{c})$ becomes $(2, 1, 3)$.
 
-When we can use a sequence of numbers to refer to all the elements of a collection we're able to say that the collection is _indexed_ by those numbers. The numbers _point to_ elements in the collection.
+When we can use a sequence of numbers to refer to all the elements of a collection we're able to say that the collection is _indexed_ by those numbers. The numbers _point to_ elements in the collection.[^2]
 
-For our book collection I'll treat alphabetical by title as the default arrangement with which I'll compare others.
+For our books I'll use _Alphabetical by title_ as the conventional ordering. This will define the Lexicographic order for the list of possible arrangements.
 
 ## Lehmer codes
 
-Right, here we go: Lehmer codes index the lexicographically ordered list of all possible arrangements of some collection of elements.
+Right, here we go: Lehmer codes index all possible arrangements of collections of elements, and they do so in Lexicographic order.
 
-&hellip;
+To see how we can revisit my earlier example of laying out the first three letters of the alphabet.
+
+| Step | Options | Selection | Result |
+|:----:|-------------------|--------|--------|
+| <span class="founders-grotesk">1</span> | ![The letters 'a', 'b' and 'c'](/content/posts/books-badgers-and-big-numbers/assets/images/permutations/abc.webp) | ![The letter 'b'](/content/posts/books-badgers-and-big-numbers/assets/images/permutations/b.webp) | ![The letter 'b'](/content/posts/books-badgers-and-big-numbers/assets/images/permutations/b.webp) |
+| <span class="founders-grotesk">2</span> | ![The letters 'a' and 'c'](/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ac.webp) | ![The letter 'a'](/content/posts/books-badgers-and-big-numbers/assets/images/permutations/a.webp) | ![The letter 'b'](/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ba.webp) |
+| <span class="founders-grotesk">3</span> | ![The letter  'c'](/content/posts/books-badgers-and-big-numbers/assets/images/permutations/c.webp) | ![The letter 'c'](/content/posts/books-badgers-and-big-numbers/assets/images/permutations/c.webp) | ![The letter 'b'](/content/posts/books-badgers-and-big-numbers/assets/images/permutations/bac.webp) |
+
+Lehmer codes end up recording the steps in this procedure as a sequence of choices of index. Like so:
+
+1. Select the second option.
+2. Select the first option.
+3. Select the first option.
+
+Now, the indexes all begin at 0, rather than 1 (which I promise will make sense soon), so for the arrangement: $(\text{b}, \text{a}, \text{c})$, we have this sequence of choices: $(1, 0, 0)$.
+
+Here are _all_ the choices someone could make when laying out the first three letters of the alphabet.
+
+<ul class="list-none flex flex-col gap-3 founders-grotesk f6 lh-copy">
+  <li class="grid grid-cols-3 gap-3 bt b--moon-gray pt1">
+    <figure class="col-span-1 col-start-1">
+      <p>Option 0 from (a, b, c)</p>
+      <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/a.webp" />
+    </figure>
+    <ul class="col-span-2 col-start-2 list-none flex flex-col gap-3">
+      <li class="flex flex-row gap-3">
+        <figure>
+          <p>Option 0 from (b, c)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ab.webp" />
+        </figure>
+        <figure>
+          <p>Option 0 from (c)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/abc.webp" />
+        </figure>
+      </li>
+      <li class="flex flex-row gap-3 bt b--moon-gray pt1">
+        <figure>
+          <p>Option 1 from (b, c)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ac.webp" />
+        </figure>
+        <figure>
+          <p>Option 0 from (b)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/acb.webp" />
+        </figure>
+      </li>
+    </ul>
+  </li>
+  <li class="grid grid-cols-3 gap-3 bt b--moon-gray pt1">
+    <figure class="col-span-1 col-start-1">
+      <p>Option 1 from (a, b, c)</p>
+      <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/b.webp" />
+    </figure>
+    <ul class="col-span-2 col-start-2 list-none flex flex-col gap-3">
+      <li class="flex flex-row gap-3">
+        <figure>
+          <p>Option 0 from (a, c)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ba.webp" />
+        </figure>
+        <figure>
+          <p>Option 0 from (c)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/bac.webp" />
+        </figure>
+      </li>
+      <li class="flex flex-row gap-3 bt b--moon-gray pt1">
+        <figure>
+          <p>Option 1 from (a, c)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/bc.webp" />
+        </figure>
+        <figure>
+          <p>Option 0 from (a)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/bca.webp" />
+        </figure>
+      </li>
+    </ul>
+  </li>
+  <li class="grid grid-cols-3 gap-3 bt b--moon-gray pt1">
+    <figure class="col-span-1 col-start-1">
+      <p>Option 2 from (a, b, c)</p>
+      <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/c.webp" />
+    </figure>
+    <ul class="col-span-2 col-start-2 list-none flex flex-col gap-3">
+      <li class="flex flex-row gap-3">
+        <figure>
+          <p>Option 0 from (a, b)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/ca.webp" />
+        </figure>
+        <figure>
+          <p>Option 0 from (b)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/cab.webp" />
+        </figure>
+      </li>
+      <li class="flex flex-row gap-3 bt b--moon-gray pt1">
+        <figure>
+          <p>Option 1 from (a, b)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/cb.webp" />
+        </figure>
+        <figure>
+          <p>Option 0 from (a)</p>
+          <img src="/content/posts/books-badgers-and-big-numbers/assets/images/permutations/cba.webp" />
+        </figure>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+From which we can get this list of sequences.
+
+* $(0, 0, 0)$
+* $(0, 1, 0)$
+* $(1, 0, 0)$
+* $(1, 1, 0)$
+* $(2, 0, 0)$
+* $(2, 1, 0)$
+
+This is counting, but it's counting in a number system very unlike the one we use day to day.
+
+At the first step there are $3!$ (a.k.a $3 \times 2 \times 1$) possible outcomes, then at the second step there are $2!$, which is the same as $(3 \times 2 \times 1) / 3$. The first choice puts the rest of the sequence into one of three branches. So if you choose 'b' you _skip over_ the $2!$ possibilities you might've reached if you'd chosen 'a'. If you choose 'c' you _skip over_ the $2!$ possibilities from choosing 'a', but also the $2!$ from 'b'. So when choosing 'c' you skip over $2 \times 2!$ possibilities.
+
+This is not completely unlike ordinary counting. If asked to find the 243rd _something_ you could _skip over_ the first 200 things, then you could _skip over_ the next 40 things, finally arriving at the 3rd thing after that. What's different in this case is that instead of hundreds, tens and ones we have <nobr>$2!$s</nobr>, <nobr>$1!$s</nobr> and <nobr>$0!$s</nobr>.
+
+What happens then if we multiply each index in the above list of sequences by its factorial place value? (Just as we do with ordinary numbers.)
+
+* $(0 \times 2!, 0 \times 1!, 0 \times 1!) = (0, 0, 0)$
+* $(0 \times 2!, 1 \times 1!, 0 \times 1!) = (0, 1, 0)$
+* $(1 \times 2!, 0 \times 1!, 0 \times 1!) = (2, 0, 0)$
+* $(1 \times 2!, 1 \times 1!, 0 \times 1!) = (2, 1, 0)$
+* $(2 \times 2!, 0 \times 1!, 0 \times 1!) = (4, 0, 0)$
+* $(2 \times 2!, 1 \times 1!, 0 \times 1!) = (4, 1, 0)$
+
+Interesting, and now if we add the places together? (Again, just as we do with ordinary numbers.)
+
+* $0 + 0 + 0 = 0$
+* $0 + 1 + 0 = 1$
+* $2 + 0 + 0 = 2$
+* $2 + 1 + 0 = 3$
+* $4 + 0 + 0 = 4$
+* $4 + 1 + 0 = 5$
+
+What we're looking at here is the [_Factorial number system_](https://en.wikipedia.org/wiki/Factorial_number_system). Furthermore we can see how factorial numbers can be converted into ordinary, decimal numbers.
+
+Not only are these factorial numbers, they are also Lehmer codes. The number 2 is the decimal representation of the Lehmer code for the sequence of choices: $(1, 0, 0)$, which produces the arrangement of indexes: $(1, 0, 2)$, and if we follow those indexes back to the letters they point to we get <nobr>$(\text{b}, \text{a}, \text{c})$.</nobr>
+
+With this I'm able to answer my question: What is the 2,<wbr/>844, &hellip; 241st possible arrangement of our 5-ish badgers worth of books? I only have to take that number, convert it from decimal to factorial, and then use those digits as _instructions_ for laying out an arrangement. This all happens very quickly. It takes about three hundredths of a second to go from an enormous number to a list of books.
+
+```
+> BS.writeFile "sorted_books.json" (Aeson.encode (decodeLehmer books code))
+(0.03 secs, 17,567,664 bytes)
+```
+
+```javascript
+[
+  {
+    "author": "Tufte, Edward R.",
+    "code": "001.4226",
+    "title": "The Visual Display of Quantitative Information"
+  },
+  {
+    "author": "Weizenbaum, Joseph",
+    "code": "001.64",
+    "title": "Computer Power and Human Reason"
+  },
+  {
+    "author": "Gleick, James",
+    "code": "003.857",
+    "title": "Chaos: Making a New Science"
+  },
+  {
+    "author": "Galloway, Alexander",
+    "code": "004.09",
+    "title": "Uncomputable: Play and Politics In the Long Digital Age"
+    // ...
+```
+
+I think that's really something.
+
+***
+
+Having written this I can think of a couple of reasons I've found Lehmer codes so interesting.
+
+Firstly, there's something indescribably cool about how they work. Embedded in the numbers of this very strange number system is the procedure for encoding and decoding them as arrangments of elements. The strange number system is perfectly suited to encoding and decoding arrangements, it's factorial! This, to me, feels simultaneously obvious and obscure and I love it.
+
+Secondly, the first time I came across Lehmer codes I was unaware of so many of the foundations upon which they're built that I was a bit awe struck. I was overwhelmed thinking about all the _epistemic iterations_[^3] it would take to arrive at something like this. All the large and small thoughts, and all the people who thought them.
+
+At the end of the day I have no idea if Lehmer codes will ever prove to be practically useful to me. Regardless, I do know that I find them wonderful.
 
 [^1]: We were very sad to see Logical Unsanity close. The ABC did a nice feature at the time: [_Quirky tin shed bookshop 'born out of laziness' offers booklovers' sanctuary_](https://www.abc.net.au/news/2018-04-08/quirky-tin-shed-bookshop-offers-booklovers-sanctuary-brisbane/9618992)
+[^2]:
+    > &hellip; from _indicare_ "to point out," &hellip;
+
+    [Index - Etymology, Origin & Meaning](https://www.etymonline.com/word/index)
+[^3]: This is a term I've just come across from reading [_Beyond Measure_ by James Vincent](https://jamesvincent.info/beyond-measure) (2022). It was coined by Hasok Chang in his book _Inventing Temperature_ (2004).
