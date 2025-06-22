@@ -88,7 +88,7 @@ $$
 
 </figure>
 
-What if we imagine that arrangements are the same as combined sets of possibilities? That we can choose an element (any element) from the set $A$ _'number of elements in $A$'_ (AKA $|A|$) times? We might then say that the total number of arrangements of the elements in $A$, is <nobr>$|A^{|A|}|$.</nobr>
+What if we imagine that arrangements are the same as combined sets of possibilities? That we can choose an element (any element) from the set $A$ _'number of elements in $A$'_ (a.k.a. $|A|$) times? We might then say that the total number of arrangements of the elements in $A$, is <nobr>$|A^{|A|}|$.</nobr>
 
 <figure class="wide">
 
