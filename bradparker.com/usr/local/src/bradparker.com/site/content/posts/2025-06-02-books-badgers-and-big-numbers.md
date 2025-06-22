@@ -248,7 +248,7 @@ $$
 </figure>
 
 1. Compare the first element of each ordering: $x_1 = \text{b}$ and $y_1 = \text{b}$. They match, so move onto the next pair of elements.
-2. Compare the second element of each ordering: $x_2 = \text{c}$ and $y_2 = \text{a}$. They don't match and $\text{a}$ comes before $\text{b}$, therefore $y$ comes before $x$.
+2. Compare the second element of each ordering: $x_2 = \text{c}$ and $y_2 = \text{a}$. They don't match and $\text{a}$ comes before $\text{c}$, therefore $y$ comes before $x$.
 
 Sorting elements this way will result in them being in [_Lexicographic order_](https://en.wikipedia.org/wiki/Lexicographic_order), and it might seem like the way mostly everything is sorted in day to day life &hellip; because it is! This is how we sort words in the dictionary, hence the name.
 
