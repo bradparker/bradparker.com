@@ -313,7 +313,7 @@ $$
 ### The additive inverse of a product is equal to either element being an additive inverse
 
 $$
-−(xy) = −xy = x(−y)
+−(xy) = (−x)y = x(−y)
 $$
 
 <details>
@@ -344,7 +344,7 @@ $$
   We can rewrite this expression using the knowledge that [multiplication by negative one is equal to the additive inverse](#multiplication-by-negative-one).
 
   $$
-  x(−y) = −xy = −(xy)
+  x(−y) = (−x)y = −(xy)
   $$
 
   </div>
@@ -392,841 +392,146 @@ $$
 x^n x^m = x^{(n + m)}
 $$
 
-#### Proof
+<details>
+  <summary>
+    Proof
+  </summary>
 
-In the simple case <math><mi>n</mi></math> and <math><mi>m</mi></math> are taken to be elements of <math><mi normal>&#x2115;</mi></math>.
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
 
-<p>
-  <math>
-    <mrow>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>n</mi>
-        </msup>
-        <msup>
-          <mi>x</mi>
-          <mi>m</mi>
-        </msup>
-      </mrow>
-      <mo>=</mo>
-      <mrow>
-        <mrow>
-          <mn>1</mn>
-          <mover>
-            <mover accent="true">
-              <mrow>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&hellip;</mo>
-              </mrow>
-              <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-            </mover>
-            <mi>n</mi>
-          </mover>
-          <mover>
-            <mover accent="true">
-              <mrow>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&hellip;</mo>
-              </mrow>
-              <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-            </mover>
-            <mi>m</mi>
-          </mover>
-        </mrow>
-      </mrow>
-      <mo>=</mo>
-      <mrow>
-        <mrow>
-          <mn>1</mn>
-          <mover>
-            <mover accent="true">
-              <mrow>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&hellip;</mo>
-              </mrow>
-              <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-            </mover>
-            <mrow>
-              <mo>(</mo>
-                <mi>n</mi>
-                <mo>+</mo>
-                <mi>m</mi>
-              <mo>)</mo>
-            </mrow>
-          </mover>
-        </mrow>
-      </mrow>
-    </mrow>
-  </math>
-</p>
+  In the simple case $n$ and $m$ are taken to be elements of $\mathbb{N}$.
 
-If either <math><mi>n</mi></math> or <math><mi>m</mi></math> are negative we can see that this still holds.
+  $$
+  \begin{align*}
+  x^n x^m
+    &= 1 \overbrace{\bullet x \bullet x ...}^{n}
+          \overbrace{\bullet x \bullet x ...}^{m} \\
+    &= 1 \overbrace{\bullet x \bullet x ...}^{(n + m)}
+  \end{align*}
+  $$
 
-<p>
-  <math>
-    <mrow>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>n</mi>
-        </msup>
-        <msup>
-          <mi>x</mi>
-          <mrow>
-            <mo>(</mo>
-              <mrow>
-                <mo>&minus;</mo>
-                <mi>m</mi>
-              </mrow>
-            <mo>)</mo>
-          </mrow>
-        </msup>
-      </mrow>
-      <mo>=</mo>
-      <mrow>
-        <mrow>
-          <mn>1</mn>
-          <mover>
-            <mover accent="true">
-              <mrow>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&hellip;</mo>
-              </mrow>
-              <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-            </mover>
-            <mi>n</mi>
-          </mover>
-          <mover>
-            <mover accent="true">
-              <mrow>
-                <mo>&bullet;</mo>
-                <mo>(</mo><msup><mi>x</mi><mrow><mo>&minus;</mo><mn>1</mn></mrow></msup><mo>)</mo>
-                <mo>&bullet;</mo>
-                <mo>(</mo><msup><mi>x</mi><mrow><mo>&minus;</mo><mn>1</mn></mrow></msup><mo>)</mo>
-                <mo>&hellip;</mo>
-              </mrow>
-              <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-            </mover>
-            <mi>m</mi>
-          </mover>
-        </mrow>
-      </mrow>
-    </mrow>
-  </math>
-</p>
+  If either $n$ or $m$ are negative we can see that this still holds.
 
-<p>
-  <math>
-    <mrow>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>n</mi>
-        </msup>
-        <msup>
-          <mi>x</mi>
-          <mrow>
-            <mo>(</mo>
-              <mrow>
-                <mo>&minus;</mo>
-                <mi>m</mi>
-              </mrow>
-            <mo>)</mo>
-          </mrow>
-        </msup>
-      </mrow>
-      <mo>=</mo>
-      <mrow>
-        <mrow>
-          <mn>1</mn>
-          <mover>
-            <mover accent="true">
-              <mrow>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&hellip;</mo>
-              </mrow>
-              <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-            </mover>
-            <mrow>
-              <mo>(</mo>
-              <mi>n</mi>
-              <mo>&minus;</mo>
-              <mi>m</mi>
-              <mo>)</mo>
-            </mrow>
-          </mover>
-          <mover>
-            <mover accent="true">
-              <mrow>
-                <mo>&bullet;</mo>
-                <mrow>
-                  <mi>x</mi>
-                  <mo>(</mo><msup><mi>x</mi><mrow><mo>&minus;</mo><mn>1</mn></mrow></msup><mo>)</mo>
-                </mrow>
-                <mo>&bullet;</mo>
-                <mrow>
-                  <mi>x</mi>
-                  <mo>(</mo><msup><mi>x</mi><mrow><mo>&minus;</mo><mn>1</mn></mrow></msup><mo>)</mo>
-                </mrow>
-                <mo>&hellip;</mo>
-              </mrow>
-              <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-            </mover>
-            <mi>m</mi>
-          </mover>
-        </mrow>
-      </mrow>
-    </mrow>
-  </math>
-</p>
+  First, assume $n \ge m$.
 
-<p>
-  <math>
-    <mrow>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>n</mi>
-        </msup>
-        <msup>
-          <mi>x</mi>
-          <mrow>
-            <mo>(</mo>
-              <mrow>
-                <mo>&minus;</mo>
-                <mi>m</mi>
-              </mrow>
-            <mo>)</mo>
-          </mrow>
-        </msup>
-      </mrow>
-      <mo>=</mo>
-      <mrow>
-        <mrow>
-          <mn>1</mn>
-          <mover>
-            <mover accent="true">
-              <mrow>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&bullet;</mo>
-                <mi>x</mi>
-                <mo>&hellip;</mo>
-              </mrow>
-              <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-            </mover>
-            <mrow>
-              <mo>(</mo>
-                <mi>n</mi>
-                <mo>&minus;</mo>
-                <mi>m</mi>
-              <mo>)</mo>
-            </mrow>
-          </mover>
-        </mrow>
-      </mrow>
-    </mrow>
-  </math>
-</p>
+  $$
+  \begin{align*}
+  x^n x^{-m}
+    &= 1 \overbrace{\bullet x \bullet x ...}^{n}
+          \overbrace{\bullet x^{-1} \bullet x^{-1} ...}^{m} \\
+    &= 1 \overbrace{\bullet x \bullet x ...}^{(n - m)}
+          \overbrace{\bullet x(x^{-1}) \bullet x(x^-1) ...}^{m} \\
+    &= 1 \overbrace{\bullet x \bullet x ...}^{(n - m)}
+  \end{align*}
+  $$
+
+  Second, assume $n \lt m$.
+
+  $$
+  \begin{align*}
+  x^n x^{-m}
+    &= 1 \overbrace{\bullet x \bullet x ...}^{n}
+          \overbrace{\bullet x^{-1} \bullet x^{-1} ...}^{m} \\
+    &= 1 \overbrace{\bullet x \bullet x ...}^{(n - n)}
+          \overbrace{\bullet x(x^{-1}) \bullet x(x^-1) ...}^{(m - n)} \\
+    &= 1 \overbrace{\bullet x(x^{-1}) \bullet x(x^-1) ...}^{(m - n)} \\
+    &= 1 \overbrace{\bullet x(x^{-1}) \bullet x(x^-1) ...}^{|(n - m)|}
+  \end{align*}
+  $$
+
+  Last, assume both are negative.
+
+  $$
+  \begin{align*}
+  x^{-n} x^{-m}
+    &= 1 \overbrace{\bullet x^{-1} \bullet x^{-1} ...}^{n}
+          \overbrace{\bullet x^{-1} \bullet x^{-1} ...}^{m} \\
+    &= 1 \overbrace{\bullet x^{-1} \bullet x^{-1} ...}^{(n + m)}
+  \end{align*}
+  $$
+
+  </div>
+</details>
 
 ### Division of exponents
 
-<p>
-  <math>
-    <mfrac>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>n</mi>
-        </msup>
-      </mrow>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>m</mi>
-        </msup>
-      </mrow>
-    </mfrac>
-    <mo>=</mo>
-    <msup>
-      <mi>x</mi>
-      <mrow>
-        <mo>(</mo>
-          <mi>n</mi>
-          <mo>&minus;</mo>
-          <mi>m</mi>
-        <mo>)</mo>
-      </mrow>
-    </msup>
-  </math>
-</p>
+$$
+\frac{x^n}{x^m} = x^{(n - m)}
+$$
 
-#### Proof
+<details>
+  <summary>
+    Proof
+  </summary>
 
-<p>
-  <math>
-    <mfrac>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>n</mi>
-        </msup>
-      </mrow>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>m</mi>
-        </msup>
-      </mrow>
-    </mfrac>
-    <mo>=</mo>
-    <mrow>
-      <msup>
-        <mi>x</mi>
-        <mi>n</mi>
-      </msup>
-    </mrow>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mrow>
-            <msup>
-              <mi>x</mi>
-              <mi>m</mi>
-            </msup>
-          </mrow>
-        <mo>)</mo>
-      </mrow>
-      <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-    </msup>
-  </math>
-</p>
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
 
-<p>
-  <math>
-    <mfrac>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>n</mi>
-        </msup>
-      </mrow>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>m</mi>
-        </msup>
-      </mrow>
-    </mfrac>
-    <mo>=</mo>
-    <mrow>
-      <msup>
-        <mi>x</mi>
-        <mi>n</mi>
-      </msup>
-    </mrow>
-    <mrow>
-      <msup>
-        <mi>x</mi>
-        <mrow>
-          <mi>m</mi>
-          <mo>(</mo>
-            <mrow>
-              <mo>&minus;</mo><mn>1</mn>
-            </mrow>
-          <mo>)</mo>
-        </mrow>
-      </msup>
-    </mrow>
-  </math>
-</p>
+  $$
+  \begin{align*}
+  \frac{x^n}{x^m} \\
+    &= x^n (x^m)^{-1} \\
+    &= x^n x^m(-1) \\
+    &= x^n x^{-m} \\
+    &= x^{(n - m)}
+  \end{align*}
+  $$
 
-<p>
-  <math>
-    <mfrac>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>n</mi>
-        </msup>
-      </mrow>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>m</mi>
-        </msup>
-      </mrow>
-    </mfrac>
-    <mo>=</mo>
-    <mrow>
-      <msup>
-        <mi>x</mi>
-        <mi>n</mi>
-      </msup>
-    </mrow>
-    <mrow>
-      <msup>
-        <mi>x</mi>
-        <mrow>
-          <mo>(</mo>
-            <mrow>
-              <mo>&minus;</mo><mi>m</mi>
-            </mrow>
-          <mo>)</mo>
-        </mrow>
-      </msup>
-    </mrow>
-  </math>
-</p>
-
-<p>
-  <math>
-    <mfrac>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>n</mi>
-        </msup>
-      </mrow>
-      <mrow>
-        <msup>
-          <mi>x</mi>
-          <mi>m</mi>
-        </msup>
-      </mrow>
-    </mfrac>
-    <mo>=</mo>
-    <msup>
-      <mi>x</mi>
-      <mrow>
-        <mo>(</mo>
-          <mi>n</mi>
-          <mo>&minus;</mo>
-          <mi>m</mi>
-        <mo>)</mo>
-      </mrow>
-    </msup>
-  </math>
-</p>
+  </div>
+</details>
 
 ### Exponentiation distributes over multiplication
 
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mi>x</mi>
-          <mi>y</mi>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <msup>
-      <mi>x</mi>
-      <mi>n</mi>
-    </msup>
-    <msup>
-      <mi>y</mi>
-      <mi>n</mi>
-    </msup>
-  </math>
-</p>
+$$
+(xy)^n = x^n y^n
+$$
 
-#### Proof
+<details>
+  <summary>
+    Proof
+  </summary>
 
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mi>x</mi>
-          <mi>y</mi>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <mrow>
-      <mn>1</mn>
-      <mover>
-        <mover accent="true">
-          <mrow>
-            <mo>&bullet;</mo>
-            <mrow>
-              <mo>(</mo>
-                <mi>x</mi>
-                <mi>y</mi>
-              <mo>)</mo>
-            </mrow>
-            <mo>&bullet;</mo>
-            <mrow>
-              <mo>(</mo>
-                <mi>x</mi>
-                <mi>y</mi>
-              <mo>)</mo>
-            </mrow>
-            <mo>&hellip;</mo>
-          </mrow>
-          <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-        </mover>
-        <mi>n</mi>
-      </mover>
-    </mrow>
-  </math>
-</p>
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
 
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mi>x</mi>
-          <mi>y</mi>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <mrow>
-      <mn>1</mn>
-      <mover>
-        <mover accent="true">
-          <mrow>
-            <mo>&bullet;</mo>
-            <mi>x</mi>
-            <mo>&bullet;</mo>
-            <mi>x</mi>
-            <mo>&hellip;</mo>
-          </mrow>
-          <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-        </mover>
-        <mi>n</mi>
-      </mover>
-      <mover>
-        <mover accent="true">
-          <mrow>
-            <mo>&bullet;</mo>
-            <mi>y</mi>
-            <mo>&bullet;</mo>
-            <mi>y</mi>
-            <mo>&hellip;</mo>
-          </mrow>
-          <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-        </mover>
-        <mi>n</mi>
-      </mover>
-    </mrow>
-  </math>
-</p>
+  $$
+  \begin{align*}
+  (xy)^{n}
+    &= 1 \overbrace{\bullet xy \bullet xy ...}^{n} \\
+    &= 1
+        \overbrace{\bullet x \bullet x ...}^{n}
+        \overbrace{\bullet y \bullet y ...}^{n} \\
+    &= x^n y^n
+  \end{align*}
+  $$
+
+  </div>
+</details>
 
 ### Exponentiation distributes over division
 
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mfrac>
-            <mi>x</mi>
-            <mi>y</mi>
-          </mfrac>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <mfrac>
-      <msup>
-        <mi>x</mi>
-        <mi>n</mi>
-      </msup>
-      <msup>
-        <mi>y</mi>
-        <mi>n</mi>
-      </msup>
-    </mfrac>
-  </math>
-</p>
+$$
+\left( \frac{x}{y} \right)^n = \frac{x^n}{y^n}
+$$
 
-#### Proof
+<details>
+  <summary>
+    Proof
+  </summary>
 
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mfrac>
-            <mi>x</mi>
-            <mi>y</mi>
-          </mfrac>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <mrow>
-      <mn>1</mn>
-      <mover>
-        <mover accent="true">
-          <mrow>
-            <mo>&bullet;</mo>
-            <mrow>
-              <mi>x</mi>
-              <mo>(</mo>
-                <msup>
-                  <mi>y</mi>
-                  <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-                </msup>
-              <mo>)</mo>
-            </mrow>
-            <mo>&bullet;</mo>
-            <mrow>
-              <mi>x</mi>
-              <mo>(</mo>
-                <msup>
-                  <mi>y</mi>
-                  <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-                </msup>
-              <mo>)</mo>
-            </mrow>
-            <mo>&hellip;</mo>
-          </mrow>
-          <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-        </mover>
-        <mi>n</mi>
-      </mover>
-    </mrow>
-  </math>
-</p>
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
 
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mfrac>
-            <mi>x</mi>
-            <mi>y</mi>
-          </mfrac>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <mrow>
-      <mn>1</mn>
-      <mover>
-        <mover accent="true">
-          <mrow>
-            <mo>&bullet;</mo>
-            <mi>x</mi>
-            <mo>&bullet;</mo>
-            <mi>x</mi>
-            <mo>&hellip;</mo>
-          </mrow>
-          <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-        </mover>
-        <mi>n</mi>
-      </mover>
-      <mover>
-        <mover accent="true">
-          <mrow>
-            <mo>&bullet;</mo>
-            <mrow>
-              <mo>(</mo>
-                <msup>
-                  <mi>y</mi>
-                  <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-                </msup>
-              <mo>)</mo>
-            </mrow>
-            <mo>&bullet;</mo>
-            <mrow>
-              <mo>(</mo>
-                <msup>
-                  <mi>y</mi>
-                  <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-                </msup>
-              <mo>)</mo>
-            </mrow>
-            <mo>&hellip;</mo>
-          </mrow>
-          <mo>&#x23DE;<!--TOP CURLY BRACKET--></mo>
-        </mover>
-        <mi>n</mi>
-      </mover>
-    </mrow>
-  </math>
-</p>
+  $$
+  \begin{align*}
+  \left( \frac{x}{y} \right)^n \\
+    &= \left( xy^{-1} \right)^n \\
+    &= x^n \left( y^{-1} \right)^n \\
+    &= x^n y^{(-1)n} \\
+    &= x^n \left( y^{n} \right)^{-1} \\
+    &= \frac{x^n}{y^n}
+  \end{align*}
+  $$
 
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mfrac>
-            <mi>x</mi>
-            <mi>y</mi>
-          </mfrac>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <msup>
-      <mi>x</mi>
-      <mi>n</mi>
-    </msup>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <msup>
-            <mi>y</mi>
-            <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-          </msup>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-  </math>
-</p>
-
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mfrac>
-            <mi>x</mi>
-            <mi>y</mi>
-          </mfrac>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <msup>
-      <mi>x</mi>
-      <mi>n</mi>
-    </msup>
-    <msup>
-      <mi>y</mi>
-      <mrow>
-        <mo>(</mo>
-          <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-        <mo>)</mo>
-        <mi>n</mi>
-      </mrow>
-    </msup>
-  </math>
-</p>
-
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mfrac>
-            <mi>x</mi>
-            <mi>y</mi>
-          </mfrac>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <msup>
-      <mi>x</mi>
-      <mi>n</mi>
-    </msup>
-    <msup>
-      <mi>y</mi>
-      <mrow>
-        <mi>n</mi>
-        <mo>(</mo>
-          <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-        <mo>)</mo>
-      </mrow>
-    </msup>
-  </math>
-</p>
-
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mfrac>
-            <mi>x</mi>
-            <mi>y</mi>
-          </mfrac>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <msup>
-      <mi>x</mi>
-      <mi>n</mi>
-    </msup>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <msup>
-            <mi>y</mi>
-            <mi>n</mi>
-          </msup>
-        <mo>)</mo>
-      </mrow>
-      <mrow><mo>&minus;</mo><mn>1</mn></mrow>
-    </msup>
-  </math>
-</p>
-
-<p>
-  <math>
-    <msup>
-      <mrow>
-        <mo>(</mo>
-          <mfrac>
-            <mi>x</mi>
-            <mi>y</mi>
-          </mfrac>
-        <mo>)</mo>
-      </mrow>
-      <mi>n</mi>
-    </msup>
-    <mo>=</mo>
-    <mfrac>
-      <msup>
-        <mi>x</mi>
-        <mi>n</mi>
-      </msup>
-      <msup>
-        <mi>y</mi>
-        <mi>n</mi>
-      </msup>
-    </mfrac>
-  </math>
-</p>
+  </div>
+</details>
 
 ### Multiplying fractions
 
@@ -1235,17 +540,25 @@ $$
 = \frac{xa}{yb}
 $$
 
-#### Proof
+<details>
+  <summary>
+    Proof
+  </summary>
 
-$$
-\begin{align*}
-\frac{x}{y}\left(\frac{a}{b}\right)
-  &= xy^{-1}ab^{-1} \\
-  &= xay^{-1}b^{-1} \\
-  &= xa(yb)^{-1} \\
-  &= \frac{xa}{yb}
-\end{align*}
-$$
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  $$
+  \begin{align*}
+  \frac{x}{y}\left(\frac{a}{b}\right)
+    &= xy^{-1}ab^{-1} \\
+    &= xay^{-1}b^{-1} \\
+    &= xa(yb)^{-1} \\
+    &= \frac{xa}{yb}
+  \end{align*}
+  $$
+
+  </div>
+</details>
 
 ### Adding fractions
 
@@ -1254,20 +567,28 @@ $$
 = \frac{xb + ay}{yb}
 $$
 
-#### Proof
+<details>
+  <summary>
+    Proof
+  </summary>
 
-$$
-\begin{align*}
-\frac{x}{y} + \frac{a}{b}
-  &= xy^{-1} + ab^{-1} \\
-  &= xy^{-1}bb^{-1} + ab^{-1}yy^{-1} \\
-  &= xby^{-1}b^{-1} + ayb^{-1}y^{-1} \\
-  &= xb(yb)^{-1} + ay(by)^{-1} \\
-  &= xb(yb)^{-1} + ay(yb)^{-1} \\
-  &= (xb + ay)(yb)^{-1} \\
-  &= \frac{xb + ay}{yb}
-\end{align*}
-$$
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  $$
+  \begin{align*}
+  \frac{x}{y} + \frac{a}{b}
+    &= xy^{-1} + ab^{-1} \\
+    &= xy^{-1}bb^{-1} + ab^{-1}yy^{-1} \\
+    &= xby^{-1}b^{-1} + ayb^{-1}y^{-1} \\
+    &= xb(yb)^{-1} + ay(by)^{-1} \\
+    &= xb(yb)^{-1} + ay(yb)^{-1} \\
+    &= (xb + ay)(yb)^{-1} \\
+    &= \frac{xb + ay}{yb}
+  \end{align*}
+  $$
+
+  </div>
+</details>
 
 #### Special case: Adding fractions with shared denominator
 
@@ -1275,33 +596,41 @@ $$
 \frac{(x + y)}{z} = \frac{x}{z} + \frac{y}{z}
 $$
 
-#### Proof
+<details>
+  <summary>
+    Proof
+  </summary>
 
-This is the distributive axiom.
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
 
-$$
-\begin{align*}
-  \frac{(x + y)}{z}
-    &= (x + y)z^{-1} \\
-    &= xz^{-1} + yz^{-1} \\
-    &= \frac{x}{z} + \frac{y}{z}
-\end{align*}
-$$
+  This is the distributive axiom.
 
-Alternatively, using the addition of fractions above, and in the opposite direction.
+  $$
+  \begin{align*}
+    \frac{(x + y)}{z}
+      &= (x + y)z^{-1} \\
+      &= xz^{-1} + yz^{-1} \\
+      &= \frac{x}{z} + \frac{y}{z}
+  \end{align*}
+  $$
 
-$$
-\begin{align*}
-  \frac{x}{z} + \frac{y}{z}
-    &= \frac{(xz + yz)}{(zz)} \\
-    &= (xz + yz)(zz)^{-1} \\
-    &= (xz + yz)z^{-1}z^{-1} \\
-    &= (xzz^{-1} + yzz^{-1})z^-1 \\
-    &= (x(1) + y(1))z^{-1} \\
-    &= (x + y)z^{-1} \\
-    &= \frac{(x + y)}{z}
-\end{align*}
-$$
+  Alternatively, using the addition of fractions above, and in the opposite direction.
+
+  $$
+  \begin{align*}
+    \frac{x}{z} + \frac{y}{z}
+      &= \frac{(xz + yz)}{(zz)} \\
+      &= (xz + yz)(zz)^{-1} \\
+      &= (xz + yz)z^{-1}z^{-1} \\
+      &= (xzz^{-1} + yzz^{-1})z^-1 \\
+      &= (x(1) + y(1))z^{-1} \\
+      &= (x + y)z^{-1} \\
+      &= \frac{(x + y)}{z}
+  \end{align*}
+  $$
+
+  </div>
+</details>
 
 ### Dividing fractions
 
@@ -1312,34 +641,145 @@ $$
   = \frac{xb}{ya}
 $$
 
-#### Proof
+<details>
+  <summary>
+    Proof
+  </summary>
+
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  $$
+  \begin{align*}
+    \frac
+      {\left(\frac{x}{y}\right)}
+      {\left(\frac{a}{b}\right)} \\
+      &= \frac{\left( xy^{-1} \right) }{\left( ab^{-1} \right)} \\
+      &= \left( xy^{-1} \right) \left( ab^{-1} \right)^{-1} \\
+      &= \left( xy^{-1} \right) \left( a^{-1}\left( b^{-1} \right)^{-1} \right) \\
+      &= \left( xy^{-1} \right) \left( a^{-1}b^{-1(-1)} \right) \\
+      &= \left( xy^{-1} \right) \left( a^{-1}b^1 \right) \\
+      &= \left( xy^{-1} \right) \left( a^{-1}b \right) \\
+      &= xy^{-1}a^{-1}b \\
+      &= xby^{-1}a^{-1} \\
+      &= xb(ya)^{-1} \\
+      &= \frac{xb}{ya}
+  \end{align*}
+  $$
+
+  </div>
+</details>
+
+#### Special case: In combination with whole (or taken to be whole) numbers
 
 $$
-\begin{align*}
-  \frac
-    {\left(\frac{x}{y}\right)}
-    {\left(\frac{a}{b}\right)} \\
-    &= \frac{(xy^{-1})}{(ab^{-1})} \\
-    &= (xy^{-1})(ab^{-1})^{-1} \\
-    &= (xy^{-1})(a^{-1}(b^{-1})^{-1}) \\
-    &= (xy^{-1})(a^{-1}b^(-1 \times -1)) \\
-    &= (xy^{-1})(a^{-1}b^1) \\
-    &= (xy^{-1})(a^{-1}b) \\
-    &= xy^{-1}a^{-1}b \\
-    &= xby^{-1}a^{-1} \\
-    &= xb(ya)^{-1} \\
-    &= \frac{xb}{ya}
-\end{align*}
+\frac
+  {\left(\frac{x}{y}\right)}
+  {a}
+  = \frac{x}{ya}
+$$
+
+$$
+\frac
+  {x}
+  {\left(\frac{a}{b}\right)}
+  = \frac{xb}{a}
 $$
 
 ## Radical notation
 
 $$
-\sqrt[n]{x^m} = x^{\frac{m}{n}}
+\begin{align*}
+\sqrt[n]{x^m} = x^{\frac{m}{n}} = \sqrt[n]{x}^m
+\end{align*}
 $$
 
-Usually.
+#### In the simple case
 
 $$
 \sqrt[n]{x} = x^{\frac{1}{n}}
+$$
+
+### Root of a root
+
+$$
+\begin{align*}
+\sqrt[p]{\sqrt[n]{x^m}^q}
+  &= \left( x^{\frac{m}{n}} \right)^{\frac{q}{p}} \\
+  &= x^{\frac{m}{n} \frac{q}{p}} \\
+  &= x^{\frac{mq}{np}} \\
+  &= \sqrt[np]{x^{mq}} \\
+\end{align*}
+$$
+
+#### In the simple case
+
+$$
+\begin{align*}
+\sqrt[p]{\sqrt[n]{x}}
+  &= \left( x^{\frac{1}{n}} \right)^{\frac{1}{p}} \\
+  &= x^{\frac{1}{n} \frac{1}{p}} \\
+  &= x^{\frac{1}{np}} \\
+  &= \sqrt[np]{x} \\
+\end{align*}
+$$
+
+### Multiplication of roots
+
+$$
+\begin{align*}
+\sqrt[n]{x^m} \sqrt[p]{x^q}
+  &= x^{\frac{m}{n}} x^{\frac{q}{p}} \\
+  &= x^{\left( \frac{m}{n} + \frac{q}{p} \right)} \\
+  &= x^{\left( \frac{mp + qn}{np} \right)} \\
+  &= \sqrt[np]{x^{(mp + qn)}}
+\end{align*}
+$$
+
+#### In the simple case
+
+$$
+\begin{align*}
+\sqrt[n]{x} \sqrt[p]{x}
+  &= x^{\frac{1}{n}} x^{\frac{1}{p}} \\
+  &= x^{\left( \frac{1}{n} + \frac{1}{p} \right)} \\
+  &= x^{\left( \frac{p + n}{np} \right)} \\
+  &= \sqrt[np]{x^{(p + n)}}
+\end{align*}
+$$
+
+### Roots distribute over multiplication
+
+$$
+\begin{align*}
+\sqrt[n]{(xy)^m}
+  &= (xy)^{\frac{m}{n}} \\
+  &= x^{\frac{m}{n}} y^{\frac{m}{n}} \\
+  &= \sqrt[n]{x^m} \bullet \sqrt[n]{y^m}
+\end{align*}
+$$
+
+#### In the simple case
+
+$$
+\begin{align*}
+\sqrt[n]{xy}
+  &= (xy)^{\frac{1}{n}} \\
+  &= x^{\frac{1}{n}} y^{\frac{1}{n}} \\
+  &= \sqrt[n]{x} \bullet \sqrt[n]{y}
+\end{align*}
+$$
+
+#### Relationship to multiplication
+
+$$
+\begin{align*}
+\sqrt[n]{x^m} \sqrt[n]{x^m}
+  &= x^{\frac{m}{n}} x^{\frac{m}{n}} \\
+  &= x^{\left( \frac{m}{n} + \frac{m}{n} \right)} \\
+  &= x^{\left( \frac{mn + mn}{nn} \right)} \\
+  &= \sqrt[nn]{x^{(mn + mn)}} \\
+  &= \sqrt[nn]{x^{mn} x^{mn}} \\
+  &= \sqrt[nn]{(xx)^{mn}} \\
+  &= \sqrt[n]{(xx)^{m}} \\
+\end{align*}
 $$
