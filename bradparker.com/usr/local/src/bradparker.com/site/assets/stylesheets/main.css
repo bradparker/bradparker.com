@@ -91,6 +91,14 @@
   font-display:fallback;
 }
 
+::selection {
+  background-color: #f0c674;
+}
+
+::-moz-selection {
+  background-color: #f0c674;
+}
+
 .lh-copy { line-height: 1.55rem; }
 
 :root {
@@ -469,6 +477,7 @@ details[open] summary::before {
 
 .markdown math msup > *:last-child,
 .markdown math msub > *:last-child,
+.markdown math mroot > *:last-child,
 .markdown math msubsup > *:nth-child(2),
 .markdown math msubsup > *:nth-child(3) {
   font-size: 0.75em;
