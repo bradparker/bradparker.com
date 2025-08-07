@@ -695,49 +695,169 @@ The multiplicative inverse of exponentiation.
 
 ### Radicals distribute over multiplication
 
-Because [exponents distribute over multiplication](#exponentiation-distributes-over-multiplication).
+$$
+\sqrt[n]{xy}
+  = \sqrt[n]{x} \sqrt[n]{y}
+$$
+
+<details>
+  <summary>
+    Proof
+  </summary>
+
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  Because [exponents distribute over multiplication](#exponentiation-distributes-over-multiplication).
+
+  $$
+  \begin{align*}
+  \sqrt[n]{xy}
+    &= (xy)^{\frac{1}{n}} \\
+    &= x^{\frac{1}{n}} y^{\frac{1}{n}} \\
+    &= \sqrt[n]{x} \sqrt[n]{y}
+  \end{align*}
+  $$
+
+  </div>
+</details>
+
+### Radicals distribute over division
 
 $$
-\begin{align*}
-\sqrt[n]{xy}
-  &= (xy)^{\frac{1}{n}} \\
-  &= x^{\frac{1}{n}} y^{\frac{1}{n}} \\
-  &= \sqrt[n]{x} \sqrt[n]{y}
-\end{align*}
+\sqrt[n]{\frac{x}{y}}
+  = \frac{\sqrt[n]{x}}{\sqrt[n]{y}}
 $$
+
+<details>
+  <summary>
+    Proof
+  </summary>
+
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  Because [exponents distribute over division](#exponentiation-distributes-over-division).
+
+  $$
+  \begin{align*}
+  \sqrt[n]{\frac{x}{y}}
+    &= \left( \frac{x}{y} \right)^{\frac{1}{n}} \\
+    &= \frac{x^{\frac{1}{n}}}{y^{\frac{1}{n}}} \\
+    &= \frac{\sqrt[n]{x}}{\sqrt[n]{y}} \\
+  \end{align*}
+  $$
+
+  </div>
+</details>
 
 ### Exponent of a radical
 
 $$
-\begin{align*}
-\sqrt[n]{x}^m
-  &= \left( x^{\frac{1}{n}} \right)^m \\
-  &= \left( x^{m \frac{1}{n}} \right) \\
-  &= \left( x^{m} \right)^{\frac{1}{n}} \\
-  &= \sqrt[n]{x^m}
-\end{align*}
+\sqrt[n]{x}^m = \sqrt[n]{x^m}
 $$
+
+<details>
+  <summary>
+    Proof
+  </summary>
+
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  $$
+  \begin{align*}
+  \sqrt[n]{x}^m
+    &= \left( x^{\frac{1}{n}} \right)^m \\
+    &= \left( x^{m \frac{1}{n}} \right) \\
+    &= \left( x^{m} \right)^{\frac{1}{n}} \\
+    &= \sqrt[n]{x^m}
+  \end{align*}
+  $$
+
+  </div>
+</details>
 
 ### Radical of a radical
 
 $$
-\begin{align*}
-\sqrt[m]{\sqrt[n]{x}}
-  &= \left( x^{\frac{1}{n}} \right)^{\frac{1}{m}} \\
-  &= x^{\frac{1}{n} \left( \frac{1}{m} \right)} \\
-  &= x^{\frac{1}{nm}} \\
-  &= \sqrt[nm]{x} \\
-\end{align*}
+\sqrt[m]{\sqrt[n]{x}} = \sqrt[nm]{x}
 $$
+
+<details>
+  <summary>
+    Proof
+  </summary>
+
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  $$
+  \begin{align*}
+  \sqrt[m]{\sqrt[n]{x}}
+    &= \left( x^{\frac{1}{n}} \right)^{\frac{1}{m}} \\
+    &= x^{\frac{1}{n} \left( \frac{1}{m} \right)} \\
+    &= x^{\frac{1}{nm}} \\
+    &= \sqrt[nm]{x} \\
+  \end{align*}
+  $$
+
+  </div>
+</details>
 
 ### Multiplication of radicals with matching radicands
 
 $$
-\begin{align*}
 \sqrt[n]{x} \sqrt[m]{x}
-  &= x^{\frac{1}{n}} x^{\frac{1}{m}} \\
-  &= x^{\left( \frac{1}{n} + \frac{1}{m} \right)} \\
-  &= x^{\left( \frac{m + n}{nm} \right)} \\
-  &= \sqrt[nm]{x^{(m + n)}}
-\end{align*}
+  = \sqrt[nm]{x^{(m + n)}}
 $$
+
+<details>
+  <summary>
+    Proof
+  </summary>
+
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  $$
+  \begin{align*}
+  \sqrt[n]{x} \sqrt[m]{x}
+    &= x^{\frac{1}{n}} x^{\frac{1}{m}} \\
+    &= x^{\left( \frac{1}{n} + \frac{1}{m} \right)} \\
+    &= x^{\left( \frac{n + m}{nm} \right)} \\
+    &= \sqrt[nm]{x^{(n + m)}}
+  \end{align*}
+  $$
+
+  </div>
+</details>
+
+### Radical of a product of a number and a matching power
+
+$$
+\sqrt[n]{xy^n}
+  = y \sqrt[n]{x}
+$$
+
+<details>
+  <summary>
+    Proof
+  </summary>
+
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  $$
+  \begin{align*}
+  \sqrt[n]{xy^n}
+    &= \left( xy^n \right)^{\frac{1}{n}} \\
+    &= x^{\frac{1}{n}} \left( y^n \right)^{\frac{1}{n}} \\
+    &= x^{\frac{1}{n}} \left( y^\left( n\frac{1}{n} \right) \right) \\
+    &= x^{\frac{1}{n}} ( y ) \\
+    &= y \sqrt[n]{x}
+  \end{align*}
+  $$
+
+  </div>
+</details>
+
+### Notes
+
+> If an integer is not a perfect power of the index, then its root will be irrational.
+
+From [LibreTexts Mathematics: 5.1: Roots and Radicals](https://math.libretexts.org/Bookshelves/Algebra/Advanced_Algebra/05%3A_Radical_Functions_and_Equations/5.01%3A_Roots_and_Radicals)
