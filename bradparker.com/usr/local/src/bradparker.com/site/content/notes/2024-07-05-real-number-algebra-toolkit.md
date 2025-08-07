@@ -688,98 +688,56 @@ $$
 ## Radical notation
 
 $$
-\begin{align*}
-\sqrt[n]{x^m} = x^{\frac{m}{n}} = \sqrt[n]{x}^m
-\end{align*}
+\sqrt[n]{x} = x^{\frac{1}{n}} = x^{\left( n^{-1} \right)}
 $$
 
-#### In the simple case
+The multiplicative inverse of exponentiation.
 
-$$
-\sqrt[n]{x} = x^{\frac{1}{n}}
-$$
+### Radicals distribute over multiplication
 
-### Root of a root
-
-$$
-\begin{align*}
-\sqrt[p]{\sqrt[n]{x^m}^q}
-  &= \left( x^{\frac{m}{n}} \right)^{\frac{q}{p}} \\
-  &= x^{\frac{m}{n} \frac{q}{p}} \\
-  &= x^{\frac{mq}{np}} \\
-  &= \sqrt[np]{x^{mq}} \\
-\end{align*}
-$$
-
-#### In the simple case
-
-$$
-\begin{align*}
-\sqrt[p]{\sqrt[n]{x}}
-  &= \left( x^{\frac{1}{n}} \right)^{\frac{1}{p}} \\
-  &= x^{\frac{1}{n} \frac{1}{p}} \\
-  &= x^{\frac{1}{np}} \\
-  &= \sqrt[np]{x} \\
-\end{align*}
-$$
-
-### Multiplication of roots
-
-$$
-\begin{align*}
-\sqrt[n]{x^m} \sqrt[p]{x^q}
-  &= x^{\frac{m}{n}} x^{\frac{q}{p}} \\
-  &= x^{\left( \frac{m}{n} + \frac{q}{p} \right)} \\
-  &= x^{\left( \frac{mp + qn}{np} \right)} \\
-  &= \sqrt[np]{x^{(mp + qn)}}
-\end{align*}
-$$
-
-#### In the simple case
-
-$$
-\begin{align*}
-\sqrt[n]{x} \sqrt[p]{x}
-  &= x^{\frac{1}{n}} x^{\frac{1}{p}} \\
-  &= x^{\left( \frac{1}{n} + \frac{1}{p} \right)} \\
-  &= x^{\left( \frac{p + n}{np} \right)} \\
-  &= \sqrt[np]{x^{(p + n)}}
-\end{align*}
-$$
-
-### Roots distribute over multiplication
-
-$$
-\begin{align*}
-\sqrt[n]{(xy)^m}
-  &= (xy)^{\frac{m}{n}} \\
-  &= x^{\frac{m}{n}} y^{\frac{m}{n}} \\
-  &= \sqrt[n]{x^m} \bullet \sqrt[n]{y^m}
-\end{align*}
-$$
-
-#### In the simple case
+Because [exponents distribute over multiplication](#exponentiation-distributes-over-multiplication).
 
 $$
 \begin{align*}
 \sqrt[n]{xy}
   &= (xy)^{\frac{1}{n}} \\
   &= x^{\frac{1}{n}} y^{\frac{1}{n}} \\
-  &= \sqrt[n]{x} \bullet \sqrt[n]{y}
+  &= \sqrt[n]{x} \sqrt[n]{y}
 \end{align*}
 $$
 
-#### Relationship to multiplication
+### Exponent of a radical
 
 $$
 \begin{align*}
-\sqrt[n]{x^m} \sqrt[n]{x^m}
-  &= x^{\frac{m}{n}} x^{\frac{m}{n}} \\
-  &= x^{\left( \frac{m}{n} + \frac{m}{n} \right)} \\
-  &= x^{\left( \frac{mn + mn}{nn} \right)} \\
-  &= \sqrt[nn]{x^{(mn + mn)}} \\
-  &= \sqrt[nn]{x^{mn} x^{mn}} \\
-  &= \sqrt[nn]{(xx)^{mn}} \\
-  &= \sqrt[n]{(xx)^{m}} \\
+\sqrt[n]{x}^m
+  &= \left( x^{\frac{1}{n}} \right)^m \\
+  &= \left( x^{m \frac{1}{n}} \right) \\
+  &= \left( x^{m} \right)^{\frac{1}{n}} \\
+  &= \sqrt[n]{x^m}
+\end{align*}
+$$
+
+### Radical of a radical
+
+$$
+\begin{align*}
+\sqrt[m]{\sqrt[n]{x}}
+  &= \left( x^{\frac{1}{n}} \right)^{\frac{1}{m}} \\
+  &= x^{\frac{1}{n} \left( \frac{1}{m} \right)} \\
+  &= x^{\frac{1}{nm}} \\
+  &= \sqrt[nm]{x} \\
+\end{align*}
+$$
+
+### Multiplication of radicals with matching radicands
+
+$$
+\begin{align*}
+\sqrt[n]{x} \sqrt[m]{x}
+  &= x^{\frac{1}{n}} x^{\frac{1}{m}} \\
+  &= x^{\left( \frac{1}{n} + \frac{1}{m} \right)} \\
+  &= x^{\left( \frac{m + n}{nm} \right)} \\
+  &= \sqrt[nm]{x^{(m + n)}}
 \end{align*}
 $$
