@@ -861,3 +861,35 @@ $$
 > If an integer is not a perfect power of the index, then its root will be irrational.
 
 From [LibreTexts Mathematics: 5.1: Roots and Radicals](https://math.libretexts.org/Bookshelves/Algebra/Advanced_Algebra/05%3A_Radical_Functions_and_Equations/5.01%3A_Roots_and_Radicals)
+
+## Quadratic formula
+
+$$
+ax^2 + bx + c = 0 \therefore x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+
+<details>
+  <summary>
+    Proof
+  </summary>
+
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  $$
+  \begin{align*}
+  & x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\
+  & 2ax = -b \pm \sqrt{b^2 - 4ac} \\
+  & 2ax + b = \pm \sqrt{b^2 - 4ac} \\
+  & (2ax + b)^2 = b^2 - 4ac \\
+  & (2ax + b)^2 - b^2 + 4ac = 0 \\
+  & (2ax + b)(2ax + b) - b^2 + 4ac = 0 \\
+  & 2ax(2ax + b) + b(2ax + b) - b^2 + 4ac = 0 \\
+  & 4(ax)^2 + 2abx + 2abx + b^2 - b^2 + 4ac = 0 \\
+  & 4(ax)^2 + 4abx + 4ac = 0 \\
+  & 4a(ax^2 + bx + c) = 0 \\
+  & ax^2 + bx + c = 0
+  \end{align*}
+  $$
+
+  </div>
+</details>
