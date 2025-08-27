@@ -909,7 +909,6 @@ $$
   & x + \frac{b}{2a} = \pm \frac{\sqrt{b^2 - 4ac}}{\sqrt{4a^2}} \\
   & x + \frac{b}{2a} = \pm \frac{\sqrt{b^2 - 4ac}}{2a} \\
   & x = \frac{-b}{2a} \pm \frac{\sqrt{b^2 - 4ac}}{2a} \\
-  & x = \frac{-b}{2a} \pm \frac{\sqrt{b^2 - 4ac}}{2a} \\
   & x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\
   \end{align*}
   $$
