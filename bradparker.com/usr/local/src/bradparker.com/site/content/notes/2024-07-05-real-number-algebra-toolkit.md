@@ -865,7 +865,7 @@ From [LibreTexts Mathematics: 5.1: Roots and Radicals](https://math.libretexts.o
 ## Quadratic formula
 
 $$
-ax^2 + bx + c = 0 \therefore x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \iff ax^2 + bx + c = 0
 $$
 
 <details>
@@ -888,6 +888,29 @@ $$
   & 4(ax)^2 + 4abx + 4ac = 0 \\
   & 4a(ax^2 + bx + c) = 0 \\
   & ax^2 + bx + c = 0
+  \end{align*}
+  $$
+
+  And the other way by completing the square.
+
+  $$
+  \begin{align*}
+  & ax^2 + bx + c = 0 \\
+  & a \left( x^2 + \frac{bx}{a} + \frac{c}{a} \right) = 0 \\
+  & x^2 + \frac{bx}{a} + \frac{c}{a} = 0 \\
+  & x^2 + \frac{bx}{a} + \left( \frac{b}{2a} \right)^2 + \frac{c}{a} - \left( \frac{b}{2a} \right)^2 = 0 \\
+  & \left( x + \frac{b}{2a} \right)^2 + \frac{c}{a} - \left( \frac{b}{2a} \right)^2 = 0 \\
+  & \left( x + \frac{b}{2a} \right)^2 + \frac{c}{a} - \frac{b^2}{4a^2} = 0 \\
+  & \left( x + \frac{b}{2a} \right)^2 + \frac{4ca^2 - ab^2}{4a^3} = 0 \\
+  & \left( x + \frac{b}{2a} \right)^2 + \frac{a \left( 4ac - b^2 \right)}{4a^3} = 0 \\
+  & \left( x + \frac{b}{2a} \right)^2 + \frac{4ac - b^2}{4a^2} = 0 \\
+  & \left( x + \frac{b}{2a} \right)^2 = \frac{b^2 - 4ac}{4a^2} \\
+  & x + \frac{b}{2a} = \pm \sqrt{\frac{b^2 - 4ac}{4a^2}} \\
+  & x + \frac{b}{2a} = \pm \frac{\sqrt{b^2 - 4ac}}{\sqrt{4a^2}} \\
+  & x + \frac{b}{2a} = \pm \frac{\sqrt{b^2 - 4ac}}{2a} \\
+  & x = \frac{-b}{2a} \pm \frac{\sqrt{b^2 - 4ac}}{2a} \\
+  & x = \frac{-b}{2a} \pm \frac{\sqrt{b^2 - 4ac}}{2a} \\
+  & x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\
   \end{align*}
   $$
 
