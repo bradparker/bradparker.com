@@ -74,57 +74,67 @@ description: |
 </div>
 
 <script>
+  const round = (n, p = 1000000000) =>
+    Math.round(n * p) / p
+
   const point = (theta) =>
     [
-      Math.cos(theta),
-      Math.sin(theta),
+      round(Math.cos(theta)),
+      round(Math.sin(theta)),
     ];
-
-  const update = (
-    { tangent, cosine, sine },
-    { cosineInput, sineInput },
-    theta
-  ) => {
-    const [x, y] = point(theta);
-
-    cosineInput.value = x;
-    sineInput.value = y;
-
-    tangent.setAttribute("x2", x * 100);
-    tangent.setAttribute("y2", y * -100);
-
-    cosine.setAttribute("x2", x * 100);
-
-    sine.setAttribute("x1", x * 100);
-    sine.setAttribute("x2", x * 100);
-    sine.setAttribute("y2", y * -100);
-  }
 
   const main = () => {
     const svg = document.getElementById("unit-circle-1");
-    const tangent = svg.querySelector("[data-target=tangent]");
-    const cosine = svg.querySelector("[data-target=cosine]");
-    const sine = svg.querySelector("[data-target=sine]");
+    const tangentLine = svg.querySelector("[data-target=tangent]");
+    const cosineLine = svg.querySelector("[data-target=cosine]");
+    const sineLine = svg.querySelector("[data-target=sine]");
 
     const thetaInput = document.querySelector("[name=theta]");
     const cosineInput = document.querySelector("[name=cosine_theta]");
     const sineInput = document.querySelector("[name=sine_theta]");
 
+    const update = (theta) => {
+      const [x, y] = point(theta);
+
+      cosineInput.value = x;
+      sineInput.value = y;
+
+      tangentLine.setAttribute("x2", x * 100);
+      tangentLine.setAttribute("y2", y * -100);
+
+      cosineLine.setAttribute("x2", x * 100);
+
+      sineLine.setAttribute("x1", x * 100);
+      sineLine.setAttribute("x2", x * 100);
+      sineLine.setAttribute("y2", y * -100);
+    }
+
     const initialTheta = parseFloat(thetaInput.value);
 
-    update(
-      { tangent, cosine, sine },
-      { cosineInput, sineInput },
-      initialTheta
-    );
+    update(initialTheta);
 
     thetaInput.addEventListener("change", () => {
       const theta = parseFloat(thetaInput.value);
-      update(
-        { tangent, cosine, sine },
-        { cosineInput, sineInput },
-        theta
-      );
+
+      update(theta);
+    });
+
+    cosineInput.addEventListener("change", () => {
+      const cosine = parseFloat(cosineInput.value);
+      const theta = round(Math.acos(cosine));
+
+      thetaInput.value = theta;
+
+      update(theta);
+    });
+
+    sineInput.addEventListener("change", () => {
+      const sine = parseFloat(sineInput.value);
+      const theta = round(Math.asin(sine));
+
+      thetaInput.value = theta;
+
+      update(theta);
     });
   };
 
