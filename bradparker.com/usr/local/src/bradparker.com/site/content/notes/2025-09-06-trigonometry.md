@@ -45,7 +45,7 @@ description: |
     class="p-2 rounded-lg ba b--gray w-full"
     name="theta"
     type="number"
-    step="0.017214206"
+    step="0.017453293"
     value="1.047197551"
   />
 </label>
