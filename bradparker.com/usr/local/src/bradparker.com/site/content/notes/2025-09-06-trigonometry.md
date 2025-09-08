@@ -21,12 +21,26 @@ description: |
 
 ## Periodic identities
 
-<svg viewBox="-150 -150 300 300" id="unit-circle-1">
+<svg viewBox="-150 -150 300 300" id="periodic-identities-vis">
   <circle fill="none" stroke="black" stroke-width="1" r="100" cx="0" cy="0" />
-  <line x1="0" y1="-50%" x2="0" y2="50%" stroke="black" stroke-width="1" stroke-dasharray="1, 1" stroke-dashoffset="0.5" />
-  <line x1="-50%" y1="0" x2="50%" y2="0" stroke="black" stroke-width="1" stroke-dasharray="1,1" stroke-dashoffset="0.5" />
   <line
-    data-target="tangent"
+    x1="0" y1="-50%"
+    x2="0" y2="50%"
+    stroke="black"
+    stroke-width="1"
+    stroke-dasharray="1,1"
+    stroke-dashoffset="0.5"
+  />
+  <line
+    x1="-50%" y1="0"
+    x2="50%" y2="0"
+    stroke="black"
+    stroke-width="1"
+    stroke-dasharray="1,1"
+    stroke-dashoffset="0.5"
+  />
+  <line
+    data-target="theta"
     stroke="black"
     stroke-width="1"
     x1="0"
@@ -36,7 +50,7 @@ description: |
   />
   <line
     data-target="cosine"
-    stroke="black"
+    stroke="coral"
     stroke-width="1"
     x1="0"
     y1="0"
@@ -53,8 +67,17 @@ description: |
     y2="87"
   />
   <line
+    data-target="-theta_cosine"
+    stroke="coral"
+    stroke-width="1"
+    x1="0"
+    y1="87"
+    x2="50"
+    y2="87"
+  />
+  <line
     data-target="sine"
-    stroke="black"
+    stroke="seagreen"
     stroke-width="1"
     x1="50"
     y1="0"
@@ -66,6 +89,15 @@ description: |
     stroke="seagreen"
     stroke-width="1"
     x1="0"
+    y1="0"
+    x2="-50"
+    y2="-87"
+  />
+  <line
+    data-target="pi-theta_sine"
+    stroke="seagreen"
+    stroke-width="1"
+    x1="-50"
     y1="0"
     x2="-50"
     y2="-87"
@@ -85,7 +117,28 @@ description: |
 
 <div class="founders-grotesk flex gap-3">
   <label>
-    cos &theta;
+    &minus;&theta;
+    <input
+      class="p-2 rounded-lg ba b--gray w-full bg-light-gray"
+      name="-theta"
+      value="-1.047197551"
+      readonly="readonly"
+    />
+  </label>
+  <label>
+    &pi;&minus;&theta;
+    <input
+      class="p-2 rounded-lg ba b--gray w-full bg-light-gray"
+      name="pi-theta"
+      value="2.094395103"
+      readonly="readonly"
+    />
+  </label>
+</div>
+
+<div class="founders-grotesk flex gap-3">
+  <label>
+    cos &theta; / cos &minus;&theta;
     <input
       class="p-2 rounded-lg ba b--gray w-full"
       name="cosine_theta"
@@ -95,7 +148,7 @@ description: |
     />
   </label>
   <label>
-    sin &theta;
+    sin &theta; / sin &pi;&minus;&theta;
     <input
       class="p-2 rounded-lg ba b--gray w-full"
       name="sine_theta"
@@ -114,25 +167,31 @@ description: |
     ];
 
   onReady(() => {
-    const svg = document.getElementById("unit-circle-1");
-    const tangentLine = svg.querySelector("[data-target=tangent]");
+    const svg = document.getElementById("periodic-identities-vis");
+    const thetaLine = svg.querySelector("[data-target=theta]");
     const cosineLine = svg.querySelector("[data-target=cosine]");
     const sineLine = svg.querySelector("[data-target=sine]");
     const lineNegTheta = svg.querySelector("[data-target=-theta]");
+    const lineNegThetaCosine = svg.querySelector("[data-target=-theta_cosine]");
     const linePiMinusTheta = svg.querySelector("[data-target=pi-theta]");
+    const linePiMinusThetaSine = svg.querySelector("[data-target=pi-theta_sine]");
 
     const thetaInput = document.querySelector("[name=theta]");
     const cosineInput = document.querySelector("[name=cosine_theta]");
     const sineInput = document.querySelector("[name=sine_theta]");
+    const negThetaInput = document.querySelector("[name=-theta]");
+    const piMinusThetaInput = document.querySelector("[name=pi-theta]");
 
     const update = (theta) => {
       const [x, y] = point(theta);
 
       cosineInput.value = x;
       sineInput.value = y;
+      negThetaInput.value = round(-1 * theta);
+      piMinusThetaInput.value = round(Math.PI - theta);
 
-      tangentLine.setAttribute("x2", x * 100);
-      tangentLine.setAttribute("y2", y * -100);
+      thetaLine.setAttribute("x2", x * 100);
+      thetaLine.setAttribute("y2", y * -100);
 
       cosineLine.setAttribute("x2", x * 100);
 
@@ -143,8 +202,18 @@ description: |
       lineNegTheta.setAttribute("x2", x * 100);
       lineNegTheta.setAttribute("y2", y * 100);
 
+      lineNegThetaCosine.setAttribute("x1", 0);
+      lineNegThetaCosine.setAttribute("y1", y * 100);
+      lineNegThetaCosine.setAttribute("x2", x * 100);
+      lineNegThetaCosine.setAttribute("y2", y * 100);
+
       linePiMinusTheta.setAttribute("x2", x * -100);
       linePiMinusTheta.setAttribute("y2", y * -100);
+
+      linePiMinusThetaSine.setAttribute("x1", x * -100);
+      linePiMinusThetaSine.setAttribute("y1", 0);
+      linePiMinusThetaSine.setAttribute("x2", x * -100);
+      linePiMinusThetaSine.setAttribute("y2", y * -100);
     }
 
     const initialTheta = parseFloat(thetaInput.value);
