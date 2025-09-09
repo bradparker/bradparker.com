@@ -21,7 +21,7 @@ description: |
 
 ## Periodic identities
 
-<svg viewBox="-150 -150 300 300" id="periodic-identities-vis">
+<svg viewBox="-150 -150 300 300" id="periodic-identities-unit-circle">
   <circle fill="none" stroke="black" stroke-width="1" r="100" cx="0" cy="0" />
   <line
     x1="0" y1="-50%"
@@ -104,6 +104,13 @@ description: |
   />
 </svg>
 
+<canvas
+  id="periodic-identities-graph"
+  width="200"
+  height="60"
+  class="w-full">
+</canvas>
+
 <label class="founders-grotesk block w-full">
   &theta;
   <input
@@ -166,8 +173,37 @@ description: |
       round(Math.sin(theta)),
     ];
 
+  const maintainResolution = (canvas)  => {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+  };
+
+  const drawWave = (f) => (ctx, {
+    start,
+    end,
+    scale,
+    x: xOffset,
+    y: yOffset,
+    lineWidth,
+    strokeStyle,
+  }) => {
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = strokeStyle;
+    ctx.beginPath();
+    ctx.moveTo(xOffset, yOffset);
+    for (let x = start; x < end; x++) {
+      ctx.lineTo(x + xOffset, scale * f(x * (1/scale)) + yOffset);
+    }
+    ctx.stroke();
+  }
+
+  const drawSineWave = drawWave(Math.sin);
+  const drawCosineWave = drawWave(Math.cos);
+
   onReady(() => {
-    const svg = document.getElementById("periodic-identities-vis");
+    const svg = document.getElementById("periodic-identities-unit-circle");
     const thetaLine = svg.querySelector("[data-target=theta]");
     const cosineLine = svg.querySelector("[data-target=cosine]");
     const sineLine = svg.querySelector("[data-target=sine]");
@@ -182,7 +218,7 @@ description: |
     const negThetaInput = document.querySelector("[name=-theta]");
     const piMinusThetaInput = document.querySelector("[name=pi-theta]");
 
-    const update = (theta) => {
+    const updateUnitCircle = (theta) => {
       const [x, y] = point(theta);
 
       cosineInput.value = x;
@@ -216,14 +252,72 @@ description: |
       linePiMinusThetaSine.setAttribute("y2", y * -100);
     }
 
+    const canvas = document.getElementById("periodic-identities-graph");
+    maintainResolution(canvas);
+
+    const updateGraph = (theta) => {
+      const height = canvas.height;
+      const width = canvas.width;
+      const scale = height / 4;
+      const lineWidth = 3;
+      const zero = Math.PI;
+
+      const ctx = canvas.getContext("2d");
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.lineWidth = lineWidth;
+      ctx.strokeStyle = "black";
+
+      ctx.beginPath();
+      ctx.setLineDash([lineWidth, lineWidth]);
+      ctx.moveTo(zero * scale, 0);
+      ctx.lineTo(zero * scale, height);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.beginPath();
+      ctx.setLineDash([lineWidth, lineWidth]);
+      ctx.moveTo(0, height / 2);
+      ctx.lineTo(width, height / 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.beginPath();
+      ctx.moveTo((theta + zero) * scale, 0);
+      ctx.lineTo((theta + zero) * scale, height);
+      ctx.stroke();
+
+      drawSineWave(ctx, {
+        start: -(zero * scale),
+        end: width,
+        scale,
+        x: 0,
+        y: height / 2,
+        lineWidth,
+        strokeStyle: "seagreen",
+      });
+      drawCosineWave(ctx, {
+        start: -(zero * scale),
+        end: width,
+        scale,
+        x: 0,
+        y: height / 2,
+        lineWidth,
+        strokeStyle: "coral",
+      });
+    };
+
     const initialTheta = parseFloat(thetaInput.value);
 
-    update(initialTheta);
+    updateUnitCircle(initialTheta);
+    updateGraph(initialTheta);
 
     thetaInput.addEventListener("change", () => {
       const theta = parseFloat(thetaInput.value);
 
-      update(theta);
+      updateUnitCircle(theta);
+      updateGraph(theta);
     });
 
     cosineInput.addEventListener("change", () => {
@@ -232,7 +326,8 @@ description: |
 
       thetaInput.value = theta;
 
-      update(theta);
+      updateUnitCircle(theta);
+      updateGraph(theta);
     });
 
     sineInput.addEventListener("change", () => {
@@ -241,8 +336,18 @@ description: |
 
       thetaInput.value = theta;
 
-      update(theta);
+      updateUnitCircle(theta);
+      updateGraph(theta);
     });
+
+    const resizeObserver = new ResizeObserver(() => {
+      requestAnimationFrame(() => {
+        maintainResolution(canvas);
+        const theta = parseFloat(thetaInput.value);
+        updateGraph(theta);
+      });
+    });
+    resizeObserver.observe(canvas);
   });
 </script>
 
