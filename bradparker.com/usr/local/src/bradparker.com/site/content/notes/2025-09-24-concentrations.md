@@ -39,7 +39,6 @@ $$
   \begin{multline}
   c_a v_a + c_b v_b = c v \\
   c_a v_a = c v - c_b v_b \\
-  c_a v_a = c v - c_b v_b \\
   c_a v_a = c v - c_b (v - v_a) \\
   c_a v_a = c v - c_b v + c_b v_a \\
   c_a v_a = v (c - c_b) + c_b v_a \\
