@@ -76,5 +76,5 @@ $$
 ## Factored form
 
 $$
-ax^2 + bx + c = \left(x - \frac{-b + \sqrt{b^2 - 4ac}}{2a} \right)\left(x - \frac{-b - \sqrt{b^2 - 4ac}}{2a} \right)
+ax^2 + bx + c = a \left(x - \frac{-b + \sqrt{b^2 - 4ac}}{2a} \right) \left(x - \frac{-b - \sqrt{b^2 - 4ac}}{2a} \right)
 $$
