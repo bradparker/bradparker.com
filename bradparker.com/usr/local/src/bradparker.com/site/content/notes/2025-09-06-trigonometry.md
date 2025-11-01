@@ -565,7 +565,7 @@ description: |
 
 Given a triangle $ABC$.
 
-<svg viewBox="0 0 100 60">
+<svg viewBox="0 0 100 50">
   <style>
     text { font: italic 8px serif; }
   </style>
@@ -640,5 +640,116 @@ $$
   \end{multline}
   $$
 
+  </div>
+</details>
+
+## Law of cosines
+
+Given a triangle $ABC$.
+
+<svg viewBox="0 0 100 50">
+  <style>
+    text { font: italic 8px serif; }
+  </style>
+  <polygon
+    fill="none"
+    stroke="black"
+    stroke-width="0.5"
+    points="
+      10,40
+      30,10
+      90,40
+    "
+  />
+  <text x="8" y="42" text-anchor="end">A</text>
+  <text x="30" y="8">B</text>
+  <text x="92" y="42">C</text>
+</svg>
+
+$$
+\overline{BC}^2 = \overline{AB}^2 + \overline{CA}^2 -
+  2
+    \left( \overline{AB} \right)
+    \left( \overline{CA} \right)
+    \left( \cos \left( \angle ABC \right) \right)
+$$
+
+<details>
+  <summary>
+    Proof
+  </summary>
+
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  Given a line $\overline{BD}$ perpendicular to, and meeting, $\overline{AC}$.
+
+  <svg viewBox="0 0 100 50">
+    <style>
+      text { font: italic 8px serif; }
+    </style>
+    <polygon
+      fill="none"
+      stroke="black"
+      stroke-width="0.5"
+      points="
+        10,40
+        30,10
+        90,40
+      "
+    />
+    <text x="8" y="42" text-anchor="end">A</text>
+    <text x="30" y="8">B</text>
+    <text x="92" y="42">C</text>
+    <line x1="30" y1="10" x2="30" y2="40" fill="none" stroke="black" stroke-width="0.5" />
+    <text x="32" y="38">D</text>
+  </svg>
+
+  <figure class="wide">
+
+  $$
+  \begin{multline}
+  \cos \left( \angle CAB \right) = \frac{\overline{AD}}{\overline{AB}} \\
+  \left( \overline{AB} \right) \cos \left( \angle CAB \right) = \overline{AD} \\
+  \overline{CD} = \overline{CA} - \overline{AD} \\
+  \overline{CD} = \overline{CA} - \left( \overline{AB} \right) \cos \left( \angle CAB \right) \\
+  \sin \left( \angle CAB \right) = \frac
+    {\overline{BD}}
+    {\overline{AB}} \\
+  \left( \overline{AB} \right) \sin \left( \angle CAB \right) = \overline{BD} \\
+  \overline{BC}^2 = \overline{BD}^2 + \overline{CD}^2 \\
+  \overline{BC}^2
+    = \left( \left( \overline{AB} \right) \sin \left( \angle CAB \right) \right)^2 +
+      \overline{CD}^2 \\
+  \overline{BC}^2
+    = \left( \left( \overline{AB} \right) \sin \left( \angle CAB \right) \right)^2 +
+      \left( \overline{CA} - \left( \overline{AB} \right) \cos \left( \angle CAB \right) \right)^2 \\
+  \overline{BC}^2
+    = \left( \overline{AB} \right)^2 \left(\sin \left( \angle CAB \right) \right)^2 +
+      \left( \overline{CA} - \left( \overline{AB} \right) \cos \left( \angle CAB \right) \right)^2 \\
+  \overline{BC}^2
+    = \left( \overline{AB} \right)^2 \left(\sin \left( \angle CAB \right) \right)^2 +
+      \left( \overline{CA} \right)^2 - 2 \left( \overline{AB} \right) \left( \overline{CA} \right) \cos \left( \angle CAB \right) + \left( \overline{AB} \right)^2 \left( \cos \left( \angle CAB \right) \right)^2 \\
+  \overline{BC}^2
+    = \overline{AB}^2
+        \left(
+          \left( \sin \left( \angle CAB \right) \right)^2 +
+          \left( \cos \left( \angle CAB \right) \right)^2
+        \right) +
+      \overline{CA}^2 -
+      2
+        \left( \overline{AB} \right)
+        \left( \overline{CA} \right)
+        \cos \left( \angle CAB \right) \\
+  \overline{BC}^2
+    = \overline{AB}^2 +
+      \overline{CA}^2 -
+      2
+        \left( \overline{AB} \right)
+        \left( \overline{CA} \right)
+        \cos \left( \angle CAB \right) \\
+  \end{multline}
+  $$
+
+  </figure>
   </div>
 </details>
