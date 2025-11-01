@@ -560,3 +560,85 @@ description: |
     });
   });
 </script>
+
+## Law of sines
+
+Given a triangle $ABC$.
+
+<svg viewBox="0 0 100 60">
+  <style>
+    text { font: italic 8px serif; }
+  </style>
+  <polygon
+    fill="none"
+    stroke="black"
+    stroke-width="0.5"
+    points="
+      10,40
+      30,10
+      90,40
+    "
+  />
+  <text x="8" y="42" text-anchor="end">A</text>
+  <text x="30" y="8">B</text>
+  <text x="92" y="42">C</text>
+</svg>
+
+$$
+\frac{\sin{ \left( \angle CAB \right) }}{\overline{BC}}
+  = \frac{\sin{ \left( \angle BCA \right) }}{\overline{AB}}
+$$
+
+<details>
+  <summary>
+    Proof
+  </summary>
+
+  <div class="p-4 rounded-lg ba b--light-gray markdown">
+
+  Given a line $\overline{BD}$ perpendicular to, and meeting, $\overline{AC}$.
+
+  <svg viewBox="0 0 100 50">
+    <style>
+      text { font: italic 8px serif; }
+    </style>
+    <polygon
+      fill="none"
+      stroke="black"
+      stroke-width="0.5"
+      points="
+        10,40
+        30,10
+        90,40
+      "
+    />
+    <text x="8" y="42" text-anchor="end">A</text>
+    <text x="30" y="8">B</text>
+    <text x="92" y="42">C</text>
+    <line x1="30" y1="10" x2="30" y2="40" fill="none" stroke="black" stroke-width="0.5" />
+    <text x="32" y="38">D</text>
+  </svg>
+
+  $$
+  \begin{multline}
+  \sin{ \left( \angle CAB \right) } = \frac{\overline{BD}}{\overline{AB}} \\
+  \left( \overline{AB} \right) \left( \sin{ \left( \angle CAB \right) } \right) = \overline{BD} \\
+  \sin{ \left( \angle BCA \right) } = \frac{\overline{BD}}{\overline{BC}} \\
+  \left( \overline{BC} \right) \left( \sin{ \left( \angle BCA \right) } \right) = \overline{BD} \\
+  \left( \overline{AB} \right) \left( \sin{ \left( \angle CAB \right) } \right)
+    = \left( \overline{BC} \right) \left( \sin{ \left( \angle BCA \right) } \right) \\
+  \sin{ \left( \angle CAB \right) }
+    = \frac
+      {\left( \overline{BC} \right) \left( \sin{ \left( \angle BCA \right) } \right)}
+      {\overline{AB}} \\
+  \frac
+    {\sin{ \left( \angle CAB \right) }}
+    {\overline{BC}}
+    = \frac
+      {\sin{ \left( \angle BCA \right) }}
+      {\overline{AB}}
+  \end{multline}
+  $$
+
+  </div>
+</details>
