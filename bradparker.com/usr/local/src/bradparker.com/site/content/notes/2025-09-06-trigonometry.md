@@ -8,7 +8,13 @@ description: |
 
 <script id="utils">
   const round = (n, p = 1000000000) =>
-    Math.round(n * p) / p
+    Math.round(n * p) / p;
+
+  const degToRad = (deg) =>
+    (deg/360) * 2 * Math.PI;
+
+  const partition = (arr, p) =>
+    arr.reduce((acc, e) => (p(e) ? acc[0].push(e) : acc[1].push(e), acc), [[], []]);
 
   const onReady = (main) => {
     if (document.readyState === "loading") {
@@ -676,7 +682,7 @@ $$
 a^2 = b^2 + c^2 - 2bc\cos\alpha
 $$
 
-<details open="open">
+<details>
   <summary>
     Proof
   </summary>
@@ -751,3 +757,275 @@ $$
   </figure>
   </div>
 </details>
+
+## Triangle calculator
+
+<svg viewBox="0 0 100 100">
+  <style>
+    text { font: italic 6px serif; }
+  </style>
+  <polygon
+    fill="none"
+    stroke="black"
+    stroke-width="0.5"
+    points="
+      10,90
+      50,10
+      90,90
+    "
+  />
+  <text x="8" y="92" text-anchor="end">A</text>
+  <text x="15" y="87" text-anchor="start">&alpha;</text>
+  <text x="75" y="47" text-anchor="middle">a</text>
+  <text x="50" y="8" text-anchor="middle">C</text>
+  <text x="50" y="20" text-anchor="middle">&gamma;</text>
+  <text x="50" y="98" text-anchor="middle">c</text>
+  <text x="92" y="92">B</text>
+  <text x="84" y="86" text-anchor="end">&beta;</text>
+  <text x="25" y="47" text-anchor="middle">b</text>
+</svg>
+
+<div class="founders-grotesk flex gap-3">
+  <label class="founders-grotesk block w-full">
+    &alpha; (&deg;)
+    <input
+      class="p-2 rounded-lg ba b--gray w-full"
+      name="triangle[alpha]"
+      type="number"
+      step="1"
+    />
+  </label>
+  <label class="founders-grotesk block w-full">
+    <em>a</em>
+    <input
+      class="p-2 rounded-lg ba b--gray w-full"
+      name="triangle[a]"
+      type="number"
+      step="1"
+    />
+  </label>
+</div>
+
+<div class="founders-grotesk flex gap-3">
+  <label class="founders-grotesk block w-full">
+    &beta; (&deg;)
+    <input
+      class="p-2 rounded-lg ba b--gray w-full"
+      name="triangle[beta]"
+      type="number"
+      step="1"
+    />
+  </label>
+  <label class="founders-grotesk block w-full">
+    <em>b</em>
+    <input
+      class="p-2 rounded-lg ba b--gray w-full"
+      name="triangle[b]"
+      type="number"
+      step="1"
+    />
+  </label>
+</div>
+
+<div class="founders-grotesk flex gap-3">
+  <label class="founders-grotesk block w-full">
+    &gamma; (&deg;)
+    <input
+      class="p-2 rounded-lg ba b--gray w-full"
+      name="triangle[gamma]"
+      type="number"
+      step="1"
+    />
+  </label>
+  <label class="founders-grotesk block w-full">
+    <em>c</em>
+    <input
+      class="p-2 rounded-lg ba b--gray w-full"
+      name="triangle[c]"
+      type="number"
+      step="1"
+    />
+  </label>
+</div>
+
+<script type="module">
+  onReady(() => {
+    const alphaInput = document.querySelector("input[name='triangle[alpha]']");
+    const aInput = document.querySelector("input[name='triangle[a]']");
+    const betaInput = document.querySelector("input[name='triangle[beta]']");
+    const bInput = document.querySelector("input[name='triangle[b]']");
+    const gammaInput = document.querySelector("input[name='triangle[gamma]']");
+    const cInput = document.querySelector("input[name='triangle[c]']");
+
+    const inputs = [
+      alphaInput,
+      aInput,
+      betaInput,
+      bInput,
+      gammaInput,
+      cInput
+    ];
+
+    const inputActive = (input) =>
+      !input.disabled && input.value !== ""
+
+    const complete = ({
+      alpha,
+      a,
+      beta,
+      b,
+      gamma,
+      c
+    }) => {
+      if (alpha !== null && a !== null) {
+        const ratio = Math.sin(degToRad(alpha)) / a;
+
+        if (beta !== null) {
+          const b = Math.sin(degToRad(beta)) / ratio;
+          const gamma = 180 - alpha - beta;
+          const c = Math.sin(degToRad(gamma)) / ratio;
+
+          return {
+            alpha,
+            a,
+            beta,
+            b,
+            gamma,
+            c
+          };
+        } else if (gamma !== null) {
+          const c = Math.sin(degToRad(gamma)) / ratio;
+          const beta = 180 - alpha - gamma;
+          const b = Math.sin(degToRad(beta)) / ratio;
+
+          return {
+            alpha,
+            a,
+            beta,
+            b,
+            gamma,
+            c
+          };
+        }
+      } else if (beta !== null && b !== null) {
+        const ratio = Math.sin(degToRad(beta)) / b;
+
+        if (alpha !== null) {
+          const a = Math.sin(degToRad(alpha)) / ratio;
+          const gamma = 180 - alpha - beta;
+          const c = Math.sin(degToRad(gamma)) / ratio;
+
+          return {
+            alpha,
+            a,
+            beta,
+            b,
+            gamma,
+            c
+          };
+        } else if (gamma !== null) {
+          const c = Math.sin(degToRad(gamma)) / ratio;
+          const alpha = 180 - beta - gamma;
+          const a = Math.sin(degToRad(alpha)) / ratio;
+
+          return {
+            alpha,
+            a,
+            beta,
+            b,
+            gamma,
+            c
+          };
+        }
+      } else if (gamma !== null && c !== null) {
+        const ratio = Math.sin(degToRad(gamma)) / c;
+
+        if (alpha !== null) {
+          const a = Math.sin(degToRad(alpha)) / ratio;
+          const beta = 180 - alpha - gamma;
+          const b = Math.sin(degToRad(beta)) / ratio;
+
+          return {
+            alpha,
+            a,
+            beta,
+            b,
+            gamma,
+            c
+          };
+        } else if (beta !== null) {
+          const b = Math.sin(degToRad(beta)) / ratio;
+          const alpha = 180 - beta - gamma;
+          const a = Math.sin(degToRad(alpha)) / ratio;
+
+          return {
+            alpha,
+            a,
+            beta,
+            b,
+            gamma,
+            c
+          };
+        }
+      }
+    }
+
+    const calculate = () => {
+      const {
+        alpha,
+        a,
+        beta,
+        b,
+        gamma,
+        c
+      } = complete({
+        alpha: inputActive(alphaInput) ? parseInt(alphaInput.value, 10) : null,
+        a: inputActive(aInput) ? parseInt(aInput.value, 10) : null,
+        beta: inputActive(betaInput) ? parseInt(betaInput.value, 10): null,
+        b: inputActive(bInput) ? parseInt(bInput.value, 10) : null,
+        gamma: inputActive(gammaInput) ? parseInt(gammaInput.value, 10) : null,
+        c: inputActive(cInput) ? parseInt(cInput.value, 10) : null,
+      });
+
+      alphaInput.value = alpha;
+      aInput.value = a;
+      betaInput.value = beta;
+      bInput.value = b;
+      gammaInput.value = gamma;
+      cInput.value = c;
+    }
+
+    const update = () => {
+      const [filled, empty] = partition(inputs, input => !input.disabled && input.value !== "");
+
+      console.log(filled, empty);
+
+      if (filled.length === 3) {
+        calculate();
+        empty.forEach(input => {
+          input.setAttribute("disabled", "disabled");
+          input.setAttribute("readonly", "readonly");
+        });
+      }
+    }
+
+    const handleChange = ({ target }) => {
+      console.log(target.value);
+
+      if (target.value === "") {
+        inputs.forEach(input => {
+          input.value = "";
+          input.removeAttribute("readonly");
+          input.removeAttribute("disabled");
+        });
+      } else {
+        update();
+      }
+    }
+
+    inputs.forEach((input) => {
+      input.value = "";
+      input.addEventListener("change", handleChange)
+    });
+  });
+</script>
