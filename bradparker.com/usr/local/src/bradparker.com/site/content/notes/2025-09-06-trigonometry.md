@@ -645,11 +645,11 @@ $$
 
 ## Law of cosines
 
-Given a triangle $ABC$.
+Given a triangle $ABC$. With lines $a = \overline{BC}$, $b = \overline{CA}$ and $c = \overline{AB}$; and angles $\alpha = \angle CAB$, $\beta = \angle ABC$ and $\gamma = \angle BCA$.
 
-<svg viewBox="0 0 100 50">
+<svg viewBox="0 0 100 52">
   <style>
-    text { font: italic 8px serif; }
+    text { font: italic 6px serif; }
   </style>
   <polygon
     fill="none"
@@ -662,30 +662,32 @@ Given a triangle $ABC$.
     "
   />
   <text x="8" y="42" text-anchor="end">A</text>
-  <text x="30" y="8">B</text>
-  <text x="92" y="42">C</text>
+  <text x="15" y="38" text-anchor="start">&alpha;</text>
+  <text x="62" y="22" text-anchor="middle">a</text>
+  <text x="30" y="8" text-anchor="middle">C</text>
+  <text x="30" y="20" text-anchor="middle">&gamma;</text>
+  <text x="50" y="48" text-anchor="middle">c</text>
+  <text x="92" y="42">B</text>
+  <text x="72" y="37" text-anchor="end">&beta;</text>
+  <text x="15" y="25" text-anchor="middle">b</text>
 </svg>
 
 $$
-\overline{BC}^2 = \overline{AB}^2 + \overline{CA}^2 -
-  2
-    \left( \overline{AB} \right)
-    \left( \overline{CA} \right)
-    \left( \cos \left( \angle ABC \right) \right)
+a^2 = b^2 + c^2 - 2bc\cos\alpha
 $$
 
-<details>
+<details open="open">
   <summary>
     Proof
   </summary>
 
   <div class="p-4 rounded-lg ba b--light-gray markdown">
 
-  Given a line $\overline{BD}$ perpendicular to, and meeting, $\overline{AC}$.
+  Given a line $x = \overline{BD}$ perpendicular to, and meeting, $b = \overline{AC}$.
 
-  <svg viewBox="0 0 100 50">
+  <svg viewBox="0 0 100 52">
     <style>
-      text { font: italic 8px serif; }
+      text { font: italic 6px serif; }
     </style>
     <polygon
       fill="none"
@@ -698,55 +700,51 @@ $$
       "
     />
     <text x="8" y="42" text-anchor="end">A</text>
-    <text x="30" y="8">B</text>
-    <text x="92" y="42">C</text>
+    <text x="15" y="38" text-anchor="start">&alpha;</text>
+    <text x="62" y="22" text-anchor="middle">a</text>
+    <text x="30" y="8" text-anchor="middle">C</text>
+    <text x="48" y="47" text-anchor="middle">c</text>
+    <text x="92" y="42">B</text>
+    <text x="15" y="25" text-anchor="middle">b</text>
     <line x1="30" y1="10" x2="30" y2="40" fill="none" stroke="black" stroke-width="0.5" />
-    <text x="32" y="38">D</text>
+    <text x="30" y="48"  text-anchor="middle">D</text>
+    <text x="32" y="28" text-anchor="start">x</text>
   </svg>
 
   <figure class="wide">
 
   $$
   \begin{multline}
-  \cos \left( \angle CAB \right) = \frac{\overline{AD}}{\overline{AB}} \\
-  \left( \overline{AB} \right) \cos \left( \angle CAB \right) = \overline{AD} \\
-  \overline{CD} = \overline{CA} - \overline{AD} \\
-  \overline{CD} = \overline{CA} - \left( \overline{AB} \right) \cos \left( \angle CAB \right) \\
-  \sin \left( \angle CAB \right) = \frac
-    {\overline{BD}}
-    {\overline{AB}} \\
-  \left( \overline{AB} \right) \sin \left( \angle CAB \right) = \overline{BD} \\
-  \overline{BC}^2 = \overline{BD}^2 + \overline{CD}^2 \\
-  \overline{BC}^2
-    = \left( \left( \overline{AB} \right) \sin \left( \angle CAB \right) \right)^2 +
-      \overline{CD}^2 \\
-  \overline{BC}^2
-    = \left( \left( \overline{AB} \right) \sin \left( \angle CAB \right) \right)^2 +
-      \left( \overline{CA} - \left( \overline{AB} \right) \cos \left( \angle CAB \right) \right)^2 \\
-  \overline{BC}^2
-    = \left( \overline{AB} \right)^2 \left(\sin \left( \angle CAB \right) \right)^2 +
-      \left( \overline{CA} - \left( \overline{AB} \right) \cos \left( \angle CAB \right) \right)^2 \\
-  \overline{BC}^2
-    = \left( \overline{AB} \right)^2 \left(\sin \left( \angle CAB \right) \right)^2 +
-      \left( \overline{CA} \right)^2 - 2 \left( \overline{AB} \right) \left( \overline{CA} \right) \cos \left( \angle CAB \right) + \left( \overline{AB} \right)^2 \left( \cos \left( \angle CAB \right) \right)^2 \\
-  \overline{BC}^2
-    = \overline{AB}^2
+  \cos \alpha = \frac{\overline{AD}}{b} \\
+  b \cos \alpha = \overline{AD} \\
+  \overline{BD} = c - \overline{AD} \\
+  \overline{BD} = c - b \cos \alpha \\
+  \sin \alpha = \frac
+    {x}
+    {b} \\
+  b \sin \alpha = x \\
+  a^2 = x^2 + \overline{BD}^2 \\
+  a^2
+    = \left( b \sin \alpha \right)^2 +
+      \overline{BD}^2 \\
+  a^2
+    = \left( b \sin \alpha \right)^2 +
+      \left( c - b \cos \alpha \right)^2 \\
+  a^2
+    = b^2 \left(\sin \alpha \right)^2 +
+      \left( c - b \cos \alpha \right)^2 \\
+  a^2
+    = b^2 \left(\sin \alpha \right)^2 +
+      c^2 - 2bc\cos\alpha + b^2 \left( \cos \alpha \right)^2 \\
+  a^2
+    = b^2
         \left(
-          \left( \sin \left( \angle CAB \right) \right)^2 +
-          \left( \cos \left( \angle CAB \right) \right)^2
+          \left( \sin \alpha \right)^2 +
+          \left( \cos \alpha \right)^2
         \right) +
-      \overline{CA}^2 -
-      2
-        \left( \overline{AB} \right)
-        \left( \overline{CA} \right)
-        \cos \left( \angle CAB \right) \\
-  \overline{BC}^2
-    = \overline{AB}^2 +
-      \overline{CA}^2 -
-      2
-        \left( \overline{AB} \right)
-        \left( \overline{CA} \right)
-        \cos \left( \angle CAB \right) \\
+      c^2 -
+      2bc\cos\alpha \\
+  a^2 = b^2 + c^2 - 2bc\cos\alpha \\
   \end{multline}
   $$
 
