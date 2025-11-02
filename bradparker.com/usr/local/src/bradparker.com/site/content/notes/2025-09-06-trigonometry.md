@@ -998,8 +998,6 @@ $$
     const update = () => {
       const [filled, empty] = partition(inputs, input => !input.disabled && input.value !== "");
 
-      console.log(filled, empty);
-
       if (filled.length === 3) {
         calculate();
         empty.forEach(input => {
@@ -1010,8 +1008,6 @@ $$
     }
 
     const handleChange = ({ target }) => {
-      console.log(target.value);
-
       if (target.value === "") {
         inputs.forEach(input => {
           input.value = "";
