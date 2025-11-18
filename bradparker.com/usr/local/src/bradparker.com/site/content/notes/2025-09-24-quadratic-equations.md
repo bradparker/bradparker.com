@@ -10,7 +10,7 @@ description: |
 
 $$
 ax^2 + bx + c =
-  a \left( x + \frac{b}{2a} \right)^2 + \frac{4ac - b^2}{4a}
+  a \left( x + \frac{b}{2a} \right)^2 + c - \frac{b^2}{4a}
 $$
 
 <details>
@@ -31,6 +31,8 @@ $$
   a \left( \left( x + \frac{b}{2a} \right)^2 + \frac{a \left( 4ac - b^2 \right)}{4a^3} \right) \\
   a \left( \left( x + \frac{b}{2a} \right)^2 + \frac{4ac - b^2}{4a^2} \right) \\
   a \left( x + \frac{b}{2a} \right)^2 + \frac{4ac - b^2}{4a} \\
+  a \left( x + \frac{b}{2a} \right)^2 + \frac{4ac}{4a} - \frac{b^2}{4a} \\
+  a \left( x + \frac{b}{2a} \right)^2 + c - \frac{b^2}{4a} \\
   \end{multline}
   $$
 
