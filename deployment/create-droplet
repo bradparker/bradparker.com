@@ -7,4 +7,4 @@ doctl compute droplet create \
   --size s-1vcpu-1gb \
   --image 169860110 \
   --ssh-keys "cc:6d:07:9b:2c:69:93:a9:e5:cb:87:2c:75:f3:8a:d9" \
-  --region sgp1
+  --region syd1
