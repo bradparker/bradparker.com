@@ -32,6 +32,7 @@ executable builder
     zlib
   other-modules:
     Builder
+    Constants
     Data.Yaml.Extended
     Document
     Feed

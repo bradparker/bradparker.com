@@ -10,6 +10,7 @@
 
 module Feed (render) where
 
+import qualified Constants (baseURL)
 import Control.Applicative ((<|>))
 import qualified Data.ByteString.Lazy as LBS
 import Data.Maybe (listToMaybe)
@@ -39,11 +40,14 @@ feed posts =
       rssOther = []
     }
 
+baseURL :: Text
+baseURL = Text.pack Constants.baseURL
+
 channel :: [Post] -> RSSChannel
 channel posts =
   RSSChannel
     { rssTitle = "Brad Parker",
-      rssLink = "https://bradparker.com",
+      rssLink = "https://bradparker.id.au",
       rssDescription = "I've been making software professionally for about nine years and I really love it. I believe software has this empowering potential, I believe everyone should be able to understand it if they want to. This means I prefer open and accessible tools and standards wherever possible. It also means I try to learn in the open, sharing what I learn as I learn it.",
       rssItems = map item posts,
       rssLanguage = Nothing,
@@ -67,13 +71,13 @@ channel posts =
 
 item :: Post -> RSSItem
 item post =
-  let url = "https://bradparker.com" </> post.url
+  let url = Constants.baseURL </> post.url
    in RSSItem
         { rssItemTitle = Just (Text.pack post.title),
           rssItemLink = Just (Text.pack url),
-          rssItemDescription = Just (Markdown.toText (Markdown.absoluteUrls "https://bradparker.com" post.content)),
-          rssItemContent = Just (Markdown.toText (Markdown.absoluteUrls "https://bradparker.com" post.content)),
-          rssItemAuthor = Just "hi@bradparker.com (Brad Parker)",
+          rssItemDescription = Just (Markdown.toText (Markdown.absoluteUrls baseURL post.content)),
+          rssItemContent = Just (Markdown.toText (Markdown.absoluteUrls baseURL post.content)),
+          rssItemAuthor = Just "hi@bradparker.id.au (Brad Parker)",
           rssItemCategories = [],
           rssItemComments = Nothing,
           rssItemEnclosure = Nothing,

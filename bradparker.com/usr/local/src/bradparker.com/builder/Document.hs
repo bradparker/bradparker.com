@@ -18,6 +18,7 @@ where
 
 import Builder (Builder)
 import qualified Builder
+import Constants (baseURL)
 import Control.Monad (unless)
 import Control.Monad.Except (throwError)
 import Data.Attoparsec.Text (Parser, parseOnly, takeText)
@@ -34,9 +35,6 @@ import Text.Blaze.Html (Html, (!))
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 import qualified Text.Blaze.Internal as I
-
-baseURL :: String
-baseURL = "https://bradparker.com"
 
 addBaseURL :: String -> String
 addBaseURL = (baseURL </>) . dropDrive
@@ -120,55 +118,57 @@ component ::
   Html ->
   Html
 component props children =
-  (H.docTypeHtml ! A.lang "en") do
-    H.head do
-      H.meta ! A.charset "utf8"
-      H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1"
-      unless props.index do
-        H.meta ! A.name "robots" ! A.content "noindex"
-      for_ fonts \font -> do
-        fontPreload font
-      title_ props.title
-      me "https://bne.social/@brad"
-      me "https://social.chinwag.org/@brad"
-      me "https://github.com/bradparker"
-      H.meta ! A.name "fediverse:creator" ! A.content "@brad@chinwag.org"
-      H.meta ! A.name "og:title" ! A.content (H.stringValue props.title)
-      H.meta ! A.name "og:url" ! A.content (H.stringValue (addBaseURL props.url))
-      case props.thumbnail of
-        Nothing -> pure ()
-        Just src -> H.meta ! A.name "og:image" ! A.content (H.stringValue (addBaseURL src))
-      H.link ! A.rel "webmention" ! A.href "https://webmention.io/bradparker.com/webmention"
-      H.link ! A.rel "shortcut icon" ! A.href "/assets/images/b.svg" ! A.type_ "image/svg+xml"
-      stylesheet "/assets/stylesheets/minimal.css"
-      stylesheet "/assets/stylesheets/tachyons.min.css"
-      stylesheet "/assets/stylesheets/main.css"
+  let cannonicalURL = addBaseURL props.url
+   in (H.docTypeHtml ! A.lang "en") do
+        H.head do
+          H.meta ! A.charset "utf8"
+          H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1"
+          unless props.index do
+            H.meta ! A.name "robots" ! A.content "noindex"
+          for_ fonts \font -> do
+            fontPreload font
+          title_ props.title
+          H.meta ! A.name "cannonical" ! A.content (H.stringValue cannonicalURL)
+          me "https://bne.social/@brad"
+          me "https://social.chinwag.org/@brad"
+          me "https://github.com/bradparker"
+          H.meta ! A.name "fediverse:creator" ! A.content "@brad@chinwag.org"
+          H.meta ! A.name "og:title" ! A.content (H.stringValue props.title)
+          H.meta ! A.name "og:url" ! A.content (H.stringValue cannonicalURL)
+          case props.thumbnail of
+            Nothing -> pure ()
+            Just src -> H.meta ! A.name "og:image" ! A.content (H.stringValue (addBaseURL src))
+          H.link ! A.rel "webmention" ! A.href "https://webmention.io/bradparker.com/webmention"
+          H.link ! A.rel "shortcut icon" ! A.href "/assets/images/b.svg" ! A.type_ "image/svg+xml"
+          stylesheet "/assets/stylesheets/minimal.css"
+          stylesheet "/assets/stylesheets/tachyons.min.css"
+          stylesheet "/assets/stylesheets/main.css"
 
-    H.body do
-      (H.header ! A.class_ "bb b--near-white sticky top-0 bg-white" ! A.role "banner") do
-        (H.section ! A.class_ "mw7 center flex flex-wrap justify-between lh-copy pa3") do
-          H.section do
-            (H.a ! A.href "/" ! A.class_ "link hover-dark-green") do
-              (H.h1 ! A.class_ "f5 ma0 b dib") do
-                "Brad Parker"
-          H.nav do
-            navLink props.url "/posts" do
-              "Posts"
-            " "
-            (H.a ! A.href "/rss.xml" ! A.class_ "link hover-dark-green moon-gray") do
-              "(RSS)"
-            (H.span ! A.class_ "moon-gray") do
-              " / "
-            navLink props.url "/about" do
-              "About"
+        H.body do
+          (H.header ! A.class_ "bb b--near-white sticky top-0 bg-white" ! A.role "banner") do
+            (H.section ! A.class_ "mw7 center flex flex-wrap justify-between lh-copy pa3") do
+              H.section do
+                (H.a ! A.href "/" ! A.class_ "link hover-dark-green") do
+                  (H.h1 ! A.class_ "f5 ma0 b dib") do
+                    "Brad Parker"
+              H.nav do
+                navLink props.url "/posts" do
+                  "Posts"
+                " "
+                (H.a ! A.href "/rss.xml" ! A.class_ "link hover-dark-green moon-gray") do
+                  "(RSS)"
+                (H.span ! A.class_ "moon-gray") do
+                  " / "
+                navLink props.url "/about" do
+                  "About"
 
-      children
+          children
 
-      (H.footer ! A.class_ "bt b--near-white") do
-        (H.section ! A.class_ "mw7 center pa3 lh-copy") do
-          ( H.a
-              ! A.href "http://github.com/bradparker/bradparker.com"
-              ! A.class_ "link hover-dark-green underline"
-            )
-            do
-              "Source"
+          (H.footer ! A.class_ "bt b--near-white") do
+            (H.section ! A.class_ "mw7 center pa3 lh-copy") do
+              ( H.a
+                  ! A.href "http://github.com/bradparker/bradparker.com"
+                  ! A.class_ "link hover-dark-green underline"
+                )
+                do
+                  "Source"

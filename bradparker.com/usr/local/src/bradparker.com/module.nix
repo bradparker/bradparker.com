@@ -109,9 +109,9 @@ in
             email = "hi@bradparker.com";
             extraDomainNames = [
               "next.${serverName}"
+              "bradparker.au"
               "bradparker.id.au"
               "bradparker.net"
-              "bradparker.com.au"
               "bradparker.net.au"
             ];
             keyType = "rsa4096";
