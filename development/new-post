@@ -3,7 +3,7 @@
 set -exu
 
 title=$1
-kind=$2
+kind=${2:-"post"}
 base_directory="bradparker.com/usr/local/src/bradparker.com/site/content/"
 
 case $kind in
@@ -18,5 +18,9 @@ esac
 cat > "${directory}/$(date --iso-8601)-$(echo "$title" | tr -d "," | tr " [:upper:]" "-[:lower:]").md" <<EOF
 ---
 title: $title
+description: |
+  Description...
+tags:
+  - Tag
 ---
 EOF
