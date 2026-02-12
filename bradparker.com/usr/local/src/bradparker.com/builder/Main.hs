@@ -33,9 +33,19 @@ main :: IO ()
 main = do
   config <- getConfig
   build config do
-    traverse_ copyFile =<< getDirectoryFiles ["assets/**/*.*", "static/**/*.*", "content/posts/**/assets/**/*.*"]
+    traverse_ copyFile
+      =<< getDirectoryFiles
+        [ "assets/**/*.*",
+          "static/**/*.*",
+          "content/posts/**/assets/**/*.*",
+          "content/notes/**/assets/**/*.*"
+        ]
 
-    (posts, drafts) <- Posts.fromFiles =<< getDirectoryFiles ["content/posts/*.md"]
+    (posts, drafts) <-
+      Posts.fromFiles
+        =<< getDirectoryFiles
+          [ "content/posts/*.md"
+          ]
 
     traverse_ (toFile <$> (.url) <*> Post.render) drafts
     traverse_ (toFile <$> (.url) <*> Post.render) posts
@@ -52,7 +62,11 @@ main = do
     resume <- Page.fromFile "content/resume.html" "/resume"
     toFile resume.url (Page.render resume)
 
-    notes <- traverse (Post.fromFileToNamespace "notes") =<< getDirectoryFiles ["content/notes/*.md"]
+    notes <-
+      traverse (Post.fromFileToNamespace "notes")
+        =<< getDirectoryFiles
+          [ "content/notes/*.md"
+          ]
     traverse_ (toFile <$> (.url) <*> Post.render) notes
 
     traverse_ (outputFile "rss.xml") (Feed.render posts)
