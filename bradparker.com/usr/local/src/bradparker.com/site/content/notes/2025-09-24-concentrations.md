@@ -147,5 +147,3 @@ v_a &= \frac{v(c - c_b)}{c_a - c_b} \\
     &= \frac{c v}{c_a}
 \end{align*}
 $$
-
-It looks like we only ever need to know two concentrations, and two volumes, to work everything else out.
