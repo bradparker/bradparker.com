@@ -1,2 +1,2 @@
-site: fd '.md|.css|.hs|.html' {site,builder} | entr cabal new-run builder -- --input site --input $VENDOR_ASSETS --output dist-site
+site: fd '.md|.css|.hs|.html|.js' {site,builder} | entr cabal new-run builder -- --input site --input $VENDOR_ASSETS --output dist-site
 server: WEB_ROOT=dist-site cabal new-run server -- --protocol http --port 8080
