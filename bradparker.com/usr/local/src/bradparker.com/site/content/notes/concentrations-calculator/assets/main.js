@@ -112,31 +112,37 @@ const main = () => {
     if (!completion) return;
 
     const value = round(completion.complete(values));
+
+    if (Number.isNaN(value) || value < 0) return;
+
     inputs[name].value = value;
   }
 
-  const complete = () => {
-    const start = new Set(Object.keys(currentValues()));
+  const complete = (triggeringInputName) => {
+    const start = currentValues();
 
-    const emptyInputNames = Object.keys(
-      filterObject(
-        (_, v) => isEmptyInput(v),
-        inputs,
-      ),
-    );
+    const otherInputNames = Object
+      .keys(inputs)
+      .filter(k => k !== triggeringInputName);
 
-    emptyInputNames.forEach(completeInput);
+    otherInputNames.forEach(completeInput);
 
-    const end = new Set(Object.keys(currentValues()));
-    const changed = end.difference(start);
+    const end = currentValues();
+    const changed = Object
+      .entries(end)
+      .filter(([k, v]) => start[k] !== v);
 
-    if (changed.size === 0) return;
+    if (changed.length === 0) return;
 
-    complete();
+    complete(triggeringInputName);
   };
 
+  const handleChange = (event) => {
+    complete(event.target.name);
+  }
+
   Object.values(inputs).forEach(input => {
-    input.addEventListener("change", complete);
+    input.addEventListener("change", handleChange);
   });
 
   document.getElementById("reset").addEventListener("click", () => {
