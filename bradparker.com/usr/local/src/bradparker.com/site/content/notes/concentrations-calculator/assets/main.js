@@ -63,6 +63,13 @@ const completions = {
       },
     },
     {
+      needs: new Set(["v_b", "c_b", "c", "c_a"]),
+      complete({ v_b, c_b, c, c_a }) {
+        if (c === c_b) return null;
+        return (-v_b * (c_b - c)) / (c_a - c);
+      },
+    },
+    {
       needs: new Set(["v", "c", "c_a", "c_b"]),
       complete({ v, c, c_a, c_b }) {
         if (c_a === c_b) return null;
@@ -85,6 +92,13 @@ const completions = {
       complete({ v, v_a }) {
         if (v < v_a) return null;
         return v - v_a;
+      },
+    },
+    {
+      needs: new Set(["v_a", "c_a", "c", "c_b"]),
+      complete({ v_a, c_a, c, c_b }) {
+        if (c === c_a) return null;
+        return (-v_a * (c_a - c)) / (c_b - c);
       },
     },
     {

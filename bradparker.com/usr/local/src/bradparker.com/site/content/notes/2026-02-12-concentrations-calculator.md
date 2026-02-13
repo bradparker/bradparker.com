@@ -6,12 +6,11 @@ tags:
   - Maffs
 ---
 
-This is wildly hard to use once filled in. Best to empty everything and start again. It's like using a poorly implemented spread sheet where every cell is simultaneously a value and a formula.
+This is wildly hard to use once filled in. Best to empty everything, or hard refresh, and start again. It's like using a poorly implemented spread sheet where every cell is simultaneously a value and a formula.
 
 Given that $v = v_a + v_b$...
 
 <div class="founders-grotesk flex gap-3">
-
   <label>
     <em>c<sub>a</sub></em>
     <input

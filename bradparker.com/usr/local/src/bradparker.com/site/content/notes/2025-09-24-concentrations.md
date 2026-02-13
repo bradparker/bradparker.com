@@ -76,6 +76,12 @@ c_a &= c
 \end{align*}
 $$
 
+Volume $v_b$ where $v$ is unknown.
+
+$$
+v_b = \frac{-v_a(c_a - c)}{c_b - c}
+$$
+
 ## Implied concentrations
 
 The final concentration where any two volumes and both initial concentrations are known. (E.G. What would be the concentration of a solution created by mixing $v_a \text{L}$ of a solution at $c_a \frac{\text{mol}}{\text{L}}$ and $v_b \text{L}$ of a solution at $c_b \frac{\text{mol}}{\text{L}}$?)
