@@ -57,7 +57,7 @@ $$
 \end{Bmatrix}
 $$
 
-Right, so many elements does this set have? How many unique subsets of three unique elements are there? To find the answer I ended up stumbling into binomial coefficients, the below represents my back-tracking after I read a bit about them, to try and explain it to myself step by step.
+Right, so how many elements does this set have? How many unique subsets of three unique elements are there? To find the answer I ended up stumbling into binomial coefficients, the below represents my back-tracking after I read a bit about them, to try and explain it to myself step by step.
 
 ## K-permutations
 
@@ -72,7 +72,7 @@ $$
 \end{Bmatrix}
 $$
 
-And then chop off however many elements I need to in order to trim them down to three elements each...
+And then chop off however many elements I need to in order to trim each permutation down to three elements each...
 
 $$
 \begin{Bmatrix}
