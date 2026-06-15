@@ -1,7 +1,11 @@
 ---
 title: Sick kids and travelling through grids
+published: 2026-06-15
+thumbnail: /content/posts/sick-kids-and-travelling-through-grids/assets/images/ETH-BIB-Ruinen_von_Timgad-Mittelmeerflug_1928-LBS_MH02-04-0169.tif.jpg
 description: |
-  In solving a Project Euler puzzle I found out about binomial coefficients. Years later my kid spent a sick-day on the couch binging TV and in taking care of him my mind wandered off a bit.
+  In solving a Project Euler puzzle I found out about binomial coefficients. Years later my kid spent a sick-day on the couch binging TV and in joining in, ostensibly to take care of him, my mind wandered off a bit.
+
+  ![The ruins of Timgad](/content/posts/sick-kids-and-travelling-through-grids/assets/images/ETH-BIB-Ruinen_von_Timgad-Mittelmeerflug_1928-LBS_MH02-04-0169.tif.jpg)
 tags:
   - Mathematics
 ---
@@ -20,7 +24,7 @@ Here is a map of archaeological sites at Timgad, you can click through for the f
 
 <figcaption>
 
-Source: [Timgad archaeological sites map - Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Timgad_archaeological_sites_map-en.svg). Used under the conditions of the the [Creative Commons](https://en.wikipedia.org/wiki/en:Creative_Commons) [Attribution-Share Alike 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/deed.en) licence.
+Source: [Timgad archaeological sites map - Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Timgad_archaeological_sites_map-en.svg). Used under the conditions of the [Creative Commons](https://en.wikipedia.org/wiki/en:Creative_Commons) [Attribution-Share Alike 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/deed.en) licence.
 
 </figcaption>
 
@@ -150,4 +154,4 @@ $$
 
 If imaginary 1,500 years-ago me made a bit of a daily routine of casually, but directly, strolling from the baths to the library I could take a unique route each day without repeating for 35 days. There's a thought.
 
-As it stands I reckon I'm happy here in the present day, catching up with [Ubercorn](https://gojetters.fandom.com/wiki/Ubercorn) and friends.
+As it stands I reckon I'm happy here in the present day, where me and my kid get to enjoy an ample supply of [Ubercorn's](https://gojetters.fandom.com/wiki/Ubercorn) "Funky Facts".
