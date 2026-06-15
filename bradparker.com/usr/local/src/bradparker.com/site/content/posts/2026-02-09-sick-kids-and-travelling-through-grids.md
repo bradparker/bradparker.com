@@ -1,7 +1,7 @@
 ---
 title: Sick kids and travelling through grids
 description: |
-  ...
+  In solving a Project Euler puzzle I found out about binomial coefficients. Years later my kid spent a sick-day on the couch binging TV and in taking care of him my mind wandered off a bit.
 tags:
   - Mathematics
 ---
