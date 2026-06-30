@@ -4,9 +4,10 @@ let
   fira = sources.Fira;
   tachyons = sources.tachyons;
   minimal-css = sources."minimal.css";
+  three-js = sources."three.js";
 in
   stdenv.mkDerivation {
-    name = "bradparker-com-fonts";
+    name = "bradparker-com-vendor-assets";
     version = "1.0.0";
     src = ./.;
     installPhase = ''
@@ -24,5 +25,9 @@ in
       mkdir -p $out/assets/stylesheets
       cp ${tachyons}/css/tachyons.min.css $out/assets/stylesheets/
       cp ${minimal-css}/minimal.css $out/assets/stylesheets/
+
+      mkdir -p $out/assets/javascript
+      cp ${three-js}/build/three.core.js $out/assets/javascript/
+      cp ${three-js}/build/three.module.js $out/assets/javascript/
     '';
   }

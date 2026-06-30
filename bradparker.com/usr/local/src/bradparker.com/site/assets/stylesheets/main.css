@@ -719,6 +719,8 @@ details[open] summary::before {
 
 .overflow-y-hidden { overflow-y: hidden; }
 
+.overflow-hidden { overflow: hidden; }
+
 /* Lists */
 
 .list-none { list-style-type: none; }

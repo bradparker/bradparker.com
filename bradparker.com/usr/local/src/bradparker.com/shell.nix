@@ -9,6 +9,7 @@ in
     nativeBuildInputs = with nixpkgs; [
       cabal-install
       entr
+      niv
       nodePackages.prettier
       overmind
     ];

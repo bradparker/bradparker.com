@@ -46,5 +46,17 @@
         "type": "tarball",
         "url": "https://github.com/tachyons-css/tachyons/archive/139156c724f8b3e4155ca75d8e353a172c541c36.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "three.js": {
+        "branch": "dev",
+        "description": "JavaScript 3D Library.",
+        "homepage": "https://threejs.org/",
+        "owner": "mrdoob",
+        "repo": "three.js",
+        "rev": "a441be8da6c4b23a16a56901f84367a125e9c7d9",
+        "sha256": "0vvr76cf24zfyshwi43z4xiqak5vn2rfa0bqy5l5ssp9k6kp8d05",
+        "type": "tarball",
+        "url": "https://github.com/mrdoob/three.js/archive/a441be8da6c4b23a16a56901f84367a125e9c7d9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
