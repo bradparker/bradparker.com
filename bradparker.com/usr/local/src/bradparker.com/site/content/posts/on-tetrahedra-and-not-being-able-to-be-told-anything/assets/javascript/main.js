@@ -1,15 +1,18 @@
 import {
-  TetrahedronGeometry,
-  Scene,
-  PerspectiveCamera,
-  WebGLRenderer,
-  MeshPhongMaterial,
-  Mesh,
   Color,
-  PointLight,
-  AmbientLight,
   DoubleSide,
-} from "/assets/javascript/three.module.js";
+  Group,
+  LineBasicMaterial,
+  LineSegments,
+  Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  PolyhedronGeometry,
+  Scene,
+  WebGLRenderer,
+  WireframeGeometry,
+} from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 const mount = document.getElementById("scene");
 
@@ -30,28 +33,51 @@ renderer.setSize(mount.clientWidth, mount.clientHeight);
 renderer.setAnimationLoop(animate);
 mount.appendChild(renderer.domElement);
 
-const pointLight = new PointLight(0xFFFFFF, 200);
-pointLight.position.set(0, 10, 5);
-scene.add(pointLight);
+const controls = new OrbitControls( camera, renderer.domElement );
+controls.enablePan = false;
+controls.enableZoom = false;
 
-const ambientLight = new AmbientLight(0xFFFFFF, 1);
-scene.add(ambientLight);
+const polyhedronGeo = new PolyhedronGeometry(
+  [
+     1,  1,  1,
+    -1, -1,  1,
+    -1,  1, -1,
+     1, -1, -1
+  ],
+  [
+    2, 1, 0,
+    0, 3, 2,
+    1, 3, 0,
+    2, 3, 1,
+  ],
+  1,
+  0,
+);
+const solid = new Mesh(
+  polyhedronGeo,
+  new MeshBasicMaterial({
+    color: 0xFFFFFF,
+    transparent: true,
+    opacity: 0.6,
+    side: DoubleSide,
+  }),
+);
 
-const geometry = new TetrahedronGeometry();
-const material = new MeshPhongMaterial({
-  color: 0x137752,
-  opacity: 0.50,
-  transparent: true,
-  depthWrite: false,
-  side: DoubleSide,
-});
-const tetrahedron = new Mesh(geometry, material);
+const wireframeGeo = new WireframeGeometry(polyhedronGeo);
+const wireframe = new LineSegments(
+  wireframeGeo,
+  new LineBasicMaterial({
+    color: 0x000000,
+  }),
+);
 
+const tetrahedron = new Group();
+tetrahedron.add(solid);
+tetrahedron.add(wireframe);
 scene.add(tetrahedron);
 
 function animate(time) {
-  tetrahedron.rotation.x = time / 2000;
-  tetrahedron.rotation.y = time / 1000;
+  tetrahedron.rotation.y = time / 2000;
 
   renderer.render(scene, camera);
 }

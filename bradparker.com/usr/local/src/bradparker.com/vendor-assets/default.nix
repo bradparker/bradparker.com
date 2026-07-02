@@ -29,5 +29,6 @@ in
       mkdir -p $out/assets/javascript
       cp ${three-js}/build/three.core.js $out/assets/javascript/
       cp ${three-js}/build/three.module.js $out/assets/javascript/
+      cp -R ${three-js}/examples/jsm $out/assets/javascript/three.js
     '';
   }

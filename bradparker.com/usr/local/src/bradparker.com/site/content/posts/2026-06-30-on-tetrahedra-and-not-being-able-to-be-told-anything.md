@@ -12,6 +12,15 @@ tags:
   class="rounded-lg border overflow-hidden">
 </div>
 
+<script type="importmap">
+  {
+    "imports": {
+      "three": "/assets/javascript/three.module.js",
+      "three/addons/": "/assets/javascript/three.js/"
+    }
+  }
+</script>
+
 <script
   async
   type="module"
