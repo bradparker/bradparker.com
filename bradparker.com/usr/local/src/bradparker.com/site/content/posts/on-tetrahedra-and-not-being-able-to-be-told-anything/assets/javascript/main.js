@@ -1,11 +1,9 @@
 import {
   Color,
-  DoubleSide,
+  Fog,
   Group,
   LineBasicMaterial,
   LineSegments,
-  Mesh,
-  MeshBasicMaterial,
   PerspectiveCamera,
   PolyhedronGeometry,
   Scene,
@@ -25,6 +23,7 @@ const camera = new PerspectiveCamera(
   0.1,
   50,
 );
+camera.position.y = 3;
 camera.position.z = 5;
 
 const renderer = new WebGLRenderer({ antialias: true });
@@ -37,12 +36,14 @@ const controls = new OrbitControls( camera, renderer.domElement );
 controls.enablePan = false;
 controls.enableZoom = false;
 
+const fog = new Fog(0xFFFFFF, 3, 8);
+
 const polyhedronGeo = new PolyhedronGeometry(
   [
-     1,  1,  1,
-    -1, -1,  1,
-    -1,  1, -1,
-     1, -1, -1
+     0,               Math.sqrt(6)/4,   0,
+     Math.sqrt(3)/3, -Math.sqrt(6)/12,  0,
+    -Math.sqrt(3)/6, -Math.sqrt(6)/12, -1/2,
+    -Math.sqrt(3)/6, -Math.sqrt(6)/12,  1/2
   ],
   [
     2, 1, 0,
@@ -53,28 +54,21 @@ const polyhedronGeo = new PolyhedronGeometry(
   1,
   0,
 );
-const solid = new Mesh(
-  polyhedronGeo,
-  new MeshBasicMaterial({
-    color: 0xFFFFFF,
-    transparent: true,
-    opacity: 0.6,
-    side: DoubleSide,
-  }),
-);
 
 const wireframeGeo = new WireframeGeometry(polyhedronGeo);
 const wireframe = new LineSegments(
   wireframeGeo,
   new LineBasicMaterial({
     color: 0x000000,
+    fog: true,
   }),
 );
 
 const tetrahedron = new Group();
-tetrahedron.add(solid);
 tetrahedron.add(wireframe);
 scene.add(tetrahedron);
+
+scene.fog = fog;
 
 function animate(time) {
   tetrahedron.rotation.y = time / 2000;
