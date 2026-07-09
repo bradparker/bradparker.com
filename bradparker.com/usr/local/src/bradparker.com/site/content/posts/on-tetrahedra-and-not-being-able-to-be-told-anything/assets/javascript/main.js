@@ -1,5 +1,6 @@
 import {
   BufferGeometry,
+  CircleGeometry,
   Color,
   DoubleSide,
   Fog,
@@ -12,11 +13,14 @@ import {
   PerspectiveCamera,
   PolyhedronGeometry,
   Scene,
+  ShapeGeometry,
   Vector3,
   WebGLRenderer,
   WireframeGeometry,
 } from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { Font } from "three/addons/loaders/FontLoader.js";
+import helvetikerRegularFont from "../fonts/helvetiker_regular.typeface.json" with { type: "json" };
 
 const mount = document.getElementById("scene");
 
@@ -29,8 +33,7 @@ const camera = new PerspectiveCamera(
   0.1,
   50,
 );
-camera.position.y = 2;
-camera.position.z = 2.5;
+camera.position.set(0, 2, 3);
 
 const renderer = new WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -38,11 +41,11 @@ renderer.setSize(mount.clientWidth, mount.clientHeight);
 renderer.setAnimationLoop(animate);
 mount.appendChild(renderer.domElement);
 
-const controls = new OrbitControls( camera, renderer.domElement );
+const controls = new OrbitControls(camera, renderer.domElement);
 controls.enablePan = false;
 controls.enableZoom = false;
 
-const fog = new Fog(0xFFFFFF, 1.75, 4.5);
+const fog = new Fog(0xFFFFFF, 2.5, 5);
 
 const radius = Math.sqrt(6)/4;
 const vertexVectors = [
@@ -57,7 +60,7 @@ const lineMaterial = new LineBasicMaterial({
   fog: true,
 });
 
-const polyhedronGeo = new PolyhedronGeometry(
+const tetrahedronGeo = new PolyhedronGeometry(
   vertexVectors.flatMap(v => v.toArray()),
   [
     2, 1, 0,
@@ -68,7 +71,7 @@ const polyhedronGeo = new PolyhedronGeometry(
   radius,
   0,
 );
-const wireframeGeo = new WireframeGeometry(polyhedronGeo);
+const wireframeGeo = new WireframeGeometry(tetrahedronGeo);
 const wireframe = new LineSegments(
   wireframeGeo,
   lineMaterial,
@@ -99,18 +102,82 @@ const triangle = new Mesh(
   }),
 );
 
+const angle = new Mesh(
+  new CircleGeometry(
+    radius / 3, 32,
+    -2 * Math.acos(Math.sqrt(3)/3) + Math.PI/2,
+    2 * Math.acos(Math.sqrt(3)/3),
+  ),
+  new MeshBasicMaterial({
+    color: 0xFF6300,
+    transparent: true,
+    opacity: 0.25,
+    side: DoubleSide,
+    fog: false,
+  })
+);
+
+const font = new Font(helvetikerRegularFont);
+
+const label = (content, position) => {
+  const shapes = font.generateShapes(content, 0.06);
+  const geometry = new ShapeGeometry(shapes);
+  geometry.computeBoundingBox();
+  const { boundingBox } = geometry;
+  geometry.translate(
+    -0.5 * (boundingBox.max.x - boundingBox.min.x),
+    -0.5 * (boundingBox.max.y - boundingBox.min.y),
+    0
+  );
+  const mesh = new Mesh(
+    geometry,
+    new MeshBasicMaterial({
+      color: 0x000000,
+      side: DoubleSide,
+      fog: false,
+    })
+  );
+  mesh.position.copy(position);
+  return mesh;
+}
+
+const vertexLabels = [
+  label(
+    "A",
+    new Vector3(0, Math.sqrt(6)/4, 0)
+      .multiplyScalar(1.1),
+  ),
+  label(
+    "B",
+    new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, -1/2)
+      .multiplyScalar(1.1),
+  ),
+  label(
+    "C",
+    new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 1/2)
+      .multiplyScalar(1.1),
+  ),
+];
+
 const tetrahedron = new Group();
 tetrahedron.add(wireframe);
 vertexVectorLines.forEach(line => {
   tetrahedron.add(line);
 });
-tetrahedron.add(triangle);
+vertexLabels.forEach(label => {
+  tetrahedron.add(label);
+});
+// tetrahedron.add(triangle);
+tetrahedron.add(angle);
 scene.add(tetrahedron);
 
 scene.fog = fog;
 
 function animate(time) {
   tetrahedron.rotation.y = time / 2000;
+  vertexLabels.forEach(label => {
+    label.lookAt(camera.position);
+  });
 
   renderer.render(scene, camera);
 }
