@@ -24,11 +24,12 @@ import helvetikerRegularFont from "../fonts/helvetiker_regular.typeface.json" wi
 
 const radius = Math.sqrt(6)/4;
 const points = {
-  A: new Vector3(0, Math.sqrt(6)/4, 0),
+  A: new Vector3(0, radius, 0),
   B: new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, -1/2),
   C: new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 1/2),
   D: new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 0),
   E: new Vector3(Math.sqrt(3)/3, -Math.sqrt(6)/12, 0),
+  F: new Vector3(0, -(Math.sqrt(6)/3 - radius), 0)
 };
 const vertices = [
   points.A,
@@ -164,8 +165,9 @@ const createLabels = () => ({
   A: label("A", points.A.clone().multiplyScalar(1.1)),
   B: label("B", points.B.clone().multiplyScalar(1.1)),
   C: label("C", points.C.clone().multiplyScalar(1.1)),
-  D: label("D", points.D.clone().multiplyScalar(1.1)),
-  E: label("E", points.E.clone().multiplyScalar(1.1))
+  D: label("D", points.D.clone().multiplyScalar(1.2)),
+  E: label("E", points.E.clone().multiplyScalar(1.1)),
+  F: label("F", points.F.clone().multiplyScalar(1.3)),
 });
 
 const tetrahedronWireframe = (group = new Group()) =>  {
@@ -287,10 +289,8 @@ const wireFrameAndSideWithHeightScene = () => {
 
 wireFrameAndSideWithHeightScene();
 
-const wireFrameAndSliceScene = () => {
-  const group = tetrahedronWireframe();
-
-  const ade = new Mesh(
+const createSlice = () =>
+  new Mesh(
     new BufferGeometry().setFromPoints([
       points.A,
       points.D,
@@ -303,7 +303,12 @@ const wireFrameAndSliceScene = () => {
       side: DoubleSide,
       fog: false,
     }),
-  );
+  )
+
+const wireFrameAndSliceScene = () => {
+  const group = tetrahedronWireframe();
+
+  const ade = createSlice();
   group.add(ade);
 
   const { A, B, C, D, E } = createLabels();
@@ -327,3 +332,34 @@ const wireFrameAndSliceScene = () => {
 }
 
 wireFrameAndSliceScene();
+
+const wireFrameAndSliceWithHeightScene = () => {
+  const group = tetrahedronWireframe();
+
+  const ade = createSlice();
+  group.add(ade);
+
+  const { A, B, C, D, E, F } = createLabels();
+  const labels = [A, B, C, D, E, F];
+  labels.forEach(label => {
+    group.add(label);
+  });
+
+  const ad = line(points.A, points.D);
+  group.add(ad);
+
+  const de = line(points.D, points.E);
+  group.add(de);
+
+  const af = line(points.A, points.F);
+  group.add(af);
+
+  createScene("scene-wireframe-and-slice-with-height", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+    labels.forEach(label => {
+      label.lookAt(camera.position);
+    });
+  });
+}
+
+wireFrameAndSliceWithHeightScene();

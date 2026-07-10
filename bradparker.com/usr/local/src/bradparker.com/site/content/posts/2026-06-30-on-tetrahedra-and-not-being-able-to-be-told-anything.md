@@ -29,7 +29,9 @@ For the atoms I'll be concerning myself with here there are four regions in this
 
 ## A simple question
 
-This combination of attractive and competing repulsive forces ends up producing a four sided solid shape, a tetrahedron. Tetrahedral geometry appears to be a pretty big deal in chemistry, or at least the parts I've been exposed to so far. Here, look at this angle:
+This combination of attractive and competing repulsive forces ends up producing a four sided solid shape, a tetrahedron. Tetrahedral geometry appears to be a pretty big deal in chemistry, or at least the parts I've been exposed to so far.
+
+Here, look at this angle:
 
 <div
   id="scene-wireframe-and-angle"
@@ -43,7 +45,7 @@ During a lecture introducing us to molecular geometry we were told that this ang
 
 ## A _fairly_ simple answer
 
-Here's how I figured it out, more or less. Actually, a lot less, but I'll come to that later. I started by trying to extrapolate everything I could assuming that all the edges were equal to 1.
+Here's how I figured it out, more or less. Actually, a lot less, but I'll come to that later. First I assumed that all the edges were equal to 1. Why not?
 
 That makes this triangle ($\triangle{ABC}$) equilateral.
 
@@ -80,6 +82,12 @@ Tracing the same line along another side ($\triangle EBC$) produces an isosceles
 
 <div
   id="scene-wireframe-and-slice"
+  style="height: 20rem;"
+  class="rounded-lg border overflow-hidden">
+</div>
+
+<div
+  id="scene-wireframe-and-slice-with-height"
   style="height: 20rem;"
   class="rounded-lg border overflow-hidden">
 </div>
