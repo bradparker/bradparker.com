@@ -22,6 +22,21 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Font } from "three/addons/loaders/FontLoader.js";
 import helvetikerRegularFont from "../fonts/helvetiker_regular.typeface.json" with { type: "json" };
 
+const radius = Math.sqrt(6)/4;
+const points = {
+  A: new Vector3(0, Math.sqrt(6)/4, 0),
+  B: new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, -1/2),
+  C: new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 1/2),
+  D: new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 0),
+  E: new Vector3(Math.sqrt(3)/3, -Math.sqrt(6)/12, 0),
+};
+const vertices = [
+  points.A,
+  points.B,
+  points.C,
+  points.E,
+];
+
 const createScene = (id, group, animate) => {
   const mount = document.getElementById(id);
 
@@ -66,21 +81,13 @@ const createScene = (id, group, animate) => {
   );
 }
 
-const radius = Math.sqrt(6)/4;
-const vertexVectors = [
-  new Vector3( 0,               Math.sqrt(6)/4,   0),
-  new Vector3( Math.sqrt(3)/3, -Math.sqrt(6)/12,  0),
-  new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, -1/2),
-  new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12,  1/2)
-];
-
 const lineMaterial = new LineBasicMaterial({
   color: 0x000000,
   fog: true,
 });
 
 const tetrahedronGeo = new PolyhedronGeometry(
-  vertexVectors.flatMap(v => v.toArray()),
+  vertices.flatMap(v => v.toArray()),
   [
     2, 1, 0,
     0, 3, 2,
@@ -90,10 +97,10 @@ const tetrahedronGeo = new PolyhedronGeometry(
   radius,
   0,
 );
-const wireframeGeo = new WireframeGeometry(tetrahedronGeo);
-const createWireframe = () =>
+const tetrahedronWireframeGeo = new WireframeGeometry(tetrahedronGeo);
+const createTetrahedronWireframe = () =>
   new LineSegments(
-    wireframeGeo,
+    tetrahedronWireframeGeo,
     lineMaterial,
   );
 
@@ -113,7 +120,7 @@ const vectorLine = (vector, material = lineMaterial) =>
   );
 
 const createVertexVectorLines = () =>
-  vertexVectors.map(v => vectorLine(v));
+  vertices.map(v => vectorLine(v));
 
 const triangle = new Mesh(
   new BufferGeometry().setFromPoints([
@@ -154,46 +161,34 @@ const label = (content, position) => {
 }
 
 const createLabels = () => ({
-  A: label(
-    "A",
-    new Vector3(0, Math.sqrt(6)/4, 0)
-      .multiplyScalar(1.1),
-  ),
-  B: label(
-    "B",
-    new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, -1/2)
-      .multiplyScalar(1.1),
-  ),
-  C: label(
-    "C",
-    new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 1/2)
-      .multiplyScalar(1.1),
-  ),
-  D: label(
-    "D",
-    new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 0)
-      .multiplyScalar(1.1),
-  ),
-  E: label(
-    "E",
-    new Vector3( Math.sqrt(3)/3, -Math.sqrt(6)/12, 0)
-      .multiplyScalar(1.1),
-  )
+  A: label("A", points.A.clone().multiplyScalar(1.1)),
+  B: label("B", points.B.clone().multiplyScalar(1.1)),
+  C: label("C", points.C.clone().multiplyScalar(1.1)),
+  D: label("D", points.D.clone().multiplyScalar(1.1)),
+  E: label("E", points.E.clone().multiplyScalar(1.1))
 });
 
-const wireframeGroup = () => {
-  const group = new Group();
+const tetrahedronWireframe = (group = new Group()) =>  {
+  group.add(createTetrahedronWireframe());
+  return group;
+}
 
-  group.add(createWireframe());
+const vectors = (group = new Group()) => {
   createVertexVectorLines().forEach(line => {
     group.add(line);
   });
+  return group;
+}
 
+const tetrahedronWireframeWithVectors = () => {
+  const group = new Group();
+  tetrahedronWireframe(group);
+  vectors(group);
   return group;
 }
 
 const wireFrameScene = () => {
-  const group = wireframeGroup();
+  const group = tetrahedronWireframeWithVectors();
 
   createScene("scene-wireframe", group, ({ time, camera }) => {
     group.rotation.y = time / 2000;
@@ -203,7 +198,7 @@ const wireFrameScene = () => {
 wireFrameScene();
 
 const wireFrameAndAngleScene = () => {
-  const group = wireframeGroup();
+  const group = tetrahedronWireframeWithVectors();
 
   const angle = new Mesh(
     new CircleGeometry(
@@ -232,9 +227,9 @@ wireFrameAndAngleScene();
 const createSide = () =>
   new Mesh(
     new BufferGeometry().setFromPoints([
-      new Vector3(0, Math.sqrt(6)/4, 0),
-      new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, -1/2),
-      new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 1/2),
+      points.A,
+      points.B,
+      points.C,
     ]),
     new MeshBasicMaterial({
       color: 0xFF6300,
@@ -246,7 +241,7 @@ const createSide = () =>
   );
 
 const wireFrameAndSideScene = () => {
-  const group = wireframeGroup();
+  const group = tetrahedronWireframe();
 
   const side = createSide();
   group.add(side);
@@ -268,7 +263,7 @@ const wireFrameAndSideScene = () => {
 wireFrameAndSideScene();
 
 const wireFrameAndSideWithHeightScene = () => {
-  const group = wireframeGroup();
+  const group = tetrahedronWireframe();
 
   const side = createSide();
   group.add(side);
@@ -279,10 +274,7 @@ const wireFrameAndSideWithHeightScene = () => {
     group.add(label);
   });
 
-  const height = line(
-    new Vector3(0, Math.sqrt(6)/4, 0),
-    new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 0),
-  );
+  const height = line(points.A, points.D);
   group.add(height);
 
   createScene("scene-wireframe-and-side-with-height", group, ({ time, camera }) => {
@@ -294,3 +286,44 @@ const wireFrameAndSideWithHeightScene = () => {
 }
 
 wireFrameAndSideWithHeightScene();
+
+const wireFrameAndSliceScene = () => {
+  const group = tetrahedronWireframe();
+
+  const ade = new Mesh(
+    new BufferGeometry().setFromPoints([
+      points.A,
+      points.D,
+      points.E,
+    ]),
+    new MeshBasicMaterial({
+      color: 0x137752,
+      transparent: true,
+      opacity: 0.25,
+      side: DoubleSide,
+      fog: false,
+    }),
+  );
+  group.add(ade);
+
+  const { A, B, C, D, E } = createLabels();
+  const labels = [A, B, C, D, E];
+  labels.forEach(label => {
+    group.add(label);
+  });
+
+  const ad = line(points.A, points.D);
+  group.add(ad);
+
+  const de = line(points.D, points.E);
+  group.add(de);
+
+  createScene("scene-wireframe-and-slice", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+    labels.forEach(label => {
+      label.lookAt(camera.position);
+    });
+  });
+}
+
+wireFrameAndSliceScene();
