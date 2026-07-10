@@ -22,30 +22,49 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Font } from "three/addons/loaders/FontLoader.js";
 import helvetikerRegularFont from "../fonts/helvetiker_regular.typeface.json" with { type: "json" };
 
-const mount = document.getElementById("scene");
+const createScene = (id, group, animate) => {
+  const mount = document.getElementById(id);
 
-const scene = new Scene();
-scene.background = new Color(0xFFFFFF);
+  const scene = new Scene();
+  scene.background = new Color(0xFFFFFF);
 
-const camera = new PerspectiveCamera(
-  25,
-  mount.clientWidth / mount.clientHeight,
-  0.1,
-  50,
-);
-camera.position.set(0, 2, 3);
+  const camera = new PerspectiveCamera(
+    25,
+    mount.clientWidth / mount.clientHeight,
+    0.1,
+    50,
+  );
+  camera.position.set(0, 2, 3);
 
-const renderer = new WebGLRenderer({ antialias: true });
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(mount.clientWidth, mount.clientHeight);
-renderer.setAnimationLoop(animate);
-mount.appendChild(renderer.domElement);
+  const renderer = new WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(mount.clientWidth, mount.clientHeight);
+  renderer.setAnimationLoop((time) => {
+    animate({ time, camera });
+    renderer.render(scene, camera);
+  });
+  mount.appendChild(renderer.domElement);
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enablePan = false;
-controls.enableZoom = false;
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enablePan = false;
+  controls.enableZoom = false;
 
-const fog = new Fog(0xFFFFFF, 2.5, 5);
+  const fog = new Fog(0xFFFFFF, 2.5, 5);
+  scene.fog = fog;
+
+  scene.add(group);
+
+  window.addEventListener(
+    "resize",
+    function () {
+      camera.aspect = mount.clientWidth / mount.clientHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(mount.clientWidth, mount.clientHeight);
+    },
+    false,
+  );
+}
 
 const radius = Math.sqrt(6)/4;
 const vertexVectors = [
@@ -72,20 +91,29 @@ const tetrahedronGeo = new PolyhedronGeometry(
   0,
 );
 const wireframeGeo = new WireframeGeometry(tetrahedronGeo);
-const wireframe = new LineSegments(
-  wireframeGeo,
-  lineMaterial,
-);
+const createWireframe = () =>
+  new LineSegments(
+    wireframeGeo,
+    lineMaterial,
+  );
 
-const vectorLine = (vector, material = lineMaterial) =>
+const line = (start, end, material = lineMaterial) =>
   new Line(
     new BufferGeometry().setFromPoints([
-      new Vector3(0, 0, 0),
-      vector,
+      start,
+      end,
     ]),
     material,
   );
-const vertexVectorLines = vertexVectors.map(v => vectorLine(v));
+
+const vectorLine = (vector, material = lineMaterial) =>
+  line(
+    new Vector3(0, 0, 0),
+    vector,
+  );
+
+const createVertexVectorLines = () =>
+  vertexVectors.map(v => vectorLine(v));
 
 const triangle = new Mesh(
   new BufferGeometry().setFromPoints([
@@ -102,23 +130,7 @@ const triangle = new Mesh(
   }),
 );
 
-const angle = new Mesh(
-  new CircleGeometry(
-    radius / 3, 32,
-    -2 * Math.acos(Math.sqrt(3)/3) + Math.PI/2,
-    2 * Math.acos(Math.sqrt(3)/3),
-  ),
-  new MeshBasicMaterial({
-    color: 0xFF6300,
-    transparent: true,
-    opacity: 0.25,
-    side: DoubleSide,
-    fog: false,
-  })
-);
-
 const font = new Font(helvetikerRegularFont);
-
 const label = (content, position) => {
   const shapes = font.generateShapes(content, 0.06);
   const geometry = new ShapeGeometry(shapes);
@@ -141,54 +153,144 @@ const label = (content, position) => {
   return mesh;
 }
 
-const vertexLabels = [
-  label(
+const createLabels = () => ({
+  A: label(
     "A",
     new Vector3(0, Math.sqrt(6)/4, 0)
       .multiplyScalar(1.1),
   ),
-  label(
+  B: label(
     "B",
     new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, -1/2)
       .multiplyScalar(1.1),
   ),
-  label(
+  C: label(
     "C",
     new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 1/2)
       .multiplyScalar(1.1),
   ),
-];
-
-const tetrahedron = new Group();
-tetrahedron.add(wireframe);
-vertexVectorLines.forEach(line => {
-  tetrahedron.add(line);
+  D: label(
+    "D",
+    new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 0)
+      .multiplyScalar(1.1),
+  ),
+  E: label(
+    "E",
+    new Vector3( Math.sqrt(3)/3, -Math.sqrt(6)/12, 0)
+      .multiplyScalar(1.1),
+  )
 });
-vertexLabels.forEach(label => {
-  tetrahedron.add(label);
-});
-// tetrahedron.add(triangle);
-tetrahedron.add(angle);
-scene.add(tetrahedron);
 
-scene.fog = fog;
+const wireframeGroup = () => {
+  const group = new Group();
 
-function animate(time) {
-  tetrahedron.rotation.y = time / 2000;
-  vertexLabels.forEach(label => {
-    label.lookAt(camera.position);
+  group.add(createWireframe());
+  createVertexVectorLines().forEach(line => {
+    group.add(line);
   });
 
-  renderer.render(scene, camera);
+  return group;
 }
 
-window.addEventListener(
-  "resize",
-  function () {
-    camera.aspect = mount.clientWidth / mount.clientHeight;
-    camera.updateProjectionMatrix();
+const wireFrameScene = () => {
+  const group = wireframeGroup();
 
-    renderer.setSize(mount.clientWidth, mount.clientHeight);
-  },
-  false,
-);
+  createScene("scene-wireframe", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+  });
+}
+
+wireFrameScene();
+
+const wireFrameAndAngleScene = () => {
+  const group = wireframeGroup();
+
+  const angle = new Mesh(
+    new CircleGeometry(
+      radius / 3, 32,
+      -2 * Math.acos(Math.sqrt(3)/3) + Math.PI/2,
+      2 * Math.acos(Math.sqrt(3)/3),
+    ),
+    new MeshBasicMaterial({
+      color: 0xFF6300,
+      transparent: true,
+      opacity: 0.25,
+      side: DoubleSide,
+      fog: false,
+    })
+  );
+
+  group.add(angle);
+
+  createScene("scene-wireframe-and-angle", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+  });
+}
+
+wireFrameAndAngleScene();
+
+const createSide = () =>
+  new Mesh(
+    new BufferGeometry().setFromPoints([
+      new Vector3(0, Math.sqrt(6)/4, 0),
+      new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, -1/2),
+      new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 1/2),
+    ]),
+    new MeshBasicMaterial({
+      color: 0xFF6300,
+      transparent: true,
+      opacity: 0.25,
+      side: DoubleSide,
+      fog: false,
+    }),
+  );
+
+const wireFrameAndSideScene = () => {
+  const group = wireframeGroup();
+
+  const side = createSide();
+  group.add(side);
+
+  const { A, B, C } = createLabels();
+  const labels = [A, B, C];
+  labels.forEach(label => {
+    group.add(label);
+  });
+
+  createScene("scene-wireframe-and-side", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+    labels.forEach(label => {
+      label.lookAt(camera.position);
+    });
+  });
+}
+
+wireFrameAndSideScene();
+
+const wireFrameAndSideWithHeightScene = () => {
+  const group = wireframeGroup();
+
+  const side = createSide();
+  group.add(side);
+
+  const { A, B, C, D } = createLabels();
+  const labels = [A, B, C, D];
+  labels.forEach(label => {
+    group.add(label);
+  });
+
+  const height = line(
+    new Vector3(0, Math.sqrt(6)/4, 0),
+    new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 0),
+  );
+  group.add(height);
+
+  createScene("scene-wireframe-and-side-with-height", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+    labels.forEach(label => {
+      label.lookAt(camera.position);
+    });
+  });
+}
+
+wireFrameAndSideWithHeightScene();
