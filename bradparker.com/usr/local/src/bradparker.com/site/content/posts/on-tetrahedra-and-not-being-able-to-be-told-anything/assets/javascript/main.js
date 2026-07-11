@@ -22,6 +22,12 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Font } from "three/addons/loaders/FontLoader.js";
 import helvetikerRegularFont from "../fonts/helvetiker_regular.typeface.json" with { type: "json" };
 
+const colors = {
+  green: 0x137752,
+  orange: 0xFF6300,
+  yellow: 0xFFB700,
+};
+
 const radius = Math.sqrt(6)/4;
 const angle = Math.acos(Math.sqrt(3)/3);
 const points = {
@@ -90,6 +96,19 @@ const lineMaterial = new LineBasicMaterial({
   fog: true,
 });
 
+const surfaceMaterial = (color) =>
+  new MeshBasicMaterial({
+    color,
+    transparent: true,
+    opacity: 0.25,
+    side: DoubleSide,
+    fog: false,
+  });
+
+const greenSurfaceMaterial = surfaceMaterial(colors.green);
+const orangeSurfaceMaterial = surfaceMaterial(colors.orange);
+const yellowSurfaceMaterial = surfaceMaterial(colors.yellow);
+
 const tetrahedronGeo = new PolyhedronGeometry(
   vertices.flatMap(v => v.toArray()),
   [
@@ -126,22 +145,12 @@ const vectorLine = (vector, material = lineMaterial) =>
 const createVertexVectorLines = () =>
   vertices.map(v => vectorLine(v));
 
-const triangle = new Mesh(
-  new BufferGeometry().setFromPoints([
-    new Vector3(0, Math.sqrt(6)/4, 0),
-    new Vector3(Math.sqrt(3)/3, -Math.sqrt(6)/12, 0),
-    new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 0),
-  ]),
-  new MeshBasicMaterial({
-    color: 0x137752,
-    transparent: true,
-    opacity: 0.25,
-    side: DoubleSide,
-    fog: false,
-  }),
-);
-
 const font = new Font(helvetikerRegularFont);
+const solidBlackMaterial = new MeshBasicMaterial({
+  color: 0x000000,
+  side: DoubleSide,
+  fog: false,
+});
 const label = (content, position) => {
   const shapes = font.generateShapes(content, 0.06);
   const geometry = new ShapeGeometry(shapes);
@@ -154,11 +163,7 @@ const label = (content, position) => {
   );
   const mesh = new Mesh(
     geometry,
-    new MeshBasicMaterial({
-      color: 0x000000,
-      side: DoubleSide,
-      fog: false,
-    })
+    solidBlackMaterial,
   );
   mesh.position.copy(position);
   return mesh;
@@ -209,17 +214,12 @@ const wireFrameAndAngleScene = () => {
 
   const angleWedge = new Mesh(
     new CircleGeometry(
-      radius / 3, 32,
+      radius / 3,
+      32,
       -2 * angle + Math.PI/2,
       2 * angle,
     ),
-    new MeshBasicMaterial({
-      color: 0xFF6300,
-      transparent: true,
-      opacity: 0.25,
-      side: DoubleSide,
-      fog: false,
-    })
+    orangeSurfaceMaterial,
   );
 
   group.add(angleWedge);
@@ -238,13 +238,7 @@ const createSide = () =>
       points.B,
       points.C,
     ]),
-    new MeshBasicMaterial({
-      color: 0xFF6300,
-      transparent: true,
-      opacity: 0.25,
-      side: DoubleSide,
-      fog: false,
-    }),
+    orangeSurfaceMaterial,
   );
 
 const wireFrameAndSideScene = () => {
@@ -294,26 +288,17 @@ const wireFrameAndSideWithHeightScene = () => {
 
 wireFrameAndSideWithHeightScene();
 
-const createSlice = () =>
-  new Mesh(
+const wireFrameAndSliceScene = () => {
+  const group = tetrahedronWireframe();
+
+  const ade = new Mesh(
     new BufferGeometry().setFromPoints([
       points.A,
       points.D,
       points.E,
     ]),
-    new MeshBasicMaterial({
-      color: 0x137752,
-      transparent: true,
-      opacity: 0.25,
-      side: DoubleSide,
-      fog: false,
-    }),
-  )
-
-const wireFrameAndSliceScene = () => {
-  const group = tetrahedronWireframe();
-
-  const ade = createSlice();
+    greenSurfaceMaterial,
+  );
   group.add(ade);
 
   const { A, B, C, D, E } = createLabels();
@@ -338,34 +323,40 @@ const wireFrameAndSliceScene = () => {
 
 wireFrameAndSliceScene();
 
-const wireFrameAndSliceWithHeightScene = () => {
+const lineAF_lineEG_Scene = () => {
   const group = tetrahedronWireframe();
 
-  const ade = createSlice();
-  group.add(ade);
-
-  const { A, B, C, D, E, F, G, H } = createLabels();
-  const labels = [A, B, C, D, E, F, G, H];
+  const { A, D, E, F, G } = createLabels();
+  const labels = [A, D, E, F, G];
   labels.forEach(label => {
     group.add(label);
   });
 
-  const ad = line(points.A, points.D);
-  group.add(ad);
+  const lineAD = line(points.A, points.D);
+  group.add(lineAD);
 
-  const de = line(points.D, points.E);
-  group.add(de);
+  const lineDE = line(points.D, points.E);
+  group.add(lineDE);
 
-  const af = line(points.A, points.F);
-  group.add(af);
+  const lineAF = line(points.A, points.F);
+  group.add(lineAF);
 
-  const eg = line(points.E, points.G);
-  group.add(eg);
+  const lineEG = line(points.E, points.G);
+  group.add(lineEG);
 
-  const dh = line(points.D, points.H);
-  group.add(dh);
+  const angleAOE = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      -2 * angle + Math.PI/2,
+      2 * angle,
+    ),
+    orangeSurfaceMaterial,
+  );
 
-  createScene("scene-wireframe-and-slice-with-height", group, ({ time, camera }) => {
+  group.add(angleAOE);
+
+  createScene("scene-lineAF-lineEG", group, ({ time, camera }) => {
     group.rotation.y = time / 2000;
     labels.forEach(label => {
       label.lookAt(camera.position);
@@ -373,4 +364,250 @@ const wireFrameAndSliceWithHeightScene = () => {
   });
 }
 
-wireFrameAndSliceWithHeightScene();
+lineAF_lineEG_Scene();
+
+const angleDEA_Scene = () => {
+  const group = tetrahedronWireframe();
+
+  const { A, D, E, F, G } = createLabels();
+  const labels = [A, D, E, F, G];
+  labels.forEach(label => {
+    group.add(label);
+  });
+
+  const lineAD = line(points.A, points.D);
+  group.add(lineAD);
+
+  const lineDE = line(points.D, points.E);
+  group.add(lineDE);
+
+  const lineAF = line(points.A, points.F);
+  group.add(lineAF);
+
+  const lineEG = line(points.E, points.G);
+  group.add(lineEG);
+
+  const angleDEA = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      0,
+      angle,
+    ),
+    greenSurfaceMaterial,
+  );
+  angleDEA.position.copy(points.E);
+  angleDEA.rotation.y = Math.PI;
+  group.add(angleDEA);
+
+  createScene("scene-angleDEA", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+    labels.forEach(label => {
+      label.lookAt(camera.position);
+    });
+  });
+}
+
+angleDEA_Scene();
+
+const lineDH_Scene = () => {
+  const group = tetrahedronWireframe();
+
+  const { A, D, E, F, G, H } = createLabels();
+  const labels = [A, D, E, F, G, H];
+  labels.forEach(label => {
+    group.add(label);
+  });
+
+  const lineAD = line(points.A, points.D);
+  group.add(lineAD);
+
+  const lineDE = line(points.D, points.E);
+  group.add(lineDE);
+
+  const lineAF = line(points.A, points.F);
+  group.add(lineAF);
+
+  const lineEG = line(points.E, points.G);
+  group.add(lineEG);
+
+  const lineDH = line(points.D, points.H);
+  group.add(lineDH);
+
+  const angleDEA = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      0,
+      angle,
+    ),
+    greenSurfaceMaterial,
+  );
+  angleDEA.position.copy(points.E);
+  angleDEA.rotation.y = Math.PI;
+  group.add(angleDEA);
+
+  createScene("scene-lineDH", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+    labels.forEach(label => {
+      label.lookAt(camera.position);
+    });
+  });
+}
+
+lineDH_Scene();
+
+const angleFAE_angleHDE_Scene = () => {
+  const group = tetrahedronWireframe();
+
+  const { A, D, E, F, G, H } = createLabels();
+  const labels = [A, D, E, F, G, H];
+  labels.forEach(label => {
+    group.add(label);
+  });
+
+  const lineAD = line(points.A, points.D);
+  group.add(lineAD);
+
+  const lineDE = line(points.D, points.E);
+  group.add(lineDE);
+
+  const lineAF = line(points.A, points.F);
+  group.add(lineAF);
+
+  const lineEG = line(points.E, points.G);
+  group.add(lineEG);
+
+  const lineDH = line(points.D, points.H);
+  group.add(lineDH);
+
+  const angleDEA = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      0,
+      angle,
+    ),
+    greenSurfaceMaterial,
+  );
+  angleDEA.position.copy(points.E);
+  angleDEA.rotation.y = Math.PI;
+  group.add(angleDEA);
+
+  const angleFAE = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      0,
+      Math.acos(Math.sqrt(6)/3),
+    ),
+    yellowSurfaceMaterial,
+  );
+  angleFAE.position.copy(points.A);
+  angleFAE.rotation.z = -Math.PI/2;
+  group.add(angleFAE);
+
+  const angleHDE = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      0,
+      Math.acos(Math.sqrt(6)/3),
+    ),
+    yellowSurfaceMaterial,
+  );
+  angleHDE.position.copy(points.D);
+  group.add(angleHDE);
+
+  createScene("scene-angleFAE-angleHDE", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+    labels.forEach(label => {
+      label.lookAt(camera.position);
+    });
+  });
+}
+
+angleFAE_angleHDE_Scene();
+
+const angleAOH_Scene = () => {
+  const group = tetrahedronWireframe();
+
+  const { A, D, E, F, G, H } = createLabels();
+  const labels = [A, D, E, F, G, H];
+  labels.forEach(label => {
+    group.add(label);
+  });
+
+  const lineAD = line(points.A, points.D);
+  group.add(lineAD);
+
+  const lineDE = line(points.D, points.E);
+  group.add(lineDE);
+
+  const lineAF = line(points.A, points.F);
+  group.add(lineAF);
+
+  const lineEG = line(points.E, points.G);
+  group.add(lineEG);
+
+  const lineDH = line(points.D, points.H);
+  group.add(lineDH);
+
+  const angleDEA = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      0,
+      angle,
+    ),
+    greenSurfaceMaterial,
+  );
+  angleDEA.position.copy(points.E);
+  angleDEA.rotation.y = Math.PI;
+  group.add(angleDEA);
+
+  const angleFAE = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      0,
+      Math.acos(Math.sqrt(6)/3),
+    ),
+    yellowSurfaceMaterial,
+  );
+  angleFAE.position.copy(points.A);
+  angleFAE.rotation.z = -Math.PI/2;
+  group.add(angleFAE);
+
+  const angleHDE = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      0,
+      Math.acos(Math.sqrt(6)/3),
+    ),
+    yellowSurfaceMaterial,
+  );
+  angleHDE.position.copy(points.D);
+  group.add(angleHDE);
+
+  const angleAOH = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      Math.acos(Math.sqrt(6)/3),
+      angle,
+    ),
+    greenSurfaceMaterial,
+  );
+  group.add(angleAOH);
+
+  createScene("scene-angleAOH", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+    labels.forEach(label => {
+      label.lookAt(camera.position);
+    });
+  });
+}
+
+angleAOH_Scene();

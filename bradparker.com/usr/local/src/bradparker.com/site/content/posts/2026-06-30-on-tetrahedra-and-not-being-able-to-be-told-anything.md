@@ -12,7 +12,7 @@ At the beginning of this year I began a Diploma in Science, at the University of
 
 But, I have a lot of ground to cover. For one thing I've done no real mathematics in school or professionally. As a result I'm always looking for opportunities to apply the little I know, to really get a handle on the fundamentals, and also to try and convince myself that it's something I'm actually capable of doing.
 
-## Five repelling and attracting points
+## Pushing and pulling
 
 I ended up beginning my return to studies with a chemistry bridging course. This was two years of high school chemistry squished into 6 months. I can't recall the time frames exactly, but I feel like we moved very quickly from "this is an atom" to "here are the basics of Valence Shell Electron Pair Repulsion theory." As I understand it the very basic idea is:
 * There are regions in the space around an atom where the probability of finding an electron is higher than elsewhere
@@ -47,7 +47,7 @@ During a lecture introducing us to molecular geometry we were told that this ang
 
 Here's how I figured it out, more or less. Actually, a lot less, but I'll come to that later. First I assumed that all the edges were equal to 1. Why not?
 
-That makes this triangle ($\triangle{ABC}$) equilateral.
+That makes all the sides, such as this one ($\triangle{ABC}$), equilateral triangles.
 
 <div
   id="scene-wireframe-and-side"
@@ -55,7 +55,7 @@ That makes this triangle ($\triangle{ABC}$) equilateral.
   class="rounded-lg border overflow-hidden">
 </div>
 
-With a height ($\overbar{AD}$) equal to $\frac{\sqrt{3}}{2}$.
+With heights (e.g. $\overbar{AD}$) equal to $\frac{\sqrt{3}}{2}$.
 
 <div
   id="scene-wireframe-and-side-with-height"
@@ -86,13 +86,58 @@ Tracing the same line along another side ($\triangle EBC$) produces an isosceles
   class="rounded-lg border overflow-hidden">
 </div>
 
-Adding in lotsa lines...
+Tracing lines ($\overbar{AF}$ and $\overbar{EG}$) at right angles from the equal sides ($\overbar{DA}$ and $\overbar{DE}$) of this triangle to their opposing vertices reveals the angle I'm after.
 
 <div
-  id="scene-wireframe-and-slice-with-height"
+  id="scene-lineAF-lineEG"
   style="height: 20rem;"
   class="rounded-lg border overflow-hidden">
 </div>
+
+To find it, I'll fist find this one, $\angle DEA$.
+
+<div
+  id="scene-angleDEA"
+  style="height: 20rem;"
+  class="rounded-lg border overflow-hidden">
+</div>
+
+And to do that I can trace a line ($\overbar{DH}$) at a right angle from line $\overbar{AE}$ to point $D$.
+
+<div
+  id="scene-lineDH"
+  style="height: 20rem;"
+  class="rounded-lg border overflow-hidden">
+</div>
+
+With that I can find angle $\angle DEA$.
+
+$$
+\begin{align*}
+\cos \left( \angle DEA \right) &= \frac{\left( \overbar{EH} \right)}{\left( \overbar{DE} \right)} &\implies \\
+\angle DEA &= \text{cos}^{-1} \frac{\left( \overbar{EH} \right)}{\left( \overbar{DE} \right)} &\implies \\
+\angle DEA &= \text{cos}^{-1} \frac{\left( \frac{1}{2} \right)}{\left( \frac{\sqrt{3}}{2} \right)} &\implies \\
+\angle DEA &= \text{cos}^{-1} \frac{\sqrt{3}}{3}
+\end{align*}
+$$
+
+From here I know that angles $\angle FAE$ and $\angle HDE$ are equal because the right triangles $\triangle FAE$ and $\triangle HDE$ share angle $\angle DEA$.
+
+<div
+  id="scene-angleFAE-angleHDE"
+  style="height: 20rem;"
+  class="rounded-lg border overflow-hidden">
+</div>
+
+Which then tells me that angle $\angle AOH$ is equal to angle $\angle DEA$. Because the triangles $\triangle HDE$ and $\triangle AOH$ already have two equal angles, so the remaining angles must be equal.
+
+<div
+  id="scene-angleAOH"
+  style="height: 20rem;"
+  class="rounded-lg border overflow-hidden">
+</div>
+
+This means The Angle, the one I've been looking for, is $2 \angle DEA$, or $2 \text{cos}^{-1}\frac{\sqrt{3}}{3}$. Which in degrees is about 109.47122063449069&deg;. So there you go.
 
 <script type="importmap">
   {
