@@ -23,13 +23,16 @@ import { Font } from "three/addons/loaders/FontLoader.js";
 import helvetikerRegularFont from "../fonts/helvetiker_regular.typeface.json" with { type: "json" };
 
 const radius = Math.sqrt(6)/4;
+const angle = Math.acos(Math.sqrt(3)/3);
 const points = {
   A: new Vector3(0, radius, 0),
   B: new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, -1/2),
   C: new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 1/2),
   D: new Vector3(-Math.sqrt(3)/6, -Math.sqrt(6)/12, 0),
   E: new Vector3(Math.sqrt(3)/3, -Math.sqrt(6)/12, 0),
-  F: new Vector3(0, -(Math.sqrt(6)/3 - radius), 0)
+  F: new Vector3(0, -(Math.sqrt(6)/3 - radius), 0),
+  G: new Vector3(-(Math.sqrt(3)/9), (Math.sqrt(6)/36), 0),
+  H: new Vector3(Math.sqrt(3)/6, Math.sqrt(6)/12, 0),
 };
 const vertices = [
   points.A,
@@ -168,6 +171,8 @@ const createLabels = () => ({
   D: label("D", points.D.clone().multiplyScalar(1.2)),
   E: label("E", points.E.clone().multiplyScalar(1.1)),
   F: label("F", points.F.clone().multiplyScalar(1.3)),
+  G: label("G", points.G.clone().multiplyScalar(1.3)),
+  H: label("H", points.H.clone().multiplyScalar(1.2)),
 });
 
 const tetrahedronWireframe = (group = new Group()) =>  {
@@ -202,11 +207,11 @@ wireFrameScene();
 const wireFrameAndAngleScene = () => {
   const group = tetrahedronWireframeWithVectors();
 
-  const angle = new Mesh(
+  const angleWedge = new Mesh(
     new CircleGeometry(
       radius / 3, 32,
-      -2 * Math.acos(Math.sqrt(3)/3) + Math.PI/2,
-      2 * Math.acos(Math.sqrt(3)/3),
+      -2 * angle + Math.PI/2,
+      2 * angle,
     ),
     new MeshBasicMaterial({
       color: 0xFF6300,
@@ -217,7 +222,7 @@ const wireFrameAndAngleScene = () => {
     })
   );
 
-  group.add(angle);
+  group.add(angleWedge);
 
   createScene("scene-wireframe-and-angle", group, ({ time, camera }) => {
     group.rotation.y = time / 2000;
@@ -339,8 +344,8 @@ const wireFrameAndSliceWithHeightScene = () => {
   const ade = createSlice();
   group.add(ade);
 
-  const { A, B, C, D, E, F } = createLabels();
-  const labels = [A, B, C, D, E, F];
+  const { A, B, C, D, E, F, G, H } = createLabels();
+  const labels = [A, B, C, D, E, F, G, H];
   labels.forEach(label => {
     group.add(label);
   });
@@ -353,6 +358,12 @@ const wireFrameAndSliceWithHeightScene = () => {
 
   const af = line(points.A, points.F);
   group.add(af);
+
+  const eg = line(points.E, points.G);
+  group.add(eg);
+
+  const dh = line(points.D, points.H);
+  group.add(dh);
 
   createScene("scene-wireframe-and-slice-with-height", group, ({ time, camera }) => {
     group.rotation.y = time / 2000;

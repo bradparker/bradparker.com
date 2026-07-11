@@ -86,6 +86,8 @@ Tracing the same line along another side ($\triangle EBC$) produces an isosceles
   class="rounded-lg border overflow-hidden">
 </div>
 
+Adding in lotsa lines...
+
 <div
   id="scene-wireframe-and-slice-with-height"
   style="height: 20rem;"
