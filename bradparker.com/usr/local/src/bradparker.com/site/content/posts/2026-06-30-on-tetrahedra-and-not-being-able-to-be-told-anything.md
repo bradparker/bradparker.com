@@ -19,7 +19,7 @@ I ended up beginning my return to studies with a chemistry bridging course. This
 * These regions of high electron probability are attracted to the centre of the atom, while they repel each other
 * The outermost electron containing regions of an atom are particularly important, because they _do things_ with electron containing regions from other atoms
 
-For the atoms I'll be concerning myself with here there are four regions in this outermost set. They're all attracted with equal force to the centre of the atom. At the same time these outermost regions repel each other with equal force. So these four regions end up being held at the same distance from the centre and push each other apart at an equal distance. Drawing equal lines from the centre of the atom, to centre of each region, and equal lines between the centres of each region, gets you this image.
+For the atoms I'll be concerning myself with here there are four regions in this outermost set. They're all attracted with equal force to the centre of the atom. At the same time they repel each other with equal force. So these four regions end up being held at an equal distance from the centre and push each other apart at an equal distance. Drawing equal lines from the centre of the atom, to the centre of each region, and equal lines between the centres of each region, gets you this image.
 
 <div
   id="scene-wireframe"
@@ -29,7 +29,7 @@ For the atoms I'll be concerning myself with here there are four regions in this
 
 ## A simple question
 
-This combination of attractive and competing repulsive forces ends up producing a four sided solid shape, a tetrahedron. Tetrahedral geometry appears to be a pretty big deal in chemistry, or at least the parts I've been exposed to so far.
+This combination of attractive and repulsive forces ends up producing a four sided solid shape, a tetrahedron. Tetrahedral geometry appears to be a pretty big deal in chemistry, or at least the parts I've been exposed to so far.
 
 Here, look at this angle:
 
