@@ -159,6 +159,22 @@ Tracing lines from the centre of this cube to any two points of the tetrahedron 
   class="rounded-lg border overflow-hidden">
 </div>
 
+To find it this time I can trace a line ($\overbar{OI}$) at right angles to edge $\overbar{AC}$ to the centre.
+
+<div
+  id="scene-cubeInscribedWireframe-lineOI"
+  style="height: 20rem;"
+  class="rounded-lg border overflow-hidden">
+</div>
+
+Which makes it fairly straightforward, comparatively, to find the angle $\angle AOI$.
+
+<div
+  id="scene-cubeInscribedWireframe-angleAOI"
+  style="height: 20rem;"
+  class="rounded-lg border overflow-hidden">
+</div>
+
 <script type="importmap">
   {
     "imports": {
