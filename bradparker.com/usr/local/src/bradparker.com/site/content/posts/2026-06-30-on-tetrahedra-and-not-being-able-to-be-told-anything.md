@@ -43,7 +43,7 @@ This angle helps to explain why many molecules are the shapes they are, and the 
 
 During a lecture introducing us to molecular geometry we were told that this angle is approximately equal to 109.5&deg;, which had me immediately thinking "I wonder if I can figure out what it _really_ is?"
 
-## A _fairly_ simple answer
+## A not so simple answer
 
 Here's how I figured it out, more or less. Actually, a lot less, but I'll come to that later. First I assumed that all the edges were equal to 1. Why not?
 
@@ -138,6 +138,18 @@ Which then tells me that angle $\angle AOH$ is equal to angle $\angle DEA$. Beca
 </div>
 
 This means The Angle, the one I've been looking for, is $2 \angle DEA$, or $2 \text{cos}^{-1}\frac{\sqrt{3}}{3}$. Which in degrees is about 109.47122063449069&deg;. So there you go.
+
+## A much simpler answer
+
+If you're familiar with this problem, or you're just much cleverer than me, you likely read the above with some powerful bemusement, knowing that there is a _much_ simpler way to solve it.
+
+The key insight is that it's possible to inscribe a tetrahedron within a cube.
+
+<div
+  id="scene-cubeInscribedWireframe"
+  style="height: 20rem;"
+  class="rounded-lg border overflow-hidden">
+</div>
 
 <script type="importmap">
   {

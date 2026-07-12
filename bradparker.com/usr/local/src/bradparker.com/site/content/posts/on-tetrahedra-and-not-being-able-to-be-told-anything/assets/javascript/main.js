@@ -11,12 +11,10 @@ import {
   Mesh,
   MeshBasicMaterial,
   PerspectiveCamera,
-  PolyhedronGeometry,
   Scene,
   ShapeGeometry,
   Vector3,
   WebGLRenderer,
-  WireframeGeometry,
 } from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Font } from "three/addons/loaders/FontLoader.js";
@@ -28,6 +26,7 @@ const colors = {
   yellow: 0xFFB700,
 };
 
+const origin = new Vector3(0, 0, 0);
 const radius = Math.sqrt(6)/4;
 const angle = Math.acos(Math.sqrt(3)/3);
 const points = {
@@ -39,6 +38,7 @@ const points = {
   F: new Vector3(0, -(Math.sqrt(6)/3 - radius), 0),
   G: new Vector3(-(Math.sqrt(3)/9), (Math.sqrt(6)/36), 0),
   H: new Vector3(Math.sqrt(3)/6, Math.sqrt(6)/12, 0),
+  O: origin,
 };
 const vertices = [
   points.A,
@@ -95,6 +95,10 @@ const lineMaterial = new LineBasicMaterial({
   color: 0x000000,
   fog: true,
 });
+const greyLineMaterial = new LineBasicMaterial({
+  color: 0xCCCCCC,
+  fog: true,
+});
 
 const surfaceMaterial = (color) =>
   new MeshBasicMaterial({
@@ -109,23 +113,21 @@ const greenSurfaceMaterial = surfaceMaterial(colors.green);
 const orangeSurfaceMaterial = surfaceMaterial(colors.orange);
 const yellowSurfaceMaterial = surfaceMaterial(colors.yellow);
 
-const tetrahedronGeo = new PolyhedronGeometry(
-  vertices.flatMap(v => v.toArray()),
-  [
-    2, 1, 0,
-    0, 3, 2,
-    1, 3, 0,
-    2, 3, 1,
-  ],
-  radius,
-  0,
-);
-const tetrahedronWireframeGeo = new WireframeGeometry(tetrahedronGeo);
-const createTetrahedronWireframe = () =>
-  new LineSegments(
-    tetrahedronWireframeGeo,
-    lineMaterial,
-  );
+const createTetrahedronWireframe = () => {
+  const group = new Group();
+  const lines = [
+    line(points.A, points.B),
+    line(points.A, points.C),
+    line(points.A, points.E),
+    line(points.B, points.C),
+    line(points.B, points.E),
+    line(points.C, points.E),
+  ];
+  lines.forEach(l => {
+    group.add(l);
+  });
+  return group;
+};
 
 const line = (start, end, material = lineMaterial) =>
   new Line(
@@ -178,6 +180,7 @@ const createLabels = () => ({
   F: label("F", points.F.clone().multiplyScalar(1.3)),
   G: label("G", points.G.clone().multiplyScalar(1.3)),
   H: label("H", points.H.clone().multiplyScalar(1.2)),
+  O: label("O", points.O.clone().addScalar(0.05)),
 });
 
 const tetrahedronWireframe = (group = new Group()) =>  {
@@ -199,7 +202,7 @@ const tetrahedronWireframeWithVectors = () => {
   return group;
 }
 
-const wireFrameScene = () => {
+const wireframeScene = () => {
   const group = tetrahedronWireframeWithVectors();
 
   createScene("scene-wireframe", group, ({ time, camera }) => {
@@ -207,9 +210,9 @@ const wireFrameScene = () => {
   });
 }
 
-wireFrameScene();
+wireframeScene();
 
-const wireFrameAndAngleScene = () => {
+const wireframeAndAngleScene = () => {
   const group = tetrahedronWireframeWithVectors();
 
   const angleWedge = new Mesh(
@@ -229,7 +232,7 @@ const wireFrameAndAngleScene = () => {
   });
 }
 
-wireFrameAndAngleScene();
+wireframeAndAngleScene();
 
 const createSide = () =>
   new Mesh(
@@ -241,7 +244,7 @@ const createSide = () =>
     orangeSurfaceMaterial,
   );
 
-const wireFrameAndSideScene = () => {
+const wireframeAndSideScene = () => {
   const group = tetrahedronWireframe();
 
   const side = createSide();
@@ -261,9 +264,9 @@ const wireFrameAndSideScene = () => {
   });
 }
 
-wireFrameAndSideScene();
+wireframeAndSideScene();
 
-const wireFrameAndSideWithHeightScene = () => {
+const wireframeAndSideWithHeightScene = () => {
   const group = tetrahedronWireframe();
 
   const side = createSide();
@@ -286,9 +289,9 @@ const wireFrameAndSideWithHeightScene = () => {
   });
 }
 
-wireFrameAndSideWithHeightScene();
+wireframeAndSideWithHeightScene();
 
-const wireFrameAndSliceScene = () => {
+const wireframeAndSliceScene = () => {
   const group = tetrahedronWireframe();
 
   const ade = new Mesh(
@@ -321,7 +324,7 @@ const wireFrameAndSliceScene = () => {
   });
 }
 
-wireFrameAndSliceScene();
+wireframeAndSliceScene();
 
 const lineAF_lineEG_Scene = () => {
   const group = tetrahedronWireframe();
@@ -532,8 +535,8 @@ angleFAE_angleHDE_Scene();
 const angleAOH_Scene = () => {
   const group = tetrahedronWireframe();
 
-  const { A, D, E, F, G, H } = createLabels();
-  const labels = [A, D, E, F, G, H];
+  const { A, D, E, F, G, H, O } = createLabels();
+  const labels = [A, D, E, F, G, H, O];
   labels.forEach(label => {
     group.add(label);
   });
@@ -611,3 +614,83 @@ const angleAOH_Scene = () => {
 }
 
 angleAOH_Scene();
+
+const cubeSize = Math.sqrt(2)/(6 * radius);
+const cubePoints = {
+  A: new Vector3(cubeSize, cubeSize, cubeSize),
+  B: new Vector3(-cubeSize, -cubeSize, cubeSize),
+  C: new Vector3(-cubeSize, cubeSize, -cubeSize),
+  D: new Vector3(cubeSize, -cubeSize, -cubeSize),
+  E: new Vector3(cubeSize, cubeSize, -cubeSize),
+  F: new Vector3(-cubeSize, -cubeSize, -cubeSize),
+  G: new Vector3(-cubeSize, cubeSize, cubeSize),
+  H: new Vector3(cubeSize, -cubeSize, cubeSize),
+  O: new Vector3(0, 0, 0),
+};
+const cubeInscribedPoints = {
+  A: cubePoints.A,
+  B: cubePoints.B,
+  C: cubePoints.C,
+  D: cubePoints.D,
+};
+
+const createCubeInscribedTetrahedronWireframe = () => {
+  const group = new Group();
+  const lines = [
+    line(cubeInscribedPoints.A, cubeInscribedPoints.B),
+    line(cubeInscribedPoints.A, cubeInscribedPoints.C),
+    line(cubeInscribedPoints.A, cubeInscribedPoints.D),
+    line(cubeInscribedPoints.B, cubeInscribedPoints.C),
+    line(cubeInscribedPoints.B, cubeInscribedPoints.D),
+    line(cubeInscribedPoints.C, cubeInscribedPoints.D),
+  ];
+  lines.forEach(l => {
+    group.add(l);
+  });
+  return group;
+}
+
+const createCubeWireframe = (group = new Group()) => {
+  const lines = [
+    line(cubePoints.A, cubePoints.E, greyLineMaterial),
+    line(cubePoints.E, cubePoints.C, greyLineMaterial),
+    line(cubePoints.A, cubePoints.G, greyLineMaterial),
+    line(cubePoints.G, cubePoints.C, greyLineMaterial),
+    line(cubePoints.B, cubePoints.F, greyLineMaterial),
+    line(cubePoints.F, cubePoints.D, greyLineMaterial),
+    line(cubePoints.B, cubePoints.H, greyLineMaterial),
+    line(cubePoints.H, cubePoints.D, greyLineMaterial),
+    line(cubePoints.A, cubePoints.H, greyLineMaterial),
+    line(cubePoints.C, cubePoints.F, greyLineMaterial),
+    line(cubePoints.G, cubePoints.B, greyLineMaterial),
+    line(cubePoints.E, cubePoints.D, greyLineMaterial),
+  ];
+  lines.forEach(l => {
+    group.add(l);
+  });
+  return group;
+};
+
+const cubeInscribedWireframeScene = () => {
+  const group = createCubeInscribedTetrahedronWireframe();
+  createCubeWireframe(group);
+
+  const labels = [
+    label("A", cubeInscribedPoints.A.clone().multiplyScalar(1.1)),
+    label("B", cubeInscribedPoints.B.clone().multiplyScalar(1.1)),
+    label("C", cubeInscribedPoints.C.clone().multiplyScalar(1.1)),
+    label("D", cubeInscribedPoints.D.clone().multiplyScalar(1.1)),
+  ];
+  labels.forEach(l => {
+    group.add(l);
+  });
+
+  createScene("scene-cubeInscribedWireframe", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+    labels.forEach(l => {
+      l.lookAt(camera.position);
+    });
+  });
+}
+
+cubeInscribedWireframeScene();
