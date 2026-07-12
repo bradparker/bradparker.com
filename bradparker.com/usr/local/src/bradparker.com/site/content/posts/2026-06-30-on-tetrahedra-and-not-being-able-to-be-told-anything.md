@@ -151,6 +151,14 @@ The key insight is that it's possible to inscribe a tetrahedron within a cube.
   class="rounded-lg border overflow-hidden">
 </div>
 
+Tracing lines from the centre of this cube to any two points of the tetrahedron inscibed within it reveals the angle.
+
+<div
+  id="scene-cubeInscribedWireframe-angleAOC"
+  style="height: 20rem;"
+  class="rounded-lg border overflow-hidden">
+</div>
+
 <script type="importmap">
   {
     "imports": {

@@ -180,7 +180,7 @@ const createLabels = () => ({
   F: label("F", points.F.clone().multiplyScalar(1.3)),
   G: label("G", points.G.clone().multiplyScalar(1.3)),
   H: label("H", points.H.clone().multiplyScalar(1.2)),
-  O: label("O", points.O.clone().addScalar(0.05)),
+  O: label("O", points.O.clone().add(new Vector3(0.1, 0.02, 0))),
 });
 
 const tetrahedronWireframe = (group = new Group()) =>  {
@@ -632,6 +632,7 @@ const cubeInscribedPoints = {
   B: cubePoints.B,
   C: cubePoints.C,
   D: cubePoints.D,
+  O: cubePoints.O,
 };
 
 const createCubeInscribedTetrahedronWireframe = () => {
@@ -671,16 +672,20 @@ const createCubeWireframe = (group = new Group()) => {
   return group;
 };
 
+const createCubeInscibedLabels = () => ({
+  A: label("A", cubeInscribedPoints.A.clone().multiplyScalar(1.1)),
+  B: label("B", cubeInscribedPoints.B.clone().multiplyScalar(1.1)),
+  C: label("C", cubeInscribedPoints.C.clone().multiplyScalar(1.1)),
+  D: label("D", cubeInscribedPoints.D.clone().multiplyScalar(1.1)),
+  O: label("O", cubeInscribedPoints.O.clone().add(new Vector3(0, -0.1, 0))),
+});
+
 const cubeInscribedWireframeScene = () => {
   const group = createCubeInscribedTetrahedronWireframe();
   createCubeWireframe(group);
 
-  const labels = [
-    label("A", cubeInscribedPoints.A.clone().multiplyScalar(1.1)),
-    label("B", cubeInscribedPoints.B.clone().multiplyScalar(1.1)),
-    label("C", cubeInscribedPoints.C.clone().multiplyScalar(1.1)),
-    label("D", cubeInscribedPoints.D.clone().multiplyScalar(1.1)),
-  ];
+  const { A, B, C, D } = createCubeInscibedLabels();
+  const labels = [A, B, C, D];
   labels.forEach(l => {
     group.add(l);
   });
@@ -694,3 +699,41 @@ const cubeInscribedWireframeScene = () => {
 }
 
 cubeInscribedWireframeScene();
+
+const cubeInscribedWireframe_angleAOC_Scene = () => {
+  const group = createCubeInscribedTetrahedronWireframe();
+  createCubeWireframe(group);
+
+  const lineOA = line(cubeInscribedPoints.O, cubeInscribedPoints.A);
+  group.add(lineOA);
+  const lineOC = line(cubeInscribedPoints.O, cubeInscribedPoints.C);
+  group.add(lineOC);
+
+  const angleAOC = new Mesh(
+    new CircleGeometry(
+      radius / 3,
+      32,
+      (Math.PI - 2 * angle) / 2,
+      2 * angle,
+    ),
+    orangeSurfaceMaterial,
+  );
+  angleAOC.rotation.y = -(Math.PI/4);
+
+  group.add(angleAOC);
+
+  const { A, B, C, D, O } = createCubeInscibedLabels();
+  const labels = [A, B, C, D, O];
+  labels.forEach(l => {
+    group.add(l);
+  });
+
+  createScene("scene-cubeInscribedWireframe-angleAOC", group, ({ time, camera }) => {
+    group.rotation.y = time / 2000;
+    labels.forEach(l => {
+      l.lookAt(camera.position);
+    });
+  });
+}
+
+cubeInscribedWireframe_angleAOC_Scene();
