@@ -748,6 +748,10 @@ details[open] summary::before {
 /* Position */
 
 .relative { position: relative; }
+.absolute { position: absolute; }
+
+.bottom-4 { bottom: 1rem; }
+.right-4 { right: 1rem; }
 
 /* Cursor */
 

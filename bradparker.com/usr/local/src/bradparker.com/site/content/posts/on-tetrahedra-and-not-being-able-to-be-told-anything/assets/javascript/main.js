@@ -50,6 +50,8 @@ const vertices = [
 const createScene = (id, group, animate) => {
   const mount = document.getElementById(id);
 
+  if (!mount) return;
+
   const scene = new Scene();
   scene.background = new Color(0xFFFFFF);
 
@@ -64,10 +66,14 @@ const createScene = (id, group, animate) => {
   const renderer = new WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(mount.clientWidth, mount.clientHeight);
-  renderer.setAnimationLoop((time) => {
-    animate({ time, camera });
+
+  let paused = false;
+  const animation = () => {
+    animate({ camera, paused });
     renderer.render(scene, camera);
-  });
+  };
+  renderer.setAnimationLoop(animation);
+
   mount.appendChild(renderer.domElement);
 
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -89,6 +95,21 @@ const createScene = (id, group, animate) => {
     },
     false,
   );
+
+  const button = document.createElement("button");
+  button.classList.add("absolute");
+  button.classList.add("right-4");
+  button.classList.add("bottom-4");
+  button.innerHTML = "Pause"
+  button.addEventListener("click", () => {
+    if (paused) {
+      button.innerHTML = "Pause";
+    } else {
+      button.innerHTML = "Play";
+    }
+    paused = !paused;
+  });
+  mount.appendChild(button);
 }
 
 const lineMaterial = new LineBasicMaterial({
@@ -96,7 +117,7 @@ const lineMaterial = new LineBasicMaterial({
   fog: true,
 });
 const greyLineMaterial = new LineBasicMaterial({
-  color: 0xCCCCCC,
+  color: 0xBBBBBB,
   fog: true,
 });
 
@@ -180,7 +201,7 @@ const createLabels = () => ({
   F: label("F", points.F.clone().multiplyScalar(1.3)),
   G: label("G", points.G.clone().multiplyScalar(1.3)),
   H: label("H", points.H.clone().multiplyScalar(1.2)),
-  O: label("O", points.O.clone().add(new Vector3(0.1, 0.02, 0))),
+  O: label("O", points.O.clone().add(new Vector3(0.1, 0.015, 0))),
 });
 
 const tetrahedronWireframe = (group = new Group()) =>  {
@@ -202,11 +223,16 @@ const tetrahedronWireframeWithVectors = () => {
   return group;
 }
 
+const rotating = ({ group, paused }) => {
+  if (paused) return;
+  group.rotation.y += Math.PI/360;
+}
+
 const wireframeScene = () => {
   const group = tetrahedronWireframeWithVectors();
 
-  createScene("scene-wireframe", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-wireframe", group, ({ camera, paused }) => {
+    rotating({ group, paused });
   });
 }
 
@@ -227,8 +253,8 @@ const wireframeAndAngleScene = () => {
 
   group.add(angleWedge);
 
-  createScene("scene-wireframe-and-angle", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-wireframe-and-angle", group, ({ camera, paused }) => {
+    rotating({ group, paused });
   });
 }
 
@@ -243,28 +269,6 @@ const createSide = () =>
     ]),
     orangeSurfaceMaterial,
   );
-
-const wireframeAndSideScene = () => {
-  const group = tetrahedronWireframe();
-
-  const side = createSide();
-  group.add(side);
-
-  const { A, B, C } = createLabels();
-  const labels = [A, B, C];
-  labels.forEach(label => {
-    group.add(label);
-  });
-
-  createScene("scene-wireframe-and-side", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
-    labels.forEach(label => {
-      label.lookAt(camera.position);
-    });
-  });
-}
-
-wireframeAndSideScene();
 
 const wireframeAndSideWithHeightScene = () => {
   const group = tetrahedronWireframe();
@@ -281,8 +285,8 @@ const wireframeAndSideWithHeightScene = () => {
   const height = line(points.A, points.D);
   group.add(height);
 
-  createScene("scene-wireframe-and-side-with-height", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-wireframe-and-side-with-height", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(label => {
       label.lookAt(camera.position);
     });
@@ -316,8 +320,8 @@ const wireframeAndSliceScene = () => {
   const de = line(points.D, points.E);
   group.add(de);
 
-  createScene("scene-wireframe-and-slice", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-wireframe-and-slice", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(label => {
       label.lookAt(camera.position);
     });
@@ -359,8 +363,8 @@ const lineAF_lineEG_Scene = () => {
 
   group.add(angleAOE);
 
-  createScene("scene-lineAF-lineEG", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-lineAF-lineEG", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(label => {
       label.lookAt(camera.position);
     });
@@ -403,8 +407,8 @@ const angleDEA_Scene = () => {
   angleDEA.rotation.y = Math.PI;
   group.add(angleDEA);
 
-  createScene("scene-angleDEA", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-angleDEA", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(label => {
       label.lookAt(camera.position);
     });
@@ -450,8 +454,8 @@ const lineDH_Scene = () => {
   angleDEA.rotation.y = Math.PI;
   group.add(angleDEA);
 
-  createScene("scene-lineDH", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-lineDH", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(label => {
       label.lookAt(camera.position);
     });
@@ -522,8 +526,8 @@ const angleFAE_angleHDE_Scene = () => {
   angleHDE.position.copy(points.D);
   group.add(angleHDE);
 
-  createScene("scene-angleFAE-angleHDE", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-angleFAE-angleHDE", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(label => {
       label.lookAt(camera.position);
     });
@@ -605,8 +609,8 @@ const angleAOH_Scene = () => {
   );
   group.add(angleAOH);
 
-  createScene("scene-angleAOH", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-angleAOH", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(label => {
       label.lookAt(camera.position);
     });
@@ -693,8 +697,8 @@ const cubeInscribedWireframeScene = () => {
     group.add(l);
   });
 
-  createScene("scene-cubeInscribedWireframe", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-cubeInscribedWireframe", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(l => {
       l.lookAt(camera.position);
     });
@@ -731,8 +735,8 @@ const cubeInscribedWireframe_angleAOC_Scene = () => {
     group.add(l);
   });
 
-  createScene("scene-cubeInscribedWireframe-angleAOC", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-cubeInscribedWireframe-angleAOC", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(l => {
       l.lookAt(camera.position);
     });
@@ -758,8 +762,8 @@ const cubeInscribedWireframe_lineOI_Scene = () => {
     group.add(l);
   });
 
-  createScene("scene-cubeInscribedWireframe-lineOI", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-cubeInscribedWireframe-lineOI", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(l => {
       l.lookAt(camera.position);
     });
@@ -797,8 +801,8 @@ const cubeInscribedWireframe_angleAOI_Scene = () => {
     group.add(l);
   });
 
-  createScene("scene-cubeInscribedWireframe-angleAOI", group, ({ time, camera }) => {
-    group.rotation.y = time / 2000;
+  createScene("scene-cubeInscribedWireframe-angleAOI", group, ({ camera, paused }) => {
+    rotating({ group, paused });
     labels.forEach(l => {
       l.lookAt(camera.position);
     });

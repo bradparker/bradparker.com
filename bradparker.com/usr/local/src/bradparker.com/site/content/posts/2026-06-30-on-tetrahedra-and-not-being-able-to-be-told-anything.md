@@ -24,7 +24,7 @@ For the atoms I'll be concerning myself with here there are four regions in this
 <div
   id="scene-wireframe"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
 ## A simple question
@@ -36,7 +36,7 @@ Here, look at this angle:
 <div
   id="scene-wireframe-and-angle"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
 This angle helps to explain why many molecules are the shapes they are, and the shapes of many molecules help to explain why they behave the way they do, and the behavior of molecules helps to explain an awful lot of phenomena across many areas of study. Like I said: a pretty big deal.
@@ -47,20 +47,12 @@ During a lecture introducing us to molecular geometry we were told that this ang
 
 Here's how I figured it out, more or less. Actually, a lot less, but I'll come to that later. First I assumed that all the edges were equal to 1. Why not?
 
-That makes all the sides, such as this one ($\triangle{ABC}$), equilateral triangles.
-
-<div
-  id="scene-wireframe-and-side"
-  style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
-</div>
-
-With heights (e.g. $\overbar{AD}$) equal to $\frac{\sqrt{3}}{2}$.
+That means all the sides, such as this one ($\triangle{ABC}$), are triangles with heights (e.g. $\overbar{AD}$) equal to $\frac{\sqrt{3}}{2}$.
 
 <div
   id="scene-wireframe-and-side-with-height"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
 Because...
@@ -83,7 +75,7 @@ Tracing the same line along another side ($\triangle EBC$) produces an isosceles
 <div
   id="scene-wireframe-and-slice"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
 Tracing lines ($\overbar{AF}$ and $\overbar{EG}$) at right angles from the equal sides ($\overbar{DA}$ and $\overbar{DE}$) of this triangle to their opposing vertices reveals the angle I'm after.
@@ -91,7 +83,7 @@ Tracing lines ($\overbar{AF}$ and $\overbar{EG}$) at right angles from the equal
 <div
   id="scene-lineAF-lineEG"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
 To find it, I'll fist find this one, $\angle DEA$.
@@ -99,7 +91,7 @@ To find it, I'll fist find this one, $\angle DEA$.
 <div
   id="scene-angleDEA"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
 And to do that I can trace a line ($\overbar{DH}$) at a right angle from line $\overbar{AE}$ to point $D$.
@@ -107,7 +99,7 @@ And to do that I can trace a line ($\overbar{DH}$) at a right angle from line $\
 <div
   id="scene-lineDH"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
 With that I can find angle $\angle DEA$.
@@ -126,7 +118,7 @@ From here I know that angles $\angle FAE$ and $\angle HDE$ are equal because the
 <div
   id="scene-angleFAE-angleHDE"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
 Which then tells me that angle $\angle AOH$ is equal to angle $\angle DEA$. Because the triangles $\triangle HDE$ and $\triangle AOH$ already have two equal angles, so the remaining angles must be equal.
@@ -134,7 +126,7 @@ Which then tells me that angle $\angle AOH$ is equal to angle $\angle DEA$. Beca
 <div
   id="scene-angleAOH"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
 This means The Angle, the one I've been looking for, is $2 \angle DEA$, or $2 \text{cos}^{-1}\frac{\sqrt{3}}{3}$. Which in degrees is about 109.47122063449069&deg;. So there you go.
@@ -148,15 +140,15 @@ The key insight is that it's possible to inscribe a tetrahedron within a cube.
 <div
   id="scene-cubeInscribedWireframe"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
-Tracing lines from the centre of this cube to any two points of the tetrahedron inscibed within it reveals the angle.
+Tracing lines from the centre of this cube to any two points of the tetrahedron inscibed within it reveals the angle I'm looking for.
 
 <div
   id="scene-cubeInscribedWireframe-angleAOC"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
 To find it this time I can trace a line ($\overbar{OI}$) at right angles to edge $\overbar{AC}$ to the centre.
@@ -164,16 +156,44 @@ To find it this time I can trace a line ($\overbar{OI}$) at right angles to edge
 <div
   id="scene-cubeInscribedWireframe-lineOI"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
 
-Which makes it fairly straightforward, comparatively, to find the angle $\angle AOI$.
+Which makes it fairly straightforward, certainly comparatively, to find the angle $\angle AOI$.
 
 <div
   id="scene-cubeInscribedWireframe-angleAOI"
   style="height: 20rem;"
-  class="rounded-lg border overflow-hidden">
+  class="rounded-lg border overflow-hidden relative">
 </div>
+
+$$
+\begin{align*}
+\tan \angle AOI &= \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)}
+\end{align*}
+$$
+
+To find usable values for $\overbar{AI}$ and $\overbar{OI}$ I can just say the sides of the cube in which the tetrahedron is inscibed are equal to 1.
+
+$$
+\begin{align*}
+\overbar{OI} &= \frac{1}{2} \\
+\overbar{AI} &= \frac{\sqrt{2}}{2}
+\end{align*}
+$$
+
+Which enables finding a conrete value for angle $\angle AOI$.
+
+$$
+\begin{align*}
+\tan \angle AOI &= \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} &\implies \\
+\tan \angle AOI &= \frac{\left( \frac{\sqrt{2}}{2} \right)}{\left( \frac{1}{2} \right)} &\implies \\
+\tan \angle AOI &= \sqrt{2} &\implies \\
+\angle AOI &= \text{tan}^{-1} \sqrt{2}
+\end{align*}
+$$
+
+And lo', $2 \text{tan}^{-1} \sqrt{2}$ is equal to roughly 109.47122063449069&deg;. How about that?
 
 <script type="importmap">
   {
