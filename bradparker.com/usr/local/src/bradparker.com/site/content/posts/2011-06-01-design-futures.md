@@ -3,7 +3,7 @@ title: Design futures — Typography
 published: 2011-06-01
 rss_guid: https://bradparker.com/content/posts/2011-06-01-design-futures.html
 tags:
-  - design
+  - Design
 description: |
   ![Design Futures — Monogram](/assets/images/design-futures-monogram-small.webp)
 

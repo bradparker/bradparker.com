@@ -2,7 +2,7 @@
 title: Crossing paths with Descartes
 published: 2025-05-31
 tags:
-  - mathematics
+  - Mathematics
 thumbnail: /content/posts/crossing-paths-with-descartes/assets/images/thumbnail.webp
 description: |
   Lately I've been thinking about really fun solutions. You know, those solutions which use some insight you were completely unaware of and make it all look like magic. With the help of a classic Australian thriller novel, a dice game from early modern Britain, and Beethoven, I'll explore some foundations of an area of mathematics called _combinatorics_.

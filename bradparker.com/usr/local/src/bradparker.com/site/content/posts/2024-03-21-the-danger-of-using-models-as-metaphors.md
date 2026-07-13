@@ -2,8 +2,8 @@
 title: The danger of using models as metaphors
 published: 2024-03-21
 tags:
-  - books
-  - development
+  - Books
+  - Development
 description: |
   ![A tangram that's not quite put together righ](/assets/images/tangram-small.webp)
 

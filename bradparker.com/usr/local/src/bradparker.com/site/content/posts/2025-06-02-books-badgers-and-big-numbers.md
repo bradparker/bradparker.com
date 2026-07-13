@@ -2,8 +2,8 @@
 title: Books, Badgers and Big Numbers
 published: 2025-06-21
 tags:
-  - mathematics
-  - books
+  - Mathematics
+  - Books
 thumbnail: /content/posts/books-badgers-and-big-numbers/assets/images/thumbnail.jpg
 description: |
   ![A random collection of images of colourful magnetic letters laid over a picture of stacks of books.](/content/posts/books-badgers-and-big-numbers/assets/images/thumbnail-small.webp)

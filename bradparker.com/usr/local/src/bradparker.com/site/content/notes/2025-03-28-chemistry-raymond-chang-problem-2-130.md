@@ -1,8 +1,8 @@
 ---
 title: Chemistry by Raymond Chang - Problem 2.130
 tags:
-  - mathematics
-  - chemistry
+  - Mathematics
+  - Chemistry
 description: |
   A sample problem from Raymond Chang's Chemistry Fifth Edition. I'm unsure of my approach so am writing it up.
 ---

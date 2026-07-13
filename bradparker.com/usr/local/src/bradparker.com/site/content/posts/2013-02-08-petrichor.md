@@ -3,7 +3,7 @@ title: Petrichor Ensemble — Gig Poster
 published: 2013-02-08
 rss_guid: https://bradparker.com/content/posts/2013-02-08-petrichor.html
 tags:
-  - design
+  - Design
 description: |
   ![Petrichor Ensemble — Gig Poster Detail](/assets/images/petrichor-detail-small.webp)
 

@@ -3,7 +3,7 @@ title: Brisbane Bicycle Film Festival 2012 — Poster
 published: 2012-10-03
 rss_guid: https://bradparker.com/content/posts/2012-10-03-brisbane-bicycle-film-festival.html
 tags:
-  - design
+  - Design
 description: |
   ![Bicycle Film Festival — Poster Detail](/assets/images/bbff-2012-detail-small.webp)
 

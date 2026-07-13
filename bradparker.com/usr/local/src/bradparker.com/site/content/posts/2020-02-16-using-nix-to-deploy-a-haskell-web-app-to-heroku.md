@@ -3,7 +3,7 @@ title: Using Nix to deploy a Haskell web app to Heroku
 published: 2020-02-16
 rss_guid: https://bradparker.com/content/posts/2020-02-16-using-nix-to-deploy-a-haskell-web-app-to-heroku.html
 tags:
-  - development
+  - Development
 description: |
   Deploying Ruby on Rails apps to Heroku has always been a delight, and now that they have a container registry other run-times are similarly delightfully deployable. No build-packs required.
 

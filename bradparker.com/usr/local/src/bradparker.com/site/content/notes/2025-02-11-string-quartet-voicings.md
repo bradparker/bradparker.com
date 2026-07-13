@@ -1,8 +1,8 @@
 ---
 title: String quartet voicings
 tags:
-  - mathematics
-  - music
+  - Mathematics
+  - Music
 description: |
   All the four note voicings a string quartet can play
 ---

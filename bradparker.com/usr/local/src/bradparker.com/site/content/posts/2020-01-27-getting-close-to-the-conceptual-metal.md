@@ -3,7 +3,7 @@ title: Getting close to the conceptual metal
 published: 2020-01-27
 rss_guid: https://bradparker.com/content/posts/2020-01-27-getting-close-to-the-conceptual-metal.html
 tags:
-  - development
+  - Development
 description: |
   Writing software can give us the ability to take a nearly impossibly abstract idea and use it to create a runnable program.
 

@@ -3,7 +3,7 @@ title: Servant's type-level domain specific language
 published: 2019-10-05
 rss_guid: https://bradparker.com/content/posts/2019-10-05-servant-types.html
 tags:
-  - development
+  - Development
 description: |
   Haskell has some _very_ interesting type-level features, Servant is a great case-study in how they can be used to build a practical and feature rich library. This post walks through an example in an attempt to become more familiar with its inner workings.
 

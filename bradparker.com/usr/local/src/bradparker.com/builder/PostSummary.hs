@@ -13,6 +13,7 @@ module PostSummary
   )
 where
 
+import qualified Data.Char as Char
 import Data.Foldable (for_)
 import Data.String (IsString (fromString))
 import Data.Time (Day)
@@ -50,7 +51,7 @@ component props =
             H.string (Post.formattedDate props.date)
           (H.div ! A.class_ "flex g2") do
             for_ props.tags \tag ->
-              (H.a ! A.class_ "ttc hover-dark-green" ! A.href (fromString ("/tags" </> tag))) do
+              (H.a ! A.class_ "ttc hover-dark-green" ! A.href (fromString ("/tags" </> map Char.toLower tag))) do
                 H.string tag
 
     (H.section ! A.class_ "mw7 center pa3 pt4 block-columns-2-ns markdown lh-copy") do

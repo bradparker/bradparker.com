@@ -1,7 +1,7 @@
 ---
 title: Real number algebra toolkit
 tags:
-  - mathematics
+  - Mathematics
 description: |
   Toolkit for manipulating algebraic expressions dealing with Real numbers.
 ---

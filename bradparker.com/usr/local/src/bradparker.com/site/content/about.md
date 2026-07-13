@@ -2,6 +2,8 @@
 title: About
 ---
 
+# About
+
 I live in Brisbane, Australia with my partner [Alicia](https://www.aliciaallan.com/), our kid, and our whippet, Rosie.
 
 <div class="grid grid-cols-2 grid-rows-1 gap-3">

@@ -240,6 +240,7 @@ details[open] summary::before {
   line-height: 2.25rem;
   margin-top: 2.25rem;
 }
+.markdown h1:first-child { margin-top: 0.5rem; }
 .markdown h2 {
   font-size: 1.5rem;
   line-height: 1.75rem;
