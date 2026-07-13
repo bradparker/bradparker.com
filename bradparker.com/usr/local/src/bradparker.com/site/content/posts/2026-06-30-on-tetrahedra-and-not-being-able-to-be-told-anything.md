@@ -135,7 +135,7 @@ This means The Angle, the one I've been looking for, is $2 \angle DEA$, or $2 \t
 
 If you're familiar with this problem, or you're just much cleverer than me, you likely read the above with some powerful bemusement, knowing that there is a _much_ simpler way to solve it.
 
-The key insight is that it's possible to inscribe a tetrahedron within a cube.
+After figuring out my own method, as described above, I went and looked for other methods. What I found was something very tidy, based on a key insight that it's possible to inscribe a tetrahedron within a cube.
 
 <div
   id="scene-cubeInscribedWireframe"
@@ -169,7 +169,8 @@ Which makes it fairly straightforward, certainly comparatively, to find the angl
 
 $$
 \begin{align*}
-\tan \angle AOI &= \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)}
+\tan \left( \angle AOI \right) &= \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} &\implies \\
+\angle AOI &= \text{tan}^{-1} \left( \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} \right)
 \end{align*}
 $$
 
@@ -182,18 +183,29 @@ $$
 \end{align*}
 $$
 
-Which enables finding a conrete value for angle $\angle AOI$.
+Which enables finding a concrete value for angle $\angle AOI$.
 
 $$
 \begin{align*}
-\tan \angle AOI &= \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} &\implies \\
-\tan \angle AOI &= \frac{\left( \frac{\sqrt{2}}{2} \right)}{\left( \frac{1}{2} \right)} &\implies \\
-\tan \angle AOI &= \sqrt{2} &\implies \\
+\angle AOI &= \text{tan}^{-1} \left( \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} \right) &\implies \\
+\angle AOI &= \text{tan}^{-1} \frac{\left( \frac{\sqrt{2}}{2} \right)}{\left( \frac{1}{2} \right)} &\implies \\
 \angle AOI &= \text{tan}^{-1} \sqrt{2}
 \end{align*}
 $$
 
-And lo', $2 \text{tan}^{-1} \sqrt{2}$ is equal to roughly 109.47122063449069&deg;. How about that?
+And lo', $2 \cdot \text{tan}^{-1} \sqrt{2}$ is equal to roughly 109.47122063449069&deg;. How about that?
+
+## The wrong answer?
+
+I love the second method, it's lovely. But I still love the method I stumbled into independently, just for very different reasons.
+
+Now that I've seen it, if I were ever asked to explain why that angle is roughly 109.5&deg; the cube-inscribed method is how I'd go about it. Of course I would, it's so clear! But, depending on the context, I'd also be tempted to suggest the asker have a swing it themselves first.
+
+My method as it's described above is missing the absolute mass of confused scratchings it took to get to it. Scratchings that had me exercising my limited understanding of trigonometry, and going off down rabbit holes such as _how do I_ know _that [all the angles of a triangle always sum to the same value](/notes/trigonometry-angle-sum-theorem)?_ It was, for me, very worthwhile.
+
+## Collective answers
+
+I doubt that I'd ever hit on the cube-inscribed method by myself.
 
 <script type="importmap">
   {

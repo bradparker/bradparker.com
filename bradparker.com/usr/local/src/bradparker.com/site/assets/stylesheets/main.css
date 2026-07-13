@@ -631,6 +631,8 @@ details[open] summary::before {
 
 .min-w-full { min-width: 100%; }
 
+.min-w-8 { min-width: 2rem; }
+
 .w-1\/5 { width: 20%; }
 
 .w-1\/4 { width: 25%; }
@@ -644,6 +646,8 @@ details[open] summary::before {
 .w-max { width: max-content; }
 
 /* Padding */
+
+.p-0 { padding: 0; }
 
 .p-2 { padding: 0.5rem }
 
@@ -740,6 +744,8 @@ details[open] summary::before {
 .text-center { text-align: center; }
 
 .font-bold { font-weight: 700; }
+
+.leading-8 { line-height: 2rem; }
 
 /* Z-index */
 
