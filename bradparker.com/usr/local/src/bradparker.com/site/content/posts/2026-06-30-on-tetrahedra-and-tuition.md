@@ -1,12 +1,25 @@
 ---
-title: On tetrahedra and not being able to be told anything
+title: On tetrahedra and tuition
+thumbnail: /content/posts/on-tetrahedra-and-not-being-able-to-be-told-anything/assets/images/hematite-tetrahedron.jpg
 description: |
-  Description...
+  ![A tetrahedron made out of polished balls of hematite](/content/posts/on-tetrahedra-and-not-being-able-to-be-told-anything/assets/images/hematite-tetrahedron.webp)
+
+  During a chemistry lecture I was told a simple little piece of information. This, of course, kicked off weeks of thinking about triangles and how us humans know so many cool and interesting things.
 tags:
   - Mathematics
 ---
 
+<figure>
+
 ![A tetrahedron made out of polished balls of hematite](/content/posts/on-tetrahedra-and-not-being-able-to-be-told-anything/assets/images/hematite-tetrahedron.webp)
+
+<figcaption>
+
+My son bought me these polished hematite balls. We're both hematite fans. They're quite magnetic. If you get the rotations right they're happy enough to sit in this arrangement.
+
+</figcaption>
+
+</figure>
 
 At the beginning of this year I began a Diploma in Science, at the University of Queensland. For several years I've been thinking about how much I'd like to return to tertiary studies. There's so much I want to learn about the natural world. I feel unbelievably fortunate to have the opportunity to give this a go.
 
@@ -19,7 +32,7 @@ I ended up beginning my return to studies with a chemistry bridging course. This
 * These regions of high electron probability are attracted to the centre of the atom, while they repel each other
 * The outermost electron containing regions of an atom are particularly important, because they _do things_ with electron containing regions from other atoms
 
-For the atoms I'll be concerning myself with here there are four regions in this outermost set. They're all attracted with equal force to the centre of the atom. At the same time they repel each other with equal force. So these four regions end up being held at an equal distance from the centre and push each other apart at an equal distance. Drawing equal lines from the centre of the atom, to the centre of each region, and equal lines between the centres of each region, gets you this image.
+For the atoms I'll be concerning myself with here there are four regions in this outermost set. They're all attracted with equal force to the centre of the atom. At the same time they repel each other with equal force. So these four regions end up being held at an equal distance from the centre and push each other apart at an equal distance. Drawing equal lines from the centre of the atom, to the centre of each region, and equal lines between the centres of each region, can get you this image.
 
 <div
   id="scene-wireframe"
@@ -29,7 +42,7 @@ For the atoms I'll be concerning myself with here there are four regions in this
 
 ## A simple question
 
-This combination of attractive and repulsive forces ends up producing a four sided solid shape, a tetrahedron. Tetrahedral geometry appears to be a pretty big deal in chemistry, or at least the parts I've been exposed to so far.
+This combination of attractive and repulsive forces ends up producing a four sided solid shape, a regular tetrahedron. Tetrahedral geometry appears to be a pretty big deal in chemistry, or at least the parts I've been exposed to so far.
 
 Here, look at this angle:
 
@@ -86,7 +99,7 @@ Tracing lines ($\overbar{AF}$ and $\overbar{EG}$) at right angles from the equal
   class="rounded-lg border overflow-hidden relative">
 </div>
 
-To find it, I'll fist find this one, $\angle DEA$.
+To find it, I'll first find this one, $\angle DEA$.
 
 <div
   id="scene-angleDEA"
@@ -143,7 +156,7 @@ After figuring out my own method, as described above, I went and looked for othe
   class="rounded-lg border overflow-hidden relative">
 </div>
 
-Tracing lines from the centre of this cube to any two points of the tetrahedron inscibed within it reveals the angle I'm looking for.
+Tracing lines from the centre of this cube to any two points of the tetrahedron inscribed within it reveals the angle I'm looking for.
 
 <div
   id="scene-cubeInscribedWireframe-angleAOC"
@@ -174,7 +187,7 @@ $$
 \end{align*}
 $$
 
-To find usable values for $\overbar{AI}$ and $\overbar{OI}$ I can just say the sides of the cube in which the tetrahedron is inscibed are equal to 1.
+To find usable values for $\overbar{AI}$ and $\overbar{OI}$ I can just say the sides of the cube in which the tetrahedron is inscribed are equal to 1. Again, why not?
 
 $$
 \begin{align*}
@@ -183,7 +196,7 @@ $$
 \end{align*}
 $$
 
-Which enables finding a concrete value for angle $\angle AOI$.
+This allows me to find a concrete value for angle $\angle AOI$.
 
 $$
 \begin{align*}
@@ -193,7 +206,7 @@ $$
 \end{align*}
 $$
 
-And lo', $2 \cdot \text{tan}^{-1} \sqrt{2}$ is equal to roughly 109.47122063449069&deg;. How about that?
+And lo, $2 \cdot \text{tan}^{-1} \sqrt{2}$ is equal to roughly 109.47122063449069&deg;. How about that?
 
 ## The wrong answer?
 
@@ -201,11 +214,15 @@ I love the second method, it's lovely. But I still love the method I stumbled in
 
 Now that I've seen it, if I were ever asked to explain why that angle is roughly 109.5&deg; the cube-inscribed method is how I'd go about it. Of course I would, it's so clear! But, depending on the context, I'd also be tempted to suggest the asker have a swing it themselves first.
 
-My method as it's described above is missing the absolute mass of confused scratchings it took to get to it. Scratchings that had me exercising my limited understanding of trigonometry, and going off down rabbit holes such as _how do I_ know _that [all the angles of a triangle always sum to the same value](/notes/trigonometry-angle-sum-theorem)?_ It was, for me, very worthwhile.
+My method as it's described above is missing the absolute mass of confused scratchings it took to get to it. I began by asking myself _what's everything I know, and what's everything can I derive about this shape?_ Along the way I exercised my limited understanding of trigonometry, and went off down rabbit holes such as _Wait, how do I_ know _that [all the angles of a triangle always sum to the same value](/notes/trigonometry-angle-sum-theorem)?_
 
 ## Collective answers
 
-I doubt that I'd ever hit on the cube-inscribed method by myself.
+I would never have hit on the cube-inscribed method by myself, but that's not a problem. I scratched around myself enough, I feel, to develop an appreciation for it, to better place it within the muddle of everything else which rattles around in my brain. And now that it's in there, there's every likelihood that if I'm presented with other tetrahedron-related questions, and trying to recall or derive everything I can about tetrahedra, it'll surface again.
+
+This, to me, is magical. It might seem like a pretty trite example, but in sitting with it for a while, I feel like I've _just_ started to appreciate the absolute mass of collective effort that was required for me to share in this little nugget of insight. Allowing myself a little melodrama, for me to _get this_ it's taken centuries of people observing, deriving, and refining new insights.
+
+So, uh, thanks everyone! Keep up the cool and interesting work of progressing humanity's collective knowledge.
 
 <script type="importmap">
   {
