@@ -1,8 +1,8 @@
 ---
 title: On tetrahedra and tuition
-thumbnail: /content/posts/on-tetrahedra-and-not-being-able-to-be-told-anything/assets/images/hematite-tetrahedron.jpg
+thumbnail: /content/posts/on-tetrahedra-and-tuition/assets/images/hematite-tetrahedron.jpg
 description: |
-  ![A tetrahedron made out of polished balls of hematite](/content/posts/on-tetrahedra-and-not-being-able-to-be-told-anything/assets/images/hematite-tetrahedron.webp)
+  ![A tetrahedron made out of polished balls of hematite](/content/posts/on-tetrahedra-and-tuition/assets/images/hematite-tetrahedron.webp)
 
   During a chemistry lecture I was told a simple little piece of information. This, of course, kicked off weeks of thinking about triangles and how us humans know so many cool and interesting things.
 tags:
@@ -11,7 +11,7 @@ tags:
 
 <figure>
 
-![A tetrahedron made out of polished balls of hematite](/content/posts/on-tetrahedra-and-not-being-able-to-be-told-anything/assets/images/hematite-tetrahedron.webp)
+![A tetrahedron made out of polished balls of hematite](/content/posts/on-tetrahedra-and-tuition/assets/images/hematite-tetrahedron.webp)
 
 <figcaption>
 
@@ -236,5 +236,5 @@ So, uh, thanks everyone! Keep up the cool and interesting work of progressing hu
 <script
   async
   type="module"
-  src="/content/posts/on-tetrahedra-and-not-being-able-to-be-told-anything/assets/javascript/main.js">
+  src="/content/posts/on-tetrahedra-and-tuition/assets/javascript/main.js">
 </script>
