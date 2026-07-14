@@ -476,11 +476,19 @@ details[open] summary::before {
   font-size: 1rem;
 }
 
+.markdown math[display="inline"] {
+  line-height: 1;
+}
+
 .markdown math msup > *:last-child,
 .markdown math msub > *:last-child,
 .markdown math mroot > *:last-child,
 .markdown math msubsup > *:nth-child(2),
 .markdown math msubsup > *:nth-child(3) {
+  font-size: 0.667em;
+}
+
+.markdown math[display="inline"] mfrac {
   font-size: 0.75em;
 }
 

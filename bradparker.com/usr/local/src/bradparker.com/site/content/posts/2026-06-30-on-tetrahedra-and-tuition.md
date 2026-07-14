@@ -4,7 +4,7 @@ thumbnail: /content/posts/on-tetrahedra-and-tuition/assets/images/hematite-tetra
 description: |
   ![A tetrahedron made out of polished balls of hematite](/content/posts/on-tetrahedra-and-tuition/assets/images/hematite-tetrahedron.webp)
 
-  During a chemistry lecture I was told a simple little piece of information. This, of course, kicked off weeks of thinking about triangles and how us humans know so many cool and interesting things.
+  During a chemistry lecture I was told a simple little piece of information. This, of course, kicked off weeks of thinking about triangles and how people, communities and cultures learn.
 tags:
   - Mathematics
 ---
@@ -52,7 +52,7 @@ Here, look at this angle:
   class="rounded-lg border overflow-hidden relative">
 </div>
 
-This angle helps to explain why many molecules are the shapes they are, and the shapes of many molecules help to explain why they behave the way they do, and the behavior of molecules helps to explain an awful lot of phenomena across many areas of study. Like I said: a pretty big deal.
+This angle helps to explain why many molecules are the shapes they are, and the shapes of many molecules help to explain why they behave in the ways they do, and the behavior of many molecules helps to explain an awful lot of phenomena across many areas of study. So yeah, I reckon it might be a pretty big deal.
 
 During a lecture introducing us to molecular geometry we were told that this angle is approximately equal to 109.5&deg;, which had me immediately thinking "I wonder if I can figure out what it _really_ is?"
 
@@ -142,13 +142,13 @@ Which then tells me that angle $\angle AOH$ is equal to angle $\angle DEA$. Beca
   class="rounded-lg border overflow-hidden relative">
 </div>
 
-This means The Angle, the one I've been looking for, is $2 \angle DEA$, or $2 \text{cos}^{-1}\frac{\sqrt{3}}{3}$. Which in degrees is about 109.47122063449069&deg;. So there you go.
+This means The Angle, the one I've been looking for, is $2 \angle DEA$, or $2 \cdot \text{cos}^{-1}\frac{\sqrt{3}}{3}$. Which in degrees is about 109.47122063449069&deg;. So there you go.
 
 ## A much simpler answer
 
 If you're familiar with this problem, or you're just much cleverer than me, you likely read the above with some powerful bemusement, knowing that there is a _much_ simpler way to solve it.
 
-After figuring out my own method, as described above, I went and looked for other methods. What I found was something very tidy, based on a key insight that it's possible to inscribe a tetrahedron within a cube.
+After figuring out my own method, as described above, I went and looked for other methods. What I found was something very tidy, based on a key insight that it's possible to inscribe a regular tetrahedron within a cube.
 
 <div
   id="scene-cubeInscribedWireframe"
@@ -208,21 +208,21 @@ $$
 
 And lo, $2 \cdot \text{tan}^{-1} \sqrt{2}$ is equal to roughly 109.47122063449069&deg;. How about that?
 
-## The wrong answer?
+## Getting lost or exploring the territory
 
-I love the second method, it's lovely. But I still love the method I stumbled into independently, just for very different reasons.
+Now that I've seen it, if I were ever asked to explain why that angle is roughly 109.5&deg; the cube-inscribed method is how I'd go about it. Of course I would, it's so clear! But that doesn't mean that I think finding my own less elegant method was a waste of time.
 
-Now that I've seen it, if I were ever asked to explain why that angle is roughly 109.5&deg; the cube-inscribed method is how I'd go about it. Of course I would, it's so clear! But, depending on the context, I'd also be tempted to suggest the asker have a swing it themselves first.
+My method as it's described above is missing the absolute mass of confused scratchings it took to get to it. I began by asking myself _what's everything I know, and what's everything can I derive about this shape?_ Along the way I exercised my limited understanding of trigonometry, and went off down rabbit holes such as _Wait, how do I know that [all the angles of a triangle always sum to the same value](/notes/trigonometry-angle-sum-theorem)?_ and _Hang on, [why does $a^2 = b^2 + c^2$](https://www.euclids-elements.org/elements/bookI/propI47.html)?_
 
-My method as it's described above is missing the absolute mass of confused scratchings it took to get to it. I began by asking myself _what's everything I know, and what's everything can I derive about this shape?_ Along the way I exercised my limited understanding of trigonometry, and went off down rabbit holes such as _Wait, how do I_ know _that [all the angles of a triangle always sum to the same value](/notes/trigonometry-angle-sum-theorem)?_
+All that stumbling around is incredibly valuable to me. It helped me build a scaffold in which to place this insight about molecular geometry, regular tetrahedra and cubes. And now that it's in there, there's every likelihood that if I'm presented with other related questions, and trying to recall or derive everything I can about some structure, it'll surface again.
 
-## Collective answers
+I believe this because if I think of times where I've successfully learned something about a subject, e.g. music or programming, this is how I've done it. Additionally, this approach of adding surrounding terrain to the things I want to retain seems related to the [levels of processing model](https://en.wikipedia.org/wiki/Levels_of_processing_model) of memory recall, which I read about in [_Memory_](https://mitpress.mit.edu/9780262545204/memory/) by Fergus Craik and Larry Jacoby. So that's encouraging.
 
-I would never have hit on the cube-inscribed method by myself, but that's not a problem. I scratched around myself enough, I feel, to develop an appreciation for it, to better place it within the muddle of everything else which rattles around in my brain. And now that it's in there, there's every likelihood that if I'm presented with other tetrahedron-related questions, and trying to recall or derive everything I can about tetrahedra, it'll surface again.
+## Finding the trail
 
-This, to me, is magical. It might seem like a pretty trite example, but in sitting with it for a while, I feel like I've _just_ started to appreciate the absolute mass of collective effort that was required for me to share in this little nugget of insight. Allowing myself a little melodrama, for me to _get this_ it's taken centuries of people observing, deriving, and refining new insights.
+Another reason I have to value wandering off down circuitous byways is that it ... BIT ABOUT CUMULATIVE CULTURE GOES HERE ...
 
-So, uh, thanks everyone! Keep up the cool and interesting work of progressing humanity's collective knowledge.
+So, uh, thanks everyone! Keep up the cool and interesting work of progressing humanity's collective knowledge. I really appreciate it.
 
 <script type="importmap">
   {
