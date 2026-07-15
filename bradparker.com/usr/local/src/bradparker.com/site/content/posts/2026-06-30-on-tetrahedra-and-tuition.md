@@ -58,9 +58,9 @@ During a lecture introducing us to molecular geometry we were told that this ang
 
 ## A not so simple answer
 
-Here's how I figured it out, more or less. Actually, a lot less, but I'll come to that later. First I assumed that all the edges were equal to 1. Why not?
+I'm going to describe here how I figured it out, more or less. Actually, a lot less, but I'll come to that later. This is by no means an ideal solution, it's just the one I came to. Bear with me.
 
-That means all the sides, such as this one ($\triangle{ABC}$), are triangles with heights (e.g. $\overbar{AD}$) equal to $\frac{\sqrt{3}}{2}$.
+First, I assumed that all the edges were equal to 1. Why not? That means all the sides, such as this one ($\triangle{ABC}$), are triangles with heights (e.g. $\overbar{AD}$) equal to $\frac{\sqrt{3}}{2}$.
 
 <div
   id="scene-wireframe-and-side-with-height"
@@ -107,7 +107,7 @@ To find it, I'll first find this one, $\angle DEA$.
   class="rounded-lg border overflow-hidden relative">
 </div>
 
-And to do that I can trace a line ($\overbar{DH}$) at a right angle from line $\overbar{AE}$ to point $D$.
+And to do that I can trace a line ($\overbar{DH}$) at a right angle from line $\overbar{AE}$ to point $D$. (I could've also used the law of cosines, but I'll make use of this line $\overbar{DH}$ again.)
 
 <div
   id="scene-lineDH"
@@ -115,14 +115,15 @@ And to do that I can trace a line ($\overbar{DH}$) at a right angle from line $\
   class="rounded-lg border overflow-hidden relative">
 </div>
 
-With that I can find angle $\angle DEA$.
+With that I can find angle $\angle DEA$. 
 
 $$
 \begin{align*}
-\cos \left( \angle DEA \right) &= \frac{\left( \overbar{EH} \right)}{\left( \overbar{DE} \right)} &\implies \\
-\angle DEA &= \text{cos}^{-1} \frac{\left( \overbar{EH} \right)}{\left( \overbar{DE} \right)} &\implies \\
-\angle DEA &= \text{cos}^{-1} \frac{\left( \frac{1}{2} \right)}{\left( \frac{\sqrt{3}}{2} \right)} &\implies \\
-\angle DEA &= \text{cos}^{-1} \frac{\sqrt{3}}{3}
+\cos \left( \angle DEA \right) &= \frac{\left( \overbar{EH} \right)}{\left( \overbar{DE} \right)} \implies \\
+\angle DEA 
+  &= \text{cos}^{-1} \frac{\left( \overbar{EH} \right)}{\left( \overbar{DE} \right)} \\
+  &= \text{cos}^{-1} \frac{\left( \frac{1}{2} \right)}{\left( \frac{\sqrt{3}}{2} \right)} \\
+  &= \text{cos}^{-1} \frac{\sqrt{3}}{3}
 \end{align*}
 $$
 
@@ -146,9 +147,9 @@ This means The Angle, the one I've been looking for, is $2 \angle DEA$, or $2 \c
 
 ## A much simpler answer
 
-If you're familiar with this problem, or you're just much cleverer than me, you likely read the above with some powerful bemusement, knowing that there is a _much_ simpler way to solve it.
+If you're familiar with this problem, or you're very clever, you likely read the above with some powerful bemusement, knowing that there is a _much_ simpler way to solve it.
 
-After figuring out my own method, as described above, I went and looked for other methods. What I found was something very tidy, based on a key insight that it's possible to inscribe a regular tetrahedron within a cube.
+After figuring out my own method, as described above, I went and looked for other methods. What I found was something very tidy, based on the key insight that it's possible to inscribe a regular tetrahedron within a cube.
 
 <div
   id="scene-cubeInscribedWireframe"
@@ -182,7 +183,7 @@ Which makes it fairly straightforward, certainly comparatively, to find the angl
 
 $$
 \begin{align*}
-\tan \left( \angle AOI \right) &= \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} &\implies \\
+\tan \left( \angle AOI \right) &= \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} \implies \\
 \angle AOI &= \text{tan}^{-1} \left( \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} \right)
 \end{align*}
 $$
@@ -200,9 +201,10 @@ This allows me to find a concrete value for angle $\angle AOI$.
 
 $$
 \begin{align*}
-\angle AOI &= \text{tan}^{-1} \left( \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} \right) &\implies \\
-\angle AOI &= \text{tan}^{-1} \frac{\left( \frac{\sqrt{2}}{2} \right)}{\left( \frac{1}{2} \right)} &\implies \\
-\angle AOI &= \text{tan}^{-1} \sqrt{2}
+\angle AOI 
+  &= \text{tan}^{-1} \left( \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} \right) \\
+  &= \text{tan}^{-1} \frac{\left( \frac{\sqrt{2}}{2} \right)}{\left( \frac{1}{2} \right)} \\
+  &= \text{tan}^{-1} \sqrt{2}
 \end{align*}
 $$
 
@@ -212,17 +214,21 @@ And lo, $2 \cdot \text{tan}^{-1} \sqrt{2}$ is equal to roughly 109.4712206344906
 
 Now that I've seen it, if I were ever asked to explain why that angle is roughly 109.5&deg; the cube-inscribed method is how I'd go about it. Of course I would, it's so clear! But that doesn't mean that I think finding my own less elegant method was a waste of time.
 
-My method as it's described above is missing the absolute mass of confused scratchings it took to get to it. I began by asking myself _what's everything I know, and what's everything can I derive about this shape?_ Along the way I exercised my limited understanding of trigonometry, and went off down rabbit holes such as _Wait, how do I know that [all the angles of a triangle always sum to the same value](/notes/trigonometry-angle-sum-theorem)?_ and _Hang on, [why does $a^2 = b^2 + c^2$](https://www.euclids-elements.org/elements/bookI/propI47.html)?_
+My method as it's described above is missing the absolute mass of confused scratchings it took to get to it. I began by asking myself _what's everything I know, and what's everything can I derive about this shape?_ Along the way I exercised my limited understanding of trigonometry, and went off down rabbit holes such as _Wait, how do I know that [all the angles of a triangle always sum to the same value](/notes/trigonometry-angle-sum-theorem)?_ and _Hang on, [why does 'a' squared equal 'b' squared plus 'c' squared](https://www.euclids-elements.org/elements/bookI/propI47.html)?_
 
 All that stumbling around is incredibly valuable to me. It helped me build a scaffold in which to place this insight about molecular geometry, regular tetrahedra and cubes. And now that it's in there, there's every likelihood that if I'm presented with other related questions, and trying to recall or derive everything I can about some structure, it'll surface again.
 
-I believe this because if I think of times where I've successfully learned something about a subject, e.g. music or programming, this is how I've done it. Additionally, this approach of adding surrounding terrain to the things I want to retain seems related to the [levels of processing model](https://en.wikipedia.org/wiki/Levels_of_processing_model) of memory recall, which I read about in [_Memory_](https://mitpress.mit.edu/9780262545204/memory/) by Fergus Craik and Larry Jacoby. So that's encouraging.
+I believe this because if I think of times where I've successfully learned something about a subject, e.g. music or programming, this is how I've done it. Additionally, this approach of adding surrounding terrain to the things I want to retain seems related to the [levels of processing model](https://en.wikipedia.org/wiki/Levels_of_processing_model) of memory recall, an introduction of which I read in [_Memory_](https://mitpress.mit.edu/9780262545204/memory/) by Fergus Craik and Larry Jacoby. So that's encouraging.
 
 ## Finding the trail
 
-Another reason I have to value wandering off down circuitous byways is that it ... BIT ABOUT CUMULATIVE CULTURE GOES HERE ...
+The steps I took during my swing at a solution, and my being able to understand the clearly articulated cube-inscribed solution, are owed to the accumulation and selection of good ideas, made by many communities of inspired people, over many generations.
 
-So, uh, thanks everyone! Keep up the cool and interesting work of progressing humanity's collective knowledge. I really appreciate it.
+I know it's a bit of a trite example, but I can't help it, I get a kick out of this. Over 2,600 years ago [some Grecians](https://en.wikipedia.org/wiki/Pythagoreanism) bonded over an extreme enthusiasm for triangles. Some 300 years later their ideas, along with more from other communities, were elucidated and collected into [books](https://en.wikipedia.org/wiki/Euclid%27s_Elements) you can still read today. 157 years ago Emanuele Paternò suggested to his colleagues that they suppose "that the four atomic valences of \[carbon\] point toward the four vertices of a regular tetrahedron."[^1] 87 years ago Ryutarō Tsuchida proposes [a connection between valence electrons and molecular geometry](https://en.wikipedia.org/wiki/VSEPR_theory#History). A few months ago me and 400 others sat in a lecture theatre in Queensland, Australia and learned about valence electrons, so that we might better understand molecular geometry, so that we might better understand molecular polarity, so that we might better understand why oil and water don't mix.
+
+So, uh, thanks everyone! Keep up the cool and interesting work of [accumulating our culture](https://oecs.mit.edu/pub/6bvu7f8m/release/1). I really appreciate it.
+
+[^1]: [150 Years of the Tetrahedral Carbon: A Toast to Chirality](https://www.sciencedirect.com/org/science/article/pii/S0899004225000071)
 
 <script type="importmap">
   {
