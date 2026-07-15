@@ -27,17 +27,18 @@ But, I have a lot of ground to cover. For one thing I've done no real mathematic
 
 ## Pushing and pulling
 
-I ended up beginning my return to studies with a chemistry bridging course. This was two years of high school chemistry squished into 6 months. I can't recall the time frames exactly, but I feel like we moved very quickly from "this is an atom" to "here are the basics of Valence Shell Electron Pair Repulsion theory." As I understand it the very basic idea is:
+I ended up beginning my return to studies with a chemistry bridging course. This was two years of high school chemistry squished into 6 months. I can't recall the time frames exactly, but I feel like we moved very quickly from "this is an atom" to "here are the basics of Valence Shell Electron Pair Repulsion theory." As I understand it the very basics of the idea are:
+
 * There are regions in the space around an atom where the probability of finding an electron is higher than elsewhere
-* These regions of high electron probability are attracted to the centre of the atom, while they repel each other
+* These regions of high electron probability are attracted to the centre of the atom, while at the same time they repel each other
 * The outermost electron containing regions of an atom are particularly important, because they _do things_ with electron containing regions from other atoms
 
 For the atoms I'll be concerning myself with here there are four regions in this outermost set. They're all attracted with equal force to the centre of the atom. At the same time they repel each other with equal force. So these four regions end up being held at an equal distance from the centre and push each other apart at an equal distance. Drawing equal lines from the centre of the atom, to the centre of each region, and equal lines between the centres of each region, can get you this image.
 
 <div
   id="scene-wireframe"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-wireframe-943x673.png">
 </div>
 
 ## A simple question
@@ -48,8 +49,8 @@ Here, look at this angle:
 
 <div
   id="scene-wireframe-and-angle"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-wireframe-and-angle-943x673.png">
 </div>
 
 This angle helps to explain why many molecules are the shapes they are, and the shapes of many molecules help to explain why they behave in the ways they do, and the behavior of many molecules helps to explain an awful lot of phenomena across many areas of study. So yeah, I reckon it might be a pretty big deal.
@@ -66,6 +67,7 @@ First, I assumed that all the edges were equal to 1. Why not? That means all the
   id="scene-wireframe-and-side-with-height"
   style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-wireframe-and-side-with-height-943x673.png">
 </div>
 
 Because...
@@ -87,40 +89,40 @@ Tracing the same line along another side ($\triangle EBC$) produces an isosceles
 
 <div
   id="scene-wireframe-and-slice"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-wireframe-and-slice-943x673.png">
 </div>
 
 Tracing lines ($\overbar{AF}$ and $\overbar{EG}$) at right angles from the equal sides ($\overbar{DA}$ and $\overbar{DE}$) of this triangle to their opposing vertices reveals the angle I'm after.
 
 <div
   id="scene-lineAF-lineEG"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-lineAF-lineEG-943x673.png">
 </div>
 
 To find it, I'll first find this one, $\angle DEA$.
 
 <div
   id="scene-angleDEA"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-angleDEA-943x673.png">
 </div>
 
 And to do that I can trace a line ($\overbar{DH}$) at a right angle from line $\overbar{AE}$ to point $D$. (I could've also used the law of cosines, but I'll make use of this line $\overbar{DH}$ again.)
 
 <div
   id="scene-lineDH"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-lineDH-943x673.png">
 </div>
 
-With that I can find angle $\angle DEA$. 
+With that I can find angle $\angle DEA$.
 
 $$
 \begin{align*}
 \cos \left( \angle DEA \right) &= \frac{\left( \overbar{EH} \right)}{\left( \overbar{DE} \right)} \implies \\
-\angle DEA 
+\angle DEA
   &= \text{cos}^{-1} \frac{\left( \overbar{EH} \right)}{\left( \overbar{DE} \right)} \\
   &= \text{cos}^{-1} \frac{\left( \frac{1}{2} \right)}{\left( \frac{\sqrt{3}}{2} \right)} \\
   &= \text{cos}^{-1} \frac{\sqrt{3}}{3}
@@ -131,16 +133,16 @@ From here I know that angles $\angle FAE$ and $\angle HDE$ are equal because the
 
 <div
   id="scene-angleFAE-angleHDE"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-angleFAE-angleHDE-943x673.png">
 </div>
 
 Which then tells me that angle $\angle AOH$ is equal to angle $\angle DEA$. Because the triangles $\triangle HDE$ and $\triangle AOH$ already have two equal angles, so the remaining angles must be equal.
 
 <div
   id="scene-angleAOH"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-angleAOH-943x673.png">
 </div>
 
 This means The Angle, the one I've been looking for, is $2 \angle DEA$, or $2 \cdot \text{cos}^{-1}\frac{\sqrt{3}}{3}$. Which in degrees is about 109.47122063449069&deg;. So there you go.
@@ -153,32 +155,32 @@ After figuring out my own method, as described above, I went and looked for othe
 
 <div
   id="scene-cubeInscribedWireframe"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-cubeInscribedWireframe-943x673.png">
 </div>
 
 Tracing lines from the centre of this cube to any two points of the tetrahedron inscribed within it reveals the angle I'm looking for.
 
 <div
   id="scene-cubeInscribedWireframe-angleAOC"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-cubeInscribedWireframe-angleAOC-943x673.png">
 </div>
 
 To find it this time I can trace a line ($\overbar{OI}$) at right angles to edge $\overbar{AC}$ to the centre.
 
 <div
   id="scene-cubeInscribedWireframe-lineOI"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-cubeInscribedWireframe-lineOI-943x673.png">
 </div>
 
 Which makes it fairly straightforward, certainly comparatively, to find the angle $\angle AOI$.
 
 <div
   id="scene-cubeInscribedWireframe-angleAOI"
-  style="height: 20rem;"
   class="rounded-lg border overflow-hidden relative">
+  <img src="/content/posts/on-tetrahedra-and-tuition/assets/images/screencapture-scene-cubeInscribedWireframe-angleAOI-943x673.png">
 </div>
 
 $$
@@ -201,7 +203,7 @@ This allows me to find a concrete value for angle $\angle AOI$.
 
 $$
 \begin{align*}
-\angle AOI 
+\angle AOI
   &= \text{tan}^{-1} \left( \frac{\left( \overbar{AI} \right)}{\left( \overbar{OI} \right)} \right) \\
   &= \text{tan}^{-1} \frac{\left( \frac{\sqrt{2}}{2} \right)}{\left( \frac{1}{2} \right)} \\
   &= \text{tan}^{-1} \sqrt{2}
@@ -218,7 +220,7 @@ My method as it's described above is missing the absolute mass of confused scrat
 
 All that stumbling around is incredibly valuable to me. It helped me build a scaffold in which to place this insight about molecular geometry, regular tetrahedra and cubes. And now that it's in there, there's every likelihood that if I'm presented with other related questions, and trying to recall or derive everything I can about some structure, it'll surface again.
 
-I believe this because if I think of times where I've successfully learned something about a subject, e.g. music or programming, this is how I've done it. Additionally, this approach of adding surrounding terrain to the things I want to retain seems related to the [levels of processing model](https://en.wikipedia.org/wiki/Levels_of_processing_model) of memory recall, an introduction of which I read in [_Memory_](https://mitpress.mit.edu/9780262545204/memory/) by Fergus Craik and Larry Jacoby. So that's encouraging.
+I believe this because if I think of times where I've successfully learned something about a subject, e.g. music or programming, this is how I've done it. Additionally, this approach of adding surrounding terrain to the things I want to retain seems related to the [levels of processing model](https://en.wikipedia.org/wiki/Levels_of_processing_model) of memory recall, an introduction to which I read in [_Memory_](https://mitpress.mit.edu/9780262545204/memory/) by Fergus Craik and Larry Jacoby. So that's encouraging.
 
 ## Finding the trail
 

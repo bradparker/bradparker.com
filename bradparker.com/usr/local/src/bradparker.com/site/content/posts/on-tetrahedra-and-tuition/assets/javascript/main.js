@@ -52,10 +52,14 @@ const displayPlay = (button) => {
   button.setAttribute("title", "Play");
 };
 
-const createScene = (id, group, animate) => {
+const createScene = (id, group, change) => {
   const mount = document.getElementById(id);
 
   if (!mount) return;
+
+  const renderer = new WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(mount.clientWidth, mount.clientHeight);
 
   const scene = new Scene();
   scene.background = new Color(0xffffff);
@@ -66,21 +70,22 @@ const createScene = (id, group, animate) => {
     0.1,
     50,
   );
-  camera.position.set(0, 2, 3);
-
-  const renderer = new WebGLRenderer({ antialias: true });
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(mount.clientWidth, mount.clientHeight);
+  camera.position.set(0, 1.5, 3);
 
   let paused = false;
   let pausedDuration = 0;
   let lastPausedAt = null;
-  const animation = (time) => {
-    const animationTime = time - pausedDuration;
-    animate(camera, paused, animationTime);
+  const render = (time) => {
+    change(camera, paused, time - pausedDuration);
     renderer.render(scene, camera);
   };
-  renderer.setAnimationLoop(animation);
+  renderer.setAnimationLoop(render);
+
+  const placeholder = mount.querySelector("img");
+
+  if (placeholder) {
+    placeholder.remove();
+  }
 
   mount.appendChild(renderer.domElement);
 
@@ -104,30 +109,69 @@ const createScene = (id, group, animate) => {
     false,
   );
 
-  const button = document.createElement("button");
-  button.classList.add(
-    "absolute",
-    "right-4",
-    "bottom-4",
+  const buttons = document.createElement("div");
+  buttons.classList.add("flex", "gap-3", "absolute", "right-4", "bottom-4");
+  const buttonClasses = [
     "border",
     "rounded-full",
     "min-w-8",
     "p-0",
     "text-center",
     "leading-8",
-  );
-  displayPause(button);
-  button.addEventListener("click", () => {
+  ];
+
+  const playPauseButton = document.createElement("button");
+  playPauseButton.classList.add(...buttonClasses);
+  displayPause(playPauseButton);
+
+  const pause = () => {
+    lastPausedAt = performance.now();
+    displayPlay(playPauseButton);
+    paused = true;
+  };
+
+  const play = () => {
+    displayPause(playPauseButton);
+    pausedDuration += performance.now() - lastPausedAt;
+    paused = false;
+  };
+
+  playPauseButton.addEventListener("click", () => {
     if (paused) {
-      displayPause(button);
-      pausedDuration += performance.now() - lastPausedAt;
+      play();
     } else {
-      lastPausedAt = performance.now();
-      displayPlay(button);
+      pause();
     }
-    paused = !paused;
   });
-  mount.appendChild(button);
+
+  if (window.location.search === "?screencaptures") {
+    const downloadLink = document.createElement("a");
+    document.body.appendChild(downloadLink);
+    downloadLink.style.display = "none";
+
+    const save = (blob, fileName) => {
+      const url = window.URL.createObjectURL(blob);
+      downloadLink.href = url;
+      downloadLink.download = fileName;
+      downloadLink.click();
+    };
+
+    const saveButton = document.createElement("button");
+    saveButton.innerHTML = "&#128190;";
+    saveButton.classList.add(...buttonClasses);
+    saveButton.addEventListener("click", () => {
+      const canvas = renderer.domElement;
+      render(0);
+      canvas.toBlob((blob) => {
+        save(blob, `screencapture-${id}-${canvas.width}x${canvas.height}.png`);
+      });
+    });
+
+    buttons.appendChild(saveButton);
+  }
+
+  buttons.appendChild(playPauseButton);
+  mount.appendChild(buttons);
 };
 
 const lineMaterial = new LineBasicMaterial({
