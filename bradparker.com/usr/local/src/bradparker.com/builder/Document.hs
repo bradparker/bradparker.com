@@ -132,13 +132,13 @@ component props children =
           me "https://bne.social/@brad"
           me "https://social.chinwag.org/@brad"
           me "https://github.com/bradparker"
-          H.meta ! A.name "fediverse:creator" ! A.content "@brad@chinwag.org"
+          H.meta ! A.name "fediverse:creator" ! A.content "@brad@bne.social"
           H.meta ! A.name "og:title" ! A.content (H.stringValue props.title)
           H.meta ! A.name "og:url" ! A.content (H.stringValue cannonicalURL)
           case props.thumbnail of
             Nothing -> pure ()
             Just src -> H.meta ! A.name "og:image" ! A.content (H.stringValue (addBaseURL src))
-          H.link ! A.rel "webmention" ! A.href "https://webmention.io/bradparker.com/webmention"
+          H.link ! A.rel "webmention" ! A.href "https://webmention.io/bradparker.id.au/webmention"
           H.link ! A.rel "shortcut icon" ! A.href "/assets/images/b.svg" ! A.type_ "image/svg+xml"
           stylesheet "/assets/stylesheets/minimal.css"
           stylesheet "/assets/stylesheets/tachyons.min.css"

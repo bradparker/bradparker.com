@@ -4,9 +4,10 @@ thumbnail: /content/posts/on-tetrahedra-and-tuition/assets/images/hematite-tetra
 description: |
   ![A tetrahedron made out of polished balls of hematite](/content/posts/on-tetrahedra-and-tuition/assets/images/hematite-tetrahedron.webp)
 
-  During a chemistry lecture I was told a simple little piece of information. This, of course, kicked off weeks of thinking about triangles, as well as how people, communities and cultures learn.
+  During a chemistry lecture I was told a simple little piece of information. This, of course, kicked off weeks of thinking about triangles, as well as how I, other individuals, communities and cultures learn.
 tags:
   - Mathematics
+published: 2026-07-16
 ---
 
 <figure>
@@ -33,7 +34,7 @@ I ended up beginning my return to studies with a chemistry bridging course. This
 * These regions of high electron probability are attracted to the centre of the atom, while at the same time they repel each other
 * The outermost electron containing regions of an atom are particularly important, because they _do things_ with electron containing regions from other atoms
 
-For the atoms I'll be concerning myself with here there are four regions in this outermost set. They're all attracted with equal force to the centre of the atom. At the same time they repel each other with equal force. So these four regions end up being held at an equal distance from the centre and push each other apart at an equal distance. Drawing equal lines from the centre of the atom, to the centre of each region, and equal lines between the centres of each region, can get you this image.
+For the atoms I'll be talking about here there are four regions in this outermost set. They're all attracted with equal force to the centre of the atom. At the same time they repel each other with equal force. So these four regions end up being held at an equal distance from the centre and push each other apart at an equal distance. Drawing equal lines from the centre of the atom, to the centre of each region, and equal lines between the centres of each region, can get you this image.
 
 <div
   id="scene-wireframe"
@@ -230,7 +231,7 @@ The steps I took during my swing at a solution, and my being able to understand 
 
 I know it's a bit of a trite example, but I can't help it, I get a kick out of this. Over 2,600 years ago [some Grecians](https://en.wikipedia.org/wiki/Pythagoreanism) bonded over an extreme enthusiasm for triangles. Some 300 years later their ideas, along with more from other communities, were elucidated and collected into [books](https://en.wikipedia.org/wiki/Euclid%27s_Elements) you can still read today. 157 years ago Emanuele Paternò suggested to his colleagues that they suppose "that the four atomic valences of \[carbon\] point toward the four vertices of a regular tetrahedron."[^1] 87 years ago Ryutarō Tsuchida proposes [a connection between valence electrons and molecular geometry](https://en.wikipedia.org/wiki/VSEPR_theory#History). A few months ago me and 400 others sat in a lecture theatre in Queensland, Australia and learned about valence electrons, so that we might better understand molecular geometry, so that we might better understand intermolecular forces, so that we might better understand why oil and water don't mix.
 
-Now, selection requires a breadth of variations from which to select. The path outlined above has been made clear and distinct against the landscape of supporting and adjacent ideas through which it winds. But it is still of that landscape. No landscape, no path. No diversity of thought and attention, no through line from the geometry of the Pythagoreans to a description of molecular polarity.
+Now, selection requires a breadth of variations from which to select. The path outlined above has been made clear and distinct against the landscape of supporting and adjacent ideas through which it winds. But it is still of that landscape. No landscape, no path. No diversity of thought and attention, no through line from the geometry of the Pythagoreans to a description of chemical polarity.
 
 So, uh, thanks everyone! Keep up the cool and interesting work of [accumulating our culture](https://oecs.mit.edu/pub/6bvu7f8m/release/1). I really appreciate it.
 
