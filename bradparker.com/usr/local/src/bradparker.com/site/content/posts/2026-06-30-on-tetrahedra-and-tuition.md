@@ -4,7 +4,7 @@ thumbnail: /content/posts/on-tetrahedra-and-tuition/assets/images/hematite-tetra
 description: |
   ![A tetrahedron made out of polished balls of hematite](/content/posts/on-tetrahedra-and-tuition/assets/images/hematite-tetrahedron.webp)
 
-  During a chemistry lecture I was told a simple little piece of information. This, of course, kicked off weeks of thinking about triangles and how people, communities and cultures learn.
+  During a chemistry lecture I was told a simple little piece of information. This, of course, kicked off weeks of thinking about triangles, as well as how people, communities and cultures learn.
 tags:
   - Mathematics
 ---
@@ -149,7 +149,7 @@ This means The Angle, the one I've been looking for, is $2 \angle DEA$, or $2 \c
 
 ## A much simpler answer
 
-If you're familiar with this problem, or you're very clever, you likely read the above with some powerful bemusement, knowing that there is a _much_ simpler way to solve it.
+There's a decent chance you read the above with some powerful bemusement, knowing that there is a _much_ simpler way to arrive at the answer.
 
 After figuring out my own method, as described above, I went and looked for other methods. What I found was something very tidy, based on the key insight that it's possible to inscribe a regular tetrahedron within a cube.
 
@@ -222,11 +222,15 @@ All that stumbling around is incredibly valuable to me. It helped me build a sca
 
 I believe this because if I think of times where I've successfully learned something about a subject, e.g. music or programming, this is how I've done it. Additionally, this approach of adding surrounding terrain to the things I want to retain seems related to the [levels of processing model](https://en.wikipedia.org/wiki/Levels_of_processing_model) of memory recall, an introduction to which I read in [_Memory_](https://mitpress.mit.edu/9780262545204/memory/) by Fergus Craik and Larry Jacoby. So that's encouraging.
 
+The point I’m trying to make is that if I’d simply skipped straight to The Answer I’d have missed many opportunities to gain a fuller appreciation for it. In some sense I don’t think I’d really have learned much of anything. It’s the difference between viewing learning as a process or a product. Wholesale efficiency is detrimental, redundancy and excess are actually beneficial here.
+
 ## Finding the trail
 
 The steps I took during my swing at a solution, and my being able to understand the clearly articulated cube-inscribed solution, are owed to the accumulation and selection of good ideas, made by many communities of inspired people, over many generations.
 
-I know it's a bit of a trite example, but I can't help it, I get a kick out of this. Over 2,600 years ago [some Grecians](https://en.wikipedia.org/wiki/Pythagoreanism) bonded over an extreme enthusiasm for triangles. Some 300 years later their ideas, along with more from other communities, were elucidated and collected into [books](https://en.wikipedia.org/wiki/Euclid%27s_Elements) you can still read today. 157 years ago Emanuele Paternò suggested to his colleagues that they suppose "that the four atomic valences of \[carbon\] point toward the four vertices of a regular tetrahedron."[^1] 87 years ago Ryutarō Tsuchida proposes [a connection between valence electrons and molecular geometry](https://en.wikipedia.org/wiki/VSEPR_theory#History). A few months ago me and 400 others sat in a lecture theatre in Queensland, Australia and learned about valence electrons, so that we might better understand molecular geometry, so that we might better understand molecular polarity, so that we might better understand why oil and water don't mix.
+I know it's a bit of a trite example, but I can't help it, I get a kick out of this. Over 2,600 years ago [some Grecians](https://en.wikipedia.org/wiki/Pythagoreanism) bonded over an extreme enthusiasm for triangles. Some 300 years later their ideas, along with more from other communities, were elucidated and collected into [books](https://en.wikipedia.org/wiki/Euclid%27s_Elements) you can still read today. 157 years ago Emanuele Paternò suggested to his colleagues that they suppose "that the four atomic valences of \[carbon\] point toward the four vertices of a regular tetrahedron."[^1] 87 years ago Ryutarō Tsuchida proposes [a connection between valence electrons and molecular geometry](https://en.wikipedia.org/wiki/VSEPR_theory#History). A few months ago me and 400 others sat in a lecture theatre in Queensland, Australia and learned about valence electrons, so that we might better understand molecular geometry, so that we might better understand intermolecular forces, so that we might better understand why oil and water don't mix.
+
+Now, selection requires a breadth of variations from which to select. The path outlined above has been made clear and distinct against the landscape of supporting and adjacent ideas through which it winds. But it is still of that landscape. No landscape, no path. No diversity of thought and attention, no through line from the geometry of the Pythagoreans to a description of molecular polarity.
 
 So, uh, thanks everyone! Keep up the cool and interesting work of [accumulating our culture](https://oecs.mit.edu/pub/6bvu7f8m/release/1). I really appreciate it.
 
