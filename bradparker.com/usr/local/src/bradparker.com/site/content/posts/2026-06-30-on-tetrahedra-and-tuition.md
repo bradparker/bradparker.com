@@ -235,6 +235,10 @@ Now, selection requires a breadth of variations from which to select. The path o
 
 So, uh, thanks everyone! Keep up the cool and interesting work of [accumulating our culture](https://oecs.mit.edu/pub/6bvu7f8m/release/1). I really appreciate it.
 
+***
+
+If you have anything you'd like to share with me about this post, please do. You can comment on the Fediverse: [https://bne.social/@brad/116932185606022901](https://bne.social/@brad/116932185606022901), or on Blue Sky: [https://bsky.app/profile/brad-parker.bsky.social/post/3mqsegjfnkk2a](https://bsky.app/profile/brad-parker.bsky.social/post/3mqsegjfnkk2a).
+
 [^1]: [150 Years of the Tetrahedral Carbon: A Toast to Chirality](https://www.sciencedirect.com/org/science/article/pii/S0899004225000071)
 
 <script type="importmap">
