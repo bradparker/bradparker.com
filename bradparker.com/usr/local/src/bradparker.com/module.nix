@@ -112,7 +112,6 @@ in
               "bradparker.au"
               "bradparker.id.au"
               "bradparker.net"
-              "bradparker.net.au"
             ];
             keyType = "rsa4096";
 
